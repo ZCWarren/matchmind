@@ -126,7 +126,7 @@ Local dev currently runs at `http://localhost:8010` (port 8000 is used by Caddy)
 
 ## Deploy
 
-The repository includes `render.yaml`, `fly.toml`, and a multi-stage Dockerfile
+The repository includes `render.yaml`, `fly.toml`, and a verified multi-stage Dockerfile
 that builds the Vite frontend and the Python app into one container. For a
 cached-only public demo, set:
 

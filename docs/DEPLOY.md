@@ -18,6 +18,22 @@ remains available locally with `ALLOW_LIVE_GENERATION=true`.
 
 Do not set `DEEPSEEK_API_KEY` for a cached-only public demo.
 
+## Local container check
+
+```bash
+docker build -t matchmind .
+docker run --rm -p 8010:8000 \
+  -e DEMO_MODE=replay -e ALLOW_LIVE_GENERATION=false \
+  matchmind
+```
+
+The image builds the Vite frontend and the Python app into one container. If the
+Docker build cannot reach npmjs.org, pass a reachable registry mirror:
+
+```bash
+docker build --build-arg NPM_REGISTRY=https://registry.npmmirror.com -t matchmind .
+```
+
 ## Option A: Render
 
 1. Push this repository to GitHub.

@@ -135,7 +135,7 @@
 - [x] Performance: cached fast path p95, slow path samples, model calls per insight ([docs/PERFORMANCE.md](./docs/PERFORMANCE.md)).
 - [x] Lint and type checks in CI.
 - [x] Dependency audit: npm 0 vulnerabilities; pip-audit no known issues ([docs/DEPENDENCIES.md](./docs/DEPENDENCIES.md)).
-- [x] README: one-command setup, judge path, architecture, screenshots, video.
+- [x] README: one-command setup, judge path, architecture, screenshots, video, Docker check.
 - [x] Data card, code/data licenses, secrets check.
 
 **Done when:** a fresh clone can run the demo without cloud credentials and without reading source code.
@@ -148,6 +148,7 @@
 - [x] Captioned demo video showing the running product.
 - [x] Project description and testing instructions.
 - [x] No secrets; code/data licenses and data card included.
+- [x] Docker image builds and serves cached Studio/API locally (`matchmind:local-test`).
 - [ ] Main repository public (currently private; decision pending).
 - [x] Public links verified from a clean browser session.
 

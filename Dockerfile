@@ -1,7 +1,8 @@
 FROM node:22-slim AS web
+ARG NPM_REGISTRY=https://registry.npmjs.org/
 WORKDIR /app/web
 COPY web/package.json web/package-lock.json ./
-RUN npm ci --include=dev
+RUN npm config set registry "$NPM_REGISTRY" && npm ci --include=dev
 COPY web/ ./
 RUN npm run build
 
