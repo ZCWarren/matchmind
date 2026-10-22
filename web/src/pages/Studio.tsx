@@ -89,8 +89,17 @@ export default function Studio() {
 
   useEffect(() => {
     const fromUrl = params.get("match");
-    if (fromUrl && fromUrl !== selected) setSelected(fromUrl);
-  }, [params, selected]);
+    if (!fromUrl || matches.length === 0) return;
+    if (!matches.some((match) => match.match_id === fromUrl)) {
+      const fallback = matches[0].match_id;
+      const next = new URLSearchParams(params);
+      next.set("match", fallback);
+      setParams(next, { replace: true });
+      setSelected(fallback);
+      return;
+    }
+    if (fromUrl !== selected) setSelected(fromUrl);
+  }, [matches, params, selected, setParams]);
   const [safe, setSafe] = useState(true);
   const [approval, setApproval] = useState<"approved" | "held">("held");
   const [loading, setLoading] = useState(true);

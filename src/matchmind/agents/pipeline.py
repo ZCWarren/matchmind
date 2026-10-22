@@ -11,6 +11,7 @@ from typing import Any
 from agent_framework import Agent, MCPStdioTool
 
 from matchmind.agents.cache import load_cached, save_cached
+from matchmind.agents.context import window
 from matchmind.agents.contracts import (
     Claim,
     FanCard,
@@ -54,18 +55,6 @@ from matchmind.config import settings
 from matchmind.models.event import Event, MatchBundle
 
 logger = logging.getLogger(__name__)
-
-
-def _window(bundle: MatchBundle, event_id: str, before: int = 6, after: int = 6) -> list[Event]:
-    index = next(
-        (position for position, event in enumerate(bundle.events) if event.event_id == event_id),
-        None,
-    )
-    if index is None:
-        return []
-    start = max(0, index - before)
-    end = min(len(bundle.events), index + after + 1)
-    return bundle.events[start:end]
 
 
 def _compact_metrics(snapshot: FeatureSnapshot) -> dict[str, Any]:
@@ -290,7 +279,7 @@ class MatchMindPipeline:
         bundle = load_match(match_id)
         moment = self._select_moment(bundle, request.moment_id)
         snapshot = build_snapshot(bundle, until_event_id=moment.event_id)
-        events = _window(bundle, moment.event_id)
+        events = window(bundle, moment.event_id)
         checker_evidence = build_checker_evidence(snapshot, moment, events)
         trace: list[TraceStep] = []
         fallback = False

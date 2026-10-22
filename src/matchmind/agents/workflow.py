@@ -16,6 +16,7 @@ from dataclasses import dataclass, field
 
 from agent_framework import MCPStdioTool, WorkflowBuilder, WorkflowContext, executor
 
+from matchmind.agents.context import window
 from matchmind.agents.contracts import (
     FanCard,
     InsightCandidate,
@@ -27,11 +28,7 @@ from matchmind.agents.contracts import (
     VerificationResult,
 )
 from matchmind.agents.grounding import ensure_grounded
-from matchmind.agents.pipeline import (
-    MatchMindPipeline,
-    _window,
-    build_checker_evidence,
-)
+from matchmind.agents.pipeline import MatchMindPipeline, build_checker_evidence
 from matchmind.agents.prompts import PROMPT_VERSION
 from matchmind.agents.verifier import (
     fallback_cue,
@@ -96,7 +93,7 @@ async def prepare(input: GraphInput, ctx: WorkflowContext[GraphState]) -> None:
             max(moments, key=lambda item: item.importance),
         )
     snapshot = build_snapshot(bundle, until_event_id=moment.event_id)
-    events = _window(bundle, moment.event_id)
+    events = window(bundle, moment.event_id)
     await ctx.send_message(
         GraphState(
             match_id=input.match_id,

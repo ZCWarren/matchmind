@@ -57,6 +57,12 @@ export default function Fan() {
   };
 
   useEffect(() => {
+    if (matches.length > 0 && !matches.some((item) => item.match_id === matchId)) {
+      selectMatch(matches[0].match_id);
+    }
+  }, [matchId, matches, params]);
+
+  useEffect(() => {
     document.title = "MatchMind Fan";
     api.matches().then(setMatches).catch(() => undefined);
   }, []);
@@ -86,6 +92,7 @@ export default function Fan() {
 
   useEffect(() => {
     let cancelled = false;
+    setError(null);
     api
       .moments(matchId)
       .then(async (response) => {
