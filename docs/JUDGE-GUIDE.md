@@ -56,6 +56,8 @@ Add `bg=1` for a dark preview. Without it the background is transparent.
 ### Fan
 
 - Analyst, casual, and player-focused cards for the same moment.
+- Player focus selector with a deterministic event log: passes, completion, shots,
+  and top speed for any player in the match.
 - Three languages, with the same evidence underneath.
 - A deterministic match recap with scoreline, goals, cards, key moments, and
   top speed.

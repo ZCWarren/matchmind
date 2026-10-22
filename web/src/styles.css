@@ -2277,3 +2277,62 @@ body.overlay-body {
   transform: scale(0.34);
   transform-origin: top right;
 }
+
+.fan-player-panel {
+  margin-bottom: 10px;
+  border: 1px solid var(--line);
+  border-radius: 4px;
+  background: var(--panel);
+  padding: 10px 11px;
+}
+.fan-player-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  color: var(--lime);
+  font-family: var(--mono);
+  font-size: 8px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+.fan-player-head select {
+  max-width: 58%;
+  appearance: none;
+  border: 1px solid var(--line);
+  border-radius: 2px;
+  background: #0b111c;
+  color: var(--text);
+  font-family: var(--mono);
+  font-size: 8px;
+  padding: 4px 6px;
+}
+.fan-player-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 6px;
+  margin-top: 9px;
+}
+.fan-player-grid b {
+  display: block;
+  color: var(--text);
+  font-family: var(--mono);
+  font-size: 17px;
+  font-weight: 500;
+}
+.fan-player-grid span {
+  display: block;
+  margin-top: 2px;
+  color: var(--dim);
+  font-family: var(--mono);
+  font-size: 7px;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+.fan-player-note {
+  margin-top: 8px;
+  color: var(--dim);
+  font-family: var(--mono);
+  font-size: 7px;
+  letter-spacing: 0.04em;
+}

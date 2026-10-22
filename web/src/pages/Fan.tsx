@@ -6,13 +6,16 @@ import FanCardView from "../components/FanCardView";
 import { api } from "../api";
 import { formatClock, metricNumber } from "../lib";
 import type {
+  Event,
   FanCard,
   FeatureSnapshot,
   InsightResult,
   Language,
+  MatchDetail,
   MatchRecap,
   MatchSummary,
   Moment,
+  Player,
   Profile,
 } from "../types";
 
@@ -39,6 +42,9 @@ export default function Fan() {
   const [profile, setProfile] = useState<Profile>((params.get("profile") as Profile) || "casual");
   const [language, setLanguage] = useState<Language>((params.get("lang") as Language) || "en");
   const [matches, setMatches] = useState<MatchSummary[]>([]);
+  const [detail, setDetail] = useState<MatchDetail | null>(null);
+  const [events, setEvents] = useState<Event[]>([]);
+  const [playerId, setPlayerId] = useState<string | null>(null);
   const [result, setResult] = useState<InsightResult | null>(null);
   const [features, setFeatures] = useState<FeatureSnapshot | null>(null);
   const [recap, setRecap] = useState<MatchRecap | null>(null);
@@ -54,6 +60,29 @@ export default function Fan() {
     document.title = "MatchMind Fan";
     api.matches().then(setMatches).catch(() => undefined);
   }, []);
+
+  useEffect(() => {
+    let cancelled = false;
+    setPlayerId(null);
+    Promise.all([api.match(matchId), api.events(matchId)])
+      .then(([nextDetail, eventPage]) => {
+        if (cancelled) return;
+        setDetail(nextDetail);
+        setEvents(eventPage.events);
+        const counts = new Map<string, number>();
+        for (const event of eventPage.events) {
+          if (event.player_id) counts.set(event.player_id, (counts.get(event.player_id) ?? 0) + 1);
+        }
+        const active = nextDetail.match.lineups
+          .filter((player) => player.position !== "GK")
+          .sort((a, b) => (counts.get(b.player_id) ?? 0) - (counts.get(a.player_id) ?? 0))[0];
+        if (active) setPlayerId(active.player_id);
+      })
+      .catch(() => undefined);
+    return () => {
+      cancelled = true;
+    };
+  }, [matchId]);
 
   useEffect(() => {
     let cancelled = false;
@@ -90,6 +119,23 @@ export default function Fan() {
   const clock = features?.clock ?? result?.clock ?? { period: 2, minute: 72, second: 12 };
   const displayMatch = match ? { ...match, final_score: score } : null;
   const cards = result?.fan_cards ?? [];
+  const lineups: Player[] = detail?.match.lineups ?? [];
+  const selectedPlayer = lineups.find((player) => player.player_id === playerId) ?? null;
+  const playerEvents = playerId
+    ? events.filter((event) => event.player_id === playerId)
+    : [];
+  const passes = playerEvents.filter((event) => event.type === "pass").length;
+  const completedPasses = playerEvents.filter(
+    (event) => event.type === "pass" && event.outcome === "complete",
+  ).length;
+  const shots = playerEvents.filter((event) => event.type === "shot").length;
+  const playerSpeed = Math.max(
+    0,
+    ...playerEvents
+      .filter((event) => event.type === "sprint")
+      .map((event) => event.speed_kmh ?? 0),
+  );
+  const completion = passes ? Math.round((completedPasses / passes) * 100) : 0;
   const card: FanCard | undefined =
     cards.find((item) => item.profile === profile && item.language === language) ??
     cards.find((item) => item.profile === profile) ??
@@ -100,6 +146,18 @@ export default function Fan() {
     const value = moment?.metrics[name]?.value;
     return value === undefined ? "--" : metricNumber(value, digits);
   };
+
+  useEffect(() => {
+    if (profile !== "player" || !result) return;
+    const text = result.fan_cards
+      .filter((item) => item.profile === "player")
+      .map((item) => `${item.headline} ${item.what_happened}`)
+      .join(" ");
+    const mentioned = text.match(/[A-Z]{3}-\d{2}/)?.[0];
+    if (mentioned && lineups.some((player) => player.player_id === mentioned)) {
+      setPlayerId(mentioned);
+    }
+  }, [profile, result, lineups]);
 
   return (
     <div className="fan-page">
@@ -209,6 +267,45 @@ export default function Fan() {
                   <span>Match top speed</span>
                 </div>
               </div>
+              {profile === "player" && selectedPlayer && (
+                <section className="fan-player-panel">
+                  <div className="fan-player-head">
+                    <span>Player focus</span>
+                    <select
+                      value={selectedPlayer.player_id}
+                      onChange={(event) => setPlayerId(event.target.value)}
+                      aria-label="Select player"
+                    >
+                      {lineups.map((player) => (
+                        <option key={player.player_id} value={player.player_id}>
+                          {player.number} {player.name}
+                        </option>
+                      ))}
+                    </select>
+                  </div>
+                  <div className="fan-player-grid">
+                    <div>
+                      <b>{passes}</b>
+                      <span>Passes</span>
+                    </div>
+                    <div>
+                      <b>{completion}%</b>
+                      <span>Complete</span>
+                    </div>
+                    <div>
+                      <b>{shots}</b>
+                      <span>Shots</span>
+                    </div>
+                    <div>
+                      <b>{playerSpeed ? metricNumber(playerSpeed, 1) : "--"}</b>
+                      <span>Top km/h</span>
+                    </div>
+                  </div>
+                  <div className="fan-player-note">
+                    {selectedPlayer.name} / event log across {events.length.toLocaleString()} events
+                  </div>
+                </section>
+              )}
               <FanCardView card={card} match={displayMatch} />
             </>
           )}

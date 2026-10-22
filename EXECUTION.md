@@ -114,7 +114,8 @@
   - [x] English / Spanish / Chinese.
   - [x] "How we know" evidence expander.
   - [x] Deterministic match recap with goals, cards, key moments, and top speed.
-  - [ ] Favorite club/player selector and Arabic/Hindi.
+  - [x] Player focus selector with deterministic event log.
+  - [ ] Favorite club selector and Arabic/Hindi.
 - [x] WebSocket replay stream (events + cached insight/cue delivery).
 - [x] Loading, empty, and error states.
 - [ ] Reconnect, rate limiting, and degraded-mode UI.

@@ -14,7 +14,7 @@ MatchMind is a real-time explainability layer for football broadcast. It turns s
 |---|---|---|
 | **Studio** | `/studio` | Broadcast control room: pitch, event feed, agent rundown, evidence, program monitor. |
 | **Overlay** | `/overlay` | Transparent 1920x1080 browser source for OBS/vMix. Use `/overlay?bg=1` for a dark preview. Templates: `?template=stat_card`, `momentum`, `speed_alert`, or `pressure_map`. |
-| **Fan** | `/fan` | Mobile-first second screen: five fixtures, analyst / casual / player focus, three languages, and a deterministic recap. |
+| **Fan** | `/fan` | Mobile-first second screen: five fixtures, analyst / casual / player focus, player event log, three languages, and a deterministic recap. |
 
 ![Studio control room](docs/screenshots/studio.png)
 
