@@ -95,8 +95,8 @@ def detect_moments(bundle: MatchBundle, min_importance: float = 0.0) -> list[Mom
                     event_ids=[event.event_id],
                     metrics={
                         "xg": _metric("xg", xg, "goals", XG_VERSION, [event.event_id]),
-                        "pressure": _metric(
-                            "pressure",
+                        "event_pressure": _metric(
+                            "event_pressure",
                             event.pressure,
                             "0-1",
                             PRESSURE_VERSION,
@@ -123,8 +123,8 @@ def detect_moments(bundle: MatchBundle, min_importance: float = 0.0) -> list[Mom
                         "xt_delta": _metric(
                             "xt_delta", delta, "threat", XT_VERSION, [event.event_id]
                         ),
-                        "pressure": _metric(
-                            "pressure",
+                        "event_pressure": _metric(
+                            "event_pressure",
                             event.pressure,
                             "0-1",
                             PRESSURE_VERSION,
@@ -147,8 +147,8 @@ def detect_moments(bundle: MatchBundle, min_importance: float = 0.0) -> list[Mom
                     headline=_headline(event),
                     event_ids=[event.event_id],
                     metrics={
-                        "speed": _metric(
-                            "speed",
+                        "event_speed": _metric(
+                            "event_speed",
                             event.speed_kmh,
                             "km/h",
                             SPEED_VERSION,
