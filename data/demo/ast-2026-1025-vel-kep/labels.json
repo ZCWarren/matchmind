@@ -5,14 +5,14 @@
     "clock": {
       "period": 1,
       "minute": 12,
-      "second": 10
+      "second": 4
     },
     "type": "goal",
     "importance": 0.7,
     "event_ids": [
-      "e-000166",
-      "e-000167",
-      "e-000168"
+      "e-000155",
+      "e-000156",
+      "e-000157"
     ],
     "expected_claims": [
       "Kepler Town lead 1-0",
@@ -26,14 +26,14 @@
     "clock": {
       "period": 1,
       "minute": 38,
-      "second": 17
+      "second": 31
     },
     "type": "goal",
     "importance": 0.7,
     "event_ids": [
-      "e-000511",
-      "e-000512",
-      "e-000513"
+      "e-000515",
+      "e-000516",
+      "e-000517"
     ],
     "expected_claims": [
       "Kepler Town double the lead",
@@ -47,13 +47,13 @@
     "clock": {
       "period": 2,
       "minute": 47,
-      "second": 2
+      "second": 17
     },
     "type": "yellow_card",
     "importance": 0.4,
     "event_ids": [
-      "e-000632",
-      "e-000633"
+      "e-000631",
+      "e-000632"
     ],
     "expected_claims": [
       "Emil Rask is booked"
@@ -66,14 +66,14 @@
     "clock": {
       "period": 2,
       "minute": 55,
-      "second": 16
+      "second": 7
     },
     "type": "goal",
     "importance": 0.75,
     "event_ids": [
-      "e-000736",
-      "e-000737",
-      "e-000738"
+      "e-000731",
+      "e-000732",
+      "e-000733"
     ],
     "expected_claims": [
       "Vela Athletic pull one back",
@@ -87,14 +87,14 @@
     "clock": {
       "period": 2,
       "minute": 68,
-      "second": 12
+      "second": 19
     },
     "type": "goal",
     "importance": 0.8,
     "event_ids": [
-      "e-000916",
-      "e-000917",
-      "e-000918"
+      "e-000909",
+      "e-000910",
+      "e-000911"
     ],
     "expected_claims": [
       "Vela Athletic equalize",
@@ -113,9 +113,9 @@
     "type": "goal",
     "importance": 0.95,
     "event_ids": [
-      "e-001130",
-      "e-001131",
-      "e-001132"
+      "e-001109",
+      "e-001110",
+      "e-001111"
     ],
     "expected_claims": [
       "Vela Athletic complete the comeback",

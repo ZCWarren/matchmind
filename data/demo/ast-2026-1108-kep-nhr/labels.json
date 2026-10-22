@@ -5,12 +5,12 @@
     "clock": {
       "period": 1,
       "minute": 18,
-      "second": 11
+      "second": 7
     },
     "type": "sprint_peak",
     "importance": 0.5,
     "event_ids": [
-      "e-000225"
+      "e-000245"
     ],
     "expected_claims": [
       "Niko Sarin reaches 34.1 km/h"
@@ -23,14 +23,14 @@
     "clock": {
       "period": 1,
       "minute": 31,
-      "second": 10
+      "second": 6
     },
     "type": "goal",
     "importance": 0.7,
     "event_ids": [
+      "e-000426",
       "e-000427",
-      "e-000428",
-      "e-000429"
+      "e-000428"
     ],
     "expected_claims": [
       "Nova Harbor lead 1-0",
@@ -44,13 +44,13 @@
     "clock": {
       "period": 2,
       "minute": 46,
-      "second": 12
+      "second": 4
     },
     "type": "yellow_card",
     "importance": 0.4,
     "event_ids": [
-      "e-000650",
-      "e-000651"
+      "e-000635",
+      "e-000636"
     ],
     "expected_claims": [
       "Emil Rask is booked"
@@ -63,14 +63,14 @@
     "clock": {
       "period": 2,
       "minute": 63,
-      "second": 7
+      "second": 6
     },
     "type": "goal",
     "importance": 0.8,
     "event_ids": [
-      "e-000884",
-      "e-000885",
-      "e-000886"
+      "e-000857",
+      "e-000858",
+      "e-000859"
     ],
     "expected_claims": [
       "Nova Harbor double the lead",

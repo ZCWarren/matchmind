@@ -5,14 +5,14 @@
     "clock": {
       "period": 1,
       "minute": 9,
-      "second": 6
+      "second": 7
     },
     "type": "goal",
     "importance": 0.7,
     "event_ids": [
-      "e-000117",
-      "e-000118",
-      "e-000119"
+      "e-000123",
+      "e-000124",
+      "e-000125"
     ],
     "expected_claims": [
       "Nova Harbor lead 1-0",
@@ -26,14 +26,14 @@
     "clock": {
       "period": 1,
       "minute": 27,
-      "second": 9
+      "second": 29
     },
     "type": "goal",
     "importance": 0.7,
     "event_ids": [
-      "e-000361",
-      "e-000362",
-      "e-000363"
+      "e-000367",
+      "e-000368",
+      "e-000369"
     ],
     "expected_claims": [
       "Vela Athletic equalize",
@@ -47,7 +47,7 @@
     "clock": {
       "period": 1,
       "minute": 44,
-      "second": 17
+      "second": 16
     },
     "type": "goal",
     "importance": 0.75,
@@ -68,13 +68,13 @@
     "clock": {
       "period": 2,
       "minute": 52,
-      "second": 5
+      "second": 11
     },
     "type": "yellow_card",
     "importance": 0.4,
     "event_ids": [
-      "e-000688",
-      "e-000689"
+      "e-000687",
+      "e-000688"
     ],
     "expected_claims": [
       "Rafa Miro is booked"
@@ -87,14 +87,14 @@
     "clock": {
       "period": 2,
       "minute": 61,
-      "second": 10
+      "second": 11
     },
     "type": "goal",
     "importance": 0.75,
     "event_ids": [
-      "e-000795",
-      "e-000796",
-      "e-000797"
+      "e-000807",
+      "e-000808",
+      "e-000809"
     ],
     "expected_claims": [
       "Vela Athletic equalize again",
@@ -108,14 +108,14 @@
     "clock": {
       "period": 2,
       "minute": 73,
-      "second": 13
+      "second": 7
     },
     "type": "goal",
     "importance": 0.85,
     "event_ids": [
-      "e-000952",
-      "e-000953",
-      "e-000954"
+      "e-000966",
+      "e-000967",
+      "e-000968"
     ],
     "expected_claims": [
       "Nova Harbor lead 3-2",
@@ -129,13 +129,13 @@
     "clock": {
       "period": 2,
       "minute": 80,
-      "second": 5
+      "second": 3
     },
     "type": "yellow_card",
     "importance": 0.4,
     "event_ids": [
-      "e-001047",
-      "e-001048"
+      "e-001057",
+      "e-001058"
     ],
     "expected_claims": [
       "Ilias Varn is booked"
@@ -148,14 +148,14 @@
     "clock": {
       "period": 2,
       "minute": 88,
-      "second": 29
+      "second": 18
     },
     "type": "goal",
     "importance": 0.9,
     "event_ids": [
-      "e-001157",
-      "e-001158",
-      "e-001159"
+      "e-001159",
+      "e-001160",
+      "e-001161"
     ],
     "expected_claims": [
       "Vela Athletic equalize late",

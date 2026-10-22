@@ -706,7 +706,13 @@ class MatchForge:
             max(1.0, distance / 6.0 + pressure * 3.0 + self.rng.uniform(-1.0, 1.0)),
         )
         speed = self.rng.uniform(10.0, 26.0)
-        complete = self.rng.random() < (0.94 - pressure * 0.12 - distance * 0.004)
+        complete = self.rng.random() < (0.96 - pressure * 0.12 - distance * 0.004)
+        line_break = (
+            complete
+            and dx > 22
+            and pressure > 0.5
+            and self.rng.random() < 0.35
+        )
         self._add(
             "pass",
             team_id=team_id,
@@ -719,7 +725,7 @@ class MatchForge:
             ball_speed_kmh=round(speed, 1),
             distance_m=round(distance, 1),
             difficulty=round(difficulty, 1),
-            tags=["line_break"] if complete and dx > 18 else [],
+            tags=["line_break"] if line_break else [],
         )
         self.ball_x, self.ball_y = end_x, end_y
         return complete

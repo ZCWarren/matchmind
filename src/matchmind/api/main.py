@@ -3,6 +3,7 @@
 from fastapi import FastAPI
 
 from matchmind import __version__
+from matchmind.api.analytics import router as analytics_router
 from matchmind.api.matches import router as matches_router
 from matchmind.config import settings
 
@@ -11,6 +12,7 @@ app = FastAPI(
     version=__version__,
     description="Real-time explainable match intelligence for football broadcast.",
 )
+app.include_router(analytics_router)
 app.include_router(matches_router)
 
 

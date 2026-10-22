@@ -4,7 +4,7 @@
 
 - **Dataset**: five fictional Aster League matches
 - **Generator**: MatchForge v1 (`src/matchmind/matchforge`)
-- **Size**: 5 matches, 6,374 events, 27 key-moment labels
+- **Size**: 5 matches, 6,278 events, 27 key-moment labels
 - **Format**: JSONL events + JSON metadata + JSON labels
 - **License**: CC BY 4.0
 - **Source**: fully synthetic; no real match data or footage
@@ -19,13 +19,13 @@ without using third-party match data or club/player IP.
 
 | Match | Narrative | Final | Events | Labels | Pass % | Shots | Fouls | Cards |
 |---|---|---|---:|---:|---:|---:|---:|---:|
-| Nova Harbor vs Orion North | Press trap / line break | 2–1 | 1,304 | 6 | 80.6% | 26 | 25 | 3 |
-| Vela Athletic vs Kepler Town | Comeback from 0–2 | 3–2 | 1,267 | 6 | 80.7% | 27 | 25 | 2 |
-| Orion North vs Vela Athletic | Red card / late equalizer | 1–1 | 1,293 | 3 | 78.0% | 24 | 24 | 4 |
-| Kepler Town vs Nova Harbor | Press storm / away win | 0–2 | 1,282 | 4 | 79.2% | 24 | 25 | 4 |
-| Nova Harbor vs Vela Athletic | Chaos game | 3–3 | 1,228 | 8 | 83.8% | 28 | 16 | 2 |
+| Nova Harbor vs Orion North | Press trap / line break | 2–1 | 1,275 | 6 | 82.3% | 24 | 24 | 2 |
+| Vela Athletic vs Kepler Town | Comeback from 0–2 | 3–2 | 1,237 | 6 | 82.5% | 27 | 22 | 3 |
+| Orion North vs Vela Athletic | Red card / late equalizer | 1–1 | 1,277 | 3 | 80.6% | 24 | 26 | 2 |
+| Kepler Town vs Nova Harbor | Press storm / away win | 0–2 | 1,254 | 4 | 81.1% | 24 | 16 | 3 |
+| Nova Harbor vs Vela Athletic | Chaos game | 3–3 | 1,235 | 8 | 82.1% | 28 | 18 | 2 |
 
-Totals: 6,374 events, 27 labels.
+Totals: 6,278 events, 27 labels.
 
 ## Realism checks
 
