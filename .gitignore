@@ -1,0 +1,39 @@
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+.venv/
+venv/
+.pytest_cache/
+.ruff_cache/
+.mypy_cache/
+.coverage
+htmlcov/
+
+# Node
+node_modules/
+dist/
+.vite/
+*.tsbuildinfo
+
+# Environment and secrets
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+
+# Generated data artifacts (commit small demo samples under data/demo/)
+data/generated/
+data/**/*.parquet
+data/tracking/*.jsonl
+
+# OS / editor
+.DS_Store
+.idea/
+.vscode/
+*.swp
+
+# Azure / azd
+.azure/
+infra/*.json
