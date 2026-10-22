@@ -91,7 +91,20 @@ make dev                  # http://localhost:8010/studio
 make test
 ```
 
-Local dev currently runs at `http://localhost:8010` (port 8000 is used by Caddy). The API exposes `/api/matches`, `/api/matches/{id}`, `/api/matches/{id}/events`, `/api/matches/{id}/features`, `/api/matches/{id}/moments`, `POST /api/matches/{id}/insights` (five-agent pipeline, cached for the demo), and `WS /ws/matches/{id}` (live replay with cached cue delivery). The public demo requires a tunnel or host; it will run in `DEMO_MODE=replay` without cloud credentials so reviewers can test the full experience. Live AI mode uses DeepSeek; a Foundry adapter is included for Azure deployments.
+Local dev currently runs at `http://localhost:8010` (port 8000 is used by Caddy). The API exposes `/api/matches`, `/api/matches/{id}`, `/api/matches/{id}/events`, `/api/matches/{id}/features`, `/api/matches/{id}/moments`, `POST /api/matches/{id}/insights` (five-agent pipeline, cached for the demo), `/api/config`, and `WS /ws/matches/{id}` (live replay with cached cue delivery). The public demo requires a tunnel or host; it will run in `DEMO_MODE=replay` without cloud credentials so reviewers can test the full experience. Live AI mode uses DeepSeek; a Foundry adapter is included for Azure deployments.
+
+## Deploy
+
+The repository includes `render.yaml`, `fly.toml`, and a multi-stage Dockerfile
+that builds the Vite frontend and the Python app into one container. For a
+cached-only public demo, set:
+
+```env
+DEMO_MODE=replay
+ALLOW_LIVE_GENERATION=false
+```
+
+See [docs/DEPLOY.md](./docs/DEPLOY.md) for Render, Fly.io, and Azure notes.
 
 ## License
 

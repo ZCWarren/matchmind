@@ -12,7 +12,7 @@
 | DeepSeek provider | Working: raw OpenAI-compatible API + Agent Framework `OpenAIChatClient(base_url=...)` |
 | Local API | Working on `:8010`; `/healthz`, `/docs`, `/api/matches`, `/api/matches/{id}`, `/api/matches/{id}/events` |
 | MatchForge | Five narrative matches generated: 6,278 events, 27 labels, deterministic seeds |
-| Tests | 20 passing; ruff clean; frontend production build passes |
+| Tests | 21 passing; ruff clean; frontend production build passes |
 | UI | Not started |
 | Analytics | Working: xG, xT, pressure, pass quality, control/chaos, momentum, rhythm, speed; evidence + API |
 | Agents / verifier | Working: 5-agent pipeline, MCP analyst, deterministic gate + advisory checker, cached hero insight |
@@ -116,6 +116,7 @@
 - [x] WebSocket replay stream (events + cached insight/cue delivery).
 - [x] Loading, empty, and error states.
 - [ ] Reconnect, rate limiting, and degraded-mode UI.
+- [x] Cached-only public demo guard (`ALLOW_LIVE_GENERATION=false`); Render/Fly/Docker packaging.
 
 **Done when:** the closed loop in PLAN.md §2 runs from a clean checkout. **Local UI closed loop is live; overlay variants, streaming, and polish remain.**
 

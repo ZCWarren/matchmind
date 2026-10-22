@@ -212,3 +212,9 @@ export type MomentsResponse = {
   total: number;
   moments: Moment[];
 };
+
+export type AppConfig = {
+  provider: string;
+  demo_mode: string;
+  allow_live_generation: boolean;
+};

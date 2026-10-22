@@ -1,4 +1,5 @@
 import type {
+  AppConfig,
   Event,
   FeatureSnapshot,
   InsightResult,
@@ -24,6 +25,7 @@ async function request<T>(path: string, init?: RequestInit): Promise<T> {
 }
 
 export const api = {
+  config: () => request<AppConfig>("/api/config"),
   matches: () => request<MatchSummary[]>("/api/matches"),
   match: (matchId: string) => request<MatchDetail>(`/api/matches/${matchId}`),
   events: (matchId: string) =>

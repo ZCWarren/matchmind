@@ -27,6 +27,7 @@ export default function AgentRundown({
   status,
   cached,
   generating,
+  allowLive,
   onApprove,
   onHold,
   onGenerate,
@@ -36,6 +37,7 @@ export default function AgentRundown({
   status: "approved" | "held";
   cached: boolean;
   generating: boolean;
+  allowLive: boolean;
   onApprove: () => void;
   onHold: () => void;
   onGenerate: () => void;
@@ -57,12 +59,18 @@ export default function AgentRundown({
           <div className="empty-state">
             <strong>No verified insight loaded</strong>
             <span>
-              Generate a rundown from the selected moment. The cached hero insight is instant;
-              a live run takes about a minute.
+              {allowLive
+                ? "Generate a rundown from the selected moment. The cached hero insight is instant; a live run takes about a minute."
+                : "This is a cached public demo. Select the hero match to view the precomputed rundown."}
             </span>
-            <button className="btn btn-primary" type="button" onClick={onGenerate} disabled={generating}>
+            <button
+              className="btn btn-primary"
+              type="button"
+              onClick={onGenerate}
+              disabled={generating || !allowLive}
+            >
               {generating ? <span className="spinner" /> : <Sparkle size={12} />}
-              {generating ? "Generating" : "Generate insight"}
+              {generating ? "Generating" : allowLive ? "Generate insight" : "Cached only"}
             </button>
           </div>
         )}

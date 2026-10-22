@@ -55,6 +55,15 @@ def healthz() -> dict[str, str]:
         "demo_mode": settings.demo_mode,
     }
 
+
+@app.get("/api/config")
+def app_config() -> dict[str, str | bool]:
+    return {
+        "provider": settings.llm_provider,
+        "demo_mode": settings.demo_mode,
+        "allow_live_generation": settings.allow_live_generation,
+    }
+
 if WEB_DIST.exists():
     assets = WEB_DIST / "assets"
     if assets.exists():

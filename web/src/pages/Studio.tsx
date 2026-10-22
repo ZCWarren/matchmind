@@ -81,6 +81,7 @@ export default function Studio() {
   const [loading, setLoading] = useState(true);
   const [generating, setGenerating] = useState(false);
   const [cached, setCached] = useState(false);
+  const [allowLive, setAllowLive] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const [selectedClaim, setSelectedClaim] = useState(0);
 
@@ -117,6 +118,10 @@ export default function Studio() {
   );
 
   useEffect(() => {
+    api
+      .config()
+      .then((value) => setAllowLive(value.allow_live_generation))
+      .catch(() => undefined);
     api
       .matches()
       .then((value) => {
@@ -214,7 +219,7 @@ export default function Studio() {
   };
 
   const generate = () => {
-    if (selectedMoment) void loadInsight(selected, selectedMoment, events, false);
+    if (allowLive && selectedMoment) void loadInsight(selected, selectedMoment, events, false);
   };
 
   const stopLive = useCallback(() => {
@@ -370,9 +375,15 @@ export default function Studio() {
               <DeviceMobile size={11} /> Fan
             </Link>
           </div>
-          <button className="btn btn-primary" type="button" onClick={generate} disabled={generating || !selectedMoment}>
+          <button
+            className="btn btn-primary"
+            type="button"
+            onClick={generate}
+            disabled={generating || !selectedMoment || !allowLive}
+            title={allowLive ? "Run the live five-agent pipeline" : "Cached public demo"}
+          >
             {generating ? <span className="spinner" /> : <Sparkle size={12} />}
-            {generating ? "Working" : "Generate"}
+            {generating ? "Working" : allowLive ? "Generate" : "Cached"}
           </button>
         </div>
       </header>
@@ -580,6 +591,7 @@ export default function Studio() {
             onApprove={() => setApproval("approved")}
             onHold={() => setApproval("held")}
             onGenerate={generate}
+            allowLive={allowLive}
             onEvidence={() => setSelectedClaim(0)}
           />
 
