@@ -137,5 +137,6 @@ See [docs/DEPLOY.md](./docs/DEPLOY.md) for Render, Fly.io, and Azure notes.
 
 ## License
 
-Code: MIT (to be added).
-Data: CC BY 4.0 (to be added with the dataset card).
+Code: MIT, see [LICENSE](./LICENSE).
+Data: CC BY 4.0, see [data/LICENSE](./data/LICENSE) and the
+[dataset card](./data/dataset-card.md).

@@ -126,16 +126,17 @@
 
 ## Gate 5 — Hardening
 
-- [ ] Data tests for all matches.
-- [ ] Analytics unit tests and evidence tests.
-- [ ] Verifier tests: pass, revise, reject, timeout.
-- [ ] API contract tests.
+- [x] Data tests for all matches.
+- [x] Analytics unit tests and evidence tests.
+- [x] Verifier tests: pass, reject, advisory merge, and retry timeout.
+- [x] API contract tests, including static route containment.
 - [x] UI smoke test / Playwright happy path (`web/scripts/smoke-static.mjs`).
-- [ ] No-key demo mode with cached insights.
+- [x] No-key demo mode with cached insights and a public static build.
 - [ ] Performance: fast path p95, slow path p95, cost per insight.
-- [ ] Lint, type checks, dependency audit.
-- [ ] README: one-command setup, 90-second judge path, architecture, screenshots.
-- [ ] Data card, licenses, secrets check.
+- [x] Lint and type checks in CI.
+- [ ] Dependency audit.
+- [x] README: one-command setup, judge path, architecture, screenshots, video.
+- [x] Data card, code/data licenses, secrets check.
 
 **Done when:** a fresh clone can run the demo without cloud credentials and without reading source code.
 
@@ -145,9 +146,10 @@
 
 - [x] Public static demo on GitHub Pages; captioned video; submission checklist.
 - [x] Captioned demo video showing the running product.
-- [ ] Project description and testing instructions.
-- [ ] Repository public; no secrets; licenses and data card included.
-- [ ] Verify links in incognito from another machine.
+- [x] Project description and testing instructions.
+- [x] No secrets; code/data licenses and data card included.
+- [ ] Main repository public (currently private; decision pending).
+- [x] Public links verified from a clean browser session.
 
 **Done when:** an external reviewer can open the demo, follow the 90-second path, and understand the product.
 
