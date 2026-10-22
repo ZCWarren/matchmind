@@ -130,7 +130,7 @@
 - [ ] Analytics unit tests and evidence tests.
 - [ ] Verifier tests: pass, revise, reject, timeout.
 - [ ] API contract tests.
-- [ ] UI smoke test / Playwright happy path.
+- [x] UI smoke test / Playwright happy path (`web/scripts/smoke-static.mjs`).
 - [ ] No-key demo mode with cached insights.
 - [ ] Performance: fast path p95, slow path p95, cost per insight.
 - [ ] Lint, type checks, dependency audit.
@@ -144,7 +144,7 @@
 ## Gate 6 — Delivery packaging
 
 - [x] Public static demo on GitHub Pages; captioned video; submission checklist.
-- [ ] Two-minute demo video showing the running product.
+- [x] Captioned demo video showing the running product.
 - [ ] Project description and testing instructions.
 - [ ] Repository public; no secrets; licenses and data card included.
 - [ ] Verify links in incognito from another machine.

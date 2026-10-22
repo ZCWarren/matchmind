@@ -39,3 +39,14 @@ jobs:
         working-directory: web
       - run: npm run build:static
         working-directory: web
+      - name: Static demo smoke test
+        working-directory: web
+        run: |
+          python3 -m http.server 8020 --directory dist-static > /tmp/static-smoke.log 2>&1 &
+          SERVER_PID=$!
+          trap "kill $SERVER_PID" EXIT
+          for i in $(seq 1 20); do
+            curl -fsS http://127.0.0.1:8020/ >/dev/null && break
+            sleep 0.5
+          done
+          node scripts/smoke-static.mjs

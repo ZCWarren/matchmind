@@ -7,6 +7,7 @@
     "dev": "vite --host 0.0.0.0 --port 5173",
     "build": "tsc --noEmit && vite build",
     "build:static": "tsc --noEmit && VITE_STATIC_DEMO=true VITE_BASE=./ VITE_OUT_DIR=dist-static vite build",
+    "smoke:static": "node scripts/smoke-static.mjs",
     "preview": "vite preview --host 0.0.0.0 --port 4173"
   },
   "dependencies": {
