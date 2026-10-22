@@ -103,6 +103,24 @@
     "notes": ""
   },
   {
+    "moment_id": "m-079-01",
+    "match_id": "ast-2026-1025-vel-kep",
+    "clock": {
+      "period": 2,
+      "minute": 79,
+      "second": 0
+    },
+    "type": "sprint_peak",
+    "importance": 0.5,
+    "event_ids": [
+      "e-001042"
+    ],
+    "expected_claims": [
+      "Dani Fenn reaches 33.2 km/h"
+    ],
+    "notes": "Late sprint before the 82nd-minute line break"
+  },
+  {
     "moment_id": "m-084-01",
     "match_id": "ast-2026-1025-vel-kep",
     "clock": {
@@ -113,9 +131,9 @@
     "type": "goal",
     "importance": 0.95,
     "event_ids": [
-      "e-001109",
       "e-001110",
-      "e-001111"
+      "e-001111",
+      "e-001112"
     ],
     "expected_claims": [
       "Vela Athletic complete the comeback",

@@ -2,51 +2,161 @@
   {
     "match_id": "ast-2026-1018-nhr-orn",
     "moment_id": "mo-e-000974",
-    "elapsed_seconds": 46.7,
+    "elapsed_seconds": 57.9,
     "verification": "pass",
     "decision": "approve",
     "fallback": false,
     "cards": 9,
-    "cue": true
+    "cue": true,
+    "trace": [
+      [
+        "TacticalAnalyst",
+        "ok"
+      ],
+      [
+        "FactChecker",
+        "ok"
+      ],
+      [
+        "StoryProducer",
+        "ok"
+      ],
+      [
+        "AudienceEditor",
+        "ok"
+      ],
+      [
+        "Director",
+        "ok"
+      ]
+    ]
   },
   {
     "match_id": "ast-2026-1025-vel-kep",
-    "moment_id": "mo-e-001091",
-    "elapsed_seconds": 59.1,
+    "moment_id": "mo-e-001092",
+    "elapsed_seconds": 61.3,
     "verification": "pass",
     "decision": "approve",
-    "fallback": false,
+    "fallback": true,
     "cards": 9,
-    "cue": true
+    "cue": true,
+    "trace": [
+      [
+        "TacticalAnalyst",
+        "ok"
+      ],
+      [
+        "StoryProducer",
+        "ok"
+      ],
+      [
+        "AudienceEditor",
+        "ok"
+      ],
+      [
+        "FactChecker",
+        "fallback"
+      ],
+      [
+        "Director",
+        "ok"
+      ]
+    ]
   },
   {
     "match_id": "ast-2026-1101-orn-vel",
     "moment_id": "mo-e-000286",
-    "elapsed_seconds": 61.2,
-    "verification": "pass",
-    "decision": "hold",
-    "fallback": false,
-    "cards": 9,
-    "cue": false
-  },
-  {
-    "match_id": "ast-2026-1108-kep-nhr",
-    "moment_id": "mo-e-001027",
-    "elapsed_seconds": 69.1,
-    "verification": "pass",
-    "decision": "hold",
-    "fallback": false,
-    "cards": 9,
-    "cue": false
-  },
-  {
-    "match_id": "ast-2026-1115-nhr-vel",
-    "moment_id": "mo-e-000949",
-    "elapsed_seconds": 53.8,
+    "elapsed_seconds": 0.0,
     "verification": "pass",
     "decision": "approve",
     "fallback": false,
     "cards": 9,
-    "cue": true
+    "cue": true,
+    "trace": [
+      [
+        "TacticalAnalyst",
+        "ok"
+      ],
+      [
+        "StoryProducer",
+        "ok"
+      ],
+      [
+        "FactChecker",
+        "ok"
+      ],
+      [
+        "AudienceEditor",
+        "ok"
+      ],
+      [
+        "Director",
+        "ok"
+      ]
+    ]
+  },
+  {
+    "match_id": "ast-2026-1108-kep-nhr",
+    "moment_id": "mo-e-001027",
+    "elapsed_seconds": 70.0,
+    "verification": "pass",
+    "decision": "approve",
+    "fallback": false,
+    "cards": 9,
+    "cue": true,
+    "trace": [
+      [
+        "TacticalAnalyst",
+        "ok"
+      ],
+      [
+        "FactChecker",
+        "ok"
+      ],
+      [
+        "StoryProducer",
+        "ok"
+      ],
+      [
+        "AudienceEditor",
+        "ok"
+      ],
+      [
+        "Director",
+        "ok"
+      ]
+    ]
+  },
+  {
+    "match_id": "ast-2026-1115-nhr-vel",
+    "moment_id": "mo-e-000950",
+    "elapsed_seconds": 0.0,
+    "verification": "pass",
+    "decision": "approve",
+    "fallback": false,
+    "cards": 9,
+    "cue": true,
+    "trace": [
+      [
+        "TacticalAnalyst",
+        "ok"
+      ],
+      [
+        "FactChecker",
+        "ok"
+      ],
+      [
+        "StoryProducer",
+        "ok"
+      ],
+      [
+        "AudienceEditor",
+        "ok"
+      ],
+      [
+        "Director",
+        "ok"
+      ]
+    ]
   }
 ]

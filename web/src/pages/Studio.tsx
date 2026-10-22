@@ -380,7 +380,7 @@ export default function Studio() {
             <Link className="surface-link" to="/overlay?bg=1">
               <Monitor size={11} /> Overlay
             </Link>
-            <Link className="surface-link" to="/fan">
+            <Link className="surface-link" to={`/fan?match=${selected}`}>
               <DeviceMobile size={11} /> Fan
             </Link>
           </div>

@@ -480,6 +480,10 @@ async def run_pipeline(match_id: str, request: PipelineRequest) -> PipelineResul
             result = await MatchMindPipeline(use_mcp=request.use_mcp).run(match_id, request)
     else:
         result = await MatchMindPipeline(use_mcp=request.use_mcp).run(match_id, request)
-    if request.use_cache and not request.adversarial_claim and not result.fallback:
+    if (
+        request.use_cache
+        and not request.adversarial_claim
+        and result.verification.status == "pass"
+    ):
         save_cached(match_id, request, result)
     return result

@@ -21,6 +21,24 @@
     "notes": ""
   },
   {
+    "moment_id": "m-034-01",
+    "match_id": "ast-2026-1101-orn-vel",
+    "clock": {
+      "period": 1,
+      "minute": 34,
+      "second": 5
+    },
+    "type": "sprint_peak",
+    "importance": 0.5,
+    "event_ids": [
+      "e-000439"
+    ],
+    "expected_claims": [
+      "Nils Hagen reaches 32.9 km/h"
+    ],
+    "notes": "Sprint peak in the Orion transition"
+  },
+  {
     "moment_id": "m-058-01",
     "match_id": "ast-2026-1101-orn-vel",
     "clock": {
@@ -31,8 +49,8 @@
     "type": "red_card",
     "importance": 0.85,
     "event_ids": [
-      "e-000766",
-      "e-000767"
+      "e-000767",
+      "e-000768"
     ],
     "expected_claims": [
       "Orion North are down to 10 men",
@@ -51,9 +69,9 @@
     "type": "goal",
     "importance": 0.85,
     "event_ids": [
-      "e-001032",
       "e-001033",
-      "e-001034"
+      "e-001034",
+      "e-001035"
     ],
     "expected_claims": [
       "Vela Athletic equalize against 10",

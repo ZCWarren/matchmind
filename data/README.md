@@ -9,10 +9,10 @@ match footage, event data, club crests, or player likenesses.
 | Match ID | Fixture | Narrative | Score | Events | Labels |
 |---|---|---|---|---:|---:|
 | `ast-2026-1018-nhr-orn` | Nova Harbor vs Orion North | The press trap: line-break under pressure | 2–1 | 1,275 | 6 |
-| `ast-2026-1025-vel-kep` | Vela Athletic vs Kepler Town | The comeback: 0–2 to 3–2 | 3–2 | 1,237 | 6 |
-| `ast-2026-1101-orn-vel` | Orion North vs Vela Athletic | The red card: down to 10, late equalizer | 1–1 | 1,277 | 3 |
+| `ast-2026-1025-vel-kep` | Vela Athletic vs Kepler Town | The comeback: 0–2 to 3–2 | 3–2 | 1,238 | 7 |
+| `ast-2026-1101-orn-vel` | Orion North vs Vela Athletic | The red card: down to 10, late equalizer | 1–1 | 1,278 | 4 |
 | `ast-2026-1108-kep-nhr` | Kepler Town vs Nova Harbor | The press storm: 0–2 away win | 0–2 | 1,254 | 4 |
-| `ast-2026-1115-nhr-vel` | Nova Harbor vs Vela Athletic | The chaos game: 3–3 | 3–3 | 1,235 | 8 |
+| `ast-2026-1115-nhr-vel` | Nova Harbor vs Vela Athletic | The chaos game: 3–3 | 3–3 | 1,236 | 9 |
 
 ## Generate
 

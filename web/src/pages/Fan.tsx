@@ -34,7 +34,7 @@ function chooseMoment(moments: Moment[]): Moment | null {
 }
 
 export default function Fan() {
-  const [params] = useSearchParams();
+  const [params, setParams] = useSearchParams();
   const matchId = params.get("match") ?? HERO_MATCH;
   const [profile, setProfile] = useState<Profile>((params.get("profile") as Profile) || "casual");
   const [language, setLanguage] = useState<Language>((params.get("lang") as Language) || "en");
@@ -43,6 +43,12 @@ export default function Fan() {
   const [features, setFeatures] = useState<FeatureSnapshot | null>(null);
   const [recap, setRecap] = useState<MatchRecap | null>(null);
   const [error, setError] = useState<string | null>(null);
+
+  const selectMatch = (nextMatchId: string) => {
+    const next = new URLSearchParams(params);
+    next.set("match", nextMatchId);
+    setParams(next, { replace: true });
+  };
 
   useEffect(() => {
     document.title = "MatchMind Fan";
@@ -89,6 +95,7 @@ export default function Fan() {
     cards.find((item) => item.profile === profile) ??
     cards[0];
   const moment = result?.moment;
+  const topSpeed = features?.metrics.top_speed?.value || recap?.top_speed_kmh || null;
   const metric = (name: string, digits = 2) => {
     const value = moment?.metrics[name]?.value;
     return value === undefined ? "--" : metricNumber(value, digits);
@@ -122,6 +129,21 @@ export default function Fan() {
               <span className="fan-team-name">{match?.away.name ?? "Orion North"}</span>
               <span className="fan-team-sub">{match?.away.short_name.toUpperCase() ?? "ORN"} / AWAY</span>
             </div>
+          </div>
+
+          <div className="fan-match-row">
+            <select
+              className="fan-match-select"
+              value={matchId}
+              onChange={(event) => selectMatch(event.target.value)}
+              aria-label="Select match"
+            >
+              {matches.map((item) => (
+                <option key={item.match_id} value={item.match_id}>
+                  {item.home.short_name.toUpperCase()} vs {item.away.short_name.toUpperCase()}
+                </option>
+              ))}
+            </select>
           </div>
 
           <div className="fan-tabs-row">
@@ -183,8 +205,8 @@ export default function Fan() {
                   <span>Pressure</span>
                 </div>
                 <div className="fan-stat">
-                  <b>{features?.metrics.top_speed ? metricNumber(features.metrics.top_speed.value, 1) : "--"}</b>
-                  <span>Top speed</span>
+                  <b>{topSpeed ? metricNumber(topSpeed, 1) : "--"}</b>
+                  <span>Match top speed</span>
                 </div>
               </div>
               <FanCardView card={card} match={displayMatch} />

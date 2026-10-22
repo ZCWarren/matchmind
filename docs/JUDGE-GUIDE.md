@@ -9,7 +9,8 @@ audiences different views of the same verified moment.
 1. Open `http://localhost:8010/studio`.
 2. The hero match is preselected: Nova Harbor vs Orion North, 72:12, 1-1.
    Use the match selector to switch all five fixtures; each has a precomputed
-   insight. Two fixtures intentionally return a hold so the verifier is visible.
+   insight. One fixture shows an advisory FactChecker fallback in its agent trace
+   while the deterministic gate still passes.
 3. Read the **key moment**, then the **agent rundown** and **evidence drawer**.
 4. Press **Go live** to watch events arrive over WebSocket; the cached insight
    and cue are delivered when the stream reaches the hero moment.
@@ -17,7 +18,7 @@ audiences different views of the same verified moment.
 6. Open `/overlay?bg=1` for the full-screen preview, or `/overlay` for the
    transparent OBS source. Add `?template=stat_card`, `momentum`, `speed_alert`,
    or `pressure_map` for the other templates.
-7. Open `/fan` and switch analyst / casual / player, English / Spanish / Chinese.
+7. Open `/fan` and switch the fixture, analyst / casual / player, English / Spanish / Chinese.
    Scroll to the deterministic match recap.
 
 ## What to look at

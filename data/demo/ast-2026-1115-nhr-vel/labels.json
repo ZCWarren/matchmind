@@ -42,6 +42,24 @@
     "notes": ""
   },
   {
+    "moment_id": "m-036-01",
+    "match_id": "ast-2026-1115-nhr-vel",
+    "clock": {
+      "period": 1,
+      "minute": 36,
+      "second": 5
+    },
+    "type": "sprint_peak",
+    "importance": 0.5,
+    "event_ids": [
+      "e-000484"
+    ],
+    "expected_claims": [
+      "Isak Rune reaches 33.6 km/h"
+    ],
+    "notes": "Sprint peak before the second-half exchange"
+  },
+  {
     "moment_id": "m-044-01",
     "match_id": "ast-2026-1115-nhr-vel",
     "clock": {
@@ -52,9 +70,9 @@
     "type": "goal",
     "importance": 0.75,
     "event_ids": [
-      "e-000584",
       "e-000585",
-      "e-000586"
+      "e-000586",
+      "e-000587"
     ],
     "expected_claims": [
       "Nova Harbor lead 2-1",
@@ -73,8 +91,8 @@
     "type": "yellow_card",
     "importance": 0.4,
     "event_ids": [
-      "e-000687",
-      "e-000688"
+      "e-000688",
+      "e-000689"
     ],
     "expected_claims": [
       "Rafa Miro is booked"
@@ -92,9 +110,9 @@
     "type": "goal",
     "importance": 0.75,
     "event_ids": [
-      "e-000807",
       "e-000808",
-      "e-000809"
+      "e-000809",
+      "e-000810"
     ],
     "expected_claims": [
       "Vela Athletic equalize again",
@@ -113,9 +131,9 @@
     "type": "goal",
     "importance": 0.85,
     "event_ids": [
-      "e-000966",
       "e-000967",
-      "e-000968"
+      "e-000968",
+      "e-000969"
     ],
     "expected_claims": [
       "Nova Harbor lead 3-2",
@@ -134,8 +152,8 @@
     "type": "yellow_card",
     "importance": 0.4,
     "event_ids": [
-      "e-001057",
-      "e-001058"
+      "e-001058",
+      "e-001059"
     ],
     "expected_claims": [
       "Ilias Varn is booked"
@@ -153,9 +171,9 @@
     "type": "goal",
     "importance": 0.9,
     "event_ids": [
-      "e-001159",
       "e-001160",
-      "e-001161"
+      "e-001161",
+      "e-001162"
     ],
     "expected_claims": [
       "Vela Athletic equalize late",

@@ -56,6 +56,7 @@ async def main() -> None:
             "fallback": result.fallback,
             "cards": len(result.fan_cards),
             "cue": result.cue is not None,
+            "trace": [(step.agent, step.status) for step in result.trace],
         }
         results.append(row)
         print(json.dumps(row), flush=True)
