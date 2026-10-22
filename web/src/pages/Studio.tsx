@@ -9,7 +9,7 @@ import {
   ShieldCheck,
   Sparkle,
 } from "@phosphor-icons/react";
-import { useCallback, useEffect, useMemo, useState } from "react";
+import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { Link } from "react-router-dom";
 import AgentRundown from "../components/AgentRundown";
 import Brand from "../components/Brand";
@@ -73,7 +73,9 @@ export default function Studio() {
   const [features, setFeatures] = useState<FeatureSnapshot | null>(null);
   const [cursor, setCursor] = useState(0);
   const [playing, setPlaying] = useState(false);
+  const [live, setLive] = useState(false);
   const [speed, setSpeed] = useState(1);
+  const liveSocket = useRef<WebSocket | null>(null);
   const [safe, setSafe] = useState(true);
   const [approval, setApproval] = useState<"approved" | "held">("held");
   const [loading, setLoading] = useState(true);
@@ -215,6 +217,70 @@ export default function Studio() {
     if (selectedMoment) void loadInsight(selected, selectedMoment, events, false);
   };
 
+  const stopLive = useCallback(() => {
+    liveSocket.current?.close();
+    liveSocket.current = null;
+    setLive(false);
+  }, []);
+
+  const startLive = useCallback(() => {
+    if (!selected || events.length === 0) return;
+    liveSocket.current?.close();
+    setPlaying(false);
+    setError(null);
+    setLive(true);
+    const startEvent = events[Math.max(0, cursor - 6)]?.event_id;
+    const protocol = window.location.protocol === "https:" ? "wss" : "ws";
+    const query = startEvent ? `&start_event_id=${encodeURIComponent(startEvent)}` : "";
+    const socket = new WebSocket(
+      `${protocol}://${window.location.host}/ws/matches/${selected}?speed=10${query}`,
+    );
+    liveSocket.current = socket;
+    socket.onmessage = (message) => {
+      const data = JSON.parse(message.data) as {
+        type: string;
+        index?: number;
+        result?: InsightResult;
+      };
+      if (data.type === "event" && typeof data.index === "number") {
+        setCursor(data.index);
+      }
+      if (data.type === "insight" && data.result) {
+        setInsight(data.result);
+        setSelectedMoment(data.result.moment);
+        setApproval(data.result.decision.action === "approve" ? "approved" : "held");
+        setCached(false);
+        setSelectedClaim(0);
+        void api
+          .features(selected, data.result.moment.event_id)
+          .then(setFeatures)
+          .catch(() => undefined);
+      }
+      if (data.type === "end") setLive(false);
+    };
+    socket.onerror = () => {
+      if (liveSocket.current !== socket) return;
+      setError("Live feed disconnected");
+      setLive(false);
+    };
+    socket.onclose = () => {
+      if (liveSocket.current !== socket) return;
+      liveSocket.current = null;
+      setLive(false);
+    };
+  }, [cursor, events, selected]);
+
+  useEffect(() => {
+    return () => {
+      liveSocket.current?.close();
+    };
+  }, []);
+
+  useEffect(() => {
+    liveSocket.current?.close();
+    setLive(false);
+  }, [selected]);
+
   return (
     <div className="shell">
       <header className="topbar">
@@ -245,7 +311,7 @@ export default function Studio() {
           </div>
           <div className="clock-block">
             <span className="clock-main">{formatClock(clock)}</span>
-            <span className="clock-label">{playing ? "REPLAYING" : "MATCH CLOCK"}</span>
+            <span className="clock-label">{live ? "LIVE FEED" : playing ? "REPLAYING" : "MATCH CLOCK"}</span>
           </div>
         </div>
 
@@ -473,8 +539,18 @@ export default function Studio() {
               <span className="panel-title">
                 <Monitor size={13} /> Program monitor
               </span>
-              <span className="mono dim" style={{ fontSize: 8 }}>
-                16:9 / LOWER THIRD
+              <span style={{ display: "flex", alignItems: "center", gap: 6 }}>
+                <span className="mono dim" style={{ fontSize: 8 }}>
+                  16:9 / LOWER THIRD
+                </span>
+                <button
+                  className={`btn ${live ? "btn-danger" : "btn-quiet"}`}
+                  type="button"
+                  style={{ padding: "4px 7px" }}
+                  onClick={live ? stopLive : startLive}
+                >
+                  <Broadcast size={10} /> {live ? "Stop" : "Go live"}
+                </button>
               </span>
             </header>
             <div className="monitor-frame">
