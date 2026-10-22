@@ -1,0 +1,422 @@
+"""Five-agent MatchMind pipeline with shared evidence and verification."""
+
+from __future__ import annotations
+
+import asyncio
+import sys
+import time
+from typing import Any
+
+from agent_framework import Agent, MCPStdioTool
+
+from matchmind.agents.cache import load_cached, save_cached
+from matchmind.agents.contracts import (
+    Claim,
+    FanCard,
+    InsightCandidate,
+    MetricRef,
+    OverlayCue,
+    PipelineRequest,
+    PipelineResult,
+    RundownDecision,
+    TraceStep,
+    VerificationResult,
+)
+from matchmind.agents.json_utils import run_json_agent
+from matchmind.agents.llm import build_chat_client
+from matchmind.agents.prompts import (
+    ANALYST_INSTRUCTIONS,
+    CHECKER_INSTRUCTIONS,
+    DIRECTOR_INSTRUCTIONS,
+    EDITOR_INSTRUCTIONS,
+    PRODUCER_INSTRUCTIONS,
+    PROMPT_VERSION,
+    analyst_prompt,
+    checker_prompt,
+    director_prompt,
+    editor_prompt,
+    producer_prompt,
+)
+from matchmind.agents.verifier import (
+    fallback_card,
+    fallback_cue,
+    fallback_decision,
+    fallback_insight,
+    merge_verifications,
+    verify_deterministic,
+)
+from matchmind.analytics import build_snapshot, detect_moments, load_match
+from matchmind.analytics.models import FeatureSnapshot, Moment
+from matchmind.config import settings
+from matchmind.models.event import Event, MatchBundle
+
+
+def _window(bundle: MatchBundle, event_id: str, before: int = 6, after: int = 6) -> list[Event]:
+    index = next(
+        (position for position, event in enumerate(bundle.events) if event.event_id == event_id),
+        None,
+    )
+    if index is None:
+        return []
+    start = max(0, index - before)
+    end = min(len(bundle.events), index + after + 1)
+    return bundle.events[start:end]
+
+
+def _compact_metrics(snapshot: FeatureSnapshot) -> dict[str, Any]:
+    return {
+        name: {
+            "value": metric.value,
+            "unit": metric.unit,
+            "formula_version": metric.formula_version,
+            "event_ids": metric.event_ids,
+        }
+        for name, metric in snapshot.metrics.items()
+    }
+
+
+def _compact_event(event: Event) -> dict[str, Any]:
+    return {
+        "event_id": event.event_id,
+        "clock": event.clock.model_dump(),
+        "type": event.type,
+        "team_id": event.team_id,
+        "player_id": event.player_id,
+        "recipient_id": event.recipient_id,
+        "location": event.location.model_dump(),
+        "end_location": event.end_location.model_dump() if event.end_location else None,
+        "pressure": event.pressure,
+        "outcome": event.outcome,
+        "ball_speed_kmh": event.ball_speed_kmh,
+        "shot_speed_kmh": event.shot_speed_kmh,
+        "speed_kmh": event.speed_kmh,
+        "distance_m": event.distance_m,
+        "difficulty": event.difficulty,
+        "tags": event.tags,
+        "score": event.score.model_dump(),
+    }
+
+
+class MatchMindPipeline:
+    """Run the analyst → writers → verifier → director graph for one moment."""
+
+    def __init__(self, use_mcp: bool = True) -> None:
+        self.use_mcp = use_mcp
+
+    async def _analyst(
+        self,
+        match_id: str,
+        moment: Moment,
+        snapshot: FeatureSnapshot,
+        events: list[Event],
+        tools: list[Any] | None,
+    ) -> InsightCandidate:
+        agent = Agent(
+            client=build_chat_client(),
+            name="TacticalAnalyst",
+            instructions=ANALYST_INSTRUCTIONS,
+            tools=tools,
+        )
+        prompt = analyst_prompt(
+            match_id,
+            moment.model_dump(mode="json"),
+            {"metrics": _compact_metrics(snapshot), "clock": snapshot.clock.model_dump()},
+            [_compact_event(event) for event in events],
+        )
+        return await asyncio.wait_for(
+            run_json_agent(agent, prompt, InsightCandidate),
+            timeout=settings.llm_timeout_seconds,
+        )
+
+    async def _producer(self, candidate: InsightCandidate) -> OverlayCue:
+        agent = Agent(
+            client=build_chat_client(),
+            name="StoryProducer",
+            instructions=PRODUCER_INSTRUCTIONS,
+        )
+        return await asyncio.wait_for(
+            run_json_agent(
+                agent,
+                producer_prompt(candidate.model_dump(mode="json")),
+                OverlayCue,
+            ),
+            timeout=settings.llm_timeout_seconds,
+        )
+
+    async def _editor(
+        self, candidate: InsightCandidate, profile: str, language: str
+    ) -> FanCard:
+        agent = Agent(
+            client=build_chat_client(),
+            name="AudienceEditor",
+            instructions=EDITOR_INSTRUCTIONS,
+        )
+        return await asyncio.wait_for(
+            run_json_agent(
+                agent,
+                editor_prompt(candidate.model_dump(mode="json"), profile, language),
+                FanCard,
+            ),
+            timeout=settings.llm_timeout_seconds,
+        )
+
+    async def _checker(
+        self, candidate: InsightCandidate, evidence: dict[str, Any]
+    ) -> VerificationResult:
+        agent = Agent(
+            client=build_chat_client(),
+            name="FactChecker",
+            instructions=CHECKER_INSTRUCTIONS,
+        )
+        return await asyncio.wait_for(
+            run_json_agent(
+                agent,
+                checker_prompt(candidate.model_dump(mode="json"), evidence),
+                VerificationResult,
+                repair=False,
+            ),
+            timeout=min(35, settings.llm_timeout_seconds),
+        )
+
+    async def _director(
+        self, candidate: InsightCandidate, verification: VerificationResult
+    ) -> RundownDecision:
+        agent = Agent(
+            client=build_chat_client(),
+            name="Director",
+            instructions=DIRECTOR_INSTRUCTIONS,
+        )
+        return await asyncio.wait_for(
+            run_json_agent(
+                agent,
+                director_prompt(
+                    candidate.model_dump(mode="json"),
+                    verification.model_dump(mode="json"),
+                ),
+                RundownDecision,
+            ),
+            timeout=settings.llm_timeout_seconds,
+        )
+
+    @staticmethod
+    def _select_moment(bundle: MatchBundle, moment_id: str | None) -> Moment:
+        moments = detect_moments(bundle)
+        if not moments:
+            raise ValueError("no moments detected")
+        if moment_id:
+            moment = next((item for item in moments if item.moment_id == moment_id), None)
+            if moment is None:
+                raise ValueError(f"unknown moment_id: {moment_id}")
+            return moment
+        return max(moments, key=lambda item: item.importance)
+
+    async def _generate_cards(
+        self,
+        candidate: InsightCandidate,
+        profiles: list[str],
+        languages: list[str],
+        trace: list[TraceStep],
+    ) -> list[FanCard]:
+        tasks = [
+            self._editor(candidate, profile, language)
+            for profile in profiles
+            for language in languages
+        ]
+        results = await asyncio.gather(*tasks, return_exceptions=True)
+        cards: list[FanCard] = []
+        for (profile, language), result in zip(
+            [(p, lang) for p in profiles for lang in languages], results, strict=False
+        ):
+            if isinstance(result, Exception):
+                trace.append(
+                    TraceStep(
+                        agent=f"AudienceEditor:{profile}:{language}",
+                        model=settings.deepseek_model,
+                        prompt_version=PROMPT_VERSION,
+                        latency_ms=0,
+                        status="fallback",
+                        error=str(result)[:300],
+                    )
+                )
+                cards.append(fallback_card(candidate, profile, language))
+            else:
+                cards.append(result)
+        return cards
+
+    async def run(self, match_id: str, request: PipelineRequest) -> PipelineResult:
+        bundle = load_match(match_id)
+        moment = self._select_moment(bundle, request.moment_id)
+        snapshot = build_snapshot(bundle, until_event_id=moment.event_id)
+        events = _window(bundle, moment.event_id)
+        checker_evidence = {
+            "metrics": _compact_metrics(snapshot),
+            "moment": moment.model_dump(mode="json"),
+            "event_window": [_compact_event(event) for event in events[-8:]],
+        }
+        trace: list[TraceStep] = []
+        fallback = False
+
+        async def run_with_tool(tool: MCPStdioTool | None) -> InsightCandidate:
+            start = time.perf_counter()
+            try:
+                candidate = await self._analyst(match_id, moment, snapshot, events, tool)
+                trace.append(
+                    TraceStep(
+                        agent="TacticalAnalyst",
+                        model=settings.deepseek_model,
+                        prompt_version=PROMPT_VERSION,
+                        latency_ms=round((time.perf_counter() - start) * 1000, 1),
+                        status="ok",
+                    )
+                )
+                return candidate
+            except Exception as exc:  # noqa: BLE001 - degrade to deterministic fallback
+                trace.append(
+                    TraceStep(
+                        agent="TacticalAnalyst",
+                        model=settings.deepseek_model,
+                        prompt_version=PROMPT_VERSION,
+                        latency_ms=round((time.perf_counter() - start) * 1000, 1),
+                        status="error",
+                        error=str(exc)[:300],
+                    )
+                )
+                raise
+
+        try:
+            if self.use_mcp and request.use_mcp:
+                async with MCPStdioTool(
+                    name="analytics",
+                    command=sys.executable,
+                    args=["-m", "matchmind.mcp.server"],
+                    approval_mode="never_require",
+                    allowed_tools=["get_event_window"],
+                    request_timeout=settings.llm_timeout_seconds,
+                ) as tool:
+                    candidate = await run_with_tool(tool)
+            else:
+                candidate = await run_with_tool(None)
+        except Exception:
+            fallback = True
+            try:
+                candidate = await run_with_tool(None)
+            except Exception:
+                candidate = fallback_insight(moment, snapshot)
+
+        if request.adversarial_claim:
+            speed = moment.metrics.get("event_speed") or snapshot.metrics.get("top_speed")
+            candidate.claims.append(
+                Claim(
+                    text=request.adversarial_claim,
+                    event_ids=[moment.event_id],
+                    metric_refs=(
+                        [
+                            MetricRef(
+                                name=speed.name,
+                                value=speed.value,
+                                formula_version=speed.formula_version,
+                                event_ids=speed.event_ids,
+                            )
+                        ]
+                        if speed
+                        else []
+                    ),
+                    confidence=0.5,
+                )
+            )
+
+        producer_task = asyncio.create_task(self._producer(candidate))
+        checker_task = asyncio.create_task(self._checker(candidate, checker_evidence))
+        cards_task = asyncio.create_task(
+            self._generate_cards(candidate, request.profiles, request.languages, trace)
+        )
+        try:
+            cue = await producer_task
+        except Exception as exc:  # noqa: BLE001
+            fallback = True
+            cue = fallback_cue(candidate)
+            trace.append(
+                TraceStep(
+                    agent="StoryProducer",
+                    model=settings.deepseek_model,
+                    prompt_version=PROMPT_VERSION,
+                    latency_ms=0,
+                    status="fallback",
+                    error=str(exc)[:300],
+                )
+            )
+        try:
+            model_verification = await checker_task
+        except Exception as exc:  # noqa: BLE001
+            fallback = True
+            model_verification = None
+            trace.append(
+                TraceStep(
+                    agent="FactChecker",
+                    model=settings.deepseek_model,
+                    prompt_version=PROMPT_VERSION,
+                    latency_ms=0,
+                    status="fallback",
+                    error=str(exc)[:300],
+                )
+            )
+        fan_cards = await cards_task
+
+        events_by_id = {event.event_id: event for event in bundle.events}
+        deterministic = verify_deterministic(candidate, snapshot, moment, events_by_id)
+        verification = merge_verifications(deterministic, model_verification)
+
+        if verification.status != "pass":
+            decision = fallback_decision(verification)
+            return PipelineResult(
+                match_id=match_id,
+                moment=moment,
+                clock=moment.clock,
+                insight=candidate,
+                cue=None,
+                fan_cards=[],
+                verification=verification,
+                decision=decision,
+                trace=trace,
+                fallback=fallback,
+            )
+
+        try:
+            decision = await self._director(candidate, verification)
+        except Exception as exc:  # noqa: BLE001
+            fallback = True
+            decision = fallback_decision(verification)
+            trace.append(
+                TraceStep(
+                    agent="Director",
+                    model=settings.deepseek_model,
+                    prompt_version=PROMPT_VERSION,
+                    latency_ms=0,
+                    status="fallback",
+                    error=str(exc)[:300],
+                )
+            )
+
+        return PipelineResult(
+            match_id=match_id,
+            moment=moment,
+            clock=moment.clock,
+            insight=candidate,
+            cue=cue if decision.action == "approve" else None,
+            fan_cards=fan_cards,
+            verification=verification,
+            decision=decision,
+            trace=trace,
+            fallback=fallback,
+        )
+
+
+async def run_pipeline(match_id: str, request: PipelineRequest) -> PipelineResult:
+    if request.use_cache and not request.adversarial_claim:
+        cached = load_cached(match_id, request)
+        if cached is not None:
+            return cached
+    result = await MatchMindPipeline(use_mcp=request.use_mcp).run(match_id, request)
+    if request.use_cache and not request.adversarial_claim and not result.fallback:
+        save_cached(match_id, request, result)
+    return result

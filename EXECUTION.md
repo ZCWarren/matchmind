@@ -12,10 +12,10 @@
 | DeepSeek provider | Working: raw OpenAI-compatible API + Agent Framework `OpenAIChatClient(base_url=...)` |
 | Local API | Working on `:8010`; `/healthz`, `/docs`, `/api/matches`, `/api/matches/{id}`, `/api/matches/{id}/events` |
 | MatchForge | Five narrative matches generated: 6,278 events, 27 labels, deterministic seeds |
-| Tests | 14 passing; ruff clean |
+| Tests | 19 passing; ruff clean |
 | UI | Not started |
 | Analytics | Working: xG, xT, pressure, pass quality, control/chaos, momentum, rhythm, speed; evidence + API |
-| Agents / verifier | Not started |
+| Agents / verifier | Working: 5-agent pipeline, MCP analyst, deterministic gate + advisory checker, cached hero insight |
 
 ---
 
@@ -68,24 +68,24 @@
 
 ## Gate 3 — Agents and verifier
 
-- [ ] Contracts: `InsightCandidate`, `OverlayCue`, `FanCard`, `VerificationResult`, `RundownDecision`.
-- [ ] `MatchBlackboard` shared state with typed messages.
-- [ ] Agent Framework graph:
-  - [ ] TacticalAnalyst
-  - [ ] StoryProducer
-  - [ ] AudienceEditor (parallel profiles)
-  - [ ] FactChecker
-  - [ ] Director
-- [ ] MCP tools wired to agents.
-- [ ] Structured outputs validated with Pydantic; one repair attempt.
-- [ ] FactChecker recomputes numbers, checks event references, entailment, and safety.
-- [ ] Verifier rejection path withholds the insight.
-- [ ] Per-agent timeout, retry, circuit breaker, template fallback.
-- [ ] Audit log: agent, prompt version, model, tokens, latency, evidence.
-- [ ] Cached/demo mode for tests and judges.
-- [ ] Tests: verified insight, rejected claim, timeout fallback, duplicate suppression.
+- [x] Contracts: `InsightCandidate`, `OverlayCue`, `FanCard`, `VerificationResult`, `RundownDecision`.
+- [ ] `MatchBlackboard` shared state with typed messages (next: explicit state object).
+- [x] Agent Framework agents with typed parallel fan-out/fan-in (graph wrapper next):
+  - [x] TacticalAnalyst
+  - [x] StoryProducer
+  - [x] AudienceEditor (parallel profiles/languages)
+  - [x] FactChecker (deterministic gate + advisory LLM review)
+  - [x] Director
+- [x] MCP tools wired to the analyst (`get_event_window`).
+- [x] Structured outputs validated with Pydantic; one repair attempt.
+- [x] FactChecker recomputes numbers, checks event references, and unsafe superlatives.
+- [x] Verifier rejection path withholds the insight.
+- [ ] Per-agent timeout + template fallback done; retry/circuit-breaker hardening next.
+- [x] Audit log: agent, model, prompt version, latency, status, error.
+- [x] Cached/demo mode for tests and judges (hero cache: 9 cards, pass/approve).
+- [ ] Tests: verified insight and rejected claim done; timeout fallback and duplicate suppression next.
 
-**Done when:** a real DeepSeek run produces a verified insight for 72', and a deliberately false “fastest sprint” claim is withheld.
+**Done when:** a real DeepSeek run produces a verified insight for 72', and a deliberately false “fastest sprint” claim is withheld. **Done.**
 
 ---
 

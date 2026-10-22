@@ -33,6 +33,7 @@ class Settings(BaseSettings):
     demo_mode: str = "replay"  # replay | live
     match_data_dir: str = "./data/demo"
     audit_db_path: str = "./data/audit.sqlite3"
+    cache_dir: str = "./data/cache"
     public_base_url: str = "http://localhost:8000"
 
     # Optional Azure production path
@@ -44,7 +45,7 @@ class Settings(BaseSettings):
     # Safety / budget
     max_llm_calls_per_match: int = 60
     max_cost_usd_per_match: float = 2.0
-    llm_timeout_seconds: int = 20
+    llm_timeout_seconds: int = 60
 
 
 settings = Settings()

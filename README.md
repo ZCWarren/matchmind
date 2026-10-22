@@ -2,7 +2,7 @@
 
 **Every moment, explained. Every fan, understood.**
 
-MatchMind is a real-time explainability layer for football broadcast. It turns synthetic match events into grounded, timed match intelligence — rendered as a broadcast-ready overlay for the studio and as a personalized second-screen experience for analysts, casual fans, and player-focused viewers.
+MatchMind is a real-time explainability layer for football broadcast. It turns synthetic match events into grounded, timed match intelligence — a deterministic analytics engine feeds a five-agent workflow with a verifier, rendered as a broadcast-ready overlay for the studio and as a personalized second-screen experience for analysts, casual fans, and player-focused viewers.
 
 > Status: local build in progress — synthetic match data and read-only match API on `http://localhost:8010`.
 > Product and architecture: [PLAN.md](./PLAN.md). Completion checklist: [EXECUTION.md](./EXECUTION.md).
@@ -74,7 +74,7 @@ make dev                  # http://localhost:8010/docs
 make test
 ```
 
-Local dev currently runs at `http://localhost:8010` (port 8000 is used by Caddy). The API exposes `/api/matches`, `/api/matches/{id}`, `/api/matches/{id}/events`, `/api/matches/{id}/features`, and `/api/matches/{id}/moments`. The public demo requires a tunnel or host; it will run in `DEMO_MODE=replay` without cloud credentials so reviewers can test the full experience. Live AI mode uses DeepSeek; a Foundry adapter is included for Azure deployments.
+Local dev currently runs at `http://localhost:8010` (port 8000 is used by Caddy). The API exposes `/api/matches`, `/api/matches/{id}`, `/api/matches/{id}/events`, `/api/matches/{id}/features`, `/api/matches/{id}/moments`, and `POST /api/matches/{id}/insights` (five-agent pipeline, cached for the demo). The public demo requires a tunnel or host; it will run in `DEMO_MODE=replay` without cloud credentials so reviewers can test the full experience. Live AI mode uses DeepSeek; a Foundry adapter is included for Azure deployments.
 
 ## License
 
