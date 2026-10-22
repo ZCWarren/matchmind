@@ -11,7 +11,7 @@ from __future__ import annotations
 import re
 
 from matchmind.agents.contracts import Claim, InsightCandidate, MetricRef
-from matchmind.analytics.models import FeatureSnapshot, Moment
+from matchmind.analytics.models import FeatureSnapshot, Metric, Moment
 from matchmind.models.event import Event, MatchBundle
 
 CJK_RE = re.compile(r"[\u3040-\u30ff\u3400-\u4dbf\u4e00-\u9fff\uac00-\ud7af]")
@@ -43,8 +43,11 @@ def _clock(moment: Moment) -> str:
     return f"{moment.clock.minute}:{moment.clock.second:02d}"
 
 
-def _ref(moment: Moment, name: str) -> MetricRef | None:
-    metric = moment.metrics.get(name)
+def _metric(moment: Moment, snapshot: FeatureSnapshot, name: str) -> Metric | None:
+    return moment.metrics.get(name) or snapshot.metrics.get(name)
+
+
+def _ref(metric: Metric | None) -> MetricRef | None:
     if metric is None:
         return None
     return MetricRef(
@@ -84,20 +87,22 @@ def grounded_insight(
         (item for item in bundle.events if item.event_id == moment.event_id),
         None,
     )
-    return _build(bundle, moment, event)
+    return _build(bundle, moment, snapshot, event)
 
 
 def _build(
-    bundle: MatchBundle, moment: Moment, event: Event | None
+    bundle: MatchBundle, moment: Moment, snapshot: FeatureSnapshot, event: Event | None
 ) -> InsightCandidate:
     player = _player_name(bundle, event.player_id if event else None)
     team = _team_code(bundle, event.team_id if event else None)
     opponent = _opponent_code(bundle, event.team_id if event else None)
     clock = _clock(moment)
-    pressure = moment.metrics.get("event_pressure")
-    xt = moment.metrics.get("xt_delta")
-    xg = moment.metrics.get("xg")
-    speed = moment.metrics.get("event_speed") or moment.metrics.get("top_speed")
+    pressure = _metric(moment, snapshot, "event_pressure")
+    xt = _metric(moment, snapshot, "xt_delta")
+    xg = _metric(moment, snapshot, "xg")
+    speed = _metric(moment, snapshot, "event_speed") or _metric(
+        moment, snapshot, "top_speed"
+    )
 
     if moment.type.startswith("line_break"):
         headline = f"{player} breaks the {opponent} line at {clock}"
@@ -119,7 +124,7 @@ def _build(
                 Claim(
                     text=f"The pass was completed under {pressure.value:.2f} pressure.",
                     event_ids=[moment.event_id],
-                    metric_refs=[_ref(moment, "event_pressure")],
+                    metric_refs=[_ref(pressure)],
                     confidence=0.85,
                 )
             )
@@ -128,7 +133,7 @@ def _build(
                 Claim(
                     text=f"The pass added {xt.value:+.2f} expected threat.",
                     event_ids=[moment.event_id],
-                    metric_refs=[_ref(moment, "xt_delta")],
+                    metric_refs=[_ref(xt)],
                     confidence=0.85,
                 )
             )
@@ -152,7 +157,7 @@ def _build(
                 Claim(
                     text=f"The shot carried {xg.value:.2f} expected goals.",
                     event_ids=[moment.event_id],
-                    metric_refs=[_ref(moment, "xg")],
+                    metric_refs=[_ref(xg)],
                     confidence=0.85,
                 )
             )
@@ -170,7 +175,7 @@ def _build(
             Claim(
                 text=headline,
                 event_ids=[moment.event_id],
-                metric_refs=[_ref(moment, "event_speed")] if speed else [],
+                metric_refs=[_ref(speed)] if speed else [],
                 confidence=0.85,
             )
         ]

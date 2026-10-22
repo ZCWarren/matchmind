@@ -84,7 +84,7 @@ export default function Studio() {
   const [generating, setGenerating] = useState(false);
   const [cached, setCached] = useState(false);
   const [allowLive, setAllowLive] = useState(true);
-  const [staticDemo, setStaticDemo] = useState(false);
+  const [staticDemo, setStaticDemo] = useState(import.meta.env.VITE_STATIC_DEMO === "true");
   const [error, setError] = useState<string | null>(null);
   const [selectedClaim, setSelectedClaim] = useState(0);
 
@@ -304,7 +304,12 @@ export default function Studio() {
       <header className="topbar">
         <Brand />
         <div className="match-select-wrap">
-          <select className="match-select" value={selected} onChange={(event) => setSelected(event.target.value)}>
+          <select
+            className="match-select"
+            value={selected}
+            onChange={(event) => setSelected(event.target.value)}
+            aria-label="Select match"
+          >
             {matches.map((item) => (
               <option key={item.match_id} value={item.match_id}>
                 {item.home.name} vs {item.away.name}

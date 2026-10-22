@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 import asyncio
+import logging
 import sys
 import time
 from typing import Any
@@ -51,6 +52,8 @@ from matchmind.analytics import build_snapshot, detect_moments, load_match
 from matchmind.analytics.models import FeatureSnapshot, Moment
 from matchmind.config import settings
 from matchmind.models.event import Event, MatchBundle
+
+logger = logging.getLogger(__name__)
 
 
 def _window(bundle: MatchBundle, event_id: str, before: int = 6, after: int = 6) -> list[Event]:
@@ -505,7 +508,8 @@ async def run_pipeline(match_id: str, request: PipelineRequest) -> PipelineResul
             from matchmind.agents.workflow import run_graph_pipeline
 
             result = await run_graph_pipeline(match_id, request)
-        except Exception:
+        except Exception as exc:  # noqa: BLE001 - keep the local demo available
+            logger.warning("agent graph failed, falling back to sequential pipeline: %s", exc)
             result = await MatchMindPipeline(use_mcp=request.use_mcp).run(match_id, request)
     else:
         result = await MatchMindPipeline(use_mcp=request.use_mcp).run(match_id, request)
