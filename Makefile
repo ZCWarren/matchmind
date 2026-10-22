@@ -1,4 +1,4 @@
-.PHONY: install smoke data dev test lint web-install web-build web-dev static-demo evaluate
+.PHONY: install smoke data dev test lint web-install web-build web-dev static-demo evaluate perf
 
 install:
 	uv sync --extra dev
@@ -33,3 +33,6 @@ static-demo:
 
 evaluate:
 	uv run python scripts/evaluate_fixtures.py
+
+perf:
+	uv run python scripts/benchmark.py

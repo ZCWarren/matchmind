@@ -132,9 +132,9 @@
 - [x] API contract tests, including static route containment.
 - [x] UI smoke test / Playwright happy path (`web/scripts/smoke-static.mjs`).
 - [x] No-key demo mode with cached insights and a public static build.
-- [ ] Performance: fast path p95, slow path p95, cost per insight.
+- [x] Performance: cached fast path p95, slow path samples, model calls per insight ([docs/PERFORMANCE.md](./docs/PERFORMANCE.md)).
 - [x] Lint and type checks in CI.
-- [ ] Dependency audit.
+- [x] Dependency audit: npm 0 vulnerabilities; pip-audit no known issues ([docs/DEPENDENCIES.md](./docs/DEPENDENCIES.md)).
 - [x] README: one-command setup, judge path, architecture, screenshots, video.
 - [x] Data card, code/data licenses, secrets check.
 

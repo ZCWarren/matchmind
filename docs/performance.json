@@ -1,0 +1,39 @@
+{
+  "fast": [
+    {
+      "route": "/api/matches",
+      "p50_ms": 7.49,
+      "p95_ms": 16.55,
+      "min_ms": 4.81,
+      "max_ms": 18.23
+    },
+    {
+      "route": "/api/matches/{id}/moments",
+      "p50_ms": 3.56,
+      "p95_ms": 12.0,
+      "min_ms": 2.1,
+      "max_ms": 16.42
+    },
+    {
+      "route": "/api/matches/{id}/features",
+      "p50_ms": 7.32,
+      "p95_ms": 19.43,
+      "min_ms": 4.6,
+      "max_ms": 21.32
+    },
+    {
+      "route": "/api/matches/{id}/insights (cached)",
+      "p50_ms": 2.11,
+      "p95_ms": 2.98,
+      "min_ms": 1.38,
+      "max_ms": 36.18
+    }
+  ],
+  "slow": {
+    "path": "live graph",
+    "samples": 3,
+    "p50_s": 61.3,
+    "max_s": 70.0,
+    "model_calls_per_insight": 13
+  }
+}
