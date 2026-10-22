@@ -4,7 +4,7 @@
 
 MatchMind is a real-time explainability layer for football broadcast. It turns synthetic match events into grounded, timed match intelligence — rendered as a broadcast-ready overlay for the studio and as a personalized second-screen experience for analysts, casual fans, and player-focused viewers.
 
-> Status: planning and early build (Inside the Game: Developer Hackathon, October 2026).
+> Status: D0 local build — synthetic demo match + read-only match API running at `http://localhost:8010`.
 > The actual 3-person, no-Azure execution plan is [EXECUTION.md](./EXECUTION.md); the full concept, architecture, demo script, and submission checklist are in [PLAN.md](./PLAN.md).
 
 ## The problem
