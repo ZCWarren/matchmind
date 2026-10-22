@@ -5,7 +5,7 @@
 MatchMind is a real-time explainability layer for football broadcast. It turns synthetic match events into grounded, timed match intelligence — rendered as a broadcast-ready overlay for the studio and as a personalized second-screen experience for analysts, casual fans, and player-focused viewers.
 
 > Status: planning and early build (Inside the Game: Developer Hackathon, October 2026).
-> The full execution plan, architecture, scope, demo script, and submission checklist live in [PLAN.md](./PLAN.md).
+> The actual 3-person, no-Azure execution plan is [EXECUTION.md](./EXECUTION.md); the full concept, architecture, demo script, and submission checklist are in [PLAN.md](./PLAN.md).
 
 ## The problem
 
@@ -33,16 +33,18 @@ One pipeline, five stages:
 
 The workflow is a typed graph built with Microsoft Agent Framework. All football numbers come from a deterministic engine exposed through an MCP server; the models explain, they do not invent.
 
-## Microsoft stack
+## Technology stack
 
-- **Microsoft Foundry** — model deployments, tracing, evaluation
 - **Microsoft Agent Framework** — graph workflows, shared state, handoffs, checkpointing
 - **MCP** — analytics tools exposed to agents
-- **Azure Container Apps** — API, web app, and MCP server
-- **Azure Cosmos DB** — audit and evidence store
-- **Application Insights + OpenTelemetry** — agent traces, latency, cost
-- **Azure Developer CLI + Bicep** — one-command deployment
+- **DeepSeek** — default model provider via an OpenAI-compatible API (`deepseek-flash`, `deepseek-v4-pro`)
+- **Microsoft Foundry** — optional production model adapter
+- **SQLite / JSONL** — audit and evidence store for the demo; Cosmos DB adapter optional
+- **OpenTelemetry** — agent traces, latency, and cost; Application Insights exporter optional
+- **Docker + Render / Fly.io / VPS** — public demo hosting; Azure Container Apps + Bicep optional
 - **GitHub Actions + GitHub Copilot** — CI/CD and development
+
+The model layer is provider-agnostic. The public demo runs on DeepSeek; the repository ships a Foundry adapter and Azure Bicep for production deployment. We do not claim Azure or Foundry usage unless it is actually deployed.
 
 ## Synthetic data
 
@@ -54,22 +56,24 @@ MatchForge generates football-realistic synthetic matches with fictional clubs a
 src/matchmind/   # API, analytics, agents, MatchForge, MCP, store, schemas
 web/             # Studio, overlay, and fan experiences
 data/            # Synthetic matches, labels, dataset card
-infra/           # Bicep and azd
+infra/           # Docker, optional Bicep/azd
 tests/           # Unit, contract, and evaluation tests
 docs/            # Architecture, data card, demo script
 ```
 
 ## Local development
 
-Planned workflow:
+D0 workflow:
 
 ```bash
 make install
-make data
-make dev
+cp .env.example .env      # add DEEPSEEK_API_KEY
+make smoke                # raw API + Agent Framework check
+make dev                  # http://localhost:8000/docs
+make test
 ```
 
-The public demo will run in `DEMO_MODE=replay` without cloud credentials, so judges can test the full experience. Live AI mode uses a Foundry project.
+The public demo runs in `DEMO_MODE=replay` without cloud credentials, so judges can test the full experience. Live AI mode uses DeepSeek; a Foundry adapter is included for Azure deployments.
 
 ## License
 

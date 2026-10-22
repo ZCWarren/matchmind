@@ -2,7 +2,9 @@
 
 > 版本：2026-10-22 · 内部截止：2026-10-27 23:00 CST · 官方截止：2026-10-27 23:59 PT = 2026-10-28 14:59 CST
 >
-> 目标：Grand Prize: First Place + Best Multi-Agent System
+> 目标：Best Multi-Agent System（主）+ Grand Prize（上限）
+>
+> **2026-10-22 修订**：已报名、3 人、无 Azure/Foundry。实际执行以 [EXECUTION.md](./EXECUTION.md) 为准：DeepSeek + Microsoft Agent Framework + MCP；Foundry/Azure 作为可选生产路径。后文保留完整概念与 Azure 版参考。
 >
 > 官方规则：[OFFICIAL RULES.md](https://github.com/microsoft/insidethegamehackathon/blob/main/OFFICIAL%20RULES.md)
 
@@ -14,11 +16,11 @@
 2. **一条管线，两个产品**：广播端 Director/Overlay + 观众端 Fan，共用一套事件流。
 3. **五阶段全覆盖**：Ingest → Interpret → Explain → Render → Personalize。
 4. **五个 agent**：TacticalAnalyst、StoryProducer、AudienceEditor、FactChecker、Director。
-5. **技术主线**：Microsoft Foundry + Agent Framework + MCP + Azure Container Apps + Cosmos DB + App Insights。
+5. **技术主线**：Microsoft Agent Framework + MCP + DeepSeek（OpenAI-compatible）；Foundry/Azure 作为可选生产路径。
 6. **数据自建**：MatchForge 合成数据，虚构球队/球员，5 场，带 ground truth。
-7. **主打奖项**：Grand Prize；类别主攻 Best Multi-Agent System。
-8. **最大风险**：按官方规则，报名已在 10/20 12:00 PT 截止。今天第一件事是确认报名；没报名就立刻联系主办方。
-9. **今天必须打通**：报名、Foundry 模型、repo 骨架、1 场合成数据、hello-world 部署。
+7. **主打奖项**：Best Multi-Agent System；Grand Prize 作为上限。
+8. **报名**：已确认报名（2026-10-22）；还要确认 3 个人都在团队/提交名单里。
+9. **今天必须打通**：DeepSeek + Agent Framework smoke test、repo 骨架、1 场合成数据、hello-world 部署。
 10. **如果只有 25-30 小时**：走 §11.3 的 Minimum scope，保 overlay + 双观众 + verifier + 2 分钟视频。
 
 ---
@@ -29,7 +31,7 @@
 
 | 节点 | 官方时间 | 北京时间 | 说明 |
 |---|---|---|---|
-| 报名 | 2026-09-29 09:00 PT – 2026-10-20 12:00 PT | 09-30 00:00 – 10-21 03:00 | **按规则已截止**；未报名需立刻联系主办方 |
+| 报名 | 2026-09-29 09:00 PT – 2026-10-20 12:00 PT | 09-30 00:00 – 10-21 03:00 | 已报名；确认 3 人都在团队/提交名单 |
 | 提交 | 2026-10-06 09:00 PT – 2026-10-27 23:59 PT | 10-07 00:00 – **10-28 14:59** | 剩余约 5 天 16 小时 |
 | 评审 | 2026-10-27 09:00 PT – 2026-11-10 23:59 PT | 10-28 00:00 – 11-11 15:59 | 评委可能只看视频/描述 |
 | 公布 | 不晚于 2026-11-20 23:59 PT | 2026-11-21 15:59 | — |
@@ -48,7 +50,7 @@
 | 合成、足球真实感数据；无真实比赛画面/数据 | 自建 MatchForge；不用 StatsBomb/真实俱乐部 IP |
 | 可免费访问的 demo（评委测试到评审结束） | 提供公网 URL + 无 key 的 demo mode |
 | 不能是其他比赛获奖作品；原创 | 全新代码；开源依赖合规 |
-| 每个项目最多 1 个 Grand + 1 个 Category | 主打 Grand + Multi-Agent |
+| 每个项目最多 1 个 Grand + 1 个 Category | 主攻 Best Multi-Agent；Grand 作为上限 |
 
 ### 1.3 奖项（按官方规则）
 
@@ -60,15 +62,14 @@
 
 > 中国不在规则明确排除的国家名单内；但税务、外汇、当地法律需自行确认。这不是法律意见。
 
-### 1.4 报名是 gate
+### 1.4 报名已确认（2026-10-22）
 
-按规则，报名在 10/20 12:00 PT 已截止。今天（10/22）必须做三件事：
+你已报名，gate 通过。现在只剩两个检查：
 
-1. 打开 [aka.ms/insidethegame](https://aka.ms/insidethegame)，尝试 Register；截图保留。
-2. 如果已关闭，立刻通过活动页 / Microsoft Reactor 系列页的 contact 渠道说明情况，询问是否可补录；同时发邮件给活动联系人（如页面有）。
-3. 不要等确认才开始写代码；但**不要在没有报名确认的情况下投入完整 5 天**。先做 3-4 小时的垂直切片，确认能参赛后再加码。
+1. **3 个人都在团队/提交名单里吗？** 如果只有发起人报名，立刻通过活动页 / [Microsoft Reactor 系列页](https://developer.microsoft.com/en-us/reactor/series/S-1709/) 的 contact 渠道问主办方如何加队友；报名窗口已关闭，不要拖。
+2. **Representative 是谁？** 默认是发起报名的人；D5 由他/她点提交。
 
-Reactor 系列页：[Inside the Game: Developer Hackathon](https://developer.microsoft.com/en-us/reactor/series/S-1709/)。
+> 如果后来发现队友没注册，不要隐瞒；先问主办方，保留沟通记录。
 
 ---
 
@@ -121,7 +122,7 @@ Reactor 系列页：[Inside the Game: Developer Hackathon](https://developer.mic
 
 - 多模态/推理模型 + agent orchestration 已经能把“事件 → 战术解释 → 上屏文案”做成实时管线。
 - 广播正在从“人工图形”转向“数据驱动、自动化、个性化”的 second screen。
-- Microsoft Foundry + Agent Framework 提供了托管模型、工具、追踪、评估和一整套企业治理能力，适合做“可上生产的 demo”。
+- Microsoft Agent Framework 提供了 graph workflow、共享状态、MCP、telemetry 和企业级工程能力；模型层可以接 DeepSeek，也可以在有 Azure 时切 Foundry。
 
 ---
 
@@ -135,7 +136,7 @@ Reactor 系列页：[Inside the Game: Developer Hackathon](https://developer.mic
 | Agentic Design & Innovation | 20% | agentic 模式、编排/MCP/多 agent、novelty | 5 个角色 agent、graph workflow、共享黑板、verifier loop、fallback、trace |
 | Real-World Impact | 20% | 问题重要性、可生产、影响 | 广播/流媒体真实工作流；延迟/成本；企业治理；多语言市场 |
 | UX & Presentation | 20% | 体验、视频、前后端平衡 | Studio + Overlay + Fan 三端；2 分钟双屏 demo；广播级视觉 |
-| Adherence to Category | 20% | 是否符合类别 | 明确主攻 Best Multi-Agent System；同时展示 Foundry/Azure |
+| Adherence to Category | 20% | 是否符合类别 | 明确主攻 Best Multi-Agent System；同时展示 Agent Framework/MCP |
 
 ### 3.2 五个“评委记得住”的点
 
@@ -293,9 +294,9 @@ flowchart LR
   F --> H
   H --> J["Studio + Overlay<br/>React / WebSocket"]
   I --> K["Fan App<br/>React / WebSocket"]
-  G4 --> L[("Cosmos DB<br/>audit + evidence")]
-  G --> M["Microsoft Foundry<br/>models · tracing · eval"]
-  J --> N["Azure Container Apps"]
+  G4 --> L[("SQLite / JSONL audit<br/>Cosmos optional")]
+  G --> M["Model layer<br/>DeepSeek / Foundry"]
+  J --> N["Container host<br/>Render / Fly / ACA"]
   K --> N
 ```
 
@@ -309,13 +310,13 @@ flowchart LR
 | FootballStateEngine | 滚动窗口特征、指标、模式检测 | Python；纯函数；版本化公式 |
 | MCP Analytics Server | 把引擎能力暴露为工具给 agent | FastMCP / HTTP |
 | Agent Workflow | 5 个 agent 的 graph 编排、共享状态、重试 | Microsoft Agent Framework |
-| Model Layer | chat + structured output；模型路由 | Microsoft Foundry |
+| Model Layer | chat + structured output；模型路由 | DeepSeek（默认）/ Foundry adapter |
 | OverlayComposer | cue → React overlay；队列/去重/超时 | TypeScript + React |
 | Studio | 导播工作台、rundown、证据、审批 | React + Vite + Tailwind |
 | Fan App | 个性化卡片、语言、球员聚焦 | React + Vite |
-| AuditStore | 证据、决策、verifier 结果 | Cosmos DB serverless（本地 SQLite） |
+| AuditStore | 证据、决策、verifier 结果 | SQLite / JSONL（Cosmos 可选） |
 | Observability | trace、latency、token、cost | OpenTelemetry + App Insights |
-| Infra | 一键部署 | Bicep + azd + Container Apps |
+| Infra | 一键部署 | Docker；Render/Fly/VPS；Bicep/azd 可选 |
 
 ### 6.3 数据流与延迟预算
 
@@ -346,33 +347,28 @@ MatchForge → ReplayBus → EventGateway → State/Features
 - 模型路由：常规文案用小模型；关键 moment 用强模型；翻译/改写用小模型。
 - 缓存：按 `event_window_hash + profile + lang + prompt_version` 缓存；demo 模式直接读缓存。
 
-### 6.4 部署拓扑
+### 6.4 部署拓扑（无 Azure 默认路径）
 
 ```mermaid
 flowchart TD
-  U["Browser<br/>Studio / Overlay / Fan"] --> CA["Azure Container Apps<br/>FastAPI + static web + MCP"]
-  CA --> F["Microsoft Foundry<br/>model deployments"]
-  CA --> C[("Cosmos DB<br/>audit/evidence")]
-  CA --> AI["Application Insights"]
-  CA --> KV["Key Vault"]
-  CA --> ACR["Azure Container Registry"]
-  GH["GitHub Actions"] --> ACR
-  GH --> CA
-  AZD["azd + Bicep"] --> CA
-  AZD --> F
-  AZD --> C
+  U["Browser<br/>Studio / Overlay / Fan"] --> H["Container host<br/>FastAPI + static web + MCP"]
+  H --> M["Model layer<br/>DeepSeek (default) / Foundry adapter"]
+  H --> D[("SQLite / JSONL audit<br/>Cosmos optional")]
+  H --> O["OpenTelemetry<br/>custom trace viewer"]
+  CI["GitHub Actions"] --> H
+  IAC["Docker + optional Bicep/azd"] --> H
 ```
 
-- 单容器：FastAPI 提供 API、WebSocket、MCP route、静态前端；减少部署面。
-- Container Apps：scale-to-zero（demo 成本低），min replicas 0/1；WebSocket 支持。注意 ingress idle timeout，前端加 keepalive + 自动重连。
-- Managed Identity 访问 Foundry / Cosmos / Key Vault；不把 key 写进代码。
-- `azd up` 一键；`.env.example` 本地开发。
-- Foundry 可选：把 orchestrator 部署为 **hosted agent**，BFF 调 managed endpoint；如果时间/region 不允许，保持 in-process，代码用 adapter 隔离。
+- **默认**：单 Docker 镜像部署到 Render / Fly.io / 香港或新加坡 VPS；FastAPI 提供 API、WebSocket、MCP route、静态前端。
+- **没有 Azure**：SQLite/JSONL 审计 + OpenTelemetry console/file exporter；密钥用 env，不进 repo；`DEMO_MODE=replay` 无 key 可跑。
+- **有 Azure（可选）**：同一镜像上 Container Apps；Bicep/azd 一键；Managed Identity 访问 Foundry/Cosmos/Key Vault；App Insights exporter。
+- WebSocket：宿主通常有 idle timeout；前端 keepalive + 自动重连，服务端心跳。
+- **stretch**：把 orchestrator 部署为 Foundry hosted agent；时间/region 不允许就保持 in-process，代码用 adapter 隔离。
 
 ### 6.5 Demo mode（评委可测试）
 
 - `DEMO_MODE=replay`：读预生成的 insights/cues，不需要 Azure key。
-- `DEMO_MODE=live`：调用 Foundry；需要环境变量。
+- `DEMO_MODE=live`：调用 DeepSeek（或 Foundry adapter）；需要环境变量。
 - 公网 URL 默认 demo mode；README 提供“90 秒评委路径”。
 - 所有 demo 数据固定 seed，刷新可复现。
 
@@ -451,18 +447,19 @@ MatchBlackboard
 - **重试**：工具/模型 transient error 指数退避，最多 2 次；幂等。
 - **熔断**：连续失败打开 circuit breaker，直接模板模式；UI 显示 degraded。
 - **verifier reject**：改写一次；仍失败则 `withheld`，UI 显示 “insufficient evidence”，绝不降级成“大概正确”。
-- **模型/Foundry 不可用**：demo cache + 模板；保留 fast path。
+- **模型 API 不可用**：demo cache + 模板；保留 fast path。
 - **重复/冲突**：claim hash + event window 去重；同一事件只保留最高 importance。
 - **审计**：每次决策记录 agent、prompt_version、model、tokens、latency、evidence。
 
-### 7.6 Foundry 相关实现
+### 7.6 模型层：DeepSeek 优先，Foundry 可切换
 
-- `FoundryChatClient` + `Agent`（Python Agent Framework）。
-- 模型部署在 Foundry project；用 deployment name，不硬编码 model。
-- Structured output 用 Pydantic schema + JSON schema；失败则 repair 一次。
-- Foundry tracing / App Insights：每个 agent/tool 一个 span；UI 可跳转 trace。
-- Foundry evaluation（可选）：groundedness / coherence；自定义 verifier 为主。
-- 可选 hosted agent：把 workflow 容器化，部署到 Foundry Agent Service；BFF 通过 managed endpoint 调用。**这是 stretch，不是 critical path**。
+- 默认用 `OpenAIChatClient(model=..., api_key=..., base_url="https://api.deepseek.com")`；模型 `deepseek-flash`（常规）/ `deepseek-v4-pro`（关键 moment）。当前 Agent Framework 1.22.0 已支持 `base_url` 直连。
+- 旧版 fallback：用 `AsyncOpenAI(base_url=...)` 通过 `async_client` 传入（issue #647）；如果 Responses 路径不兼容，退 `OpenAIChatCompletionClient`（Chat Completions）。
+- 工具：本地 MCP tools / function tools；DeepSeek 支持 function calling，但会忽略 hosted MCP，所以不要依赖托管 MCP。
+- Structured output：JSON mode + Pydantic 校验；失败 repair 一次；不要假设模型一定返回合法 JSON。
+- 并发：`OpenAIChatClient` 同一 event loop 可并发；每个 run 独立 `Agent`/`AgentSession`；不要跨线程共享 client。
+- Trace：OpenTelemetry span 记录 agent/tool/model/tokens/latency；自定义 trace viewer；App Insights exporter 可选。
+- Foundry adapter：有 Azure 时用 `FoundryChatClient`，同一 messages/schema 接口；hosted agent 是 stretch。
 
 ---
 
@@ -574,7 +571,7 @@ MatchBlackboard
 
 ---
 
-## 9. 技术栈与 Azure 资源
+## 9. 技术栈与部署资源
 
 ### 9.1 技术栈
 
@@ -584,26 +581,28 @@ MatchBlackboard
 | Charts | visx / Recharts + 自绘 SVG pitch | 可控、广播风格 |
 | Backend | Python 3.12 + FastAPI + Pydantic v2 + uv | 与 Agent Framework/数据栈一致 |
 | Agents | Microsoft Agent Framework (Python) | graph workflow、状态、MCP、telemetry |
-| Models | Microsoft Foundry deployments（小模型 + 强模型路由） | 托管、追踪、评估、企业治理 |
+| Models | **DeepSeek** `deepseek-flash` / `deepseek-v4-pro`（Foundry adapter 可选） | 便宜、快、OpenAI-compatible；关键 moment 用 Pro |
 | MCP | FastMCP / HTTP MCP server | 工具复用；评委可见 |
 | Data local | JSONL + DuckDB/SQLite | 零依赖、快 |
-| Data cloud | Cosmos DB serverless（audit/evidence） | 云原生、按量 |
+| Data cloud | **SQLite / JSONL**（Cosmos adapter 可选） | 本地零依赖；demo 不需要云 |
 | Realtime | WebSocket（FastAPI） | 简单、低延迟；Event Hubs adapter 可选 |
-| Deploy | Azure Container Apps + ACR + Key Vault + App Insights | scale-to-zero、managed identity |
+| Deploy | **Render / Fly.io / 香港或新加坡 VPS**（Azure Container Apps 可选） | 无 Azure 也能给评委稳定 URL |
 | IaC | Bicep + azd | 一键、可复现 |
 | CI | GitHub Actions | lint/test/build/deploy |
-| Observability | OpenTelemetry + App Insights | agent/tool spans、latency、cost |
+| Observability | **OpenTelemetry + 自定义 trace viewer**（App Insights exporter 可选） | 不依赖 Azure 也能看 agent span |
 | Dev | GitHub Copilot Agent Mode + `.github/copilot-instructions.md` | 提高速度；可写入 “how we built” |
 
-### 9.2 Azure 资源清单
+### 9.2 Azure 资源清单（可选生产路径）
+
+> 当前没有 Azure：本节跳过，按 [EXECUTION.md](./EXECUTION.md) 用 SQLite + OpenTelemetry + Render/Fly/VPS。下表保留给有 Azure 时的部署。
 
 | 资源 | 用途 | 必须? |
 |---|---|---|
-| Foundry account + project + model deployments | 模型、tracing、eval | 必须 |
-| Container Apps environment + app | API + web + MCP | 必须 |
-| Azure Container Registry | 镜像 | 必须 |
-| Log Analytics + App Insights | 可观测性 | 必须 |
-| Key Vault + Managed Identity | 密钥/身份 | 必须 |
+| Foundry account + project + model deployments | 模型、tracing、eval | 有 Azure 时 |
+| Container Apps environment + app | API + web + MCP | 有 Azure 时 |
+| Azure Container Registry | 镜像 | 有 Azure 时 |
+| Log Analytics + App Insights | 可观测性 | 有 Azure 时 |
+| Key Vault + Managed Identity | 密钥/身份 | 有 Azure 时 |
 | Cosmos DB serverless | audit/evidence | 应该 |
 | Event Hubs | 真实事件接入 adapter | 可选 |
 | Azure Static Web Apps | 前端分离部署 | 可选（不必要） |
@@ -611,6 +610,7 @@ MatchBlackboard
 
 ### 9.3 成本控制
 
+- 无 Azure 路径：DeepSeek 用量 + 宿主，预计 < $30；以下 Azure 成本为可选。
 - Container Apps scale-to-zero；demo 时 min=0，录制时 min=1。
 - 小模型做 routine；强模型只给 key moments；缓存。
 - Cosmos serverless；App Insights 采样。
@@ -627,7 +627,7 @@ matchmind/
 │  ├─ agents/           # workflow, prompts, contracts
 │  ├─ matchforge/       # generator, beats, validators
 │  ├─ mcp/              # MCP server/tools
-│  ├─ store/            # Cosmos/SQLite repositories
+│  ├─ store/            # SQLite 默认；Cosmos adapter 可选
 │  └─ models/           # Pydantic schemas
 ├─ web/                 # Vite React: studio, overlay, fan
 ├─ data/                # demo + eval matches, labels, dataset card
@@ -665,20 +665,20 @@ matchmind/
 
 ## 10. 5.5 天执行计划
 
-> 假设：1 人全职 10-12h/天，或 2-3 人并行。若是单人每天 4-5h，直接走 §11.3 Minimum scope。
+> 实际按 **3 人并行** 执行，见 [EXECUTION.md](./EXECUTION.md) 的 A/B/C track 与 gate。下面保留单人 10-12h/天的详细节奏作为参考；单人每天 4-5h 走 §11.3 Minimum scope。
 
 ### D0 · 周四 10/22 晚（4h）：打通与垂直切片
 
 | 时间 | 任务 | 产出/验收 |
 |---|---|---|
 | 22:30-22:45 | 报名确认；截图 | 已注册/已联系主办方 |
-| 22:45-23:30 | Foundry smoke test：project + model + JSON output | 一条 structured output 成功 |
+| 22:45-23:30 | DeepSeek + Agent Framework smoke test：JSON output | 一条 structured output 成功 |
 | 23:30-00:15 | repo 骨架、README、LICENSE、`.env.example` | `git push` 成功 |
 | 00:15-01:30 | MatchForge v0：1 场、~1,200 事件 | `make data` 生成 JSONL |
 | 01:30-02:00 | analytics v0：xG/xT/pressure + 1 个测试 | `pytest` 通过 |
-| 02:00-02:30 | hello-world Container App 部署 | 公网 URL 返回 200 |
+| 02:00-02:30 | hello-world 容器部署（Render/Fly/VPS 或本地） | 公网 URL 返回 200（或本地 8000） |
 
-**D0 验收**：一条命令跑出 1 场比赛摘要；Foundry 返回 JSON；公网 hello-world 可访问。
+**D0 验收**：一条命令跑出 1 场比赛摘要；DeepSeek 返回 JSON；公网 hello-world 可访问。
 
 ### D1 · 周五 10/23（10h）：数据 + 指标 + MCP
 
@@ -695,18 +695,19 @@ matchmind/
 - FastAPI WebSocket + replay controls；Studio v0（pitch、ticker、rundown、evidence）。
 - **验收**：从 replay 开始，30 秒内看到第一条 verified insight；点击可看证据。
 
-### D3 · 周日 10/25（12h）：Overlay + Fan + Azure
+### D3 · 周日 10/25（12h）：Overlay + Fan + 部署
 
 - Overlay 组件 + 透明路由；OBS browser source 测试。
 - Fan App：Analyst/Casual/Player Focus；EN/ES/ZH；语言切换。
 - Broadcast-safe、approve/hold、withhold 状态。
-- 部署到 Azure Container Apps；App Insights；环境变量。
+- 部署到 Render/Fly/VPS（Azure Container Apps 可选）；OpenTelemetry；环境变量。
 - **验收**：公网 URL 可跑完整 demo；overlay 在 OBS 里透明；三种画像文案不同。
 
 ### D4 · 周一 10/26（10h）：打磨 + 评估 + 视频 v1
 
 - UX 打磨：布局、动效、移动端、RTL、空状态、错误状态。
 - 评估：60 个 labeled moments；baseline vs multi-agent vs verifier；延迟/成本。
+- （可选）如果有 Azure：补 Foundry trace/Container Apps 截图；没有就展示自定义 trace viewer。
 - RecapWriter；audit/evidence UI。
 - 录视频 v1；README + testing instructions + screenshots。
 - **验收**：2 分钟视频粗剪；eval 表；评委 90 秒路径可走通。
@@ -736,7 +737,7 @@ matchmind/
 | Track | 负责 | 主要产出 |
 |---|---|---|
 | A · Data/Analytics/Eval | 数据/算法 | MatchForge、metrics、labels、eval |
-| B · Agents/Foundry | AI/后端 | workflow、prompts、MCP、verifier、tracing |
+| B · Agents/Backend/Infra | AI/后端 | workflow、prompts、MCP、verifier、tracing、部署 |
 | C · Frontend/Design | 前端/设计 | Studio、Overlay、Fan、视频视觉 |
 | D · Infra/Integration/Submission | 全栈/运维 | azd、CI/CD、deploy、README、视频剪辑 |
 
@@ -753,8 +754,8 @@ matchmind/
 
 | 优先级 | 功能 |
 |---|---|
-| **Must** | 1 场 hero match + replay；确定性指标（xG/xT/pressure/pass difficulty/control-chaos/momentum/speed）；3 个 agent（Analyst/Producer/Verifier）+ 确定性 Director；证据链 + verifier；Studio + Overlay + Fan（Analyst/Casual/Player）；EN/ZH；Azure 部署；demo mode；2 分钟视频；README |
-| **Should** | 5 个 agent；EN/ES/ZH；Cosmos audit；RecapWriter；broadcast-safe；approve/hold；RTL |
+| **Must** | 1 场 hero match + replay；确定性指标（xG/xT/pressure/pass difficulty/control-chaos/momentum/speed）；3 个 agent（Analyst/Producer/Verifier）+ 确定性 Director；证据链 + verifier；Studio + Overlay + Fan（Analyst/Casual/Player）；EN/ZH；公网部署（Render/Fly/VPS；Azure 可选）；demo mode；2 分钟视频；README |
+| **Should** | 5 个 agent；EN/ES/ZH；SQLite audit（Cosmos 可选）；RecapWriter；broadcast-safe；approve/hold；RTL |
 | **Could** | Foundry hosted agent；Event Hubs；A2A；TTS；历史 RAG；5Hz 全场追踪；AR/HI |
 | **Won't** | 真实数据/画面；真实俱乐部/球员 IP；完整 22 人物理；native app；投注 |
 
@@ -776,7 +777,7 @@ matchmind/
 - 3 agents（Analyst/AudienceEditor/Verifier）+ 确定性 Producer/Director。
 - Studio + Overlay；Fan 两档（Analyst/Casual）。
 - EN/ZH。
-- 本地 + Container Apps；无 Cosmos/Event Hubs。
+- 本地 + Render/Fly/VPS；无 Cosmos/Event Hubs。
 - 2 分钟视频 + README。
 - 仍然是一个完整、可解释、可上屏的作品；足以争 category，Grand 难度大。
 
@@ -794,7 +795,7 @@ matchmind/
 | 0:38-1:02 | 72' press trap；overlay 上屏；证据抽屉 | "Seventy-second minute. Orion North's press steps up. MatchMind detects the trap, the line-breaking pass, and the space behind. The overlay is ready in under a second — and every number is backed by the exact events." |
 | 1:02-1:22 | Fan 三 tab + 语言切换 | "The same moment, three ways: an analyst gets pressure maps and expected threat; a casual fan gets the story in plain language; a player-focused viewer follows the run. English, Spanish, Chinese." |
 | 1:22-1:38 | Verifier 抓错 → withhold → 改写 | "Before anything goes on air, a verifier checks every claim. When a line says 'fastest sprint of the match' and the evidence says second-fastest, MatchMind withholds it. No hallucinated stats on a live broadcast." |
-| 1:38-1:50 | Foundry trace + architecture + metrics | "Built with Microsoft Foundry, Agent Framework, MCP, and Azure Container Apps. Five agents, one accountable rundown." |
+| 1:38-1:50 | Agent trace + architecture + metrics | "Built with Microsoft Agent Framework and MCP, powered by a provider-agnostic model layer that runs on DeepSeek today and Microsoft Foundry tomorrow. Five agents, one accountable rundown." |
 | 1:50-1:56 | 端卡：MatchMind / tagline | "MatchMind. Every moment, explained." |
 
 > 目标 1:50-1:56；留 4 秒余量。不要超过 2:00。
@@ -818,7 +819,7 @@ matchmind/
 - 一个 claim 点开后的 event IDs + metric。
 - 一次 verifier reject/withhold。
 - 三种画像/语言的同事件对比。
-- Foundry trace 或 agent graph（3 秒）。
+- Agent trace 或 agent graph（3 秒）。
 - 一个延迟/成本数字（真实测量）。
 
 ---
@@ -884,7 +885,7 @@ matchmind/
 1. **One-liner**
 2. **Problem**（1,500 events; what vs why; one feed vs many fans）
 3. **Solution**（five stages; dual output）
-4. **Microsoft tech**（Foundry, Agent Framework, MCP, Container Apps, Cosmos, App Insights, GitHub Actions）
+4. **Microsoft tech**（Agent Framework, MCP, GitHub Actions/Copilot；Foundry adapter + Azure Bicep as production path）
 5. **Agent architecture**（5 roles; graph; verifier; fallback）
 6. **Data innovation**（MatchForge; synthetic; labels; realism checks）
 7. **Enterprise readiness**（evidence, audit, human-in-the-loop, content safety, cost）
@@ -894,7 +895,7 @@ matchmind/
 
 ### 14.3 类别声明（可直接用）
 
-> **Primary category: Best Multi-Agent System.** MatchMind uses five specialized agents coordinated by a Microsoft Agent Framework graph workflow, with shared state, explicit handoffs, independent verification, and graceful degradation. A Tactical Analyst interprets patterns, a Story Producer writes broadcast language, Audience Editors personalize in parallel, a Fact Checker verifies every claim against event-level evidence, and a Director manages the rundown. The system also demonstrates Microsoft Foundry (model deployments, tracing, evaluation) and Azure cloud-native deployment (Container Apps, Cosmos DB, Application Insights).
+> **Primary category: Best Multi-Agent System.** MatchMind uses five specialized agents coordinated by a Microsoft Agent Framework graph workflow, with shared state, explicit handoffs, independent verification, and graceful degradation. A Tactical Analyst interprets patterns, a Story Producer writes broadcast language, Audience Editors personalize in parallel, a Fact Checker verifies every claim against event-level evidence, and a Director manages the rundown. The model layer is provider-agnostic: the public demo runs on DeepSeek's OpenAI-compatible API, and the repository includes a Microsoft Foundry adapter plus Azure Bicep for one-command production deployment.
 
 ### 14.4 测试说明（评委 90 秒路径）
 
@@ -926,7 +927,8 @@ matchmind/
 | 风险 | 概率 | 影响 | 缓解 | 触发条件 |
 |---|---|---|---|---|
 | 报名已截止 | 高 | 致命 | 今天确认；联系主办方；保留截图 | 页面无 Register/收到拒绝 |
-| Foundry 配额/region 不可用 | 中 | 高 | D0 smoke test；换 region/model；GitHub Models fallback | 部署失败/429 |
+| DeepSeek API 慢/限流/挂 | 中 | 高 | backoff/timeout/模板/cache；demo mode 不依赖实时 | p95 > 6s 或 429 |
+| 没有 Azure/Foundry | 高 | 中 | 主攻 Multi-Agent；Agent Framework + MCP 仍成立；Foundry adapter/Bicep 作为生产路径 | 无法部署 Azure |
 | 5 天做不完 | 高 | 高 | Must/Should/Could；垂直切片；砍功能顺序 | D2 结束无 end-to-end |
 | LLM 延迟高 | 中 | 中 | fast path、缓存、并行、小模型、超时 | p95 > 6s |
 | 幻觉/数字错 | 中 | 高 | 确定性指标、verifier、模板、eval | 任一 unsupported claim |
@@ -944,52 +946,54 @@ matchmind/
 
 | 评分项 | 目标 | 我们拿什么证明 | 当前差距/行动 |
 |---|---:|---|---|
-| Technological Implementation | 4.5/5 | MatchForge、确定性引擎、MCP、Agent Framework、测试、IaC、App Insights | D1-D3 补齐；README 写清 |
+| Technological Implementation | 4.0/5 | MatchForge、确定性引擎、MCP、Agent Framework、测试、trace、可选 IaC | 无 Azure 会扣平台深度；用工程质量补 |
 | Agentic Design | 4.5/5 | 5 agents、graph、shared state、verifier、fallback、trace | D2 核心；D4 加 trace UI |
 | Real-World Impact | 4.5/5 | 广播/流媒体工作流、延迟/成本、企业治理、多语言 | D4 评估数字；描述写清 |
 | UX & Presentation | 4.5/5 | Studio/Overlay/Fan、双屏 demo、2 分钟视频 | D3-D4 打磨；视频提前 |
 | Adherence to Category | 5/5 | 明确 Best Multi-Agent System；五阶段映射 | 提交描述 + README |
-| **总分目标** | **4.6/5** | 不追求功能最多，追求每条评分都有证据 | 每天对照 |
+| **总分目标** | **4.5/5** | 无 Azure 下更现实；主攻 Agentic + UX + Category | 每天对照 |
 
 > 自检原则：**每个评分项至少有一个可点击/可播放/可测量的证据**。没有证据的功能等于没做。
 
 ---
 
-## 17. 今天就开始（下一步 4 小时）
+## 17. 今天就开始（3 人版，见 EXECUTION.md §8）
 
 | 时间 | 动作 | 完成标准 |
 |---|---|---|
-| 0:00-0:15 | 打开 aka.ms/insidethegame，确认报名；截图 | 知道能否参赛 |
-| 0:15-1:00 | Foundry：创建 project、部署小模型、跑一条 JSON 输出 | 终端返回结构化 JSON |
+| 0:00-0:15 | 确认 3 人都在团队/提交名单；指定 Representative | 名单明确 |
+| 0:15-1:00 | B：DeepSeek raw SDK smoke test + Agent Framework hello agent | 终端返回结构化 JSON |
+| 0:15-1:00 | A：Event/Feature/Labels schema + MatchForge v0 | `data/demo/` 有 JSONL |
+| 0:15-1:00 | C：design tokens + Studio shell | 本地能打开 |
 | 1:00-1:45 | repo：README/LICENSE/.env.example/目录；push | GitHub 可见 |
-| 1:45-3:00 | MatchForge v0：1 场、1,200 事件、1 个 hero moment | `data/` 有 JSONL |
+| 1:45-3:00 | 三人合并：1 场、1,200 事件、1 个 hero moment | `make data` 可复现 |
 | 3:00-3:40 | analytics v0：xG/xT/pressure + 测试 | `pytest` 绿 |
-| 3:40-4:00 | Container App hello-world | 公网 URL 200 |
+| 3:40-4:00 | hello-world 容器（Render/Fly/VPS 或本地） | 公网 URL 200 或本地 8000 |
 
 **今天的 Definition of Done**：
 
-- [ ] 报名状态明确。
-- [ ] Foundry 可用。
+- [ ] 3 人名单/Representative 明确。
+- [ ] DeepSeek key 在 `.env`；smoke test 通过。
 - [ ] repo public + 骨架。
 - [ ] 1 场合成数据。
 - [ ] 1 个指标测试。
-- [ ] 1 个公网 hello-world。
+- [ ] 1 个可访问的 hello-world。
 
 ---
 
 ## 18. 需要你确认的 5 件事
 
-1. **报名状态**：已注册 / 未注册 / 不确定？（决定这件事是否还能做）
-2. **Azure/Foundry**：有订阅和模型配额吗？哪个 region？没有的话我改用 GitHub Models + 本地 fallback。
-3. **团队与时间**：单人还是 2-4 人？未来 5 天每天能投入几小时？
-4. **技术偏好**：Python/TS 哪边更强？前端要不要我按广播级视觉做？
-5. **目标**：冲 Grand Prize，还是稳拿一个 Category？这会改变 scope。
+1. **团队报名**：3 个人都在团队/提交名单里吗？Representative 是谁？
+2. **DeepSeek**：API key 是否已就绪？当前环境没有 `DEEPSEEK_API_KEY`；把 key 放到 `.env`，不要发聊天里。
+3. **分工**：三个人各自最强的是什么（后端/前端/数据/设计/视频）？按强项认领 A/B/C。
+4. **宿主**：Render Starter / Fly.io / 香港或新加坡 VPS，哪个支付方便？预算 ~$10-20 到 11/10。
+5. **目标确认**：Best Multi-Agent 为主、Grand 为上限，是否同意？
 
 ---
 
 ## 附录 A · 英文 Pitch（120 词）
 
-> MatchMind is a real-time explainability layer for football broadcast. It ingests synthetic match events, computes the football state deterministically, and uses a team of specialized agents to explain why each moment matters — with an evidence trail. The same insight becomes a broadcast-ready overlay for the studio and a personalized second-screen experience for analysts, casual fans, and player-focused viewers in multiple languages. A verifier checks every claim before it goes on air, so no hallucinated stat reaches a live broadcast. Built with Microsoft Foundry, Microsoft Agent Framework, MCP, and Azure Container Apps, MatchMind turns 1,500 raw events into understanding — for every match, and every fan.
+> MatchMind is a real-time explainability layer for football broadcast. It ingests synthetic match events, computes the football state deterministically, and uses a team of specialized agents to explain why each moment matters — with an evidence trail. The same insight becomes a broadcast-ready overlay for the studio and a personalized second-screen experience for analysts, casual fans, and player-focused viewers in multiple languages. A verifier checks every claim before it goes on air, so no hallucinated stat reaches a live broadcast. Built with Microsoft Agent Framework and MCP on a provider-agnostic model layer — DeepSeek for the demo, Microsoft Foundry-ready for production — MatchMind turns 1,500 raw events into understanding, for every match and every fan.
 
 ---
 
@@ -1051,6 +1055,10 @@ matchmind/
 - [Official Rules](https://github.com/microsoft/insidethegamehackathon/blob/main/OFFICIAL%20RULES.md)
 - [Registration](https://aka.ms/insidethegame)
 - [Microsoft Reactor series](https://developer.microsoft.com/en-us/reactor/series/S-1709/)
+- [DeepSeek API — Your First API Call](https://api-docs.deepseek.com/)
+- [DeepSeek Models & Pricing](https://api-docs.deepseek.com/quick_start/pricing)
+- [Microsoft Agent Framework — OpenAI provider](https://learn.microsoft.com/en-us/agent-framework/integrations/by-component/model-providers/openai)
+- [Agent Framework base_url workaround (issue #647)](https://github.com/microsoft/agent-framework/issues/647)
 - [Microsoft Foundry Agent Service](https://learn.microsoft.com/en-us/azure/foundry/agents/overview)
 - [Microsoft Agent Framework](https://learn.microsoft.com/en-us/agent-framework/overview/)
 - [Agent Framework workflows](https://learn.microsoft.com/en-us/agent-framework/concepts/workflows/)
