@@ -55,8 +55,7 @@ def smoke_raw(key: str) -> bool:
 
     client = OpenAI(api_key=key, base_url=_base_url())
     prompt = (
-        'Return exactly one JSON object with the keys "ok" and "model". '
-        'Set "ok" to true and "model" to the model name you are running as. '
+        'Return exactly one JSON object with the key "ok" set to true. '
         "No markdown, no extra text."
     )
     try:

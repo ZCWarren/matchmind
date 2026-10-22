@@ -7,7 +7,7 @@ smoke:
 	uv run python scripts/smoke_deepseek.py
 
 dev:
-	uv run uvicorn matchmind.api.main:app --reload --port 8000
+	uv run uvicorn matchmind.api.main:app --reload --port 8010
 
 test:
 	uv run pytest -q

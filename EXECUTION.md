@@ -1,4 +1,4 @@
-# MatchMind — 执行计划 v2（3 人 / DeepSeek / 无 Azure）
+# MatchMind — 执行计划 v2（Solo / DeepSeek / 本地优先）
 
 > 2026-10-22 22:50 CST · 内部截止 2026-10-27 23:00 CST · 官方截止 2026-10-28 14:59 CST
 >
@@ -10,13 +10,13 @@
 
 | 项目 | 决定 |
 |---|---|
-| 报名 | 已报名；**还要确认 3 个人都在团队/提交名单里** |
+| 报名 | 已报名（个人）；提交时填你自己 |
 | 模型 | DeepSeek：`deepseek-flash` 默认，`deepseek-v4-pro` 只给关键 moment |
 | 编排 | Microsoft Agent Framework + MCP（这是我们的 Microsoft 技术主线） |
 | Azure/Foundry | 不作为 demo 阻塞；保留 adapter + Bicep 作为生产路径 |
 | 目标奖项 | **Best Multi-Agent System 为主**；Grand Prize 作为上限 |
-| 部署 | D3 前上 Render / Fly.io / 香港或新加坡轻量云；demo 保持到 11/10 |
-| 预算 | DeepSeek + 宿主 < $30；无 Azure 费用 |
+| 部署 | **本地 8010 已跑**；提交前必须有公网 URL（tunnel / host） |
+| 预算 | DeepSeek < $10；公网方案 $0-20；无 Azure 费用 |
 
 **一句话策略**：不假装用了 Foundry。用 **Agent Framework + MCP + 多智能体编排** 把“agentic design”做到最强；模型层做成 provider-agnostic，DeepSeek 跑 demo，Foundry adapter 留给有 Azure 的评委/生产环境。
 
@@ -26,15 +26,37 @@
 
 | 项 | 状态 |
 |---|---|
-| 报名 | 已确认；待确认 3 人名单/Representative |
+| 报名 | 已确认（个人） |
 | repo 骨架 | 已建：`pyproject.toml`、`Makefile`、FastAPI hello、`.env.example` |
 | Python 依赖 | `uv sync --extra dev` 通过；`agent-framework 1.22.0` / `agent-framework-openai 1.17.0` / `openai 3.36.1` |
 | DeepSeek client | `OpenAIChatClient` / `OpenAIChatCompletionClient` 直接 `base_url` 构造通过 |
-| smoke test | 已写 `scripts/smoke_deepseek.py`；当前环境没有 `DEEPSEEK_API_KEY`，填 `.env` 后跑 `make smoke` |
-| tests | `pytest` 2 passed；`ruff` 通过 |
-| 下一步 | A 的 MatchForge v0；B 的 DeepSeek smoke；C 的 Studio shell |
+| smoke test | **PASS**：zshrc key 已写入 `.env`；raw DeepSeek + Agent Framework 都通过 |
+| tests | `pytest` 2 passed；`ruff` 通过；本地 API `:8010` healthz OK |
+| 下一步 | MatchForge v0（1 场 1,200 事件 + hero moment） |
 
-> 当前没有 `.env`；不要把 key 发到聊天里。复制 `.env.example` 后本地填写。
+> `.env` 已创建（权限 600，gitignored）；key 不打印、不提交。
+
+---
+
+## 0.2 Solo + 本地模式（以此为准）
+
+- **1 人**：A/B/C 不是三个人，是你按顺序戴的帽子：Data/Analytics → Agents/Backend → Frontend/Video。
+- **本地**：API 已跑在 `http://localhost:8010`（`8000` 被 Caddy 占用，别动它）；`/docs` 可打开。
+- **公网**：规则要求评委能访问的 demo URL；**local-only 不行**。D3 用 Cloudflare Tunnel / ngrok / Caddy 反代，D4 固定链接。
+- **Scope**：Must + 少量 Should；砍 5 语言/RTL/Cosmos/Event Hubs/hosted agent。
+- **节奏**：按 PLAN.md §10 的单人 D0-D5，把模型换成 DeepSeek，把部署先换成本地 8010；D3 再把 8010 暴露到公网。
+- **今天的下一步**：MatchForge v0（1 场、~1,200 事件、hero moment）→ analytics v0 → 本地 Studio shell。
+
+### Solo 5 天速查
+
+| Day | Focus | Done |
+|---|---|---|
+| D0 今晚 | MatchForge v0 + analytics v0 | 1 场 JSONL；xG/xT/pressure 测试 |
+| D1 10/23 | 数据 + 指标 + MCP | 3 场数据；6 个工具；`make demo-insight` |
+| D2 10/24 | Agents + API/WS | Analyst→Producer→Verifier→Director 跑通 |
+| D3 10/25 | Studio + Overlay + Fan | 三端可看；本地全链路 |
+| D4 10/26 | 评估 + 视频 + 公网 | 60 moment eval；2 分钟粗剪；public URL |
+| D5 10/27 | 提交 | 23:00 前提交 |
 
 ---
 
@@ -122,16 +144,18 @@ src/matchmind/llm/
 
 ---
 
-## 3. 三个人怎么分
+## 3. Solo 怎么推进（A/B/C 是帽子）
 
 > 默认按强项分；如果实际技能不匹配，直接换 track，不要卡住。
 
 | Track | 负责人 | 负责范围 | 必须交付 | 关键接口 |
 |---|---|---|---|---|
-| **A · Data / Analytics / Eval** | 待定 | MatchForge、指标引擎、labels、评估 | 5 场合成数据、xG/xT/pressure/pass quality/control-chaos/momentum/speed、60 个 labeled moments、eval 表 | `Event`, `FeatureSnapshot`, `Labels` schema |
-| **B · Agents / Backend / Infra** | 待定 | Agent Framework workflow、DeepSeek adapter、MCP、FastAPI/WS、部署 | 5-agent graph、verifier、retry/fallback、public demo URL、trace | `InsightCandidate`, `VerificationResult`, `OverlayCue`, API |
-| **C · Frontend / Design / Video** | 待定 | Studio、Overlay、Fan、视觉、视频 | 三端 UI、广播级 overlay、3 种画像/语言、2 分钟视频 | `OverlayCue`, `FanCard`, design tokens |
+| **A · Data / Analytics / Eval** | 你（solo） | MatchForge、指标引擎、labels、评估 | 5 场合成数据、xG/xT/pressure/pass quality/control-chaos/momentum/speed、60 个 labeled moments、eval 表 | `Event`, `FeatureSnapshot`, `Labels` schema |
+| **B · Agents / Backend / Infra** | 你（solo） | Agent Framework workflow、DeepSeek adapter、MCP、FastAPI/WS、部署 | 5-agent graph、verifier、retry/fallback、public demo URL、trace | `InsightCandidate`, `VerificationResult`, `OverlayCue`, API |
+| **C · Frontend / Design / Video** | 你（solo） | Studio、Overlay、Fan、视觉、视频 | 三端 UI、广播级 overlay、3 种画像/语言、2 分钟视频 | `OverlayCue`, `FanCard`, design tokens |
 | **Shared** | 全员 | 契约、集成、提交 | D0 定 schema/API；每天 13:00 集成；D5 提交 | — |
+
+**Solo 模式**：下面 A/B/C 是你依次戴的帽子，不是三个人；按 A→B→C 推进，不要并行等别人。
 
 **角色建议**：
 
@@ -142,9 +166,9 @@ src/matchmind/llm/
 
 ---
 
-## 4. 5 天并行计划
+## 4. 5 天详细任务（solo：A/B/C 顺序执行）
 
-> 每人每天 6-8 小时；D0 晚上先打通。每个 gate 不通过，第二天先补 gate，不加新功能。
+> 你每天 8-10 小时；下面 A/B/C 是任务块，不是三个人。每天按 D0→D5 推进；一个 gate 不过就先补 gate，不加新功能。
 
 ### D0 · 今晚 10/22（2-3h/人）：打通 + 契约
 
@@ -177,7 +201,7 @@ src/matchmind/llm/
 
 | A | B | C |
 |---|---|---|
-| data card + 分布校验 + eval baseline | 部署 Render/Fly/VPS；健康检查；keepalive；OpenTelemetry | Fan 响应式 + player focus + speed alert；RTL 可选 |
+| data card + 分布校验 + eval baseline | 本地 tunnel/反代到 8010；健康检查；keepalive；OpenTelemetry | Fan 响应式 + player focus + speed alert；RTL 可选 |
 | 评估集跑通 | 延迟/成本埋点；demo mode 无 key | overlay 透明源在 OBS 测试 |
 
 **Gate**：公网 URL 可访问；评委路径无 key 可走；p95 在预算内。
@@ -193,7 +217,7 @@ src/matchmind/llm/
 
 ### D5 · 周二 10/27：提交
 
-| 全员 |
+| 你 |
 |---|
 | 最终视频；提交描述；repo public；链接 incognito 测试；**23:00 CST 前提交**；保存确认 |
 
@@ -203,7 +227,22 @@ src/matchmind/llm/
 
 ---
 
-## 5. 部署方案（无 Azure）
+## 5. 部署方案（本地优先）
+
+### 5.0 本地（现在）
+
+- `make dev` 启动 `uvicorn` 在 `:8010`；`/healthz`、`/docs` 已验证。
+- `.env` 里是 zshrc 的 DeepSeek key；权限 600，`.gitignore` 覆盖。
+- 不要占用 `:8000`（Caddy 在用）；如需对外，用反代或 tunnel 到 8010。
+
+### 5.1 公网（提交前必须）
+
+- 规则要求评委可访问的 demo；本地 8010 只能自己看。
+- 最省事：Cloudflare Tunnel / ngrok 把 8010 暴露；D3 先跑通，D4 固定链接。
+- 更稳：Caddy 反代到已有域名；或 Render/Fly/VPS 跑 Docker。
+- demo 要活到 2026-11-10（评审结束）；tunnel 进程/机器不能关。
+
+## 5.2 Azure / 云宿主（可选）
 
 ### 5.1 先花 30 分钟试 Azure（可选）
 
@@ -267,11 +306,12 @@ src/matchmind/llm/
 
 | 风险 | 概率 | 影响 | 对策 |
 |---|---|---|---|
-| 3 人没都在报名名单 | 中 | 致命 | 今天确认；若只有发起人报名，立刻问主办方如何加队友 |
+| 个人报名/提交信息缺失 | 低 | 高 | 提交前核对姓名/邮箱/representative |
 | DeepSeek API 慢/限流/挂 | 中 | 高 | backoff + timeout + 模板/cache；demo mode 不依赖实时 |
 | 没有 Azure，Grand 评分吃亏 | 高 | 中 | 主攻 Multi-Agent；提交里强调 Agent Framework/MCP；保留 Foundry adapter |
+| local-only demo 评委打不开 | 高 | 致命 | D3 必须接 tunnel/反代；D4 用 incognito 验证公网 URL |
 | 宿主 cold start/被墙 | 中 | 高 | 付费实例；香港/新加坡节点；健康检查 + cron ping |
-| 3 人接口对不齐 | 中 | 高 | D0 定 schema/API；每天 13:00 集成；contract tests |
+| 一个人上下文切换/时间不够 | 高 | 高 | 垂直切片；每天一个 gate；砍 Should；不并行开新坑 |
 | 视频超 2:00 | 中 | 高 | D4 粗剪；脚本 1:50；字幕；不堆架构 |
 | 数据不真实 | 中 | 中 | 分布校验；hand-check；data card |
 | 范围蔓延 | 高 | 高 | Must/Should/Could；D2 gate 不过就砍 |
@@ -279,44 +319,42 @@ src/matchmind/llm/
 
 ---
 
-## 8. 今天 90 分钟（按人）
+## 8. 今天 90 分钟（solo 顺序）
 
-### 所有人（15 分钟）
+### 你（15 分钟）
 
-- 确认 3 人都已报名/在团队里；指定 representative。
-- 确认三人强项，认领 A/B/C track。
-- 建群/共享文档；约定 09:00 standup、13:00 集成。
+- 报名已完成；本地 `:8010` 已跑，`make smoke` 已 PASS。
+- 打开 `/docs`，确认 API 可用。
+- 决定今天先做 MatchForge 还是先搭 Studio shell（建议 MatchForge）。
 
-### A（45 分钟）
+### Task A（45 分钟）
 
 - 写 `Event` / `FeatureSnapshot` / `Labels` schema（Pydantic）。
 - MatchForge v0：1 场、1,200 事件、1 个 hero moment；输出 `data/demo/`。
 
-### B（60 分钟）
+### Task B（15 分钟，已完成）
 
-- repo 骨架 + `.env.example` + `Dockerfile`。
-- 用 DeepSeek key 跑 raw OpenAI SDK smoke test；再跑 Agent Framework hello agent。
-- 如果 `OpenAIChatClient` 的 `base_url` 不通，记录错误，退 `OpenAIChatCompletionClient` 或薄 adapter。
+- 已完成：repo 骨架、`.env`、`Dockerfile`。
+- 已完成：DeepSeek raw + Agent Framework smoke 都 PASS（`OpenAIChatClient(base_url=...)`）。
+- 下一步只需在改动后重跑 `make smoke`。
 
-### C（60 分钟）
+### Task C（30 分钟）
 
 - 设计 tokens（深色广播、lime accent、tabular numerals）。
 - Studio 线框：pitch + ticker + rundown + program monitor。
 - Overlay 组件清单：lower-third、stat card、momentum ribbon、pressure map、speed alert。
 
-### 可选（B，30 分钟）
+### 可选（30 分钟）
 
-- 试开 Azure free account；问主办方 credits。失败就按默认宿主走。
+- 试 Cloudflare Tunnel / ngrok 把 8010 暴露；D3 前必须有一个公网 URL。
 
 ---
 
 ## 9. 需要确认
 
-1. **3 个人各自最强的是什么？**（后端/前端/数据/设计/视频）→ 决定 A/B/C 是否换人。
-2. **DeepSeek API key 是否已就绪？** 当前环境没有 `DEEPSEEK_API_KEY`；把 key 放到 `.env`，不要发聊天里。
-3. **宿主支付**：Render Starter / Fly.io / 香港轻量云，哪个方便？预算 ~$10-20 到 11/10。
-4. **3 人都已报名/在团队里吗？** 如果只有你，今天必须问主办方。
-5. **目标确认**：Best Multi-Agent 为主、Grand 为上限，是否同意？
+1. **公网方案**：Cloudflare Tunnel / ngrok / Caddy 反代 / 便宜 VPS，哪个方便？提交前必须有公网 URL。
+2. **每天时间**：未来 5 天每天几小时？决定 Must 还是 Minimum scope。
+3. **目标确认**：Best Multi-Agent 为主、Grand 为上限，是否同意？
 
 ---
 

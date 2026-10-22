@@ -4,7 +4,7 @@
 >
 > 目标：Best Multi-Agent System（主）+ Grand Prize（上限）
 >
-> **2026-10-22 修订**：已报名、3 人、无 Azure/Foundry。实际执行以 [EXECUTION.md](./EXECUTION.md) 为准：DeepSeek + Microsoft Agent Framework + MCP；Foundry/Azure 作为可选生产路径。后文保留完整概念与 Azure 版参考。
+> **2026-10-22 修订**：已报名、solo、无 Azure/Foundry，本地 `:8010` 已跑。实际执行以 [EXECUTION.md](./EXECUTION.md) 为准：DeepSeek + Microsoft Agent Framework + MCP；Foundry/Azure 作为可选生产路径。后文保留完整概念与 Azure 版参考。
 >
 > 官方规则：[OFFICIAL RULES.md](https://github.com/microsoft/insidethegamehackathon/blob/main/OFFICIAL%20RULES.md)
 
@@ -31,7 +31,7 @@
 
 | 节点 | 官方时间 | 北京时间 | 说明 |
 |---|---|---|---|
-| 报名 | 2026-09-29 09:00 PT – 2026-10-20 12:00 PT | 09-30 00:00 – 10-21 03:00 | 已报名；确认 3 人都在团队/提交名单 |
+| 报名 | 2026-09-29 09:00 PT – 2026-10-20 12:00 PT | 09-30 00:00 – 10-21 03:00 | 已报名（个人） |
 | 提交 | 2026-10-06 09:00 PT – 2026-10-27 23:59 PT | 10-07 00:00 – **10-28 14:59** | 剩余约 5 天 16 小时 |
 | 评审 | 2026-10-27 09:00 PT – 2026-11-10 23:59 PT | 10-28 00:00 – 11-11 15:59 | 评委可能只看视频/描述 |
 | 公布 | 不晚于 2026-11-20 23:59 PT | 2026-11-21 15:59 | — |
@@ -43,7 +43,7 @@
 | 要求 | 对我们的影响 |
 |---|---|
 | 团队 ≤ 4 人，指定 1 名 Representative | 单人也可以；团队需明确提交人 |
-| 项目必须是 2026-09-29 之后新建 | 当前 repo 为空，符合 |
+| 项目必须是 2026-09-29 之后新建 | 2026-10-22 起新建，符合 |
 | 公开 GitHub repo | 当前 remote 是 `ruziniuuuuu/matchmind`，提交前确认 public |
 | 2 分钟以内 demo 视频，公网 URL | 必须提前录；不能超 2:00 |
 | 英文材料（或提供英文翻译） | 代码/README/视频/描述都用英文 |
@@ -665,7 +665,7 @@ matchmind/
 
 ## 10. 5.5 天执行计划
 
-> 实际按 **3 人并行** 执行，见 [EXECUTION.md](./EXECUTION.md) 的 A/B/C track 与 gate。下面保留单人 10-12h/天的详细节奏作为参考；单人每天 4-5h 走 §11.3 Minimum scope。
+> 实际按 **solo + 本地 8010** 执行；下面的单人 10-12h/天节奏适用，D3 把 8010 接公网 tunnel/反代。每天 4-5h 则走 §11.3 Minimum scope。
 
 ### D0 · 周四 10/22 晚（4h）：打通与垂直切片
 
@@ -676,7 +676,7 @@ matchmind/
 | 23:30-00:15 | repo 骨架、README、LICENSE、`.env.example` | `git push` 成功 |
 | 00:15-01:30 | MatchForge v0：1 场、~1,200 事件 | `make data` 生成 JSONL |
 | 01:30-02:00 | analytics v0：xG/xT/pressure + 1 个测试 | `pytest` 通过 |
-| 02:00-02:30 | hello-world 容器部署（Render/Fly/VPS 或本地） | 公网 URL 返回 200（或本地 8000） |
+| 02:00-02:30 | hello-world 容器/本地部署 | 本地 `:8010` 返回 200 |
 
 **D0 验收**：一条命令跑出 1 场比赛摘要；DeepSeek 返回 JSON；公网 hello-world 可访问。
 
@@ -957,37 +957,32 @@ matchmind/
 
 ---
 
-## 17. 今天就开始（3 人版，见 EXECUTION.md §8）
+## 17. 今天就开始（Solo，见 EXECUTION.md §8）
 
 | 时间 | 动作 | 完成标准 |
 |---|---|---|
-| 0:00-0:15 | 确认 3 人都在团队/提交名单；指定 Representative | 名单明确 |
-| 0:15-1:00 | B：DeepSeek raw SDK smoke test + Agent Framework hello agent | 终端返回结构化 JSON |
-| 0:15-1:00 | A：Event/Feature/Labels schema + MatchForge v0 | `data/demo/` 有 JSONL |
-| 0:15-1:00 | C：design tokens + Studio shell | 本地能打开 |
-| 1:00-1:45 | repo：README/LICENSE/.env.example/目录；push | GitHub 可见 |
-| 1:45-3:00 | 三人合并：1 场、1,200 事件、1 个 hero moment | `make data` 可复现 |
-| 3:00-3:40 | analytics v0：xG/xT/pressure + 测试 | `pytest` 绿 |
-| 3:40-4:00 | hello-world 容器（Render/Fly/VPS 或本地） | 公网 URL 200 或本地 8000 |
+| 0:00-0:15 | 确认报名信息；检查本地 API | `http://localhost:8010/healthz` OK |
+| 0:15-1:30 | Event/Feature/Labels schema + MatchForge v0（1 场、1,200 事件、hero moment） | `data/demo/` 有 JSONL |
+| 1:30-2:15 | analytics v0：xG/xT/pressure + 测试 | `pytest` 绿 |
+| 2:15-3:00 | FastAPI 读数据 + Studio shell（pitch/ticker） | 本地页面有数据 |
+| 3:00-3:40 | 提交本地 commit；更新 README | commit 完成 |
+| 3:40-4:00 | 明天 D1 计划；确认公网方案 | 计划明确 |
 
 **今天的 Definition of Done**：
 
-- [ ] 3 人名单/Representative 明确。
-- [ ] DeepSeek key 在 `.env`；smoke test 通过。
-- [ ] repo public + 骨架。
-- [ ] 1 场合成数据。
+- [ ] `.env` + DeepSeek smoke PASS。
+- [ ] 本地 `:8010` API 可访问。
+- [ ] repo 骨架 + 1 场合成数据。
 - [ ] 1 个指标测试。
-- [ ] 1 个可访问的 hello-world。
+- [ ] commit + README 更新。
 
 ---
 
-## 18. 需要你确认的 5 件事
+## 18. 需要你确认的 3 件事
 
-1. **团队报名**：3 个人都在团队/提交名单里吗？Representative 是谁？
-2. **DeepSeek**：API key 是否已就绪？当前环境没有 `DEEPSEEK_API_KEY`；把 key 放到 `.env`，不要发聊天里。
-3. **分工**：三个人各自最强的是什么（后端/前端/数据/设计/视频）？按强项认领 A/B/C。
-4. **宿主**：Render Starter / Fly.io / 香港或新加坡 VPS，哪个支付方便？预算 ~$10-20 到 11/10。
-5. **目标确认**：Best Multi-Agent 为主、Grand 为上限，是否同意？
+1. **公网方案**：提交前需要评委可访问的 URL；Cloudflare Tunnel / ngrok / Caddy 反代 / 便宜 VPS，你倾向哪个？
+2. **每天时间**：未来 5 天每天能投入几小时？决定走完整 Must 还是 §11.3 Minimum scope。
+3. **目标确认**：Best Multi-Agent 为主、Grand 为上限，是否同意？
 
 ---
 
