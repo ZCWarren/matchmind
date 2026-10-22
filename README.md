@@ -5,7 +5,7 @@
 MatchMind is a real-time explainability layer for football broadcast. It turns synthetic match events into grounded, timed match intelligence — a deterministic analytics engine feeds a five-agent workflow with a verifier, rendered as a broadcast-ready overlay for the studio and as a personalized second-screen experience for analysts, casual fans, and player-focused viewers.
 
 > Status: local closed loop live — five synthetic matches, deterministic analytics, five-agent pipeline, cached hero insight, live WebSocket replay, and Studio / Overlay / Fan at `http://localhost:8010`.
-> Product and architecture: [PLAN.md](./PLAN.md). Completion checklist: [EXECUTION.md](./EXECUTION.md).
+> Product and architecture: [PLAN.md](./PLAN.md). Completion checklist: [EXECUTION.md](./EXECUTION.md). Judge walkthrough: [docs/JUDGE-GUIDE.md](./docs/JUDGE-GUIDE.md).
 
 ## Surfaces
 
