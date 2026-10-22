@@ -22,6 +22,7 @@ from matchmind.agents.contracts import (
     TraceStep,
     VerificationResult,
 )
+from matchmind.agents.grounding import ensure_grounded
 from matchmind.agents.json_utils import run_json_agent
 from matchmind.agents.llm import build_chat_client
 from matchmind.agents.prompts import (
@@ -308,6 +309,7 @@ class MatchMindPipeline:
                 candidate = await run_with_tool(None)
             except Exception:
                 candidate = fallback_insight(moment, snapshot)
+        candidate = ensure_grounded(candidate, bundle, moment, snapshot)
 
         if request.adversarial_claim:
             speed = moment.metrics.get("event_speed") or snapshot.metrics.get("top_speed")
@@ -467,6 +469,8 @@ async def run_pipeline(match_id: str, request: PipelineRequest) -> PipelineResul
         cached = load_cached(match_id, request)
         if cached is not None:
             return cached
+    if request.cache_only:
+        raise FileNotFoundError("no cached insight for this moment")
     if settings.use_agent_graph and not request.adversarial_claim:
         try:
             from matchmind.agents.workflow import run_graph_pipeline

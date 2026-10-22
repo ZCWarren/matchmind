@@ -48,3 +48,30 @@ def test_public_demo_serves_cached_insight_only(monkeypatch) -> None:
     )
     assert missing.status_code == 503
     assert "disabled" in missing.json()["detail"]
+
+
+def test_cache_only_request_never_falls_back_to_live_generation() -> None:
+    client = TestClient(app)
+    cached = client.post(
+        f"/api/matches/{HERO}/insights",
+        json={
+            "moment_id": "mo-e-000974",
+            "profiles": ["analyst", "casual", "player"],
+            "languages": ["en", "es", "zh"],
+            "use_cache": True,
+            "cache_only": True,
+        },
+    )
+    assert cached.status_code == 200
+
+    missing = client.post(
+        f"/api/matches/{HERO}/insights",
+        json={
+            "moment_id": "mo-not-cached",
+            "profiles": ["analyst"],
+            "languages": ["en"],
+            "use_cache": True,
+            "cache_only": True,
+        },
+    )
+    assert missing.status_code == 404

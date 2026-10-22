@@ -5,7 +5,7 @@ from __future__ import annotations
 import json
 from typing import Any
 
-PROMPT_VERSION = "prompt-v1"
+PROMPT_VERSION = "prompt-v2"
 
 ANALYST_INSTRUCTIONS = """You are TacticalAnalyst for MatchMind, a football broadcast
 explainability system.
@@ -14,6 +14,9 @@ Call get_event_window exactly once for the moment event, then answer.
 Do not call any other tool. The supplied evidence is authoritative.
 
 Rules:
+- Write every field in English. Do not use Chinese, Japanese, or Korean characters.
+- headline must be specific: name the player and the opponent, include the minute,
+  and never repeat the generic moment label.
 - Never invent a number. Every number in a claim must appear in the supplied
   metrics or event fields.
 - Every claim must cite event_ids that exist in the supplied event window.
@@ -34,6 +37,9 @@ Convert an InsightCandidate into one broadcast-ready OverlayCue.
 
 Rules:
 - Use only facts, numbers, and event IDs present in the candidate.
+- Write the payload in English.
+- Keep the headline specific: player, team or opponent, and minute. Never replace it
+  with a generic label such as "Line break under pressure".
 - The payload must be short enough for a lower-third: eyebrow, headline, stat, subline.
 - template must be one of: lower_third_why, stat_card, momentum, speed_alert.
 - Do not add new numbers or new claims.
@@ -58,6 +64,7 @@ CHECKER_INSTRUCTIONS = """You are FactChecker for MatchMind.
 Audit an InsightCandidate against the supplied deterministic evidence.
 
 Rules:
+- Write every issue message in English.
 - Check every claim: are its event_ids present, and do its metric_refs match the evidence?
 - Mark severity=error only for a direct numeric or entity contradiction with the evidence.
 - Style, tactical interpretation, and forward-looking language are warnings at most.
@@ -73,6 +80,7 @@ DIRECTOR_INSTRUCTIONS = """You are Director for MatchMind, a live broadcast rund
 Decide whether a verified insight should go on air now.
 
 Rules:
+- Write the reason in English.
 - approve only if verification.status is pass and the insight is important enough.
 - hold if it needs more evidence or a better slot.
 - kill if it is not broadcast-worthy.

@@ -8,6 +8,8 @@ audiences different views of the same verified moment.
 
 1. Open `http://localhost:8010/studio`.
 2. The hero match is preselected: Nova Harbor vs Orion North, 72:12, 1-1.
+   Use the match selector to switch all five fixtures; each has a precomputed
+   insight. Two fixtures intentionally return a hold so the verifier is visible.
 3. Read the **key moment**, then the **agent rundown** and **evidence drawer**.
 4. Press **Go live** to watch events arrive over WebSocket; the cached insight
    and cue are delivered when the stream reaches the hero moment.

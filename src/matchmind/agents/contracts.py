@@ -163,6 +163,7 @@ class PipelineRequest(BaseModel):
     adversarial_claim: str | None = None
     use_mcp: bool = True
     use_cache: bool = True
+    cache_only: bool = False
 
 
 class PipelineResult(BaseModel):

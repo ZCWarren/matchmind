@@ -49,6 +49,7 @@ export const api = {
       profiles?: Profile[];
       languages?: Language[];
       use_cache?: boolean;
+      cache_only?: boolean;
       use_mcp?: boolean;
       adversarial_claim?: string;
     },

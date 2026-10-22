@@ -88,7 +88,7 @@ export default function Studio() {
   const [selectedClaim, setSelectedClaim] = useState(0);
 
   const loadInsight = useCallback(
-    async (matchId: string, moment: Moment, sourceEvents: Event[], useCache: boolean) => {
+    async (matchId: string, moment: Moment, sourceEvents: Event[], useCache: boolean, cacheOnly = false) => {
       setGenerating(true);
       setError(null);
       const started = performance.now();
@@ -98,6 +98,7 @@ export default function Studio() {
           profiles: PROFILES,
           languages: LANGUAGES,
           use_cache: useCache,
+          cache_only: cacheOnly,
           use_mcp: true,
         });
         setInsight(result);
@@ -111,7 +112,13 @@ export default function Studio() {
           setFeatures(null);
         }
       } catch (caught) {
-        setError(caught instanceof Error ? caught.message : "Could not generate insight");
+        setError(
+          cacheOnly
+            ? "No cached rundown for this moment yet. Generate to run it live."
+            : caught instanceof Error
+              ? caught.message
+              : "Could not generate insight",
+        );
       } finally {
         setGenerating(false);
       }
@@ -155,8 +162,8 @@ export default function Studio() {
         setCursor(eventIndex(eventPage.events, nextMoment?.event_id));
         setApproval("held");
         setLoading(false);
-        if (selected === HERO_MATCH && nextMoment) {
-          void loadInsight(selected, nextMoment, eventPage.events, true);
+        if (nextMoment) {
+          void loadInsight(selected, nextMoment, eventPage.events, true, true);
         }
       })
       .catch((caught) => {

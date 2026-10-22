@@ -6,6 +6,7 @@ import re
 from pathlib import Path
 
 from matchmind.agents.contracts import PipelineRequest, PipelineResult
+from matchmind.agents.prompts import PROMPT_VERSION
 from matchmind.config import settings
 
 _SAFE = re.compile(r"[^a-zA-Z0-9_.-]+")
@@ -19,7 +20,7 @@ def cache_path(match_id: str, request: PipelineRequest) -> Path:
     moment = request.moment_id or "top"
     profiles = "-".join(request.profiles)
     languages = "-".join(request.languages)
-    name = f"{_safe(moment)}__{_safe(profiles)}__{_safe(languages)}.json"
+    name = f"{_safe(moment)}__{_safe(profiles)}__{_safe(languages)}__{_safe(PROMPT_VERSION)}.json"
     return Path(settings.cache_dir) / _safe(match_id) / name
 
 

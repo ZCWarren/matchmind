@@ -1,0 +1,497 @@
+{
+  "match_id": "ast-2026-1108-kep-nhr",
+  "moment": {
+    "moment_id": "mo-e-001027",
+    "match_id": "ast-2026-1108-kep-nhr",
+    "event_id": "e-001027",
+    "clock": {
+      "period": 2,
+      "minute": 76,
+      "second": 4
+    },
+    "type": "line_break",
+    "importance": 0.8,
+    "headline": "Line break under pressure",
+    "event_ids": [
+      "e-001027"
+    ],
+    "metrics": {
+      "xt_delta": {
+        "name": "xt_delta",
+        "value": 0.118,
+        "unit": "threat",
+        "formula_version": "xt-grid-v1",
+        "event_ids": [
+          "e-001027"
+        ],
+        "inputs": {},
+        "label": null
+      },
+      "event_pressure": {
+        "name": "event_pressure",
+        "value": 0.51,
+        "unit": "0-1",
+        "formula_version": "pressure-v1",
+        "event_ids": [
+          "e-001027"
+        ],
+        "inputs": {},
+        "label": null
+      }
+    },
+    "analytics_version": "analytics-v1"
+  },
+  "clock": {
+    "period": 2,
+    "minute": 76,
+    "second": 4
+  },
+  "insight": {
+    "moment_id": "mo-e-001027",
+    "match_id": "ast-2026-1108-kep-nhr",
+    "headline": "KEP-09 breaks NHR's block at 76:04 with a 25.2 m pass up the right into the final third",
+    "why_it_matters": "With the score at 0-2, KEP needed to progress through a compact NHR block rather than circulate in front of it; KEP-09's line-breaking pass moved the ball from x 53.8 to x 77.8 in a single action and was followed immediately by a carry to x 87.6, turning sterile possession into an entry into the attacking third. NHR's response was two lost tackles, which shows the line break removed the covering challenge rather than just advancing the ball.",
+    "watch_next": "Watch item: whether NHR adjust the height of their pressing line after two lost tackles in the same sequence, since the next KEP progression (e-001031 to e-001032 for NHR) ended in an incomplete pass and may indicate a more stretched pitch.",
+    "claims": [
+      {
+        "text": "KEP-09's line-breaking pass to KEP-06 at 76:04 carried an xT delta of 0.118 and a difficulty of 6.1 while under 0.51 event pressure.",
+        "event_ids": [
+          "e-001027"
+        ],
+        "metric_refs": [
+          {
+            "name": "xt_delta",
+            "value": 0.118,
+            "formula_version": "xt-grid-v1",
+            "event_ids": [
+              "e-001027"
+            ]
+          },
+          {
+            "name": "event_pressure",
+            "value": 0.51,
+            "formula_version": "pressure-v1",
+            "event_ids": [
+              "e-001027"
+            ]
+          }
+        ],
+        "confidence": 0.86
+      },
+      {
+        "text": "NHR's press failed to stop the progression: NHR-03 (e-001023) and NHR-11 (e-001028) both recorded lost tackles, the second at the exact end location of the line break, x 77.8, y 76.0.",
+        "event_ids": [
+          "e-001023",
+          "e-001028",
+          "e-001027"
+        ],
+        "metric_refs": [],
+        "confidence": 0.82
+      },
+      {
+        "text": "KEP's progression came inside a supporting passing profile of 0.7964 pass completion at an average pass difficulty of 4.4216, indicating they were attempting harder passes than a simple circulation side.",
+        "event_ids": [
+          "e-001022",
+          "e-001025",
+          "e-001026",
+          "e-001027"
+        ],
+        "metric_refs": [
+          {
+            "name": "pass_completion",
+            "value": 0.7964,
+            "formula_version": "pass-quality-v1",
+            "event_ids": [
+              "e-001009",
+              "e-001010",
+              "e-001012",
+              "e-001014",
+              "e-001015",
+              "e-001016",
+              "e-001020",
+              "e-001022",
+              "e-001024",
+              "e-001025",
+              "e-001026",
+              "e-001027"
+            ]
+          },
+          {
+            "name": "pass_difficulty",
+            "value": 4.4216,
+            "formula_version": "pass-quality-v1",
+            "event_ids": [
+              "e-001009",
+              "e-001010",
+              "e-001012",
+              "e-001014",
+              "e-001015",
+              "e-001016",
+              "e-001020",
+              "e-001022",
+              "e-001024",
+              "e-001025",
+              "e-001026",
+              "e-001027"
+            ]
+          }
+        ],
+        "confidence": 0.7
+      },
+      {
+        "text": "The snapshot records 8.0 line breaks in this match, with e-001027 the most recent entry in that count.",
+        "event_ids": [
+          "e-001027"
+        ],
+        "metric_refs": [
+          {
+            "name": "line_breaks",
+            "value": 8.0,
+            "formula_version": "pass-quality-v1",
+            "event_ids": [
+              "e-000271",
+              "e-000745",
+              "e-000753",
+              "e-000830",
+              "e-000853",
+              "e-000870",
+              "e-000909",
+              "e-001027"
+            ]
+          }
+        ],
+        "confidence": 0.75
+      },
+      {
+        "text": "The moment occurred in a high-tempo, high-chaos phase, with rhythm at 13.5013 events per minute and chaos at 0.8488, and KEP's control reading of 0.614 against NHR's 0.6024 was only a narrow margin.",
+        "event_ids": [
+          "e-001027",
+          "e-001029"
+        ],
+        "metric_refs": [
+          {
+            "name": "rhythm_events_per_min",
+            "value": 13.5013,
+            "formula_version": "rhythm-v1",
+            "event_ids": [
+              "e-001016",
+              "e-001017",
+              "e-001018",
+              "e-001019",
+              "e-001020",
+              "e-001021",
+              "e-001022",
+              "e-001023",
+              "e-001024",
+              "e-001025",
+              "e-001026",
+              "e-001027"
+            ]
+          },
+          {
+            "name": "chaos",
+            "value": 0.8488,
+            "formula_version": "chaos-v1",
+            "event_ids": [
+              "e-000676",
+              "e-000683",
+              "e-000691",
+              "e-000719",
+              "e-000769",
+              "e-000798",
+              "e-000800",
+              "e-000849",
+              "e-000895",
+              "e-000928",
+              "e-000985",
+              "e-001017"
+            ]
+          },
+          {
+            "name": "control_home",
+            "value": 0.614,
+            "formula_version": "control-v1",
+            "event_ids": [
+              "e-001007",
+              "e-001014",
+              "e-001015",
+              "e-001016",
+              "e-001017",
+              "e-001018",
+              "e-001020",
+              "e-001022",
+              "e-001024",
+              "e-001025",
+              "e-001026",
+              "e-001027"
+            ]
+          },
+          {
+            "name": "control_away",
+            "value": 0.6024,
+            "formula_version": "control-v1",
+            "event_ids": [
+              "e-000990",
+              "e-000991",
+              "e-001003",
+              "e-001008",
+              "e-001009",
+              "e-001010",
+              "e-001011",
+              "e-001012",
+              "e-001013",
+              "e-001019",
+              "e-001021",
+              "e-001023"
+            ]
+          }
+        ],
+        "confidence": 0.68
+      }
+    ],
+    "importance": 0.8,
+    "confidence": 0.8
+  },
+  "cue": null,
+  "fan_cards": [
+    {
+      "insight_id": "mo-e-001027",
+      "profile": "analyst",
+      "language": "en",
+      "headline": "KEP-09's 25.2 m line break opens NHR at 76:04",
+      "what_happened": "At 76:04, trailing 0-2, KEP-09 broke NHR's block with a 25.2 m pass up the right from x 53.8 to x 77.8, then a carry reached x 87.6. The pass had xT delta 0.118 at 6.1 difficulty and 0.51 pressure; NHR-03 and NHR-11 lost tackles, the second at x 77.8, y 76.0.",
+      "why_it_matters": "This converted sterile possession into a final-third entry in one action, removing NHR's covering challenge rather than merely advancing the ball. It came in a high-chaos phase (chaos 0.8488, rhythm 13.5013), with control narrow at 0.614 to 0.6024, and was KEP's eighth line break.",
+      "watch_next": "",
+      "how_we_know": "The xT delta, pressure, and lost-tackle reads are recorded on e-001027, e-001023, and e-001028.",
+      "evidence_event_ids": [
+        "e-001027",
+        "e-001023",
+        "e-001028",
+        "e-001029"
+      ]
+    },
+    {
+      "insight_id": "mo-e-001027",
+      "profile": "analyst",
+      "language": "es",
+      "headline": "KEP-09 rompe el bloque de NHR al 76:04 con pase de 25,2 m",
+      "what_happened": "Al 76:04, con 0-2, KEP-09 dio un pase filtrado de 25,2 m por derecha que llevó el balón de x 53,8 a x 77,8 (xT 0,118; dificultad 6,1; presión 0,51) y luego condujo hasta x 87,6.",
+      "why_it_matters": "Rompió la cobertura de NHR: NHR-03 y NHR-11 perdieron entradas, la segunda en x 77,8, y no solo se avanzó el balón. En ritmo 13,5013 y caos 0,8488, el control fue estrecho: 0,614 vs. 0,6024.",
+      "watch_next": "Vigilar si NHR ajusta su línea de presión; la siguiente progresión de KEP terminó en pase incompleto, señal de un campo más estirado.",
+      "how_we_know": "Se basa en los eventos e-001027, e-001023 y e-001028 y sus métricas de xT y presión.",
+      "evidence_event_ids": [
+        "e-001027",
+        "e-001023",
+        "e-001028"
+      ]
+    },
+    {
+      "insight_id": "mo-e-001027",
+      "profile": "analyst",
+      "language": "zh",
+      "headline": "KEP-09第76:04以25.2米右侧穿越球破NHR block",
+      "what_happened": "0-2时，KEP-09于76:04从x53.8向x77.8送出25.2米右侧穿越球，xT增量0.118、难度6.1、压力0.51；随后带至x87.6。NHR-03、NHR-11连续丢抢，第二点在x77.8,y76.0。该段节奏13.5013事件/分、chaos0.8488，KEP控制0.614对0.6024；本场line breaks为8.0。",
+      "why_it_matters": "这是紧凑block内用单次高难度传球剥离覆盖，而非横向倒脚；丢抢点落在穿越球终点，说明协防挑战被移除，KEP把无效控球转为三区入口。",
+      "watch_next": "看NHR是否调整压迫线高度；随后一次KEP推进以不完整传球告终，阵型或被拉长。",
+      "how_we_know": "以上由e-001027的xT/压力指标、e-001023与e-001028的丢抢，以及e-001027/e-001029的节奏与控制快照支撑。",
+      "evidence_event_ids": [
+        "e-001027",
+        "e-001023",
+        "e-001028",
+        "e-001029",
+        "e-001031",
+        "e-001032"
+      ]
+    },
+    {
+      "insight_id": "mo-e-001027-casual",
+      "profile": "casual",
+      "language": "en",
+      "headline": "KEP-09 threads a 25-metre pass straight through NHR's wall",
+      "what_happened": "KEP-09 slipped a 25-metre pass through NHR's wall of defenders, then KEP pushed forward again. Two NHR tackles missed, and suddenly KEP were in the attacking third instead of passing sideways.",
+      "why_it_matters": "At 0-2 down, sideways passes don't help. One pass turned nothing into a real attack.",
+      "watch_next": "Watch whether NHR push their defensive line higher next time, after two missed tackles in a row.",
+      "how_we_know": "The pass at 76:04 (e-001027) moved the ball deep into NHR territory, and the two missed tackles are logged as e-001023 and e-001028.",
+      "evidence_event_ids": [
+        "e-001027",
+        "e-001023",
+        "e-001028"
+      ]
+    },
+    {
+      "insight_id": "mo-e-001027",
+      "profile": "casual",
+      "language": "es",
+      "headline": "Un pase de 25 metros rompe el muro de NHR",
+      "what_happened": "Con 0-2, KEP-09 abrió el muro de NHR con un pase de 25 metros por la derecha y metió a KEP en el último tercio. Como abrir una puerta cerrada.",
+      "why_it_matters": "Con el marcador en contra, cambió posesión inofensiva por ataque real: dos defensas de NHR fallaron sus entradas después.",
+      "watch_next": "Ojo: si NHR sube su línea de presión tras esas dos entradas falladas.",
+      "how_we_know": "El evento e-001027 registra el pase en el minuto 76:04 y las entradas falladas de NHR aparecen en e-001023 y e-001028.",
+      "evidence_event_ids": [
+        "e-001027",
+        "e-001023",
+        "e-001028"
+      ]
+    },
+    {
+      "insight_id": "mo-e-001027-casual-zh",
+      "profile": "casual",
+      "language": "zh",
+      "headline": "一脚直塞撕开NHR防线，KEP终于冲进前场",
+      "what_happened": "第76分钟，0-2落后的KEP-09在右路送出一脚25.2米直塞，穿过NHR防线；队友接着带球推进，NHR两次抢断都没成功。",
+      "why_it_matters": "这像堵车时找到一条空车道，KEP把原地倒脚变成了真正进攻。",
+      "watch_next": "看NHR接下来会不会把防线往前压，避免再被一脚打穿。",
+      "how_we_know": "依据是e-001027这次传球，以及随后e-001023、e-001028两次抢断失败。",
+      "evidence_event_ids": [
+        "e-001027",
+        "e-001023",
+        "e-001028"
+      ]
+    },
+    {
+      "insight_id": "mo-e-001027",
+      "profile": "player",
+      "language": "en",
+      "headline": "KEP-09 turns pressure into a 25.2 m line break at 76:04",
+      "what_happened": "At 76:04, KEP-09 took the ball on the right and played a 25.2 m pass from x 53.8 to x 77.8, splitting NHR's block under 0.51 event pressure. The ball then moved immediately to x 87.6, taking KEP into the final third.",
+      "why_it_matters": "That is the action that changes the picture: KEP-09's line-breaking pass beat NHR's compact block instead of letting KEP circulate in front of it. NHR responded with two lost tackles, including NHR-11's at the exact end point of the break, so the pass removed the covering challenge and turned possession into territory.",
+      "watch_next": "Watch whether NHR adjust the height of their pressing line after those two lost tackles; the next KEP progression ended in an incomplete pass, which may show the pitch stretching.",
+      "how_we_know": "The event data records KEP-09's 76:04 line-breaking pass (e-001027), NHR's lost tackles (e-001023, e-001028), and the immediate follow-up sequence (e-001029).",
+      "evidence_event_ids": [
+        "e-001027",
+        "e-001023",
+        "e-001028",
+        "e-001029"
+      ]
+    },
+    {
+      "insight_id": "mo-e-001027",
+      "profile": "player",
+      "language": "es",
+      "headline": "KEP-09 rompe el bloque de NHR al 76:04 con un pase de 25.2 m por la derecha a la última línea",
+      "what_happened": "KEP-09 recibió en x 53.8 con presión baja (0.51) y no circuló: metió un pase vertical de 25.2 m a KEP-06 al espacio, hasta x 77.8. Apenas soltó el balón, siguió la jugada con una conducción hasta x 87.6, entrando él mismo al tercio final. Su movimiento obligó a NHR a reaccionar tarde: NHR-03 y NHR-11 perdieron los duelos, el segundo justo en el punto donde aterrizó el pase (x 77.8, y 76.0).",
+      "why_it_matters": "Para un jugador, la lección está en la secuencia: recibir perfilado, decidir en un toque y acompañar la acción corriendo a la espalda de la línea que acabas de romper. KEP-09 no se quedó mirando su propio pase; su conducción posterior fue lo que convirtió la ruptura en entrada real al último tercio y eliminó la cobertura de NHR.",
+      "watch_next": "Ojo a la altura de la línea de presión de NHR tras esos dos duelos perdidos: si suben, el siguiente pase a la espalda de KEP-09 vuelve a estar disponible.",
+      "how_we_know": "Se basa en el evento e-001027 (pase de KEP-09 con xT +0.118 y dificultad 6.1) y en los duelos perdidos de NHR-03 (e-001023) y NHR-11 (e-001028).",
+      "evidence_event_ids": [
+        "e-001027",
+        "e-001023",
+        "e-001028",
+        "e-001022",
+        "e-001025",
+        "e-001026"
+      ]
+    },
+    {
+      "insight_id": "mo-e-001027",
+      "profile": "player",
+      "language": "zh",
+      "headline": "KEP-09右路25.2米前传打穿NHR防线，随后自己带球推进到x 87.6",
+      "what_happened": "76:04，比分0-2。KEP-09在右侧拿球后送出一记25.2米的前传，把球从x 53.8直接送到x 77.8的进攻三区；出球时他承受0.51的压迫，传球难度为6.1。球刚出脚，他立刻跟上继续带球，一路推进到x 87.6。",
+      "why_it_matters": "这脚球是直接切开NHR紧凑防线的直塞，并非横传倒脚。NHR-03和NHR-11随后两次抢断都失败，第二次就发生在他的传球落点x 77.8, y 76.0。他这一下不仅把球送进危险区域，还让对方原本负责补防的球员被甩在身后。",
+      "watch_next": "看NHR是否会被迫抬高逼抢线：同一波进攻里他们连丢两次抢断，防线已经被拉开。",
+      "how_we_know": "以上判断依据是e-001027这次传球事件及其xT增量0.118、事件压迫0.51，以及e-001023、e-001028两次丢失抢断的记录。",
+      "evidence_event_ids": [
+        "e-001027",
+        "e-001023",
+        "e-001028",
+        "e-001022",
+        "e-001025",
+        "e-001026",
+        "e-001029"
+      ]
+    }
+  ],
+  "verification": {
+    "status": "pass",
+    "issues": [
+      {
+        "code": "review_superlative",
+        "message": "Superlative wording needs explicit support",
+        "claim_index": 1,
+        "severity": "warn"
+      },
+      {
+        "code": "review_superlative",
+        "message": "Superlative wording needs explicit support",
+        "claim_index": 3,
+        "severity": "warn"
+      },
+      {
+        "code": "review_superlative",
+        "message": "Superlative wording needs explicit support",
+        "claim_index": 4,
+        "severity": "warn"
+      },
+      {
+        "code": "model_issue",
+        "message": "e-001023 appears before e-001027; only e-001028 is verified as a post-line-break lost tackle.",
+        "claim_index": null,
+        "severity": "warn"
+      },
+      {
+        "code": "model_issue",
+        "message": "Watch_next labels NHR passes e-001031/e-001032 as a KEP progression.",
+        "claim_index": null,
+        "severity": "warn"
+      },
+      {
+        "code": "model_issue",
+        "message": "Pass metrics are match-wide; KEP-specific completion is 0.7864, so KEP attribution is unclear.",
+        "claim_index": null,
+        "severity": "warn"
+      }
+    ],
+    "checked_claims": 5,
+    "notes": "deterministic verifier"
+  },
+  "decision": {
+    "action": "hold",
+    "priority": 0.7,
+    "duration_seconds": 8.0,
+    "reason": "Verification passed, but the item still has unresolved wording and attribution warnings: one cited lost tackle predates the line break, the watch-next note mislabels NHR passes as KEP progression, and KEP-specific pass attribution is unclear. It is potentially broadcast-worthy, so hold until the lower-third claims are corrected and the KEP-09 line-break framing is confirmed."
+  },
+  "trace": [
+    {
+      "agent": "TacticalAnalyst",
+      "model": "deepseek-flash",
+      "prompt_version": "prompt-v2",
+      "latency_ms": 22722.1,
+      "status": "ok",
+      "error": ""
+    },
+    {
+      "agent": "StoryProducer",
+      "model": "deepseek-flash",
+      "prompt_version": "prompt-v2",
+      "latency_ms": 18491.9,
+      "status": "ok",
+      "error": ""
+    },
+    {
+      "agent": "AudienceEditor",
+      "model": "deepseek-flash",
+      "prompt_version": "prompt-v2",
+      "latency_ms": 29922.4,
+      "status": "ok",
+      "error": ""
+    },
+    {
+      "agent": "FactChecker",
+      "model": "deepseek-flash",
+      "prompt_version": "prompt-v2",
+      "latency_ms": 32537.9,
+      "status": "ok",
+      "error": ""
+    },
+    {
+      "agent": "Director",
+      "model": "deepseek-flash",
+      "prompt_version": "prompt-v2",
+      "latency_ms": 13658.9,
+      "status": "ok",
+      "error": ""
+    }
+  ],
+  "fallback": false
+}

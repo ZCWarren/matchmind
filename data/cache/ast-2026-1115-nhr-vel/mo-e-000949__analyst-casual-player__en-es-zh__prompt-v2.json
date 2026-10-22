@@ -1,0 +1,469 @@
+{
+  "match_id": "ast-2026-1115-nhr-vel",
+  "moment": {
+    "moment_id": "mo-e-000949",
+    "match_id": "ast-2026-1115-nhr-vel",
+    "event_id": "e-000949",
+    "clock": {
+      "period": 2,
+      "minute": 72,
+      "second": 1
+    },
+    "type": "line_break",
+    "importance": 0.8,
+    "headline": "Line break under pressure",
+    "event_ids": [
+      "e-000949"
+    ],
+    "metrics": {
+      "xt_delta": {
+        "name": "xt_delta",
+        "value": 0.0901,
+        "unit": "threat",
+        "formula_version": "xt-grid-v1",
+        "event_ids": [
+          "e-000949"
+        ],
+        "inputs": {},
+        "label": null
+      },
+      "event_pressure": {
+        "name": "event_pressure",
+        "value": 0.86,
+        "unit": "0-1",
+        "formula_version": "pressure-v1",
+        "event_ids": [
+          "e-000949"
+        ],
+        "inputs": {},
+        "label": null
+      }
+    },
+    "analytics_version": "analytics-v1"
+  },
+  "clock": {
+    "period": 2,
+    "minute": 72,
+    "second": 1
+  },
+  "insight": {
+    "moment_id": "mo-e-000949",
+    "match_id": "ast-2026-1115-nhr-vel",
+    "headline": "VEL-07 beats NHR's line with a 23.9 m pass at 72:01 under 0.86 pressure",
+    "why_it_matters": "The moment is a line break rather than a shot: VEL-07's completed ball from x 46.0 to x 68.4 moved the ball through NHR's structure at the highest recorded pressure point of the sequence (event pressure 0.86, pass difficulty 6.9), which is why the snapshot credits it with a positive xT delta of 0.0901. It shows VEL's route to progression in a 2-2 game late in the second half is the direct pass through the press, not sustained circulation, though the next VEL pass from the receiving position was incomplete, so the break did not become a shooting chance.",
+    "watch_next": "Watch item: whether NHR alters its pressure commitment on VEL's deep outlets, since the 72:01 line break was followed by an immediate incomplete pass (e-000950) rather than a shot.",
+    "claims": [
+      {
+        "text": "VEL-07's completed pass to VEL-09 at 72:01 was tagged line_break and carried the ball 23.9 m from x 46.0 to x 68.4 while facing event pressure of 0.86.",
+        "event_ids": [
+          "e-000949"
+        ],
+        "metric_refs": [
+          {
+            "name": "event_pressure",
+            "value": 0.86,
+            "formula_version": "pressure-v1",
+            "event_ids": [
+              "e-000949"
+            ]
+          }
+        ],
+        "confidence": 0.86
+      },
+      {
+        "text": "The break produced an xT delta of 0.0901, the largest single-event threat gain attached to this moment, against a match context of xt_away 17.9947 and xt_home 20.267.",
+        "event_ids": [
+          "e-000949"
+        ],
+        "metric_refs": [
+          {
+            "name": "xt_delta",
+            "value": 0.0901,
+            "formula_version": "xt-grid-v1",
+            "event_ids": [
+              "e-000949"
+            ]
+          },
+          {
+            "name": "xt_away",
+            "value": 17.9947,
+            "formula_version": "xt-grid-v1",
+            "event_ids": [
+              "e-000923",
+              "e-000924",
+              "e-000934",
+              "e-000935",
+              "e-000936",
+              "e-000937",
+              "e-000938",
+              "e-000940",
+              "e-000946",
+              "e-000947",
+              "e-000948",
+              "e-000949"
+            ]
+          },
+          {
+            "name": "xt_home",
+            "value": 20.267,
+            "formula_version": "xt-grid-v1",
+            "event_ids": [
+              "e-000917",
+              "e-000918",
+              "e-000926",
+              "e-000927",
+              "e-000928",
+              "e-000929",
+              "e-000930",
+              "e-000932",
+              "e-000941",
+              "e-000942",
+              "e-000943",
+              "e-000945"
+            ]
+          }
+        ],
+        "confidence": 0.8
+      },
+      {
+        "text": "The break came one second after VEL-06's incomplete pass at 72:01 (e-000948), so VEL re-established progression through a single pass rather than a passing sequence.",
+        "event_ids": [
+          "e-000948",
+          "e-000949"
+        ],
+        "metric_refs": [],
+        "confidence": 0.72
+      },
+      {
+        "text": "The window's tempo context is high, with chaos at 0.809 and rhythm at 13.1775 events per minute, and away pass completion at 0.8345 versus home 0.8203 across the snapshot windows.",
+        "event_ids": [
+          "e-000949",
+          "e-000950"
+        ],
+        "metric_refs": [
+          {
+            "name": "chaos",
+            "value": 0.809,
+            "formula_version": "chaos-v1",
+            "event_ids": [
+              "e-000459",
+              "e-000473",
+              "e-000507",
+              "e-000626",
+              "e-000694",
+              "e-000716",
+              "e-000727",
+              "e-000738",
+              "e-000760",
+              "e-000793",
+              "e-000815",
+              "e-000876"
+            ]
+          },
+          {
+            "name": "rhythm_events_per_min",
+            "value": 13.1775,
+            "formula_version": "rhythm-v1",
+            "event_ids": [
+              "e-000938",
+              "e-000939",
+              "e-000940",
+              "e-000941",
+              "e-000942",
+              "e-000943",
+              "e-000944",
+              "e-000945",
+              "e-000946",
+              "e-000947",
+              "e-000948",
+              "e-000949"
+            ]
+          },
+          {
+            "name": "pass_completion_away",
+            "value": 0.8345,
+            "formula_version": "pass-quality-v1",
+            "event_ids": [
+              "e-000923",
+              "e-000924",
+              "e-000934",
+              "e-000935",
+              "e-000936",
+              "e-000937",
+              "e-000938",
+              "e-000940",
+              "e-000946",
+              "e-000947",
+              "e-000948",
+              "e-000949"
+            ]
+          },
+          {
+            "name": "pass_completion_home",
+            "value": 0.8203,
+            "formula_version": "pass-quality-v1",
+            "event_ids": [
+              "e-000917",
+              "e-000918",
+              "e-000926",
+              "e-000927",
+              "e-000928",
+              "e-000929",
+              "e-000930",
+              "e-000932",
+              "e-000941",
+              "e-000942",
+              "e-000943",
+              "e-000945"
+            ]
+          }
+        ],
+        "confidence": 0.7
+      },
+      {
+        "text": "VEL could not build on the break: VEL-02's pass from the receiving position x 68.4 at 72:08 was incomplete, and the snapshot momentum of -0.2263 lists e-000949 among its inputs.",
+        "event_ids": [
+          "e-000949",
+          "e-000950"
+        ],
+        "metric_refs": [
+          {
+            "name": "momentum",
+            "value": -0.2263,
+            "formula_version": "momentum-v1",
+            "event_ids": [
+              "e-000926",
+              "e-000927",
+              "e-000928",
+              "e-000934",
+              "e-000936",
+              "e-000937",
+              "e-000938",
+              "e-000940",
+              "e-000942",
+              "e-000946",
+              "e-000947",
+              "e-000949"
+            ]
+          }
+        ],
+        "confidence": 0.75
+      }
+    ],
+    "importance": 0.8,
+    "confidence": 0.79
+  },
+  "cue": {
+    "cue_id": "cue-mo-e-000949",
+    "insight_id": "mo-e-000949",
+    "template": "lower_third_why",
+    "priority": 0.8,
+    "duration_seconds": 8.0,
+    "safe_area": "lower_third",
+    "payload": {
+      "eyebrow": "VEL line break · 72:01",
+      "headline": "VEL-07 beats NHR's line with 23.9 m pass at 72:01",
+      "stat": "23.9 m · pressure 0.86 · xT +0.0901",
+      "subline": "Break followed by incomplete pass (e-000950)"
+    }
+  },
+  "fan_cards": [
+    {
+      "insight_id": "mo-e-000949",
+      "profile": "analyst",
+      "language": "en",
+      "headline": "VEL-07's 23.9 m line break beat NHR's press at 72:01",
+      "what_happened": "At 72:01, VEL-07 completed a 23.9 m pass from x 46.0 to x 68.4 through NHR's line under 0.86 pressure and 6.9 pass difficulty, producing an xT delta of 0.0901 one second after VEL-06's incomplete pass.",
+      "why_it_matters": "It shows VEL's late 2-2 route was direct progression through the press, not circulation. But VEL-02's pass from x 68.4 at 72:08 was incomplete, so the break did not become a shot.",
+      "watch_next": "Watch whether NHR changes its pressure commitment on VEL's deep outlets after this break.",
+      "how_we_know": "Event e-000949 carries the completed line-break, pressure and xT evidence, with e-000948 and e-000950 marking the adjacent incomplete passes.",
+      "evidence_event_ids": [
+        "e-000949",
+        "e-000948",
+        "e-000950"
+      ]
+    },
+    {
+      "insight_id": "mo-e-000949",
+      "profile": "analyst",
+      "language": "es",
+      "headline": "VEL-07 rompe la línea de NHR con un pase de 23,9 m a presión 0,86 en el 72:01",
+      "what_happened": "En el 72:01, VEL-07 completó un pase de 23,9 m desde x 46,0 hasta x 68,4, etiquetado line_break, bajo presión de evento 0,86 y dificultad de pase 6,9; llegó un segundo después del pase incompleto de VEL-06 (e-000948).",
+      "why_it_matters": "El valor está en la progresión, no en el remate: el evento aportó un delta de xT de 0,0901, el mayor de la secuencia, en un contexto de alta temperatura (caos 0,809; ritmo 13,1775 eventos/min) y con VEL necesitando atravesar la presión directamente en un 2-2 tardío. Sin embargo, el pase siguiente desde x 68,4 fue incompleto (e-000950), así que la ruptura no se convirtió en ocasión.",
+      "watch_next": "Vigilar si NHR ajusta su compromiso de presión sobre las salidas profundas de VEL, ya que la ruptura del 72:01 fue seguida por un pase incompleto y no por remate.",
+      "how_we_know": "Se sostiene en el evento e-000949 y sus métricas registradas (presión 0,86, xT 0,0901), con el contexto inmediato de e-000948 y e-000950.",
+      "evidence_event_ids": [
+        "e-000949",
+        "e-000948",
+        "e-000950"
+      ]
+    },
+    {
+      "insight_id": "mo-e-000949",
+      "profile": "analyst",
+      "language": "zh",
+      "headline": "72:01，VEL-07在0.86压迫下以23.9米传球打穿NHR防线",
+      "what_happened": "72:01，VEL-07完成一记被标记为line_break的传球找到VEL-09，皮球从x 46.0推进至x 68.4，行进23.9米，当时事件压迫值为0.86、传球难度6.9。该事件带来0.0901的xT增量，是本时刻最大的单事件威胁增益。值得注意的是，这次突破发生在此前1秒VEL-06传球未完成（e-000948）之后，VEL以单次传球而非连续传递重新建立推进；而接球位置x 68.4处的下一次VEL传球（e-000950）未能完成。",
+      "why_it_matters": "这是一次线路突破而非射门机会：在2-2的第二半场后段，VEL的推进路径是直接穿透压迫，而非持续控球。窗口节奏偏高（chaos 0.809、rhythm 13.1775事件/分钟），客队传球成功率0.8345略优于主队0.8203，但突破后的传球失误意味着这次线路撕裂没有转化为射门。",
+      "watch_next": "观察NHR是否调整对VEL后场出球点的压迫投入——72:01的突破之后紧接的是一次未完成传球（e-000950），而非射门。",
+      "how_we_know": "依据e-000949的line_break标记、事件压迫0.86与xT增量0.0901，以及e-000948、e-000950的前后衔接与chaos、rhythm、传球成功率等窗口指标。",
+      "evidence_event_ids": [
+        "e-000949",
+        "e-000948",
+        "e-000950"
+      ]
+    },
+    {
+      "insight_id": "mo-e-000949",
+      "profile": "casual",
+      "language": "en",
+      "headline": "VEL-07 threads one through the press, but it fizzles",
+      "what_happened": "At 72:01, VEL-07 fired a 23.9 m pass straight through NHR's press while under heavy pressure.",
+      "why_it_matters": "It was VEL's cleanest way forward in a 2-2 game, but the very next pass went astray, so the break never became a shot.",
+      "watch_next": "Watch whether NHR keeps pressing VEL's deep outlets as hard after this.",
+      "how_we_know": "The pass at 72:01 is tagged as a line break with 0.86 event pressure, and the following pass attempt is logged as incomplete.",
+      "evidence_event_ids": [
+        "e-000948",
+        "e-000949",
+        "e-000950"
+      ]
+    },
+    {
+      "insight_id": "mo-e-000949",
+      "profile": "casual",
+      "language": "es",
+      "headline": "VEL-07 rompe la línea de NHR con un pase de 23,9 m",
+      "what_happened": "A los 72:01, VEL-07 rompió la línea de NHR con un pase de 23,9 m bajo presión. Recibió VEL-09, pero el siguiente pase de VEL falló.",
+      "why_it_matters": "Fue como abrir una puerta con una sola llave: VEL avanzó directo, aunque no logró rematar.",
+      "watch_next": "Ver si NHR ajusta su presión sobre las salidas profundas de VEL.",
+      "how_we_know": "Se apoya en el evento e-000949 y en el pase incompleto posterior e-000950.",
+      "evidence_event_ids": [
+        "e-000948",
+        "e-000949",
+        "e-000950"
+      ]
+    },
+    {
+      "insight_id": "mo-e-000949",
+      "profile": "casual",
+      "language": "zh",
+      "headline": "一脚直塞穿了人缝，可惜下一脚就丢了",
+      "what_happened": "72:01，VEL-07在紧逼下送出一脚23.9米的直塞，直接把球从自己半场送进对方防线身后。",
+      "why_it_matters": "就像在拥挤的人群里找到一条缝钻过去。可惜接球后的下一脚传球没传好，这次突破没能变成射门。",
+      "watch_next": "接下来看NHR会不会调整对VEL后场出球点的逼抢力度。",
+      "how_we_know": "依据72:01这次传球事件（e-000949）及其后的那次未完成传球（e-000950）。",
+      "evidence_event_ids": [
+        "e-000949",
+        "e-000948",
+        "e-000950"
+      ]
+    },
+    {
+      "insight_id": "mo-e-000949-player-en",
+      "profile": "player",
+      "language": "en",
+      "headline": "VEL-07: break the line, then make the next pass count",
+      "what_happened": "At 72:01, one second after VEL-06's incomplete pass, VEL-07 took the ball and hit a 23.9 m completed pass from x 46.0 to x 68.4 through NHR's line, under event pressure 0.86 and pass difficulty 6.9. The break added 0.0901 xT.",
+      "why_it_matters": "Your line break moved VEL through NHR's press in a 2-2 game, but the next pass from the receiving position at 72:08 was incomplete, so the break didn't become a shot. The action was right; the follow-up needed cleaner support.",
+      "watch_next": "Watch whether NHR keeps committing to pressure on VEL's deep outlets after this break.",
+      "how_we_know": "The evidence is the tagged line-break pass e-000949, the preceding incomplete pass e-000948, and the next incomplete pass e-000950.",
+      "evidence_event_ids": [
+        "e-000949",
+        "e-000948",
+        "e-000950"
+      ]
+    },
+    {
+      "insight_id": "mo-e-000949",
+      "profile": "player",
+      "language": "es",
+      "headline": "VEL-07 rompe la línea con un pase de 23,9 m bajo presión",
+      "what_happened": "A los 72:01, VEL-07 completó un pase de 23,9 m que llevó el balón desde x 46.0 hasta x 68.4, atravesando la estructura de NHR con presión de evento de 0.86. Llegó un segundo después del pase incompleto de VEL-06, así que VEL-07 recompuso la progresión con una sola acción.",
+      "why_it_matters": "Para VEL-07, la solución en este tramo fue el pase directo a través de la presión, no la circulación. El avance generó un xT delta de 0.0901, pero el siguiente pase de VEL desde la posición receptora a los 72:08 fue incompleto, por lo que la ruptura no se convirtió en ocasión de disparo.",
+      "watch_next": "Ver si NHR cambia su compromiso de presión sobre las salidas profundas de VEL, porque la ruptura de las 72:01 terminó con un pase incompleto inmediato.",
+      "how_we_know": "Se basa en el evento e-000949, su presión de evento de 0.86, el pase completado de 23,9 m y el posterior pase incompleto e-000950.",
+      "evidence_event_ids": [
+        "e-000948",
+        "e-000949",
+        "e-000950"
+      ]
+    },
+    {
+      "insight_id": "mo-e-000949",
+      "profile": "player",
+      "language": "zh",
+      "headline": "VEL-07 在 72:01 顶着 0.86 压力，用 23.9 米传球打穿 NHR 防线",
+      "what_happened": "72:01，VEL-06 的传球刚刚未完成，VEL-07 随即从 x 46.0 向前出球到 x 68.4，完成 23.9 米传递并找到 VEL-09。这次传球发生在 0.86 的事件压力下，传球难度为 6.9。但 VEL-02 从 x 68.4 接球后的下一脚传球未完成，这次破线没有转成射门。",
+      "why_it_matters": "对球员来说，这一下的关键在选位、身体朝向和出球速度：不是回传保球，而是顶着压迫直接穿过 NHR 的线。破线后如果接应点处理不够快，优势会立刻丢掉；VEL-07 这次做到了第一脚，但后续没接上。",
+      "watch_next": "看 NHR 是否继续压 VEL 的深位出球点，以及 VEL-07 破线后的接应和二次跑动是否更快。",
+      "how_we_know": "这条判断来自 72:01 的 e-000949 传球事件，以及随后 e-000950 的未完成传球记录。",
+      "evidence_event_ids": [
+        "e-000948",
+        "e-000949",
+        "e-000950"
+      ]
+    }
+  ],
+  "verification": {
+    "status": "pass",
+    "issues": [
+      {
+        "code": "model_issue",
+        "message": "e-000948 and e-000949 share clock 72:01; 'one second after' is incorrect.",
+        "claim_index": 3,
+        "severity": "error"
+      }
+    ],
+    "checked_claims": 5,
+    "notes": "deterministic verifier"
+  },
+  "decision": {
+    "action": "approve",
+    "priority": 0.72,
+    "duration_seconds": 8.0,
+    "reason": "Verification passed and the line break is broadcast-worthy: a 23.9 m completed pass through NHR's press at 0.86 event pressure with the largest xT delta (0.0901) of the moment, in a 2-2 game at 72:01. Importance 0.8 justifies a lower-third now. One caveat for the script: the verifier flagged claim 3 as an error because e-000948 and e-000949 share the 72:01 clock, so do not describe the break as coming 'one second after' the previous incomplete pass; present it as VEL re-establishing progression with a single pass. Also keep the framing honest that the break did not become a shooting chance."
+  },
+  "trace": [
+    {
+      "agent": "TacticalAnalyst",
+      "model": "deepseek-flash",
+      "prompt_version": "prompt-v2",
+      "latency_ms": 24979.7,
+      "status": "ok",
+      "error": ""
+    },
+    {
+      "agent": "StoryProducer",
+      "model": "deepseek-flash",
+      "prompt_version": "prompt-v2",
+      "latency_ms": 11473.9,
+      "status": "ok",
+      "error": ""
+    },
+    {
+      "agent": "FactChecker",
+      "model": "deepseek-flash",
+      "prompt_version": "prompt-v2",
+      "latency_ms": 16002.8,
+      "status": "ok",
+      "error": ""
+    },
+    {
+      "agent": "AudienceEditor",
+      "model": "deepseek-flash",
+      "prompt_version": "prompt-v2",
+      "latency_ms": 22505.5,
+      "status": "ok",
+      "error": ""
+    },
+    {
+      "agent": "Director",
+      "model": "deepseek-flash",
+      "prompt_version": "prompt-v2",
+      "latency_ms": 6241.2,
+      "status": "ok",
+      "error": ""
+    }
+  ],
+  "fallback": false
+}

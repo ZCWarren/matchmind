@@ -26,6 +26,7 @@ from matchmind.agents.contracts import (
     TraceStep,
     VerificationResult,
 )
+from matchmind.agents.grounding import ensure_grounded
 from matchmind.agents.pipeline import (
     MatchMindPipeline,
     _window,
@@ -144,6 +145,7 @@ async def analyst(state: GraphState, ctx: WorkflowContext[GraphEnvelope]) -> Non
                 )
             )
             candidate = fallback_insight(state.moment, state.snapshot)
+    candidate = ensure_grounded(candidate, state.bundle, state.moment, state.snapshot)
     if candidate is not None and not state.trace:
         state.trace.append(
             TraceStep(
