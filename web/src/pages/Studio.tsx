@@ -10,7 +10,7 @@ import {
   Sparkle,
 } from "@phosphor-icons/react";
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useSearchParams } from "react-router-dom";
 import AgentRundown from "../components/AgentRundown";
 import Brand from "../components/Brand";
 import EventTicker from "../components/EventTicker";
@@ -64,8 +64,9 @@ function momentLabel(type: string): string {
 }
 
 export default function Studio() {
+  const [params, setParams] = useSearchParams();
   const [matches, setMatches] = useState<MatchSummary[]>([]);
-  const [selected, setSelected] = useState(HERO_MATCH);
+  const [selected, setSelected] = useState(params.get("match") ?? HERO_MATCH);
   const [detail, setDetail] = useState<MatchDetail | null>(null);
   const [events, setEvents] = useState<Event[]>([]);
   const [moments, setMoments] = useState<Moment[]>([]);
@@ -78,6 +79,18 @@ export default function Studio() {
   const [speed, setSpeed] = useState(1);
   const [overlayVariant, setOverlayVariant] = useState<OverlayVariant>("lower_third");
   const liveSocket = useRef<WebSocket | null>(null);
+
+  const selectMatch = (matchId: string) => {
+    setSelected(matchId);
+    const next = new URLSearchParams(params);
+    next.set("match", matchId);
+    setParams(next, { replace: true });
+  };
+
+  useEffect(() => {
+    const fromUrl = params.get("match");
+    if (fromUrl && fromUrl !== selected) setSelected(fromUrl);
+  }, [params, selected]);
   const [safe, setSafe] = useState(true);
   const [approval, setApproval] = useState<"approved" | "held">("held");
   const [loading, setLoading] = useState(true);
@@ -307,7 +320,7 @@ export default function Studio() {
           <select
             className="match-select"
             value={selected}
-            onChange={(event) => setSelected(event.target.value)}
+            onChange={(event) => selectMatch(event.target.value)}
             aria-label="Select match"
           >
             {matches.map((item) => (
@@ -386,7 +399,7 @@ export default function Studio() {
             <Link className="surface-link active" to="/studio">
               <Broadcast size={11} /> Studio
             </Link>
-            <Link className="surface-link" to="/overlay?bg=1">
+            <Link className="surface-link" to={`/overlay?bg=1&match=${selected}`}>
               <Monitor size={11} /> Overlay
             </Link>
             <Link className="surface-link" to={`/fan?match=${selected}`}>

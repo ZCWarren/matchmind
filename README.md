@@ -97,7 +97,7 @@ and the WebSocket feed are intentionally disabled there.
 
 ```
 https://ruziniuuuuu.github.io/matchmind-demo/
-https://ruziniuuuuu.github.io/matchmind-demo/#/studio
+https://ruziniuuuuu.github.io/matchmind-demo/#/studio?match=ast-2026-1025-vel-kep
 https://ruziniuuuuu.github.io/matchmind-demo/#/overlay?bg=1&template=stat_card
 https://ruziniuuuuu.github.io/matchmind-demo/#/fan?match=ast-2026-1025-vel-kep
 ```

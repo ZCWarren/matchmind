@@ -9,6 +9,7 @@ import { StrictMode } from "react";
 import { createRoot } from "react-dom/client";
 import { BrowserRouter, HashRouter } from "react-router-dom";
 import App from "./App";
+import ErrorBoundary from "./components/ErrorBoundary";
 import "./styles.css";
 
 const Router = import.meta.env.VITE_STATIC_DEMO === "true" ? HashRouter : BrowserRouter;
@@ -16,7 +17,9 @@ const Router = import.meta.env.VITE_STATIC_DEMO === "true" ? HashRouter : Browse
 createRoot(document.getElementById("root")!).render(
   <StrictMode>
     <Router>
-      <App />
+      <ErrorBoundary>
+        <App />
+      </ErrorBoundary>
     </Router>
   </StrictMode>,
 );

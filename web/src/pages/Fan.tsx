@@ -165,7 +165,7 @@ export default function Fan() {
         <header className="fan-header">
           <div className="fan-header-top">
             <Brand />
-            <Link className="fan-back" to="/studio">
+            <Link className="fan-back" to={`/studio?match=${matchId}`}>
               <ArrowLeft size={11} style={{ marginRight: 4, verticalAlign: -1 }} />
               Control room
             </Link>

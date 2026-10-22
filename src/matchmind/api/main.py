@@ -55,6 +55,7 @@ def root():
 def healthz() -> dict[str, str]:
     return {
         "status": "ok",
+        "version": __version__,
         "provider": settings.llm_provider,
         "demo_mode": settings.demo_mode,
     }
@@ -66,6 +67,7 @@ def app_config() -> dict[str, str | bool]:
         "provider": settings.llm_provider,
         "demo_mode": settings.demo_mode,
         "allow_live_generation": settings.allow_live_generation,
+        "public_base_url": settings.public_base_url,
     }
 
 if WEB_DIST.exists():
