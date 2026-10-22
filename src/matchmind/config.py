@@ -33,6 +33,8 @@ class Settings(BaseSettings):
     demo_mode: str = "replay"  # replay | live
     allow_live_generation: bool = True
     use_agent_graph: bool = True
+    agent_max_attempts: int = 2
+    agent_retry_delay_seconds: float = 0.35
     match_data_dir: str = "./data/demo"
     audit_db_path: str = "./data/audit.sqlite3"
     cache_dir: str = "./data/cache"

@@ -38,6 +38,7 @@ from matchmind.agents.prompts import (
     editor_prompt,
     producer_prompt,
 )
+from matchmind.agents.retry import retry_async
 from matchmind.agents.verifier import (
     fallback_card,
     fallback_cue,
@@ -140,73 +141,101 @@ class MatchMindPipeline:
         )
 
     async def _producer(self, candidate: InsightCandidate) -> OverlayCue:
-        agent = Agent(
-            client=build_chat_client(),
-            name="StoryProducer",
-            instructions=PRODUCER_INSTRUCTIONS,
-        )
-        return await asyncio.wait_for(
-            run_json_agent(
-                agent,
-                producer_prompt(candidate.model_dump(mode="json")),
-                OverlayCue,
-            ),
-            timeout=settings.llm_timeout_seconds,
+        async def attempt() -> OverlayCue:
+            agent = Agent(
+                client=build_chat_client(),
+                name="StoryProducer",
+                instructions=PRODUCER_INSTRUCTIONS,
+            )
+            return await asyncio.wait_for(
+                run_json_agent(
+                    agent,
+                    producer_prompt(candidate.model_dump(mode="json")),
+                    OverlayCue,
+                ),
+                timeout=settings.llm_timeout_seconds,
+            )
+
+        return await retry_async(
+            attempt,
+            attempts=settings.agent_max_attempts,
+            delay_seconds=settings.agent_retry_delay_seconds,
         )
 
     async def _editor(
         self, candidate: InsightCandidate, profile: str, language: str
     ) -> FanCard:
-        agent = Agent(
-            client=build_chat_client(),
-            name="AudienceEditor",
-            instructions=EDITOR_INSTRUCTIONS,
-        )
-        return await asyncio.wait_for(
-            run_json_agent(
-                agent,
-                editor_prompt(candidate.model_dump(mode="json"), profile, language),
-                FanCard,
-            ),
-            timeout=settings.llm_timeout_seconds,
+        async def attempt() -> FanCard:
+            agent = Agent(
+                client=build_chat_client(),
+                name="AudienceEditor",
+                instructions=EDITOR_INSTRUCTIONS,
+            )
+            return await asyncio.wait_for(
+                run_json_agent(
+                    agent,
+                    editor_prompt(candidate.model_dump(mode="json"), profile, language),
+                    FanCard,
+                ),
+                timeout=settings.llm_timeout_seconds,
+            )
+
+        return await retry_async(
+            attempt,
+            attempts=settings.agent_max_attempts,
+            delay_seconds=settings.agent_retry_delay_seconds,
         )
 
     async def _checker(
         self, candidate: InsightCandidate, evidence: dict[str, Any]
     ) -> VerificationResult:
-        agent = Agent(
-            client=build_chat_client(),
-            name="FactChecker",
-            instructions=CHECKER_INSTRUCTIONS,
-        )
-        return await asyncio.wait_for(
-            run_json_agent(
-                agent,
-                checker_prompt(candidate.model_dump(mode="json"), evidence),
-                VerificationResult,
-                repair=False,
-            ),
-            timeout=min(35, settings.llm_timeout_seconds),
+        async def attempt() -> VerificationResult:
+            agent = Agent(
+                client=build_chat_client(),
+                name="FactChecker",
+                instructions=CHECKER_INSTRUCTIONS,
+            )
+            return await asyncio.wait_for(
+                run_json_agent(
+                    agent,
+                    checker_prompt(candidate.model_dump(mode="json"), evidence),
+                    VerificationResult,
+                    repair=False,
+                ),
+                timeout=min(35, settings.llm_timeout_seconds),
+            )
+
+        return await retry_async(
+            attempt,
+            attempts=settings.agent_max_attempts,
+            delay_seconds=settings.agent_retry_delay_seconds,
         )
 
     async def _director(
         self, candidate: InsightCandidate, verification: VerificationResult
     ) -> RundownDecision:
-        agent = Agent(
-            client=build_chat_client(),
-            name="Director",
-            instructions=DIRECTOR_INSTRUCTIONS,
-        )
-        return await asyncio.wait_for(
-            run_json_agent(
-                agent,
-                director_prompt(
-                    candidate.model_dump(mode="json"),
-                    verification.model_dump(mode="json"),
+        async def attempt() -> RundownDecision:
+            agent = Agent(
+                client=build_chat_client(),
+                name="Director",
+                instructions=DIRECTOR_INSTRUCTIONS,
+            )
+            return await asyncio.wait_for(
+                run_json_agent(
+                    agent,
+                    director_prompt(
+                        candidate.model_dump(mode="json"),
+                        verification.model_dump(mode="json"),
+                    ),
+                    RundownDecision,
                 ),
-                RundownDecision,
-            ),
-            timeout=settings.llm_timeout_seconds,
+                timeout=settings.llm_timeout_seconds,
+            )
+
+        return await retry_async(
+            attempt,
+            attempts=settings.agent_max_attempts,
+            delay_seconds=settings.agent_retry_delay_seconds,
         )
 
     @staticmethod
