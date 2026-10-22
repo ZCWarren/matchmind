@@ -1,0 +1,286 @@
+{
+  "match_id": "ast-2026-1025-vel-kep",
+  "competition": "Aster League",
+  "season": "2026",
+  "date": "2026-10-25",
+  "kickoff_utc": "2026-10-25T15:00:00Z",
+  "venue": "Vela Ground",
+  "home": {
+    "team_id": "VEL",
+    "name": "Vela Athletic",
+    "short_name": "Vela",
+    "color": "#2F6BFF",
+    "venue": "Vela Ground"
+  },
+  "away": {
+    "team_id": "KEP",
+    "name": "Kepler Town",
+    "short_name": "Kepler",
+    "color": "#E0A400",
+    "venue": "Kepler Arena"
+  },
+  "lineups": [
+    {
+      "player_id": "VEL-01",
+      "name": "Mateo Rios",
+      "number": 1,
+      "position": "GK",
+      "team_id": "VEL",
+      "starter": true
+    },
+    {
+      "player_id": "VEL-02",
+      "name": "Nico Salas",
+      "number": 2,
+      "position": "RB",
+      "team_id": "VEL",
+      "starter": true
+    },
+    {
+      "player_id": "VEL-03",
+      "name": "Pavel Dune",
+      "number": 4,
+      "position": "CB",
+      "team_id": "VEL",
+      "starter": true
+    },
+    {
+      "player_id": "VEL-04",
+      "name": "Owen Kest",
+      "number": 5,
+      "position": "CB",
+      "team_id": "VEL",
+      "starter": true
+    },
+    {
+      "player_id": "VEL-05",
+      "name": "Ilias Varn",
+      "number": 3,
+      "position": "LB",
+      "team_id": "VEL",
+      "starter": true
+    },
+    {
+      "player_id": "VEL-06",
+      "name": "Rafa Miro",
+      "number": 6,
+      "position": "DM",
+      "team_id": "VEL",
+      "starter": true
+    },
+    {
+      "player_id": "VEL-07",
+      "name": "Sergio Lune",
+      "number": 8,
+      "position": "CM",
+      "team_id": "VEL",
+      "starter": true
+    },
+    {
+      "player_id": "VEL-08",
+      "name": "Timo Vey",
+      "number": 10,
+      "position": "AM",
+      "team_id": "VEL",
+      "starter": true
+    },
+    {
+      "player_id": "VEL-09",
+      "name": "Andre Cala",
+      "number": 9,
+      "position": "ST",
+      "team_id": "VEL",
+      "starter": true
+    },
+    {
+      "player_id": "VEL-10",
+      "name": "Bastian Ruel",
+      "number": 7,
+      "position": "RW",
+      "team_id": "VEL",
+      "starter": true
+    },
+    {
+      "player_id": "VEL-11",
+      "name": "Nestor Vale",
+      "number": 11,
+      "position": "LW",
+      "team_id": "VEL",
+      "starter": true
+    },
+    {
+      "player_id": "VEL-12",
+      "name": "Luka Morn",
+      "number": 12,
+      "position": "GK",
+      "team_id": "VEL",
+      "starter": false
+    },
+    {
+      "player_id": "VEL-13",
+      "name": "Hugo Tern",
+      "number": 13,
+      "position": "CB",
+      "team_id": "VEL",
+      "starter": false
+    },
+    {
+      "player_id": "VEL-14",
+      "name": "Dani Fenn",
+      "number": 14,
+      "position": "LW",
+      "team_id": "VEL",
+      "starter": false
+    },
+    {
+      "player_id": "VEL-15",
+      "name": "Marco Ilves",
+      "number": 15,
+      "position": "CM",
+      "team_id": "VEL",
+      "starter": false
+    },
+    {
+      "player_id": "VEL-16",
+      "name": "Yuri Sable",
+      "number": 16,
+      "position": "RW",
+      "team_id": "VEL",
+      "starter": false
+    },
+    {
+      "player_id": "KEP-01",
+      "name": "Sven Halden",
+      "number": 1,
+      "position": "GK",
+      "team_id": "KEP",
+      "starter": true
+    },
+    {
+      "player_id": "KEP-02",
+      "name": "Piotr Vane",
+      "number": 2,
+      "position": "RB",
+      "team_id": "KEP",
+      "starter": true
+    },
+    {
+      "player_id": "KEP-03",
+      "name": "Mikael Orn",
+      "number": 4,
+      "position": "CB",
+      "team_id": "KEP",
+      "starter": true
+    },
+    {
+      "player_id": "KEP-04",
+      "name": "Tariq Bel",
+      "number": 5,
+      "position": "CB",
+      "team_id": "KEP",
+      "starter": true
+    },
+    {
+      "player_id": "KEP-05",
+      "name": "Jonas Kade",
+      "number": 3,
+      "position": "LB",
+      "team_id": "KEP",
+      "starter": true
+    },
+    {
+      "player_id": "KEP-06",
+      "name": "Emil Rask",
+      "number": 6,
+      "position": "DM",
+      "team_id": "KEP",
+      "starter": true
+    },
+    {
+      "player_id": "KEP-07",
+      "name": "Noah Vint",
+      "number": 8,
+      "position": "CM",
+      "team_id": "KEP",
+      "starter": true
+    },
+    {
+      "player_id": "KEP-08",
+      "name": "Lucas Grey",
+      "number": 10,
+      "position": "AM",
+      "team_id": "KEP",
+      "starter": true
+    },
+    {
+      "player_id": "KEP-09",
+      "name": "Iker Sol",
+      "number": 9,
+      "position": "ST",
+      "team_id": "KEP",
+      "starter": true
+    },
+    {
+      "player_id": "KEP-10",
+      "name": "Ronan Pike",
+      "number": 7,
+      "position": "RW",
+      "team_id": "KEP",
+      "starter": true
+    },
+    {
+      "player_id": "KEP-11",
+      "name": "Ali Mar",
+      "number": 11,
+      "position": "LW",
+      "team_id": "KEP",
+      "starter": true
+    },
+    {
+      "player_id": "KEP-12",
+      "name": "Theo Wren",
+      "number": 12,
+      "position": "GK",
+      "team_id": "KEP",
+      "starter": false
+    },
+    {
+      "player_id": "KEP-13",
+      "name": "Milan Voss",
+      "number": 13,
+      "position": "CB",
+      "team_id": "KEP",
+      "starter": false
+    },
+    {
+      "player_id": "KEP-14",
+      "name": "Kai Lune",
+      "number": 14,
+      "position": "LW",
+      "team_id": "KEP",
+      "starter": false
+    },
+    {
+      "player_id": "KEP-15",
+      "name": "Omar Seth",
+      "number": 15,
+      "position": "CM",
+      "team_id": "KEP",
+      "starter": false
+    },
+    {
+      "player_id": "KEP-16",
+      "name": "Felix Dare",
+      "number": 16,
+      "position": "RW",
+      "team_id": "KEP",
+      "starter": false
+    }
+  ],
+  "final_score": {
+    "home": 3,
+    "away": 2
+  },
+  "seed": 20261025,
+  "generator": "matchforge-v1"
+}

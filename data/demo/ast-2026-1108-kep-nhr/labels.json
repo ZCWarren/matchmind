@@ -1,0 +1,81 @@
+[
+  {
+    "moment_id": "m-018-01",
+    "match_id": "ast-2026-1108-kep-nhr",
+    "clock": {
+      "period": 1,
+      "minute": 18,
+      "second": 11
+    },
+    "type": "sprint_peak",
+    "importance": 0.5,
+    "event_ids": [
+      "e-000225"
+    ],
+    "expected_claims": [
+      "Niko Sarin reaches 34.1 km/h"
+    ],
+    "notes": ""
+  },
+  {
+    "moment_id": "m-031-01",
+    "match_id": "ast-2026-1108-kep-nhr",
+    "clock": {
+      "period": 1,
+      "minute": 31,
+      "second": 10
+    },
+    "type": "goal",
+    "importance": 0.7,
+    "event_ids": [
+      "e-000427",
+      "e-000428",
+      "e-000429"
+    ],
+    "expected_claims": [
+      "Nova Harbor lead 1-0",
+      "Teo Varela scores after a high turnover"
+    ],
+    "notes": ""
+  },
+  {
+    "moment_id": "m-046-01",
+    "match_id": "ast-2026-1108-kep-nhr",
+    "clock": {
+      "period": 2,
+      "minute": 46,
+      "second": 12
+    },
+    "type": "yellow_card",
+    "importance": 0.4,
+    "event_ids": [
+      "e-000650",
+      "e-000651"
+    ],
+    "expected_claims": [
+      "Emil Rask is booked"
+    ],
+    "notes": ""
+  },
+  {
+    "moment_id": "m-063-01",
+    "match_id": "ast-2026-1108-kep-nhr",
+    "clock": {
+      "period": 2,
+      "minute": 63,
+      "second": 7
+    },
+    "type": "goal",
+    "importance": 0.8,
+    "event_ids": [
+      "e-000884",
+      "e-000885",
+      "e-000886"
+    ],
+    "expected_claims": [
+      "Nova Harbor double the lead",
+      "Isak Rune scores from the right"
+    ],
+    "notes": ""
+  }
+]

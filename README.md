@@ -4,8 +4,8 @@
 
 MatchMind is a real-time explainability layer for football broadcast. It turns synthetic match events into grounded, timed match intelligence — rendered as a broadcast-ready overlay for the studio and as a personalized second-screen experience for analysts, casual fans, and player-focused viewers.
 
-> Status: D0 local build — synthetic demo match + read-only match API running at `http://localhost:8010`.
-> The actual 3-person, no-Azure execution plan is [EXECUTION.md](./EXECUTION.md); the full concept, architecture, demo script, and submission checklist are in [PLAN.md](./PLAN.md).
+> Status: local build in progress — synthetic match data and read-only match API on `http://localhost:8010`.
+> Product and architecture: [PLAN.md](./PLAN.md). Completion checklist: [EXECUTION.md](./EXECUTION.md).
 
 ## The problem
 
@@ -48,7 +48,7 @@ The model layer is provider-agnostic. The public demo runs on DeepSeek; the repo
 
 ## Synthetic data
 
-MatchForge generates football-realistic synthetic matches with fictional clubs and players: events, tracking windows, lineups, and ground-truth labels for evaluation. The first demo match (1,304 events, 5 key moments) lives in [`data/demo/`](./data/demo); see the [data README](./data/README.md) and [dataset card](./data/dataset-card.md). No real match footage, data, club crests, or player likenesses are used.
+MatchForge generates football-realistic synthetic matches with fictional clubs and players: events, tracking windows, lineups, and ground-truth labels for evaluation. Five narrative matches live in [`data/demo/`](./data/demo); see the [data README](./data/README.md) and [dataset card](./data/dataset-card.md). No real match footage, data, club crests, or player likenesses are used.
 
 ## Repository layout
 
@@ -63,20 +63,20 @@ docs/            # Architecture, data card, demo script
 
 ## Local development
 
-D0 workflow:
+Local workflow:
 
 ```bash
 make install
 cp .env.example .env      # add DEEPSEEK_API_KEY
 make smoke                # raw API + Agent Framework check
-make data                 # generate the synthetic demo match
+make data                 # generate five synthetic matches
 make dev                  # http://localhost:8010/docs
 make test
 ```
 
-Local dev currently runs at `http://localhost:8010` (port 8000 is used by Caddy). The API exposes `/api/matches`, `/api/matches/{id}`, and `/api/matches/{id}/events`. The public demo requires a tunnel or host before submission; it will run in `DEMO_MODE=replay` without cloud credentials so judges can test the full experience. Live AI mode uses DeepSeek; a Foundry adapter is included for Azure deployments.
+Local dev currently runs at `http://localhost:8010` (port 8000 is used by Caddy). The API exposes `/api/matches`, `/api/matches/{id}`, and `/api/matches/{id}/events`. The public demo requires a tunnel or host; it will run in `DEMO_MODE=replay` without cloud credentials so reviewers can test the full experience. Live AI mode uses DeepSeek; a Foundry adapter is included for Azure deployments.
 
 ## License
 
-Code: MIT (to be added at submission).
+Code: MIT (to be added).
 Data: CC BY 4.0 (to be added with the dataset card).

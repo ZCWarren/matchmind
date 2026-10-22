@@ -1,0 +1,286 @@
+{
+  "match_id": "ast-2026-1108-kep-nhr",
+  "competition": "Aster League",
+  "season": "2026",
+  "date": "2026-11-08",
+  "kickoff_utc": "2026-11-08T15:00:00Z",
+  "venue": "Kepler Arena",
+  "home": {
+    "team_id": "KEP",
+    "name": "Kepler Town",
+    "short_name": "Kepler",
+    "color": "#E0A400",
+    "venue": "Kepler Arena"
+  },
+  "away": {
+    "team_id": "NHR",
+    "name": "Nova Harbor",
+    "short_name": "Nova",
+    "color": "#0FB5A6",
+    "venue": "Meridian Park"
+  },
+  "lineups": [
+    {
+      "player_id": "KEP-01",
+      "name": "Sven Halden",
+      "number": 1,
+      "position": "GK",
+      "team_id": "KEP",
+      "starter": true
+    },
+    {
+      "player_id": "KEP-02",
+      "name": "Piotr Vane",
+      "number": 2,
+      "position": "RB",
+      "team_id": "KEP",
+      "starter": true
+    },
+    {
+      "player_id": "KEP-03",
+      "name": "Mikael Orn",
+      "number": 4,
+      "position": "CB",
+      "team_id": "KEP",
+      "starter": true
+    },
+    {
+      "player_id": "KEP-04",
+      "name": "Tariq Bel",
+      "number": 5,
+      "position": "CB",
+      "team_id": "KEP",
+      "starter": true
+    },
+    {
+      "player_id": "KEP-05",
+      "name": "Jonas Kade",
+      "number": 3,
+      "position": "LB",
+      "team_id": "KEP",
+      "starter": true
+    },
+    {
+      "player_id": "KEP-06",
+      "name": "Emil Rask",
+      "number": 6,
+      "position": "DM",
+      "team_id": "KEP",
+      "starter": true
+    },
+    {
+      "player_id": "KEP-07",
+      "name": "Noah Vint",
+      "number": 8,
+      "position": "CM",
+      "team_id": "KEP",
+      "starter": true
+    },
+    {
+      "player_id": "KEP-08",
+      "name": "Lucas Grey",
+      "number": 10,
+      "position": "AM",
+      "team_id": "KEP",
+      "starter": true
+    },
+    {
+      "player_id": "KEP-09",
+      "name": "Iker Sol",
+      "number": 9,
+      "position": "ST",
+      "team_id": "KEP",
+      "starter": true
+    },
+    {
+      "player_id": "KEP-10",
+      "name": "Ronan Pike",
+      "number": 7,
+      "position": "RW",
+      "team_id": "KEP",
+      "starter": true
+    },
+    {
+      "player_id": "KEP-11",
+      "name": "Ali Mar",
+      "number": 11,
+      "position": "LW",
+      "team_id": "KEP",
+      "starter": true
+    },
+    {
+      "player_id": "KEP-12",
+      "name": "Theo Wren",
+      "number": 12,
+      "position": "GK",
+      "team_id": "KEP",
+      "starter": false
+    },
+    {
+      "player_id": "KEP-13",
+      "name": "Milan Voss",
+      "number": 13,
+      "position": "CB",
+      "team_id": "KEP",
+      "starter": false
+    },
+    {
+      "player_id": "KEP-14",
+      "name": "Kai Lune",
+      "number": 14,
+      "position": "LW",
+      "team_id": "KEP",
+      "starter": false
+    },
+    {
+      "player_id": "KEP-15",
+      "name": "Omar Seth",
+      "number": 15,
+      "position": "CM",
+      "team_id": "KEP",
+      "starter": false
+    },
+    {
+      "player_id": "KEP-16",
+      "name": "Felix Dare",
+      "number": 16,
+      "position": "RW",
+      "team_id": "KEP",
+      "starter": false
+    },
+    {
+      "player_id": "NHR-01",
+      "name": "Ivo Marchetti",
+      "number": 1,
+      "position": "GK",
+      "team_id": "NHR",
+      "starter": true
+    },
+    {
+      "player_id": "NHR-02",
+      "name": "Rui Calder",
+      "number": 2,
+      "position": "RB",
+      "team_id": "NHR",
+      "starter": true
+    },
+    {
+      "player_id": "NHR-03",
+      "name": "Emil Novak",
+      "number": 4,
+      "position": "CB",
+      "team_id": "NHR",
+      "starter": true
+    },
+    {
+      "player_id": "NHR-04",
+      "name": "Sami Orlov",
+      "number": 5,
+      "position": "CB",
+      "team_id": "NHR",
+      "starter": true
+    },
+    {
+      "player_id": "NHR-05",
+      "name": "Dario Voss",
+      "number": 3,
+      "position": "LB",
+      "team_id": "NHR",
+      "starter": true
+    },
+    {
+      "player_id": "NHR-06",
+      "name": "Kian Mercer",
+      "number": 6,
+      "position": "DM",
+      "team_id": "NHR",
+      "starter": true
+    },
+    {
+      "player_id": "NHR-07",
+      "name": "Leo Arden",
+      "number": 8,
+      "position": "CM",
+      "team_id": "NHR",
+      "starter": true
+    },
+    {
+      "player_id": "NHR-08",
+      "name": "Milo Feng",
+      "number": 10,
+      "position": "AM",
+      "team_id": "NHR",
+      "starter": true
+    },
+    {
+      "player_id": "NHR-09",
+      "name": "Teo Varela",
+      "number": 9,
+      "position": "ST",
+      "team_id": "NHR",
+      "starter": true
+    },
+    {
+      "player_id": "NHR-10",
+      "name": "Arun Kale",
+      "number": 7,
+      "position": "RW",
+      "team_id": "NHR",
+      "starter": true
+    },
+    {
+      "player_id": "NHR-11",
+      "name": "Niko Sarin",
+      "number": 11,
+      "position": "LW",
+      "team_id": "NHR",
+      "starter": true
+    },
+    {
+      "player_id": "NHR-12",
+      "name": "Pavel Orm",
+      "number": 12,
+      "position": "GK",
+      "team_id": "NHR",
+      "starter": false
+    },
+    {
+      "player_id": "NHR-13",
+      "name": "Jonas Vey",
+      "number": 13,
+      "position": "CB",
+      "team_id": "NHR",
+      "starter": false
+    },
+    {
+      "player_id": "NHR-14",
+      "name": "Isak Rune",
+      "number": 14,
+      "position": "LW",
+      "team_id": "NHR",
+      "starter": false
+    },
+    {
+      "player_id": "NHR-15",
+      "name": "Remy Sol",
+      "number": 15,
+      "position": "CM",
+      "team_id": "NHR",
+      "starter": false
+    },
+    {
+      "player_id": "NHR-16",
+      "name": "Tavi Norn",
+      "number": 16,
+      "position": "RW",
+      "team_id": "NHR",
+      "starter": false
+    }
+  ],
+  "final_score": {
+    "home": 0,
+    "away": 2
+  },
+  "seed": 20261108,
+  "generator": "matchforge-v1"
+}

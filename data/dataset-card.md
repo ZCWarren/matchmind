@@ -1,69 +1,68 @@
-# Dataset card — MatchMind synthetic demo match
+# Dataset card — MatchMind synthetic matches
 
 ## Summary
 
-- **Dataset**: `ast-2026-1018-nhr-orn` (Aster League, fictional)
-- **Generator**: MatchForge v0.1 (`src/matchmind/matchforge`)
-- **Seed**: `20261018`
-- **Size**: 1 match, 1,304 events, 5 key-moment labels
+- **Dataset**: five fictional Aster League matches
+- **Generator**: MatchForge v1 (`src/matchmind/matchforge`)
+- **Size**: 5 matches, 6,374 events, 27 key-moment labels
 - **Format**: JSONL events + JSON metadata + JSON labels
 - **License**: CC BY 4.0
 - **Source**: fully synthetic; no real match data or footage
 
 ## Motivation
 
-The hackathon requires synthetic, football-realistic data. MatchForge provides a
-reproducible event stream with enough structure for analytics, multi-agent
+The product needs synthetic, football-realistic data for analytics, multi-agent
 narration, evidence verification, broadcast overlays, and personalization —
 without using third-party match data or club/player IP.
 
-## Composition
+## Matches
 
-| Type | Count (this seed) |
-|---|---:|
-| Pass | ~780 |
-| Carry | ~170 |
-| Pressure | ~140 |
-| Tackle | ~120 |
-| Foul | 27 |
-| Shot | 26 |
-| Goal | 3 |
-| Card | 5 |
-| Substitution | 2 |
-| Sprint | 2 |
+| Match | Narrative | Final | Events | Labels | Pass % | Shots | Fouls | Cards |
+|---|---|---|---:|---:|---:|---:|---:|---:|
+| Nova Harbor vs Orion North | Press trap / line break | 2–1 | 1,304 | 6 | 80.6% | 26 | 25 | 3 |
+| Vela Athletic vs Kepler Town | Comeback from 0–2 | 3–2 | 1,267 | 6 | 80.7% | 27 | 25 | 2 |
+| Orion North vs Vela Athletic | Red card / late equalizer | 1–1 | 1,293 | 3 | 78.0% | 24 | 24 | 4 |
+| Kepler Town vs Nova Harbor | Press storm / away win | 0–2 | 1,282 | 4 | 79.2% | 24 | 25 | 4 |
+| Nova Harbor vs Vela Athletic | Chaos game | 3–3 | 1,228 | 8 | 83.8% | 28 | 16 | 2 |
 
-Realism checks on this seed:
+Totals: 6,374 events, 27 labels.
 
-- Pass completion: ~80%
-- Shots: 26 (13 per team)
-- Goals: 3 (final score 2-1)
-- Fouls: 27
-- Cards: 5
-- Event count: 1,304
-- Clock is monotonic; half-time and full-time are explicit events
+## Realism checks
+
+- 1,100–1,500 events per match
+- 78–88% pass completion
+- 8–18 shots per team
+- 0–6 goals per match
+- 15–30 fouls per match
+- 1–7 cards per match
+- Monotonic clock; explicit half-time and full-time events
+- Every label references existing event IDs
+
+The hero match deliberately includes a 31' sprint at 33.8 km/h and a 72' sprint
+at 33.4 km/h, so the verifier can reject a “fastest sprint” claim.
 
 ## Generation
 
-1. A possession-level state machine chooses pass, carry, pressure, tackle, or
-   shot based on ball location, pressure, and zone.
-2. Scripted beats create a demo narrative: a 23' opener, a 51' equalizer, a 72'
-   line-break-under-press hero moment, and a 74' winner.
-3. A separate scripted 31' sprint (33.8 km/h) makes the 72' sprint (33.4 km/h)
-   second-fastest, which the verifier demo uses to catch an unsupported claim.
-4. Labels are emitted separately and never fed to agents.
+1. A possession-level state machine chooses pass, carry, pressure, tackle, foul,
+   or shot based on ball location, pressure, and zone.
+2. Scripted beats create each narrative: goals, cards, substitutions, sprints, and
+   the 72' line-break sequence.
+3. Labels are emitted separately and never fed to agents.
+4. The generator is deterministic: seed + generator version reproduce the same
+   events.
 
 ## Intended uses
 
-- Demo and evaluation of MatchMind's analytics, agents, overlay, and
+- Demo and evaluation of MatchMind analytics, agents, overlay, and
   personalization.
 - Regression tests for event schemas and deterministic generation.
-- Example data for judges to run the app without cloud credentials.
+- Example data for reviewers to run the app without cloud credentials.
 
 ## Limitations
 
 - Event-level simulation, not a full 22-player physics engine.
-- Tracking is limited to sprint events in this version; full 5 Hz tracking is a
-  later extension.
+- Tracking is represented by sprint events; full 5 Hz tracking is a later
+  extension.
 - Tactical patterns are plausible but not calibrated to real competitions.
 - Fictional names; any resemblance to real people or clubs is coincidental.
 

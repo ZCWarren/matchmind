@@ -1,0 +1,166 @@
+[
+  {
+    "moment_id": "m-009-01",
+    "match_id": "ast-2026-1115-nhr-vel",
+    "clock": {
+      "period": 1,
+      "minute": 9,
+      "second": 6
+    },
+    "type": "goal",
+    "importance": 0.7,
+    "event_ids": [
+      "e-000117",
+      "e-000118",
+      "e-000119"
+    ],
+    "expected_claims": [
+      "Nova Harbor lead 1-0",
+      "Teo Varela opens the scoring"
+    ],
+    "notes": ""
+  },
+  {
+    "moment_id": "m-027-01",
+    "match_id": "ast-2026-1115-nhr-vel",
+    "clock": {
+      "period": 1,
+      "minute": 27,
+      "second": 9
+    },
+    "type": "goal",
+    "importance": 0.7,
+    "event_ids": [
+      "e-000361",
+      "e-000362",
+      "e-000363"
+    ],
+    "expected_claims": [
+      "Vela Athletic equalize",
+      "Andre Cala finishes a central move"
+    ],
+    "notes": ""
+  },
+  {
+    "moment_id": "m-044-01",
+    "match_id": "ast-2026-1115-nhr-vel",
+    "clock": {
+      "period": 1,
+      "minute": 44,
+      "second": 17
+    },
+    "type": "goal",
+    "importance": 0.75,
+    "event_ids": [
+      "e-000584",
+      "e-000585",
+      "e-000586"
+    ],
+    "expected_claims": [
+      "Nova Harbor lead 2-1",
+      "Arun Kale scores before half-time"
+    ],
+    "notes": ""
+  },
+  {
+    "moment_id": "m-052-01",
+    "match_id": "ast-2026-1115-nhr-vel",
+    "clock": {
+      "period": 2,
+      "minute": 52,
+      "second": 5
+    },
+    "type": "yellow_card",
+    "importance": 0.4,
+    "event_ids": [
+      "e-000688",
+      "e-000689"
+    ],
+    "expected_claims": [
+      "Rafa Miro is booked"
+    ],
+    "notes": ""
+  },
+  {
+    "moment_id": "m-061-01",
+    "match_id": "ast-2026-1115-nhr-vel",
+    "clock": {
+      "period": 2,
+      "minute": 61,
+      "second": 10
+    },
+    "type": "goal",
+    "importance": 0.75,
+    "event_ids": [
+      "e-000795",
+      "e-000796",
+      "e-000797"
+    ],
+    "expected_claims": [
+      "Vela Athletic equalize again",
+      "Bastian Ruel scores at the back post"
+    ],
+    "notes": ""
+  },
+  {
+    "moment_id": "m-073-01",
+    "match_id": "ast-2026-1115-nhr-vel",
+    "clock": {
+      "period": 2,
+      "minute": 73,
+      "second": 13
+    },
+    "type": "goal",
+    "importance": 0.85,
+    "event_ids": [
+      "e-000952",
+      "e-000953",
+      "e-000954"
+    ],
+    "expected_claims": [
+      "Nova Harbor lead 3-2",
+      "Teo Varela scores his second"
+    ],
+    "notes": ""
+  },
+  {
+    "moment_id": "m-080-01",
+    "match_id": "ast-2026-1115-nhr-vel",
+    "clock": {
+      "period": 2,
+      "minute": 80,
+      "second": 5
+    },
+    "type": "yellow_card",
+    "importance": 0.4,
+    "event_ids": [
+      "e-001047",
+      "e-001048"
+    ],
+    "expected_claims": [
+      "Ilias Varn is booked"
+    ],
+    "notes": ""
+  },
+  {
+    "moment_id": "m-088-01",
+    "match_id": "ast-2026-1115-nhr-vel",
+    "clock": {
+      "period": 2,
+      "minute": 88,
+      "second": 29
+    },
+    "type": "goal",
+    "importance": 0.9,
+    "event_ids": [
+      "e-001157",
+      "e-001158",
+      "e-001159"
+    ],
+    "expected_claims": [
+      "Vela Athletic equalize late",
+      "Andre Cala completes his brace"
+    ],
+    "notes": "Chaos game equalizer"
+  }
+]

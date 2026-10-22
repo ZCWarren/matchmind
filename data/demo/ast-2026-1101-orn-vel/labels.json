@@ -1,0 +1,64 @@
+[
+  {
+    "moment_id": "m-022-01",
+    "match_id": "ast-2026-1101-orn-vel",
+    "clock": {
+      "period": 1,
+      "minute": 22,
+      "second": 16
+    },
+    "type": "goal",
+    "importance": 0.7,
+    "event_ids": [
+      "e-000301",
+      "e-000302",
+      "e-000303"
+    ],
+    "expected_claims": [
+      "Orion North lead 1-0",
+      "Oskar Lind finishes a central combination"
+    ],
+    "notes": ""
+  },
+  {
+    "moment_id": "m-058-01",
+    "match_id": "ast-2026-1101-orn-vel",
+    "clock": {
+      "period": 2,
+      "minute": 58,
+      "second": 13
+    },
+    "type": "red_card",
+    "importance": 0.85,
+    "event_ids": [
+      "e-000789",
+      "e-000790"
+    ],
+    "expected_claims": [
+      "Orion North are down to 10 men",
+      "Adil Nasser is sent off"
+    ],
+    "notes": "Red card changes the shape"
+  },
+  {
+    "moment_id": "m-076-01",
+    "match_id": "ast-2026-1101-orn-vel",
+    "clock": {
+      "period": 2,
+      "minute": 76,
+      "second": 3
+    },
+    "type": "goal",
+    "importance": 0.85,
+    "event_ids": [
+      "e-001043",
+      "e-001044",
+      "e-001045"
+    ],
+    "expected_claims": [
+      "Vela Athletic equalize against 10",
+      "Andre Cala scores late"
+    ],
+    "notes": ""
+  }
+]
