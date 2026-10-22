@@ -37,3 +37,5 @@ jobs:
         working-directory: web
       - run: npm run build
         working-directory: web
+      - run: npm run build:static
+        working-directory: web

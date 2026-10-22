@@ -12,7 +12,7 @@
 | DeepSeek provider | Working: raw OpenAI-compatible API + Agent Framework `OpenAIChatClient(base_url=...)` |
 | Local API | Working on `:8010`; `/healthz`, `/docs`, `/api/matches`, `/api/matches/{id}`, `/api/matches/{id}/events` |
 | MatchForge | Five narrative matches generated: 6,281 events, 30 labels, deterministic seeds; speed present in every fixture; all five caches verified |
-| Tests | 29 passing; ruff clean; CI green; frontend production and static builds pass |
+| Tests | 31 passing; ruff clean; CI green; frontend production and static builds pass |
 | UI | Not started |
 | Analytics | Working: xG, xT, pressure, pass quality, control/chaos, momentum, rhythm, speed; evidence + API |
 | Agents / verifier | Working: real Agent Framework graph, MCP analyst, deterministic gate + advisory checker, cached hero insight |

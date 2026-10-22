@@ -30,7 +30,7 @@ The deterministic verifier is the release gate; the LLM FactChecker is advisory.
 - Studio, transparent overlay with five templates, and personalized Fan with
   five fixtures, three profiles, three languages, player event log, and recap.
 - WebSocket replay and live generation locally; cached-only public static demo.
-- 29 tests, CI for Python and web builds, Docker/Render/Fly packaging, judge
+- 31 tests, CI for Python and web builds, Docker/Render/Fly packaging, judge
   guide, evaluation snapshot, and captioned video.
 
 ## Public demo scope

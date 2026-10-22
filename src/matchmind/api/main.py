@@ -1,9 +1,10 @@
-"""Minimal FastAPI entrypoint for the D0 hello-world deploy."""
+"""FastAPI entrypoint: API, WebSocket replay, and the built Studio SPA."""
 
 from pathlib import Path
 
 from fastapi import FastAPI, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
+from fastapi.middleware.gzip import GZipMiddleware
 from fastapi.responses import FileResponse
 from fastapi.staticfiles import StaticFiles
 
@@ -20,6 +21,7 @@ app = FastAPI(
     version=__version__,
     description="Real-time explainable match intelligence for football broadcast.",
 )
+app.add_middleware(GZipMiddleware, minimum_size=1024)
 app.add_middleware(
     CORSMiddleware,
     allow_origins=["http://localhost:5173", "http://127.0.0.1:5173", "http://localhost:8010"],
@@ -74,9 +76,12 @@ if WEB_DIST.exists():
     @app.get("/{full_path:path}")
     def spa(full_path: str):
         blocked = ("api/", "docs", "openapi")
-        if full_path.startswith(blocked):
+        if full_path.startswith(blocked) or ".." in Path(full_path).parts:
             raise HTTPException(status_code=404, detail="Not found")
-        candidate = WEB_DIST / full_path
+        root = WEB_DIST.resolve()
+        candidate = (WEB_DIST / full_path).resolve()
+        if not candidate.is_relative_to(root):
+            raise HTTPException(status_code=404, detail="Not found")
         if candidate.is_file():
             return FileResponse(candidate)
         return FileResponse(WEB_DIST / "index.html")

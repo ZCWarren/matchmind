@@ -158,9 +158,13 @@ class PipelineRequest(BaseModel):
     model_config = ConfigDict(extra="forbid")
 
     moment_id: str | None = None
-    profiles: list[Profile] = Field(default_factory=lambda: ["analyst", "casual", "player"])
-    languages: list[Language] = Field(default_factory=lambda: ["en", "es", "zh"])
-    adversarial_claim: str | None = None
+    profiles: list[Profile] = Field(
+        default_factory=lambda: ["analyst", "casual", "player"], max_length=3
+    )
+    languages: list[Language] = Field(
+        default_factory=lambda: ["en", "es", "zh"], max_length=3
+    )
+    adversarial_claim: str | None = Field(default=None, max_length=500)
     use_mcp: bool = True
     use_cache: bool = True
     cache_only: bool = False
