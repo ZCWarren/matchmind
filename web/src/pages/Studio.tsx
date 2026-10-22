@@ -84,6 +84,7 @@ export default function Studio() {
   const [generating, setGenerating] = useState(false);
   const [cached, setCached] = useState(false);
   const [allowLive, setAllowLive] = useState(true);
+  const [staticDemo, setStaticDemo] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [selectedClaim, setSelectedClaim] = useState(0);
 
@@ -129,7 +130,10 @@ export default function Studio() {
   useEffect(() => {
     api
       .config()
-      .then((value) => setAllowLive(value.allow_live_generation))
+      .then((value) => {
+        setAllowLive(value.allow_live_generation);
+        setStaticDemo(value.demo_mode === "static");
+      })
       .catch(() => undefined);
     api
       .matches()
@@ -572,14 +576,18 @@ export default function Studio() {
                   <option value="speed_alert">SPD</option>
                   <option value="pressure_map">MAP</option>
                 </select>
-                <button
-                  className={`btn ${live ? "btn-danger" : "btn-quiet"}`}
-                  type="button"
-                  style={{ padding: "4px 7px" }}
-                  onClick={live ? stopLive : startLive}
-                >
-                  <Broadcast size={10} /> {live ? "Stop" : "Go live"}
-                </button>
+                {staticDemo ? (
+                  <span className="chip">Static demo</span>
+                ) : (
+                  <button
+                    className={`btn ${live ? "btn-danger" : "btn-quiet"}`}
+                    type="button"
+                    style={{ padding: "4px 7px" }}
+                    onClick={live ? stopLive : startLive}
+                  >
+                    <Broadcast size={10} /> {live ? "Stop" : "Go live"}
+                  </button>
+                )}
               </span>
             </header>
             <div className="monitor-frame">

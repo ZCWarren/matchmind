@@ -1,0 +1,502 @@
+{
+  "match_id": "ast-2026-1025-vel-kep",
+  "event_id": "e-001092",
+  "clock": {
+    "period": 2,
+    "minute": 82,
+    "second": 47
+  },
+  "score": {
+    "home": 2,
+    "away": 2
+  },
+  "event_count": 1092,
+  "window_start_event": "e-000001",
+  "window_end_event": "e-001092",
+  "metrics": {
+    "xg_home": {
+      "name": "xg_home",
+      "value": 2.272,
+      "unit": "goals",
+      "formula_version": "xg-v1",
+      "event_ids": [
+        "e-000042",
+        "e-000096",
+        "e-000128",
+        "e-000137",
+        "e-000173",
+        "e-000321",
+        "e-000354",
+        "e-000452",
+        "e-000671",
+        "e-000717",
+        "e-000732",
+        "e-000762"
+      ],
+      "inputs": {
+        "shots": 15.0
+      },
+      "label": null
+    },
+    "xg_away": {
+      "name": "xg_away",
+      "value": 2.702,
+      "unit": "goals",
+      "formula_version": "xg-v1",
+      "event_ids": [
+        "e-000156",
+        "e-000303",
+        "e-000404",
+        "e-000409",
+        "e-000516",
+        "e-000675",
+        "e-000687",
+        "e-000851",
+        "e-000903",
+        "e-000946",
+        "e-000962"
+      ],
+      "inputs": {
+        "shots": 11.0
+      },
+      "label": null
+    },
+    "xt_home": {
+      "name": "xt_home",
+      "value": 19.666,
+      "unit": "threat",
+      "formula_version": "xt-grid-v1",
+      "event_ids": [
+        "e-001055",
+        "e-001056",
+        "e-001058",
+        "e-001066",
+        "e-001067",
+        "e-001070",
+        "e-001071",
+        "e-001085",
+        "e-001086",
+        "e-001087",
+        "e-001089",
+        "e-001092"
+      ],
+      "inputs": {
+        "completed_passes": 313.0
+      },
+      "label": null
+    },
+    "xt_away": {
+      "name": "xt_away",
+      "value": 23.5859,
+      "unit": "threat",
+      "formula_version": "xt-grid-v1",
+      "event_ids": [
+        "e-001059",
+        "e-001060",
+        "e-001061",
+        "e-001064",
+        "e-001065",
+        "e-001072",
+        "e-001074",
+        "e-001075",
+        "e-001076",
+        "e-001077",
+        "e-001079",
+        "e-001080"
+      ],
+      "inputs": {
+        "completed_passes": 322.0
+      },
+      "label": null
+    },
+    "pressure": {
+      "name": "pressure",
+      "value": 0.5512,
+      "unit": "0-1",
+      "formula_version": "pressure-v1",
+      "event_ids": [
+        "e-001054",
+        "e-001057",
+        "e-001062",
+        "e-001064",
+        "e-001065",
+        "e-001071",
+        "e-001072",
+        "e-001078",
+        "e-001085",
+        "e-001087",
+        "e-001091",
+        "e-001092"
+      ],
+      "inputs": {
+        "high_pressure_events": 296.0,
+        "samples": 1077.0
+      },
+      "label": null
+    },
+    "control_home": {
+      "name": "control_home",
+      "value": 0.6272,
+      "unit": "0-1",
+      "formula_version": "control-v1",
+      "event_ids": [
+        "e-001073",
+        "e-001078",
+        "e-001081",
+        "e-001083",
+        "e-001084",
+        "e-001085",
+        "e-001086",
+        "e-001087",
+        "e-001089",
+        "e-001090",
+        "e-001091",
+        "e-001092"
+      ],
+      "inputs": {},
+      "label": null
+    },
+    "control_away": {
+      "name": "control_away",
+      "value": 0.6223,
+      "unit": "0-1",
+      "formula_version": "control-v1",
+      "event_ids": [
+        "e-001064",
+        "e-001065",
+        "e-001068",
+        "e-001072",
+        "e-001074",
+        "e-001075",
+        "e-001076",
+        "e-001077",
+        "e-001079",
+        "e-001080",
+        "e-001082",
+        "e-001088"
+      ],
+      "inputs": {},
+      "label": null
+    },
+    "chaos": {
+      "name": "chaos",
+      "value": 0.8316,
+      "unit": "0-1",
+      "formula_version": "chaos-v1",
+      "event_ids": [
+        "e-000811",
+        "e-000826",
+        "e-000835",
+        "e-000856",
+        "e-000877",
+        "e-000916",
+        "e-000930",
+        "e-000958",
+        "e-001008",
+        "e-001081",
+        "e-001083",
+        "e-001091"
+      ],
+      "inputs": {},
+      "label": null
+    },
+    "momentum": {
+      "name": "momentum",
+      "value": -0.0688,
+      "unit": "-1..1",
+      "formula_version": "momentum-v1",
+      "event_ids": [
+        "e-001055",
+        "e-001056",
+        "e-001058",
+        "e-001061",
+        "e-001065",
+        "e-001066",
+        "e-001067",
+        "e-001075",
+        "e-001076",
+        "e-001077",
+        "e-001085",
+        "e-001092"
+      ],
+      "inputs": {
+        "home_threat": 2.5124,
+        "away_threat": 2.8839
+      },
+      "label": null
+    },
+    "rhythm_events_per_min": {
+      "name": "rhythm_events_per_min",
+      "value": 13.1911,
+      "unit": "events/min",
+      "formula_version": "rhythm-v1",
+      "event_ids": [
+        "e-001081",
+        "e-001082",
+        "e-001083",
+        "e-001084",
+        "e-001085",
+        "e-001086",
+        "e-001087",
+        "e-001088",
+        "e-001089",
+        "e-001090",
+        "e-001091",
+        "e-001092"
+      ],
+      "inputs": {
+        "duration_minutes": 82.7833
+      },
+      "label": null
+    },
+    "verticality": {
+      "name": "verticality",
+      "value": 0.3962,
+      "unit": "0-1",
+      "formula_version": "rhythm-v1",
+      "event_ids": [
+        "e-001067",
+        "e-001070",
+        "e-001071",
+        "e-001075",
+        "e-001076",
+        "e-001077",
+        "e-001079",
+        "e-001080",
+        "e-001085",
+        "e-001086",
+        "e-001087",
+        "e-001092"
+      ],
+      "inputs": {},
+      "label": null
+    },
+    "transitions_per_min": {
+      "name": "transitions_per_min",
+      "value": 0.145,
+      "unit": "events/min",
+      "formula_version": "rhythm-v1",
+      "event_ids": [
+        "e-000811",
+        "e-000826",
+        "e-000835",
+        "e-000856",
+        "e-000877",
+        "e-000916",
+        "e-000930",
+        "e-000958",
+        "e-001008",
+        "e-001081",
+        "e-001083",
+        "e-001091"
+      ],
+      "inputs": {},
+      "label": null
+    },
+    "pass_completion": {
+      "name": "pass_completion",
+      "value": 0.8268,
+      "unit": "0-1",
+      "formula_version": "pass-quality-v1",
+      "event_ids": [
+        "e-001072",
+        "e-001074",
+        "e-001075",
+        "e-001076",
+        "e-001077",
+        "e-001079",
+        "e-001080",
+        "e-001085",
+        "e-001086",
+        "e-001087",
+        "e-001089",
+        "e-001092"
+      ],
+      "inputs": {
+        "passes": 635.0
+      },
+      "label": null
+    },
+    "pass_completion_home": {
+      "name": "pass_completion_home",
+      "value": 0.8498,
+      "unit": "0-1",
+      "formula_version": "pass-quality-v1",
+      "event_ids": [
+        "e-001055",
+        "e-001056",
+        "e-001058",
+        "e-001066",
+        "e-001067",
+        "e-001070",
+        "e-001071",
+        "e-001085",
+        "e-001086",
+        "e-001087",
+        "e-001089",
+        "e-001092"
+      ],
+      "inputs": {},
+      "label": null
+    },
+    "pass_completion_away": {
+      "name": "pass_completion_away",
+      "value": 0.8043,
+      "unit": "0-1",
+      "formula_version": "pass-quality-v1",
+      "event_ids": [
+        "e-001059",
+        "e-001060",
+        "e-001061",
+        "e-001064",
+        "e-001065",
+        "e-001072",
+        "e-001074",
+        "e-001075",
+        "e-001076",
+        "e-001077",
+        "e-001079",
+        "e-001080"
+      ],
+      "inputs": {},
+      "label": null
+    },
+    "pass_difficulty": {
+      "name": "pass_difficulty",
+      "value": 4.3107,
+      "unit": "0-10",
+      "formula_version": "pass-quality-v1",
+      "event_ids": [
+        "e-001072",
+        "e-001074",
+        "e-001075",
+        "e-001076",
+        "e-001077",
+        "e-001079",
+        "e-001080",
+        "e-001085",
+        "e-001086",
+        "e-001087",
+        "e-001089",
+        "e-001092"
+      ],
+      "inputs": {},
+      "label": null
+    },
+    "line_breaks": {
+      "name": "line_breaks",
+      "value": 9.0,
+      "unit": "count",
+      "formula_version": "pass-quality-v1",
+      "event_ids": [
+        "e-000002",
+        "e-000333",
+        "e-000363",
+        "e-000672",
+        "e-000792",
+        "e-000832",
+        "e-000847",
+        "e-000932",
+        "e-001092"
+      ],
+      "inputs": {},
+      "label": null
+    },
+    "top_speed": {
+      "name": "top_speed",
+      "value": 33.2,
+      "unit": "km/h",
+      "formula_version": "speed-v1",
+      "event_ids": [
+        "e-001042"
+      ],
+      "inputs": {},
+      "label": null
+    },
+    "sprint_count": {
+      "name": "sprint_count",
+      "value": 1.0,
+      "unit": "count",
+      "formula_version": "speed-v1",
+      "event_ids": [
+        "e-001042"
+      ],
+      "inputs": {},
+      "label": null
+    },
+    "sprint_distance": {
+      "name": "sprint_distance",
+      "value": 42.0,
+      "unit": "m",
+      "formula_version": "speed-v1",
+      "event_ids": [
+        "e-001042"
+      ],
+      "inputs": {},
+      "label": null
+    },
+    "ball_speed": {
+      "name": "ball_speed",
+      "value": 17.8172,
+      "unit": "km/h",
+      "formula_version": "speed-v1",
+      "event_ids": [
+        "e-001072",
+        "e-001074",
+        "e-001075",
+        "e-001076",
+        "e-001077",
+        "e-001079",
+        "e-001080",
+        "e-001085",
+        "e-001086",
+        "e-001087",
+        "e-001089",
+        "e-001092"
+      ],
+      "inputs": {},
+      "label": null
+    },
+    "shot_speed": {
+      "name": "shot_speed",
+      "value": 95.2154,
+      "unit": "km/h",
+      "formula_version": "speed-v1",
+      "event_ids": [
+        "e-000042",
+        "e-000096",
+        "e-000128",
+        "e-000137",
+        "e-000156",
+        "e-000173",
+        "e-000303",
+        "e-000321",
+        "e-000354",
+        "e-000404",
+        "e-000409",
+        "e-000452"
+      ],
+      "inputs": {},
+      "label": null
+    },
+    "team_events_home": {
+      "name": "team_events_home",
+      "value": 545.0,
+      "unit": "count",
+      "formula_version": "analytics-v1",
+      "event_ids": [],
+      "inputs": {},
+      "label": null
+    },
+    "team_events_away": {
+      "name": "team_events_away",
+      "value": 546.0,
+      "unit": "count",
+      "formula_version": "analytics-v1",
+      "event_ids": [],
+      "inputs": {},
+      "label": null
+    }
+  },
+  "analytics_version": "analytics-v1"
+}

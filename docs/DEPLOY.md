@@ -46,6 +46,20 @@ The same Docker image works on Azure Container Apps. Add the env vars above and
 point the ingress at port 8000. A Foundry adapter is available through
 `LLM_PROVIDER=foundry` and `FOUNDRY_PROJECT_ENDPOINT` for a production path.
 
+## GitHub Pages static demo
+
+The public snapshot is built with `VITE_STATIC_DEMO=true` and `VITE_BASE=./`,
+then served from the public `matchmind-demo` repository. It uses pre-exported
+JSON under `web/public/demo/`; no API or secrets are needed.
+
+```bash
+uv run python scripts/export_static_demo.py
+cd web && npm run build:static
+```
+
+`scripts/deploy_static_demo.sh` rebuilds and force-pushes the static output to
+the demo repo, where `.github/workflows/pages.yml` deploys it.
+
 ## What judges should see
 
 - `/studio` with the cached hero insight and evidence.

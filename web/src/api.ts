@@ -12,8 +12,40 @@ import type {
 } from "./types";
 
 const API_BASE = import.meta.env.VITE_API_BASE ?? "";
+const STATIC_DEMO = import.meta.env.VITE_STATIC_DEMO === "true";
+const STATIC_BASE = `${import.meta.env.BASE_URL}demo`;
+
+async function staticFile<T>(file: string): Promise<T> {
+  const response = await fetch(`${STATIC_BASE}/${file}`);
+  if (!response.ok) throw new Error(`Static demo file missing: ${file}`);
+  return (await response.json()) as T;
+}
+
+async function staticRequest<T>(path: string): Promise<T> {
+  if (path === "/api/config") return staticFile<T>("config.json");
+  if (path === "/api/matches") return staticFile<T>("matches.json");
+  const match = /^\/api\/matches\/([^/?]+)(?:\/(features|events|moments|recap|insights))?/.exec(
+    path.split("?")[0],
+  );
+  if (!match) throw new Error(`Unknown static API route: ${path}`);
+  const [, matchId, resource] = match;
+  const file =
+    resource === "events"
+      ? `${matchId}/events.json`
+      : resource === "moments"
+        ? `${matchId}/moments.json`
+        : resource === "features"
+          ? `${matchId}/features.json`
+          : resource === "recap"
+            ? `${matchId}/recap.json`
+            : resource === "insights"
+              ? `${matchId}/insight.json`
+              : `${matchId}/detail.json`;
+  return staticFile<T>(file);
+}
 
 async function request<T>(path: string, init?: RequestInit): Promise<T> {
+  if (STATIC_DEMO) return staticRequest<T>(path);
   const response = await fetch(`${API_BASE}${path}`, {
     headers: { "Content-Type": "application/json", ...(init?.headers ?? {}) },
     ...init,

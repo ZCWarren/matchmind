@@ -1,0 +1,1129 @@
+{
+  "match_id": "ast-2026-1101-orn-vel",
+  "total": 29,
+  "moments": [
+    {
+      "moment_id": "mo-e-000286",
+      "match_id": "ast-2026-1101-orn-vel",
+      "event_id": "e-000286",
+      "clock": {
+        "period": 1,
+        "minute": 22,
+        "second": 19
+      },
+      "type": "goal",
+      "importance": 0.95,
+      "headline": "Goal for ORN (ORN-09)",
+      "event_ids": [
+        "e-000285",
+        "e-000286"
+      ],
+      "metrics": {
+        "xg": {
+          "name": "xg",
+          "value": 0.201,
+          "unit": "goals",
+          "formula_version": "xg-v1",
+          "event_ids": [
+            "e-000285"
+          ],
+          "inputs": {},
+          "label": null
+        }
+      },
+      "analytics_version": "analytics-v1"
+    },
+    {
+      "moment_id": "mo-e-001035",
+      "match_id": "ast-2026-1101-orn-vel",
+      "event_id": "e-001035",
+      "clock": {
+        "period": 2,
+        "minute": 76,
+        "second": 23
+      },
+      "type": "goal",
+      "importance": 0.95,
+      "headline": "Goal for VEL (VEL-09)",
+      "event_ids": [
+        "e-001034",
+        "e-001035"
+      ],
+      "metrics": {
+        "xg": {
+          "name": "xg",
+          "value": 0.201,
+          "unit": "goals",
+          "formula_version": "xg-v1",
+          "event_ids": [
+            "e-001034"
+          ],
+          "inputs": {},
+          "label": null
+        }
+      },
+      "analytics_version": "analytics-v1"
+    },
+    {
+      "moment_id": "mo-e-000056",
+      "match_id": "ast-2026-1101-orn-vel",
+      "event_id": "e-000056",
+      "clock": {
+        "period": 1,
+        "minute": 4,
+        "second": 19
+      },
+      "type": "big_chance",
+      "importance": 0.9,
+      "headline": "Big chance for ORN (ORN-11)",
+      "event_ids": [
+        "e-000056"
+      ],
+      "metrics": {
+        "xg": {
+          "name": "xg",
+          "value": 0.468,
+          "unit": "goals",
+          "formula_version": "xg-v1",
+          "event_ids": [
+            "e-000056"
+          ],
+          "inputs": {},
+          "label": null
+        },
+        "event_pressure": {
+          "name": "event_pressure",
+          "value": 0.47,
+          "unit": "0-1",
+          "formula_version": "pressure-v1",
+          "event_ids": [
+            "e-000056"
+          ],
+          "inputs": {},
+          "label": null
+        }
+      },
+      "analytics_version": "analytics-v1"
+    },
+    {
+      "moment_id": "mo-e-000292",
+      "match_id": "ast-2026-1101-orn-vel",
+      "event_id": "e-000292",
+      "clock": {
+        "period": 1,
+        "minute": 22,
+        "second": 45
+      },
+      "type": "big_chance",
+      "importance": 0.9,
+      "headline": "Big chance for VEL (VEL-05)",
+      "event_ids": [
+        "e-000292"
+      ],
+      "metrics": {
+        "xg": {
+          "name": "xg",
+          "value": 0.482,
+          "unit": "goals",
+          "formula_version": "xg-v1",
+          "event_ids": [
+            "e-000292"
+          ],
+          "inputs": {},
+          "label": null
+        },
+        "event_pressure": {
+          "name": "event_pressure",
+          "value": 0.77,
+          "unit": "0-1",
+          "formula_version": "pressure-v1",
+          "event_ids": [
+            "e-000292"
+          ],
+          "inputs": {},
+          "label": null
+        }
+      },
+      "analytics_version": "analytics-v1"
+    },
+    {
+      "moment_id": "mo-e-000438",
+      "match_id": "ast-2026-1101-orn-vel",
+      "event_id": "e-000438",
+      "clock": {
+        "period": 1,
+        "minute": 34,
+        "second": 0
+      },
+      "type": "big_chance",
+      "importance": 0.9,
+      "headline": "Big chance for VEL (VEL-08)",
+      "event_ids": [
+        "e-000438"
+      ],
+      "metrics": {
+        "xg": {
+          "name": "xg",
+          "value": 0.452,
+          "unit": "goals",
+          "formula_version": "xg-v1",
+          "event_ids": [
+            "e-000438"
+          ],
+          "inputs": {},
+          "label": null
+        },
+        "event_pressure": {
+          "name": "event_pressure",
+          "value": 0.74,
+          "unit": "0-1",
+          "formula_version": "pressure-v1",
+          "event_ids": [
+            "e-000438"
+          ],
+          "inputs": {},
+          "label": null
+        }
+      },
+      "analytics_version": "analytics-v1"
+    },
+    {
+      "moment_id": "mo-e-000658",
+      "match_id": "ast-2026-1101-orn-vel",
+      "event_id": "e-000658",
+      "clock": {
+        "period": 2,
+        "minute": 49,
+        "second": 48
+      },
+      "type": "big_chance",
+      "importance": 0.9,
+      "headline": "Big chance for ORN (ORN-06)",
+      "event_ids": [
+        "e-000658"
+      ],
+      "metrics": {
+        "xg": {
+          "name": "xg",
+          "value": 0.552,
+          "unit": "goals",
+          "formula_version": "xg-v1",
+          "event_ids": [
+            "e-000658"
+          ],
+          "inputs": {},
+          "label": null
+        },
+        "event_pressure": {
+          "name": "event_pressure",
+          "value": 0.7,
+          "unit": "0-1",
+          "formula_version": "pressure-v1",
+          "event_ids": [
+            "e-000658"
+          ],
+          "inputs": {},
+          "label": null
+        }
+      },
+      "analytics_version": "analytics-v1"
+    },
+    {
+      "moment_id": "mo-e-000768",
+      "match_id": "ast-2026-1101-orn-vel",
+      "event_id": "e-000768",
+      "clock": {
+        "period": 2,
+        "minute": 58,
+        "second": 2
+      },
+      "type": "red_card",
+      "importance": 0.9,
+      "headline": "Red card for ORN-06",
+      "event_ids": [
+        "e-000768"
+      ],
+      "metrics": {},
+      "analytics_version": "analytics-v1"
+    },
+    {
+      "moment_id": "mo-e-000872",
+      "match_id": "ast-2026-1101-orn-vel",
+      "event_id": "e-000872",
+      "clock": {
+        "period": 2,
+        "minute": 65,
+        "second": 12
+      },
+      "type": "big_chance",
+      "importance": 0.9,
+      "headline": "Big chance for VEL (VEL-06)",
+      "event_ids": [
+        "e-000872"
+      ],
+      "metrics": {
+        "xg": {
+          "name": "xg",
+          "value": 0.602,
+          "unit": "goals",
+          "formula_version": "xg-v1",
+          "event_ids": [
+            "e-000872"
+          ],
+          "inputs": {},
+          "label": null
+        },
+        "event_pressure": {
+          "name": "event_pressure",
+          "value": 0.53,
+          "unit": "0-1",
+          "formula_version": "pressure-v1",
+          "event_ids": [
+            "e-000872"
+          ],
+          "inputs": {},
+          "label": null
+        }
+      },
+      "analytics_version": "analytics-v1"
+    },
+    {
+      "moment_id": "mo-e-000080",
+      "match_id": "ast-2026-1101-orn-vel",
+      "event_id": "e-000080",
+      "clock": {
+        "period": 1,
+        "minute": 6,
+        "second": 3
+      },
+      "type": "line_break",
+      "importance": 0.8,
+      "headline": "Line break under pressure",
+      "event_ids": [
+        "e-000080"
+      ],
+      "metrics": {
+        "xt_delta": {
+          "name": "xt_delta",
+          "value": 0.3062,
+          "unit": "threat",
+          "formula_version": "xt-grid-v1",
+          "event_ids": [
+            "e-000080"
+          ],
+          "inputs": {},
+          "label": null
+        },
+        "event_pressure": {
+          "name": "event_pressure",
+          "value": 0.82,
+          "unit": "0-1",
+          "formula_version": "pressure-v1",
+          "event_ids": [
+            "e-000080"
+          ],
+          "inputs": {},
+          "label": null
+        }
+      },
+      "analytics_version": "analytics-v1"
+    },
+    {
+      "moment_id": "mo-e-000275",
+      "match_id": "ast-2026-1101-orn-vel",
+      "event_id": "e-000275",
+      "clock": {
+        "period": 1,
+        "minute": 21,
+        "second": 32
+      },
+      "type": "line_break",
+      "importance": 0.8,
+      "headline": "Line break under pressure",
+      "event_ids": [
+        "e-000275"
+      ],
+      "metrics": {
+        "xt_delta": {
+          "name": "xt_delta",
+          "value": 0.1565,
+          "unit": "threat",
+          "formula_version": "xt-grid-v1",
+          "event_ids": [
+            "e-000275"
+          ],
+          "inputs": {},
+          "label": null
+        },
+        "event_pressure": {
+          "name": "event_pressure",
+          "value": 0.92,
+          "unit": "0-1",
+          "formula_version": "pressure-v1",
+          "event_ids": [
+            "e-000275"
+          ],
+          "inputs": {},
+          "label": null
+        }
+      },
+      "analytics_version": "analytics-v1"
+    },
+    {
+      "moment_id": "mo-e-000276",
+      "match_id": "ast-2026-1101-orn-vel",
+      "event_id": "e-000276",
+      "clock": {
+        "period": 1,
+        "minute": 21,
+        "second": 35
+      },
+      "type": "line_break",
+      "importance": 0.8,
+      "headline": "Line break under pressure",
+      "event_ids": [
+        "e-000276"
+      ],
+      "metrics": {
+        "xt_delta": {
+          "name": "xt_delta",
+          "value": 0.0,
+          "unit": "threat",
+          "formula_version": "xt-grid-v1",
+          "event_ids": [
+            "e-000276"
+          ],
+          "inputs": {},
+          "label": null
+        },
+        "event_pressure": {
+          "name": "event_pressure",
+          "value": 0.76,
+          "unit": "0-1",
+          "formula_version": "pressure-v1",
+          "event_ids": [
+            "e-000276"
+          ],
+          "inputs": {},
+          "label": null
+        }
+      },
+      "analytics_version": "analytics-v1"
+    },
+    {
+      "moment_id": "mo-e-000281",
+      "match_id": "ast-2026-1101-orn-vel",
+      "event_id": "e-000281",
+      "clock": {
+        "period": 1,
+        "minute": 21,
+        "second": 59
+      },
+      "type": "line_break",
+      "importance": 0.8,
+      "headline": "Line break under pressure",
+      "event_ids": [
+        "e-000281"
+      ],
+      "metrics": {
+        "xt_delta": {
+          "name": "xt_delta",
+          "value": 0.1256,
+          "unit": "threat",
+          "formula_version": "xt-grid-v1",
+          "event_ids": [
+            "e-000281"
+          ],
+          "inputs": {},
+          "label": null
+        },
+        "event_pressure": {
+          "name": "event_pressure",
+          "value": 0.87,
+          "unit": "0-1",
+          "formula_version": "pressure-v1",
+          "event_ids": [
+            "e-000281"
+          ],
+          "inputs": {},
+          "label": null
+        }
+      },
+      "analytics_version": "analytics-v1"
+    },
+    {
+      "moment_id": "mo-e-000300",
+      "match_id": "ast-2026-1101-orn-vel",
+      "event_id": "e-000300",
+      "clock": {
+        "period": 1,
+        "minute": 23,
+        "second": 15
+      },
+      "type": "line_break",
+      "importance": 0.8,
+      "headline": "Line break under pressure",
+      "event_ids": [
+        "e-000300"
+      ],
+      "metrics": {
+        "xt_delta": {
+          "name": "xt_delta",
+          "value": 0.3207,
+          "unit": "threat",
+          "formula_version": "xt-grid-v1",
+          "event_ids": [
+            "e-000300"
+          ],
+          "inputs": {},
+          "label": null
+        },
+        "event_pressure": {
+          "name": "event_pressure",
+          "value": 0.83,
+          "unit": "0-1",
+          "formula_version": "pressure-v1",
+          "event_ids": [
+            "e-000300"
+          ],
+          "inputs": {},
+          "label": null
+        }
+      },
+      "analytics_version": "analytics-v1"
+    },
+    {
+      "moment_id": "mo-e-000414",
+      "match_id": "ast-2026-1101-orn-vel",
+      "event_id": "e-000414",
+      "clock": {
+        "period": 1,
+        "minute": 31,
+        "second": 55
+      },
+      "type": "line_break",
+      "importance": 0.8,
+      "headline": "Line break under pressure",
+      "event_ids": [
+        "e-000414"
+      ],
+      "metrics": {
+        "xt_delta": {
+          "name": "xt_delta",
+          "value": 0.2356,
+          "unit": "threat",
+          "formula_version": "xt-grid-v1",
+          "event_ids": [
+            "e-000414"
+          ],
+          "inputs": {},
+          "label": null
+        },
+        "event_pressure": {
+          "name": "event_pressure",
+          "value": 0.52,
+          "unit": "0-1",
+          "formula_version": "pressure-v1",
+          "event_ids": [
+            "e-000414"
+          ],
+          "inputs": {},
+          "label": null
+        }
+      },
+      "analytics_version": "analytics-v1"
+    },
+    {
+      "moment_id": "mo-e-000489",
+      "match_id": "ast-2026-1101-orn-vel",
+      "event_id": "e-000489",
+      "clock": {
+        "period": 1,
+        "minute": 37,
+        "second": 52
+      },
+      "type": "line_break",
+      "importance": 0.8,
+      "headline": "Line break under pressure",
+      "event_ids": [
+        "e-000489"
+      ],
+      "metrics": {
+        "xt_delta": {
+          "name": "xt_delta",
+          "value": 0.1675,
+          "unit": "threat",
+          "formula_version": "xt-grid-v1",
+          "event_ids": [
+            "e-000489"
+          ],
+          "inputs": {},
+          "label": null
+        },
+        "event_pressure": {
+          "name": "event_pressure",
+          "value": 0.64,
+          "unit": "0-1",
+          "formula_version": "pressure-v1",
+          "event_ids": [
+            "e-000489"
+          ],
+          "inputs": {},
+          "label": null
+        }
+      },
+      "analytics_version": "analytics-v1"
+    },
+    {
+      "moment_id": "mo-e-000653",
+      "match_id": "ast-2026-1101-orn-vel",
+      "event_id": "e-000653",
+      "clock": {
+        "period": 2,
+        "minute": 49,
+        "second": 34
+      },
+      "type": "line_break",
+      "importance": 0.8,
+      "headline": "Line break under pressure",
+      "event_ids": [
+        "e-000653"
+      ],
+      "metrics": {
+        "xt_delta": {
+          "name": "xt_delta",
+          "value": 0.2072,
+          "unit": "threat",
+          "formula_version": "xt-grid-v1",
+          "event_ids": [
+            "e-000653"
+          ],
+          "inputs": {},
+          "label": null
+        },
+        "event_pressure": {
+          "name": "event_pressure",
+          "value": 0.64,
+          "unit": "0-1",
+          "formula_version": "pressure-v1",
+          "event_ids": [
+            "e-000653"
+          ],
+          "inputs": {},
+          "label": null
+        }
+      },
+      "analytics_version": "analytics-v1"
+    },
+    {
+      "moment_id": "mo-e-000666",
+      "match_id": "ast-2026-1101-orn-vel",
+      "event_id": "e-000666",
+      "clock": {
+        "period": 2,
+        "minute": 50,
+        "second": 23
+      },
+      "type": "line_break",
+      "importance": 0.8,
+      "headline": "Line break under pressure",
+      "event_ids": [
+        "e-000666"
+      ],
+      "metrics": {
+        "xt_delta": {
+          "name": "xt_delta",
+          "value": 0.2275,
+          "unit": "threat",
+          "formula_version": "xt-grid-v1",
+          "event_ids": [
+            "e-000666"
+          ],
+          "inputs": {},
+          "label": null
+        },
+        "event_pressure": {
+          "name": "event_pressure",
+          "value": 0.66,
+          "unit": "0-1",
+          "formula_version": "pressure-v1",
+          "event_ids": [
+            "e-000666"
+          ],
+          "inputs": {},
+          "label": null
+        }
+      },
+      "analytics_version": "analytics-v1"
+    },
+    {
+      "moment_id": "mo-e-000695",
+      "match_id": "ast-2026-1101-orn-vel",
+      "event_id": "e-000695",
+      "clock": {
+        "period": 2,
+        "minute": 52,
+        "second": 22
+      },
+      "type": "line_break",
+      "importance": 0.8,
+      "headline": "Line break under pressure",
+      "event_ids": [
+        "e-000695"
+      ],
+      "metrics": {
+        "xt_delta": {
+          "name": "xt_delta",
+          "value": 0.0779,
+          "unit": "threat",
+          "formula_version": "xt-grid-v1",
+          "event_ids": [
+            "e-000695"
+          ],
+          "inputs": {},
+          "label": null
+        },
+        "event_pressure": {
+          "name": "event_pressure",
+          "value": 0.77,
+          "unit": "0-1",
+          "formula_version": "pressure-v1",
+          "event_ids": [
+            "e-000695"
+          ],
+          "inputs": {},
+          "label": null
+        }
+      },
+      "analytics_version": "analytics-v1"
+    },
+    {
+      "moment_id": "mo-e-000874",
+      "match_id": "ast-2026-1101-orn-vel",
+      "event_id": "e-000874",
+      "clock": {
+        "period": 2,
+        "minute": 65,
+        "second": 22
+      },
+      "type": "line_break",
+      "importance": 0.8,
+      "headline": "Line break under pressure",
+      "event_ids": [
+        "e-000874"
+      ],
+      "metrics": {
+        "xt_delta": {
+          "name": "xt_delta",
+          "value": 0.0922,
+          "unit": "threat",
+          "formula_version": "xt-grid-v1",
+          "event_ids": [
+            "e-000874"
+          ],
+          "inputs": {},
+          "label": null
+        },
+        "event_pressure": {
+          "name": "event_pressure",
+          "value": 0.51,
+          "unit": "0-1",
+          "formula_version": "pressure-v1",
+          "event_ids": [
+            "e-000874"
+          ],
+          "inputs": {},
+          "label": null
+        }
+      },
+      "analytics_version": "analytics-v1"
+    },
+    {
+      "moment_id": "mo-e-000144",
+      "match_id": "ast-2026-1101-orn-vel",
+      "event_id": "e-000144",
+      "clock": {
+        "period": 1,
+        "minute": 11,
+        "second": 16
+      },
+      "type": "big_chance",
+      "importance": 0.763,
+      "headline": "Big chance for ORN (ORN-10)",
+      "event_ids": [
+        "e-000144"
+      ],
+      "metrics": {
+        "xg": {
+          "name": "xg",
+          "value": 0.313,
+          "unit": "goals",
+          "formula_version": "xg-v1",
+          "event_ids": [
+            "e-000144"
+          ],
+          "inputs": {},
+          "label": null
+        },
+        "event_pressure": {
+          "name": "event_pressure",
+          "value": 0.58,
+          "unit": "0-1",
+          "formula_version": "pressure-v1",
+          "event_ids": [
+            "e-000144"
+          ],
+          "inputs": {},
+          "label": null
+        }
+      },
+      "analytics_version": "analytics-v1"
+    },
+    {
+      "moment_id": "mo-e-000019",
+      "match_id": "ast-2026-1101-orn-vel",
+      "event_id": "e-000019",
+      "clock": {
+        "period": 1,
+        "minute": 1,
+        "second": 10
+      },
+      "type": "big_chance",
+      "importance": 0.744,
+      "headline": "Big chance for VEL (VEL-04)",
+      "event_ids": [
+        "e-000019"
+      ],
+      "metrics": {
+        "xg": {
+          "name": "xg",
+          "value": 0.294,
+          "unit": "goals",
+          "formula_version": "xg-v1",
+          "event_ids": [
+            "e-000019"
+          ],
+          "inputs": {},
+          "label": null
+        },
+        "event_pressure": {
+          "name": "event_pressure",
+          "value": 0.6,
+          "unit": "0-1",
+          "formula_version": "pressure-v1",
+          "event_ids": [
+            "e-000019"
+          ],
+          "inputs": {},
+          "label": null
+        }
+      },
+      "analytics_version": "analytics-v1"
+    },
+    {
+      "moment_id": "mo-e-000096",
+      "match_id": "ast-2026-1101-orn-vel",
+      "event_id": "e-000096",
+      "clock": {
+        "period": 1,
+        "minute": 7,
+        "second": 25
+      },
+      "type": "big_chance",
+      "importance": 0.696,
+      "headline": "Big chance for ORN (ORN-09)",
+      "event_ids": [
+        "e-000096"
+      ],
+      "metrics": {
+        "xg": {
+          "name": "xg",
+          "value": 0.246,
+          "unit": "goals",
+          "formula_version": "xg-v1",
+          "event_ids": [
+            "e-000096"
+          ],
+          "inputs": {},
+          "label": null
+        },
+        "event_pressure": {
+          "name": "event_pressure",
+          "value": 0.21,
+          "unit": "0-1",
+          "formula_version": "pressure-v1",
+          "event_ids": [
+            "e-000096"
+          ],
+          "inputs": {},
+          "label": null
+        }
+      },
+      "analytics_version": "analytics-v1"
+    },
+    {
+      "moment_id": "mo-e-000630",
+      "match_id": "ast-2026-1101-orn-vel",
+      "event_id": "e-000630",
+      "clock": {
+        "period": 2,
+        "minute": 47,
+        "second": 59
+      },
+      "type": "big_chance",
+      "importance": 0.68,
+      "headline": "Big chance for ORN (ORN-06)",
+      "event_ids": [
+        "e-000630"
+      ],
+      "metrics": {
+        "xg": {
+          "name": "xg",
+          "value": 0.23,
+          "unit": "goals",
+          "formula_version": "xg-v1",
+          "event_ids": [
+            "e-000630"
+          ],
+          "inputs": {},
+          "label": null
+        },
+        "event_pressure": {
+          "name": "event_pressure",
+          "value": 0.89,
+          "unit": "0-1",
+          "formula_version": "pressure-v1",
+          "event_ids": [
+            "e-000630"
+          ],
+          "inputs": {},
+          "label": null
+        }
+      },
+      "analytics_version": "analytics-v1"
+    },
+    {
+      "moment_id": "mo-e-000617",
+      "match_id": "ast-2026-1101-orn-vel",
+      "event_id": "e-000617",
+      "clock": {
+        "period": 2,
+        "minute": 47,
+        "second": 6
+      },
+      "type": "big_chance",
+      "importance": 0.609,
+      "headline": "Big chance for VEL (VEL-06)",
+      "event_ids": [
+        "e-000617"
+      ],
+      "metrics": {
+        "xg": {
+          "name": "xg",
+          "value": 0.159,
+          "unit": "goals",
+          "formula_version": "xg-v1",
+          "event_ids": [
+            "e-000617"
+          ],
+          "inputs": {},
+          "label": null
+        },
+        "event_pressure": {
+          "name": "event_pressure",
+          "value": 0.66,
+          "unit": "0-1",
+          "formula_version": "pressure-v1",
+          "event_ids": [
+            "e-000617"
+          ],
+          "inputs": {},
+          "label": null
+        }
+      },
+      "analytics_version": "analytics-v1"
+    },
+    {
+      "moment_id": "mo-e-000673",
+      "match_id": "ast-2026-1101-orn-vel",
+      "event_id": "e-000673",
+      "clock": {
+        "period": 2,
+        "minute": 50,
+        "second": 59
+      },
+      "type": "big_chance",
+      "importance": 0.592,
+      "headline": "Big chance for ORN (ORN-03)",
+      "event_ids": [
+        "e-000673"
+      ],
+      "metrics": {
+        "xg": {
+          "name": "xg",
+          "value": 0.142,
+          "unit": "goals",
+          "formula_version": "xg-v1",
+          "event_ids": [
+            "e-000673"
+          ],
+          "inputs": {},
+          "label": null
+        },
+        "event_pressure": {
+          "name": "event_pressure",
+          "value": 0.72,
+          "unit": "0-1",
+          "formula_version": "pressure-v1",
+          "event_ids": [
+            "e-000673"
+          ],
+          "inputs": {},
+          "label": null
+        }
+      },
+      "analytics_version": "analytics-v1"
+    },
+    {
+      "moment_id": "mo-e-000380",
+      "match_id": "ast-2026-1101-orn-vel",
+      "event_id": "e-000380",
+      "clock": {
+        "period": 1,
+        "minute": 29,
+        "second": 24
+      },
+      "type": "big_chance",
+      "importance": 0.583,
+      "headline": "Big chance for ORN (ORN-02)",
+      "event_ids": [
+        "e-000380"
+      ],
+      "metrics": {
+        "xg": {
+          "name": "xg",
+          "value": 0.133,
+          "unit": "goals",
+          "formula_version": "xg-v1",
+          "event_ids": [
+            "e-000380"
+          ],
+          "inputs": {},
+          "label": null
+        },
+        "event_pressure": {
+          "name": "event_pressure",
+          "value": 0.47,
+          "unit": "0-1",
+          "formula_version": "pressure-v1",
+          "event_ids": [
+            "e-000380"
+          ],
+          "inputs": {},
+          "label": null
+        }
+      },
+      "analytics_version": "analytics-v1"
+    },
+    {
+      "moment_id": "mo-e-000213",
+      "match_id": "ast-2026-1101-orn-vel",
+      "event_id": "e-000213",
+      "clock": {
+        "period": 1,
+        "minute": 16,
+        "second": 26
+      },
+      "type": "big_chance",
+      "importance": 0.579,
+      "headline": "Big chance for VEL (VEL-06)",
+      "event_ids": [
+        "e-000213"
+      ],
+      "metrics": {
+        "xg": {
+          "name": "xg",
+          "value": 0.129,
+          "unit": "goals",
+          "formula_version": "xg-v1",
+          "event_ids": [
+            "e-000213"
+          ],
+          "inputs": {},
+          "label": null
+        },
+        "event_pressure": {
+          "name": "event_pressure",
+          "value": 0.21,
+          "unit": "0-1",
+          "formula_version": "pressure-v1",
+          "event_ids": [
+            "e-000213"
+          ],
+          "inputs": {},
+          "label": null
+        }
+      },
+      "analytics_version": "analytics-v1"
+    },
+    {
+      "moment_id": "mo-e-000511",
+      "match_id": "ast-2026-1101-orn-vel",
+      "event_id": "e-000511",
+      "clock": {
+        "period": 1,
+        "minute": 39,
+        "second": 30
+      },
+      "type": "big_chance",
+      "importance": 0.5780000000000001,
+      "headline": "Big chance for ORN (ORN-02)",
+      "event_ids": [
+        "e-000511"
+      ],
+      "metrics": {
+        "xg": {
+          "name": "xg",
+          "value": 0.128,
+          "unit": "goals",
+          "formula_version": "xg-v1",
+          "event_ids": [
+            "e-000511"
+          ],
+          "inputs": {},
+          "label": null
+        },
+        "event_pressure": {
+          "name": "event_pressure",
+          "value": 0.79,
+          "unit": "0-1",
+          "formula_version": "pressure-v1",
+          "event_ids": [
+            "e-000511"
+          ],
+          "inputs": {},
+          "label": null
+        }
+      },
+      "analytics_version": "analytics-v1"
+    },
+    {
+      "moment_id": "mo-e-001129",
+      "match_id": "ast-2026-1101-orn-vel",
+      "event_id": "e-001129",
+      "clock": {
+        "period": 2,
+        "minute": 83,
+        "second": 17
+      },
+      "type": "yellow_card",
+      "importance": 0.4,
+      "headline": "Yellow card for ORN-10",
+      "event_ids": [
+        "e-001129"
+      ],
+      "metrics": {},
+      "analytics_version": "analytics-v1"
+    }
+  ]
+}

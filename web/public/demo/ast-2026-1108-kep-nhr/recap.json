@@ -1,0 +1,66 @@
+{
+  "match_id": "ast-2026-1108-kep-nhr",
+  "title": "Kepler Town 0-2 Nova Harbor",
+  "summary": "Nova Harbor beat Kepler Town 0-2 in the Aster League. Nova Harbor scored in the 31st minute through Teo Varela. Nova Harbor scored in the 63rd minute through Isak Rune. Rui Calder received a yellow card in the 43rd minute. Emil Rask received a yellow card in the 46th minute. Jonas Kade received a yellow card in the 91st minute.",
+  "final_score": {
+    "home": 0,
+    "away": 2
+  },
+  "key_moments": [
+    {
+      "clock": {
+        "period": 1,
+        "minute": 18,
+        "second": 7
+      },
+      "type": "sprint_peak",
+      "description": "Niko Sarin reaches 34.1 km/h",
+      "event_ids": [
+        "e-000245"
+      ]
+    },
+    {
+      "clock": {
+        "period": 1,
+        "minute": 31,
+        "second": 6
+      },
+      "type": "goal",
+      "description": "Nova Harbor lead 1-0",
+      "event_ids": [
+        "e-000426",
+        "e-000427",
+        "e-000428"
+      ]
+    },
+    {
+      "clock": {
+        "period": 2,
+        "minute": 46,
+        "second": 4
+      },
+      "type": "yellow_card",
+      "description": "Emil Rask is booked",
+      "event_ids": [
+        "e-000635",
+        "e-000636"
+      ]
+    },
+    {
+      "clock": {
+        "period": 2,
+        "minute": 63,
+        "second": 6
+      },
+      "type": "goal",
+      "description": "Nova Harbor double the lead",
+      "event_ids": [
+        "e-000857",
+        "e-000858",
+        "e-000859"
+      ]
+    }
+  ],
+  "top_speed_kmh": 34.1,
+  "generated_by": "recap-v1"
+}

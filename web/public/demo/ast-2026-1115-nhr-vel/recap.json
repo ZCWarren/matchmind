@@ -1,0 +1,135 @@
+{
+  "match_id": "ast-2026-1115-nhr-vel",
+  "title": "Nova Harbor 3-3 Vela Athletic",
+  "summary": "Nova Harbor and Vela Athletic drew 3-3 in the Aster League. Nova Harbor scored in the 9th minute through Teo Varela. Vela Athletic scored in the 27th minute through Andre Cala. Nova Harbor scored in the 44th minute through Arun Kale. Vela Athletic scored in the 61st minute through Bastian Ruel. Nova Harbor scored in the 73rd minute through Teo Varela. Vela Athletic scored in the 88th minute through Andre Cala. Rafa Miro received a yellow card in the 52nd minute. Ilias Varn received a yellow card in the 80th minute.",
+  "final_score": {
+    "home": 3,
+    "away": 3
+  },
+  "key_moments": [
+    {
+      "clock": {
+        "period": 1,
+        "minute": 9,
+        "second": 7
+      },
+      "type": "goal",
+      "description": "Nova Harbor lead 1-0",
+      "event_ids": [
+        "e-000123",
+        "e-000124",
+        "e-000125"
+      ]
+    },
+    {
+      "clock": {
+        "period": 1,
+        "minute": 27,
+        "second": 29
+      },
+      "type": "goal",
+      "description": "Vela Athletic equalize",
+      "event_ids": [
+        "e-000367",
+        "e-000368",
+        "e-000369"
+      ]
+    },
+    {
+      "clock": {
+        "period": 1,
+        "minute": 36,
+        "second": 5
+      },
+      "type": "sprint_peak",
+      "description": "Sprint peak before the second-half exchange",
+      "event_ids": [
+        "e-000484"
+      ]
+    },
+    {
+      "clock": {
+        "period": 1,
+        "minute": 44,
+        "second": 16
+      },
+      "type": "goal",
+      "description": "Nova Harbor lead 2-1",
+      "event_ids": [
+        "e-000585",
+        "e-000586",
+        "e-000587"
+      ]
+    },
+    {
+      "clock": {
+        "period": 2,
+        "minute": 52,
+        "second": 11
+      },
+      "type": "yellow_card",
+      "description": "Rafa Miro is booked",
+      "event_ids": [
+        "e-000688",
+        "e-000689"
+      ]
+    },
+    {
+      "clock": {
+        "period": 2,
+        "minute": 61,
+        "second": 11
+      },
+      "type": "goal",
+      "description": "Vela Athletic equalize again",
+      "event_ids": [
+        "e-000808",
+        "e-000809",
+        "e-000810"
+      ]
+    },
+    {
+      "clock": {
+        "period": 2,
+        "minute": 73,
+        "second": 7
+      },
+      "type": "goal",
+      "description": "Nova Harbor lead 3-2",
+      "event_ids": [
+        "e-000967",
+        "e-000968",
+        "e-000969"
+      ]
+    },
+    {
+      "clock": {
+        "period": 2,
+        "minute": 80,
+        "second": 3
+      },
+      "type": "yellow_card",
+      "description": "Ilias Varn is booked",
+      "event_ids": [
+        "e-001058",
+        "e-001059"
+      ]
+    },
+    {
+      "clock": {
+        "period": 2,
+        "minute": 88,
+        "second": 18
+      },
+      "type": "goal",
+      "description": "Chaos game equalizer",
+      "event_ids": [
+        "e-001160",
+        "e-001161",
+        "e-001162"
+      ]
+    }
+  ],
+  "top_speed_kmh": 33.6,
+  "generated_by": "recap-v1"
+}

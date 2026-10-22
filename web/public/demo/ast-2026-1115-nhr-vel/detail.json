@@ -1,0 +1,472 @@
+{
+  "match": {
+    "match_id": "ast-2026-1115-nhr-vel",
+    "competition": "Aster League",
+    "season": "2026",
+    "date": "2026-11-15",
+    "kickoff_utc": "2026-11-15T15:00:00Z",
+    "venue": "Meridian Park",
+    "home": {
+      "team_id": "NHR",
+      "name": "Nova Harbor",
+      "short_name": "Nova",
+      "color": "#0FB5A6",
+      "venue": "Meridian Park"
+    },
+    "away": {
+      "team_id": "VEL",
+      "name": "Vela Athletic",
+      "short_name": "Vela",
+      "color": "#2F6BFF",
+      "venue": "Vela Ground"
+    },
+    "lineups": [
+      {
+        "player_id": "NHR-01",
+        "name": "Ivo Marchetti",
+        "number": 1,
+        "position": "GK",
+        "team_id": "NHR",
+        "starter": true
+      },
+      {
+        "player_id": "NHR-02",
+        "name": "Rui Calder",
+        "number": 2,
+        "position": "RB",
+        "team_id": "NHR",
+        "starter": true
+      },
+      {
+        "player_id": "NHR-03",
+        "name": "Emil Novak",
+        "number": 4,
+        "position": "CB",
+        "team_id": "NHR",
+        "starter": true
+      },
+      {
+        "player_id": "NHR-04",
+        "name": "Sami Orlov",
+        "number": 5,
+        "position": "CB",
+        "team_id": "NHR",
+        "starter": true
+      },
+      {
+        "player_id": "NHR-05",
+        "name": "Dario Voss",
+        "number": 3,
+        "position": "LB",
+        "team_id": "NHR",
+        "starter": true
+      },
+      {
+        "player_id": "NHR-06",
+        "name": "Kian Mercer",
+        "number": 6,
+        "position": "DM",
+        "team_id": "NHR",
+        "starter": true
+      },
+      {
+        "player_id": "NHR-07",
+        "name": "Leo Arden",
+        "number": 8,
+        "position": "CM",
+        "team_id": "NHR",
+        "starter": true
+      },
+      {
+        "player_id": "NHR-08",
+        "name": "Milo Feng",
+        "number": 10,
+        "position": "AM",
+        "team_id": "NHR",
+        "starter": true
+      },
+      {
+        "player_id": "NHR-09",
+        "name": "Teo Varela",
+        "number": 9,
+        "position": "ST",
+        "team_id": "NHR",
+        "starter": true
+      },
+      {
+        "player_id": "NHR-10",
+        "name": "Arun Kale",
+        "number": 7,
+        "position": "RW",
+        "team_id": "NHR",
+        "starter": true
+      },
+      {
+        "player_id": "NHR-11",
+        "name": "Niko Sarin",
+        "number": 11,
+        "position": "LW",
+        "team_id": "NHR",
+        "starter": true
+      },
+      {
+        "player_id": "NHR-12",
+        "name": "Pavel Orm",
+        "number": 12,
+        "position": "GK",
+        "team_id": "NHR",
+        "starter": false
+      },
+      {
+        "player_id": "NHR-13",
+        "name": "Jonas Vey",
+        "number": 13,
+        "position": "CB",
+        "team_id": "NHR",
+        "starter": false
+      },
+      {
+        "player_id": "NHR-14",
+        "name": "Isak Rune",
+        "number": 14,
+        "position": "LW",
+        "team_id": "NHR",
+        "starter": false
+      },
+      {
+        "player_id": "NHR-15",
+        "name": "Remy Sol",
+        "number": 15,
+        "position": "CM",
+        "team_id": "NHR",
+        "starter": false
+      },
+      {
+        "player_id": "NHR-16",
+        "name": "Tavi Norn",
+        "number": 16,
+        "position": "RW",
+        "team_id": "NHR",
+        "starter": false
+      },
+      {
+        "player_id": "VEL-01",
+        "name": "Mateo Rios",
+        "number": 1,
+        "position": "GK",
+        "team_id": "VEL",
+        "starter": true
+      },
+      {
+        "player_id": "VEL-02",
+        "name": "Nico Salas",
+        "number": 2,
+        "position": "RB",
+        "team_id": "VEL",
+        "starter": true
+      },
+      {
+        "player_id": "VEL-03",
+        "name": "Pavel Dune",
+        "number": 4,
+        "position": "CB",
+        "team_id": "VEL",
+        "starter": true
+      },
+      {
+        "player_id": "VEL-04",
+        "name": "Owen Kest",
+        "number": 5,
+        "position": "CB",
+        "team_id": "VEL",
+        "starter": true
+      },
+      {
+        "player_id": "VEL-05",
+        "name": "Ilias Varn",
+        "number": 3,
+        "position": "LB",
+        "team_id": "VEL",
+        "starter": true
+      },
+      {
+        "player_id": "VEL-06",
+        "name": "Rafa Miro",
+        "number": 6,
+        "position": "DM",
+        "team_id": "VEL",
+        "starter": true
+      },
+      {
+        "player_id": "VEL-07",
+        "name": "Sergio Lune",
+        "number": 8,
+        "position": "CM",
+        "team_id": "VEL",
+        "starter": true
+      },
+      {
+        "player_id": "VEL-08",
+        "name": "Timo Vey",
+        "number": 10,
+        "position": "AM",
+        "team_id": "VEL",
+        "starter": true
+      },
+      {
+        "player_id": "VEL-09",
+        "name": "Andre Cala",
+        "number": 9,
+        "position": "ST",
+        "team_id": "VEL",
+        "starter": true
+      },
+      {
+        "player_id": "VEL-10",
+        "name": "Bastian Ruel",
+        "number": 7,
+        "position": "RW",
+        "team_id": "VEL",
+        "starter": true
+      },
+      {
+        "player_id": "VEL-11",
+        "name": "Nestor Vale",
+        "number": 11,
+        "position": "LW",
+        "team_id": "VEL",
+        "starter": true
+      },
+      {
+        "player_id": "VEL-12",
+        "name": "Luka Morn",
+        "number": 12,
+        "position": "GK",
+        "team_id": "VEL",
+        "starter": false
+      },
+      {
+        "player_id": "VEL-13",
+        "name": "Hugo Tern",
+        "number": 13,
+        "position": "CB",
+        "team_id": "VEL",
+        "starter": false
+      },
+      {
+        "player_id": "VEL-14",
+        "name": "Dani Fenn",
+        "number": 14,
+        "position": "LW",
+        "team_id": "VEL",
+        "starter": false
+      },
+      {
+        "player_id": "VEL-15",
+        "name": "Marco Ilves",
+        "number": 15,
+        "position": "CM",
+        "team_id": "VEL",
+        "starter": false
+      },
+      {
+        "player_id": "VEL-16",
+        "name": "Yuri Sable",
+        "number": 16,
+        "position": "RW",
+        "team_id": "VEL",
+        "starter": false
+      }
+    ],
+    "final_score": {
+      "home": 3,
+      "away": 3
+    },
+    "seed": 20261115,
+    "generator": "matchforge-v1"
+  },
+  "labels": [
+    {
+      "moment_id": "m-009-01",
+      "match_id": "ast-2026-1115-nhr-vel",
+      "clock": {
+        "period": 1,
+        "minute": 9,
+        "second": 7
+      },
+      "type": "goal",
+      "importance": 0.7,
+      "event_ids": [
+        "e-000123",
+        "e-000124",
+        "e-000125"
+      ],
+      "expected_claims": [
+        "Nova Harbor lead 1-0",
+        "Teo Varela opens the scoring"
+      ],
+      "notes": ""
+    },
+    {
+      "moment_id": "m-027-01",
+      "match_id": "ast-2026-1115-nhr-vel",
+      "clock": {
+        "period": 1,
+        "minute": 27,
+        "second": 29
+      },
+      "type": "goal",
+      "importance": 0.7,
+      "event_ids": [
+        "e-000367",
+        "e-000368",
+        "e-000369"
+      ],
+      "expected_claims": [
+        "Vela Athletic equalize",
+        "Andre Cala finishes a central move"
+      ],
+      "notes": ""
+    },
+    {
+      "moment_id": "m-036-01",
+      "match_id": "ast-2026-1115-nhr-vel",
+      "clock": {
+        "period": 1,
+        "minute": 36,
+        "second": 5
+      },
+      "type": "sprint_peak",
+      "importance": 0.5,
+      "event_ids": [
+        "e-000484"
+      ],
+      "expected_claims": [
+        "Isak Rune reaches 33.6 km/h"
+      ],
+      "notes": "Sprint peak before the second-half exchange"
+    },
+    {
+      "moment_id": "m-044-01",
+      "match_id": "ast-2026-1115-nhr-vel",
+      "clock": {
+        "period": 1,
+        "minute": 44,
+        "second": 16
+      },
+      "type": "goal",
+      "importance": 0.75,
+      "event_ids": [
+        "e-000585",
+        "e-000586",
+        "e-000587"
+      ],
+      "expected_claims": [
+        "Nova Harbor lead 2-1",
+        "Arun Kale scores before half-time"
+      ],
+      "notes": ""
+    },
+    {
+      "moment_id": "m-052-01",
+      "match_id": "ast-2026-1115-nhr-vel",
+      "clock": {
+        "period": 2,
+        "minute": 52,
+        "second": 11
+      },
+      "type": "yellow_card",
+      "importance": 0.4,
+      "event_ids": [
+        "e-000688",
+        "e-000689"
+      ],
+      "expected_claims": [
+        "Rafa Miro is booked"
+      ],
+      "notes": ""
+    },
+    {
+      "moment_id": "m-061-01",
+      "match_id": "ast-2026-1115-nhr-vel",
+      "clock": {
+        "period": 2,
+        "minute": 61,
+        "second": 11
+      },
+      "type": "goal",
+      "importance": 0.75,
+      "event_ids": [
+        "e-000808",
+        "e-000809",
+        "e-000810"
+      ],
+      "expected_claims": [
+        "Vela Athletic equalize again",
+        "Bastian Ruel scores at the back post"
+      ],
+      "notes": ""
+    },
+    {
+      "moment_id": "m-073-01",
+      "match_id": "ast-2026-1115-nhr-vel",
+      "clock": {
+        "period": 2,
+        "minute": 73,
+        "second": 7
+      },
+      "type": "goal",
+      "importance": 0.85,
+      "event_ids": [
+        "e-000967",
+        "e-000968",
+        "e-000969"
+      ],
+      "expected_claims": [
+        "Nova Harbor lead 3-2",
+        "Teo Varela scores his second"
+      ],
+      "notes": ""
+    },
+    {
+      "moment_id": "m-080-01",
+      "match_id": "ast-2026-1115-nhr-vel",
+      "clock": {
+        "period": 2,
+        "minute": 80,
+        "second": 3
+      },
+      "type": "yellow_card",
+      "importance": 0.4,
+      "event_ids": [
+        "e-001058",
+        "e-001059"
+      ],
+      "expected_claims": [
+        "Ilias Varn is booked"
+      ],
+      "notes": ""
+    },
+    {
+      "moment_id": "m-088-01",
+      "match_id": "ast-2026-1115-nhr-vel",
+      "clock": {
+        "period": 2,
+        "minute": 88,
+        "second": 18
+      },
+      "type": "goal",
+      "importance": 0.9,
+      "event_ids": [
+        "e-001160",
+        "e-001161",
+        "e-001162"
+      ],
+      "expected_claims": [
+        "Vela Athletic equalize late",
+        "Andre Cala completes his brace"
+      ],
+      "notes": "Chaos game equalizer"
+    }
+  ]
+}

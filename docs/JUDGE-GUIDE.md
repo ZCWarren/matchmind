@@ -6,7 +6,11 @@ audiences different views of the same verified moment.
 
 ## Quick path
 
-1. Open `http://localhost:8010/studio`.
+Public static demo: <https://ruziniuuuuu.github.io/matchmind-demo/#/studio>.
+It contains all five fixtures and overlay templates; live generation and the
+WebSocket feed are available in the local app.
+
+1. Open `https://ruziniuuuuu.github.io/matchmind-demo/#/studio` or `http://localhost:8010/studio`.
 2. The hero match is preselected: Nova Harbor vs Orion North, 72:12, 1-1.
    Use the match selector to switch all five fixtures; each has a precomputed
    insight. One fixture shows an advisory FactChecker fallback in its agent trace

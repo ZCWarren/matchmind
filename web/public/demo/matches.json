@@ -1,0 +1,127 @@
+[
+  {
+    "match_id": "ast-2026-1018-nhr-orn",
+    "competition": "Aster League",
+    "date": "2026-10-18",
+    "home": {
+      "team_id": "NHR",
+      "name": "Nova Harbor",
+      "short_name": "Nova",
+      "color": "#0FB5A6",
+      "venue": "Meridian Park"
+    },
+    "away": {
+      "team_id": "ORN",
+      "name": "Orion North",
+      "short_name": "Orion",
+      "color": "#E23B3B",
+      "venue": "Orion Park"
+    },
+    "final_score": {
+      "home": 2,
+      "away": 1
+    },
+    "venue": "Meridian Park",
+    "event_count": 1275
+  },
+  {
+    "match_id": "ast-2026-1025-vel-kep",
+    "competition": "Aster League",
+    "date": "2026-10-25",
+    "home": {
+      "team_id": "VEL",
+      "name": "Vela Athletic",
+      "short_name": "Vela",
+      "color": "#2F6BFF",
+      "venue": "Vela Ground"
+    },
+    "away": {
+      "team_id": "KEP",
+      "name": "Kepler Town",
+      "short_name": "Kepler",
+      "color": "#E0A400",
+      "venue": "Kepler Arena"
+    },
+    "final_score": {
+      "home": 3,
+      "away": 2
+    },
+    "venue": "Vela Ground",
+    "event_count": 1238
+  },
+  {
+    "match_id": "ast-2026-1101-orn-vel",
+    "competition": "Aster League",
+    "date": "2026-11-01",
+    "home": {
+      "team_id": "ORN",
+      "name": "Orion North",
+      "short_name": "Orion",
+      "color": "#E23B3B",
+      "venue": "Orion Park"
+    },
+    "away": {
+      "team_id": "VEL",
+      "name": "Vela Athletic",
+      "short_name": "Vela",
+      "color": "#2F6BFF",
+      "venue": "Vela Ground"
+    },
+    "final_score": {
+      "home": 1,
+      "away": 1
+    },
+    "venue": "Orion Park",
+    "event_count": 1278
+  },
+  {
+    "match_id": "ast-2026-1108-kep-nhr",
+    "competition": "Aster League",
+    "date": "2026-11-08",
+    "home": {
+      "team_id": "KEP",
+      "name": "Kepler Town",
+      "short_name": "Kepler",
+      "color": "#E0A400",
+      "venue": "Kepler Arena"
+    },
+    "away": {
+      "team_id": "NHR",
+      "name": "Nova Harbor",
+      "short_name": "Nova",
+      "color": "#0FB5A6",
+      "venue": "Meridian Park"
+    },
+    "final_score": {
+      "home": 0,
+      "away": 2
+    },
+    "venue": "Kepler Arena",
+    "event_count": 1254
+  },
+  {
+    "match_id": "ast-2026-1115-nhr-vel",
+    "competition": "Aster League",
+    "date": "2026-11-15",
+    "home": {
+      "team_id": "NHR",
+      "name": "Nova Harbor",
+      "short_name": "Nova",
+      "color": "#0FB5A6",
+      "venue": "Meridian Park"
+    },
+    "away": {
+      "team_id": "VEL",
+      "name": "Vela Athletic",
+      "short_name": "Vela",
+      "color": "#2F6BFF",
+      "venue": "Vela Ground"
+    },
+    "final_score": {
+      "home": 3,
+      "away": 3
+    },
+    "venue": "Meridian Park",
+    "event_count": 1236
+  }
+]

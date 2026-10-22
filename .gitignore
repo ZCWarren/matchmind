@@ -37,3 +37,5 @@ data/tracking/*.jsonl
 # Azure / azd
 .azure/
 infra/*.json
+
+web/dist-static

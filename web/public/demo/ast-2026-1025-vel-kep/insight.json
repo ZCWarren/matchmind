@@ -1,0 +1,375 @@
+{
+  "match_id": "ast-2026-1025-vel-kep",
+  "moment": {
+    "moment_id": "mo-e-001092",
+    "match_id": "ast-2026-1025-vel-kep",
+    "event_id": "e-001092",
+    "clock": {
+      "period": 2,
+      "minute": 82,
+      "second": 47
+    },
+    "type": "line_break",
+    "importance": 0.8,
+    "headline": "Line break under pressure",
+    "event_ids": [
+      "e-001092"
+    ],
+    "metrics": {
+      "xt_delta": {
+        "name": "xt_delta",
+        "value": 0.242,
+        "unit": "threat",
+        "formula_version": "xt-grid-v1",
+        "event_ids": [
+          "e-001092"
+        ],
+        "inputs": {},
+        "label": null
+      },
+      "event_pressure": {
+        "name": "event_pressure",
+        "value": 0.88,
+        "unit": "0-1",
+        "formula_version": "pressure-v1",
+        "event_ids": [
+          "e-001092"
+        ],
+        "inputs": {},
+        "label": null
+      }
+    },
+    "analytics_version": "analytics-v1"
+  },
+  "clock": {
+    "period": 2,
+    "minute": 82,
+    "second": 47
+  },
+  "insight": {
+    "moment_id": "mo-e-001092",
+    "match_id": "ast-2026-1025-vel-kep",
+    "headline": "VEL-11 breaks KEP's press at 82:47 with a 27.4 m line-breaking pass to VEL-09",
+    "why_it_matters": "With the score level at 2-2 in the 83rd minute, VEL-11 received at x=54.9 under pressure of 0.88 and still found VEL-09 at x=80.9, carrying the ball past the last line of KEP's block. Because the pass was completed rather than intercepted, KEP's mid-block was bypassed without a turnover, and the next action was a VEL-03 carry from x=80.9 to x=92.8 at pressure 0.25 — the sequence converted a contested regain into territory deep in the attacking third rather than a reset back into build-up.",
+    "watch_next": "Watch item, not a finding: KEP applied pressure through KEP-07 at 82:35 (pressure 0.62) before this break, and KEP-05 completed a 24.3 m pass at pressure 0.84 at 83:09; whether KEP sustain that level of counter-pressure on VEL's next progression attempt is worth monitoring.",
+    "claims": [
+      {
+        "text": "VEL-11 completed the line-break pass to VEL-09 at 82:47 while under pressure of 0.88, producing an expected-threat gain of 0.242.",
+        "event_ids": [
+          "e-001092"
+        ],
+        "metric_refs": [
+          {
+            "name": "event_pressure",
+            "value": 0.88,
+            "formula_version": "pressure-v1",
+            "event_ids": [
+              "e-001092"
+            ]
+          },
+          {
+            "name": "xt_delta",
+            "value": 0.242,
+            "formula_version": "xt-grid-v1",
+            "event_ids": [
+              "e-001092"
+            ]
+          }
+        ],
+        "confidence": 0.85
+      },
+      {
+        "text": "The pass covered 27.4 m from x=54.9 to x=80.9 at a rated difficulty of 7.2, above the window-level pass_difficulty figure of 4.3107.",
+        "event_ids": [
+          "e-001092"
+        ],
+        "metric_refs": [
+          {
+            "name": "pass_difficulty",
+            "value": 4.3107,
+            "formula_version": "pass-quality-v1",
+            "event_ids": [
+              "e-001092"
+            ]
+          }
+        ],
+        "confidence": 0.8
+      },
+      {
+        "text": "The break came on the same timestamp as VEL-06's tackle won at pressure 0.77, so the progression followed a direct regain rather than a settled possession.",
+        "event_ids": [
+          "e-001091",
+          "e-001092"
+        ],
+        "metric_refs": [],
+        "confidence": 0.75
+      },
+      {
+        "text": "This is one of 9 line breaks recorded in the match snapshot, and it moved the ball from VEL's own half into a position where VEL-03 carried it a further 12.9 m to x=92.8 with pressure falling to 0.25.",
+        "event_ids": [
+          "e-001092",
+          "e-001093"
+        ],
+        "metric_refs": [
+          {
+            "name": "line_breaks",
+            "value": 9.0,
+            "formula_version": "pass-quality-v1",
+            "event_ids": [
+              "e-001092"
+            ]
+          }
+        ],
+        "confidence": 0.8
+      },
+      {
+        "text": "The snapshot grades this phase as high-chaos at 0.8316 with momentum at -0.0688 on a -1 to 1 scale and control nearly level between the sides at 0.6272 home and 0.6223 away.",
+        "event_ids": [
+          "e-001092"
+        ],
+        "metric_refs": [
+          {
+            "name": "chaos",
+            "value": 0.8316,
+            "formula_version": "chaos-v1",
+            "event_ids": [
+              "e-001092"
+            ]
+          },
+          {
+            "name": "momentum",
+            "value": -0.0688,
+            "formula_version": "momentum-v1",
+            "event_ids": [
+              "e-001092"
+            ]
+          },
+          {
+            "name": "control_home",
+            "value": 0.6272,
+            "formula_version": "control-v1",
+            "event_ids": [
+              "e-001092"
+            ]
+          }
+        ],
+        "confidence": 0.7
+      }
+    ],
+    "importance": 0.8,
+    "confidence": 0.82
+  },
+  "cue": {
+    "cue_id": "cue-mo-e-001092",
+    "insight_id": "mo-e-001092",
+    "template": "lower_third_why",
+    "priority": 0.8,
+    "duration_seconds": 10.0,
+    "safe_area": "lower_third",
+    "payload": {
+      "eyebrow": "VEL 2-2 KEP · 82:47",
+      "headline": "VEL-11 breaks KEP's press with 27.4 m pass to VEL-09",
+      "stat": "Pressure 0.88 · xT gain 0.242",
+      "subline": "Pass from x=54.9 to x=80.9; VEL-03 carries to x=92.8"
+    }
+  },
+  "fan_cards": [
+    {
+      "insight_id": "mo-e-001092",
+      "profile": "analyst",
+      "language": "en",
+      "headline": "VEL-11 breaks KEP's press at 82:47 with a 27.4 m line-breaking pass to VEL-09",
+      "what_happened": "At 82:47, VEL-11 received at x=54.9 under pressure 0.88 and completed a 27.4 m line-breaking pass to VEL-09 at x=80.9, for an xT gain of 0.242. The pass carried a difficulty rating of 7.2, above the window pass_difficulty of 4.3107, and followed VEL-06's tackle won at pressure 0.77.",
+      "why_it_matters": "Because the pass was completed, KEP's mid-block was bypassed without a turnover; VEL-03 then carried from x=80.9 to x=92.8, adding 12.9 m as pressure fell to 0.25. In a high-chaos phase (0.8316) with control nearly level (0.6272 vs 0.6223), that sequence converted a contested regain into deep attacking-third territory.",
+      "watch_next": "Watch whether KEP sustain counter-pressure on VEL's next progression attempt, after KEP-07 applied pressure 0.62 at 82:35 and KEP-05 completed a 24.3 m pass at pressure 0.84 at 83:09.",
+      "how_we_know": "The evidence is the 82:47 line-break event and adjacent regain and carry events, with pressure, xT, pass-difficulty, chaos, momentum and control metrics attached to those event IDs.",
+      "evidence_event_ids": [
+        "e-001091",
+        "e-001092",
+        "e-001093"
+      ]
+    },
+    {
+      "insight_id": "mo-e-001092-analyst-es",
+      "profile": "analyst",
+      "language": "es",
+      "headline": "VEL-11 rompe la presión de KEP al 82:47 con un pase de 27.4 m a VEL-09",
+      "what_happened": "En el 82:47, con 2-2, VEL-11 recibió en x=54.9 bajo presión de 0.88 y completó un pase de 27.4 m a VEL-09 en x=80.9, con dificultad 7.2 frente a 4.3107 de referencia y un delta de xT de 0.242. La acción siguió a un tackle ganado por VEL-06 (presión 0.77), y VEL-03 condujo después de x=80.9 a x=92.8 con presión 0.25.",
+      "why_it_matters": "Así, KEP no pudo interceptar y su bloque medio fue superado sin pérdida: el regain disputado se convirtió en territorio profundo del tercio atacante. Fue una de 9 rupturas de línea del snapshot; el caos marca 0.8316, el momentum -0.0688 y el control queda casi nivelado (0.6272 local / 0.6223 visitante).",
+      "watch_next": "Vigilar, no hallazgo: KEP-07 presionó a 0.62 en 82:35 y KEP-05 completó un pase de 24.3 m a presión 0.84 en 83:09; ver si KEP sostiene esa contrapresión.",
+      "how_we_know": "Se apoya en los eventos e-001092, e-001091 y e-001093, que registran el pase, el tackle previo y la conducción posterior.",
+      "evidence_event_ids": [
+        "e-001092",
+        "e-001091",
+        "e-001093"
+      ]
+    },
+    {
+      "insight_id": "mo-e-001092-analyst-zh",
+      "profile": "analyst",
+      "language": "zh",
+      "headline": "82:47 VEL-11在0.88压迫下完成27.4米破线传球",
+      "what_happened": "第83分钟比分2-2时，VEL-11在x=54.9、受压0.88的情况下接球，仍将球送至x=80.9的VEL-09，传球距离27.4米，难度评分7.2（高于窗口均值4.3107），预期威胁增量0.242。该次破线紧随同时间戳VEL-06在0.77压迫下赢得的抢断，属直接反抢后的推进；随后VEL-03自x=80.9带球至x=92.8，压迫降至0.25。",
+      "why_it_matters": "这是全场9次破线之一，且是完成而非被断，KEP的中位 block 因此被绕过而未产生转换失误，把一次争抢中的球权回收直接转化为进攻三区深处的控球，而非回撤重置。该阶段快照判定为高混乱（0.8316），动量-0.0688，控球近乎持平（主0.6272/客0.6223），说明此推进发生在结构不稳的窗口内。",
+      "watch_next": "观察项而非结论：KEP此前于82:35由KEP-07施压（0.62），并于83:09由KEP-05在0.84压迫下完成24.3米传球；KEP能否在VEL下一次推进时维持同等反压强度值得关注。",
+      "how_we_know": "依据事件e-001092（破线传球，含压迫0.88、xt_delta 0.242、传球难度）与e-001091（抢断）、e-001093（后续带球）的事件数据及pressure-v1、xt-grid-v1、pass-quality-v1、chaos-v1、momentum-v1、control-v1指标。",
+      "evidence_event_ids": [
+        "e-001091",
+        "e-001092",
+        "e-001093"
+      ]
+    },
+    {
+      "insight_id": "mo-e-001092",
+      "profile": "casual",
+      "language": "en",
+      "headline": "VEL-11 slips a 27-metre pass through KEP's wall",
+      "what_happened": "Level at 2-2 in the 83rd minute, VEL-11 was under heavy pressure and still threaded a 27.4 m pass to VEL-09, skipping past KEP's block. VEL-03 then ran the ball deep.",
+      "why_it_matters": "Like finding a gap in a locked door: instead of being forced backwards, VEL turned a scrappy regain into a dangerous attack, one pass turning defence into a threat.",
+      "watch_next": "KEP pushed back hard right after — watch whether they keep that counter-pressure on VEL's next run forward.",
+      "how_we_know": "The pass event at 82:47 (e-001092) records the 27.4 m completion under 0.88 pressure, with VEL-03's follow-up carry logged next (e-001093).",
+      "evidence_event_ids": [
+        "e-001092",
+        "e-001091",
+        "e-001093"
+      ]
+    },
+    {
+      "insight_id": "mo-e-001092",
+      "profile": "casual",
+      "language": "es",
+      "headline": "VEL-11 abre la puerta de KEP en el 82:47",
+      "what_happened": "En el 82:47, con 2-2, VEL-11 recibió presionado y lanzó un pase de 27 metros que rompió la defensa de KEP y dejó a VEL-09 con espacio.",
+      "why_it_matters": "Fue como abrir una puerta cerrada: en vez de devolver el balón, VEL convirtió un momento apretado en un ataque profundo.",
+      "watch_next": "Ojo: si KEP vuelve a presionar igual en la próxima subida de VEL, ahí estará la clave.",
+      "how_we_know": "Lo sabemos por los eventos e-001092 y e-001093 del registro del partido, que muestran el pase y la carrera posterior.",
+      "evidence_event_ids": [
+        "e-001092",
+        "e-001091",
+        "e-001093"
+      ]
+    },
+    {
+      "insight_id": "mo-e-001092",
+      "profile": "casual",
+      "language": "zh",
+      "headline": "82:47，VEL-11 被紧逼下仍送出27.4米直塞找到 VEL-09",
+      "what_happened": "比分2-2，VEL-11 在对方紧逼下把球从后场送到前场空当，队友接球后继续带球冲到进攻三区。",
+      "why_it_matters": "这脚球没被断，球队省掉了退回重来的步骤，直接把一次抢回球权变成前场威胁。",
+      "watch_next": "接下来看 KEP 能不能继续用同样的强度反抢 VEL 的下一次推进。",
+      "how_we_know": "数据记录显示这次27.4米传球在压力0.88下完成，并有对应的比赛事件编号。",
+      "evidence_event_ids": [
+        "e-001091",
+        "e-001092",
+        "e-001093"
+      ]
+    },
+    {
+      "insight_id": "mo-e-001092",
+      "profile": "player",
+      "language": "en",
+      "headline": "VEL-11 turns pressure into a line break at 82:47",
+      "what_happened": "You pick it up at x=54.9 with pressure on you at 0.88 — no clean look. VEL-11 stays composed, rides it, and threads a 27.4 m pass to VEL-09 at x=80.9, right past KEP's last line. It comes straight off VEL-06's tackle won at 0.77, so it's a regain turned into a real attack, not a reset. VEL-03 keeps it rolling, carrying from x=80.9 to x=92.8 as the pressure drops to 0.25.",
+      "why_it_matters": "That's the difference between surviving a press and beating it. Holding the ball at 0.88 pressure and still finding the forward pass takes nerve and clean body shape on the turn — and because it's completed, KEP's mid-block never gets to set. One pass turns a contested moment into territory deep in the attacking third.",
+      "watch_next": "Watch whether KEP keep that counter-pressure — KEP-07 pressed at 82:35 and KEP-05 hit a 24.3 m pass at 0.84 pressure at 83:09.",
+      "how_we_know": "The completed pass, its 0.88 pressure reading, and the following VEL-03 carry are logged as events e-001092 and e-001093.",
+      "evidence_event_ids": [
+        "e-001092",
+        "e-001091",
+        "e-001093"
+      ]
+    },
+    {
+      "insight_id": "mo-e-001092",
+      "profile": "player",
+      "language": "es",
+      "headline": "VEL-11 aguanta la presión y rompe el bloque de KEP con un pase de 27,4 m",
+      "what_happened": "VEL-11 recibe en x=54,9 con presión de 0,88, se gira y filtra un pase de 27,4 m a VEL-09 en x=80,9, superando la última línea de KEP. La acción nace de un tackle ganado por VEL-06 y no de una posesión asentada. Después, VEL-03 conduce desde x=80,9 hasta x=92,8 con la presión cayendo a 0,25.",
+      "why_it_matters": "Para ti, mediocentro: recibir de espaldas bajo presión alta no obliga a devolver el balón. Protege el cuerpo, gana medio metro y juega hacia adelante entre líneas; un solo pase completado convierte una recuperación disputada en campo rival en lugar de reiniciar la construcción.",
+      "watch_next": "Ojo a la contra-presión de KEP: KEP-07 presionó a 0,62 en el 82:35 y KEP-05 completó un pase de 24,3 m a 0,84 en el 83:09; ver si mantienen ese ritmo en la siguiente progresión de VEL.",
+      "how_we_know": "Se basa en el evento e-001092 (presión 0,88, pase de 27,4 m, x=54,9 a x=80,9) y en los eventos vinculados e-001091 y e-001093.",
+      "evidence_event_ids": [
+        "e-001092",
+        "e-001091",
+        "e-001093"
+      ]
+    },
+    {
+      "insight_id": "mo-e-001092",
+      "profile": "player",
+      "language": "zh",
+      "headline": "VEL-11 在 82:47 顶着 0.88 压迫，用 27.4 米直塞撕开 KEP 防线",
+      "what_happened": "82:47、比分 2-2 时，VEL-11 在 x=54.9 处背身接球，身上压着 0.88 的逼抢强度。他没有回传，而是向前推进并把球送到 x=80.9 的 VEL-09 脚下——这一脚横跨 27.4 米，直接越过 KEP 最后一道防线，难度评分 7.2。做完这个动作后他没有停，球权随即交给 VEL-03，从 x=80.9 一路带到 x=92.8，此时压迫已降到 0.25。",
+      "why_it_matters": "对 VEL-11 来说，关键不在于传得多远，而在于他在最高压的那一刻没有把球丢掉：这次传球是完成而不是被断，KEP 的中场block被整段绕过，一次刚抢回来的球权直接变成了进攻三区深处的球权，而不是被迫退回后场重新组织。",
+      "watch_next": "继续留意 VEL-11 下一次向前推进时 KEP 的反应：KEP-07 在 82:35 曾以 0.62 的压迫上前，KEP-05 在 83:09 也顶着 0.84 的压迫完成过 24.3 米传球，看 KEP 能不能把这种反压维持住。",
+      "how_we_know": "这些数据来自 82:47 那次传球事件（e-001092）以及与之相连的 VEL-06 抢断（e-001091）和 VEL-03 带球（e-001093）的事件记录。",
+      "evidence_event_ids": [
+        "e-001091",
+        "e-001092",
+        "e-001093"
+      ]
+    }
+  ],
+  "verification": {
+    "status": "pass",
+    "issues": [
+      {
+        "code": "review_superlative",
+        "message": "Superlative wording needs explicit support",
+        "claim_index": 3,
+        "severity": "warn"
+      }
+    ],
+    "checked_claims": 5,
+    "notes": "deterministic verifier"
+  },
+  "decision": {
+    "action": "approve",
+    "priority": 0.8,
+    "duration_seconds": 8.0,
+    "reason": "Verification passed and the insight is broadcast-worthy: a completed 27.4 m line-breaking pass under 0.88 pressure at 82:47, with the score 2-2 in the 83rd minute, turning a contested regain into deep attacking territory. The only verification issue is a low-severity wording warning about a superlative, which does not undermine the core factual claims. Suitable for a concise lower-third now."
+  },
+  "trace": [
+    {
+      "agent": "TacticalAnalyst",
+      "model": "deepseek-flash",
+      "prompt_version": "prompt-v2",
+      "latency_ms": 21693.1,
+      "status": "ok",
+      "error": ""
+    },
+    {
+      "agent": "StoryProducer",
+      "model": "deepseek-flash",
+      "prompt_version": "prompt-v2",
+      "latency_ms": 15312.2,
+      "status": "ok",
+      "error": ""
+    },
+    {
+      "agent": "AudienceEditor",
+      "model": "deepseek-flash",
+      "prompt_version": "prompt-v2",
+      "latency_ms": 20784.1,
+      "status": "ok",
+      "error": ""
+    },
+    {
+      "agent": "FactChecker",
+      "model": "deepseek-flash",
+      "prompt_version": "prompt-v2",
+      "latency_ms": 35016.0,
+      "status": "fallback",
+      "error": ""
+    },
+    {
+      "agent": "Director",
+      "model": "deepseek-flash",
+      "prompt_version": "prompt-v2",
+      "latency_ms": 4428.3,
+      "status": "ok",
+      "error": ""
+    }
+  ],
+  "fallback": true
+}

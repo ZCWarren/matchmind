@@ -1,0 +1,370 @@
+{
+  "match": {
+    "match_id": "ast-2026-1101-orn-vel",
+    "competition": "Aster League",
+    "season": "2026",
+    "date": "2026-11-01",
+    "kickoff_utc": "2026-11-01T15:00:00Z",
+    "venue": "Orion Park",
+    "home": {
+      "team_id": "ORN",
+      "name": "Orion North",
+      "short_name": "Orion",
+      "color": "#E23B3B",
+      "venue": "Orion Park"
+    },
+    "away": {
+      "team_id": "VEL",
+      "name": "Vela Athletic",
+      "short_name": "Vela",
+      "color": "#2F6BFF",
+      "venue": "Vela Ground"
+    },
+    "lineups": [
+      {
+        "player_id": "ORN-01",
+        "name": "Jonas Ried",
+        "number": 1,
+        "position": "GK",
+        "team_id": "ORN",
+        "starter": true
+      },
+      {
+        "player_id": "ORN-02",
+        "name": "Pavel Cort",
+        "number": 2,
+        "position": "RB",
+        "team_id": "ORN",
+        "starter": true
+      },
+      {
+        "player_id": "ORN-03",
+        "name": "Miro Salas",
+        "number": 4,
+        "position": "CB",
+        "team_id": "ORN",
+        "starter": true
+      },
+      {
+        "player_id": "ORN-04",
+        "name": "Elio Brandt",
+        "number": 5,
+        "position": "CB",
+        "team_id": "ORN",
+        "starter": true
+      },
+      {
+        "player_id": "ORN-05",
+        "name": "Tomas Rusk",
+        "number": 3,
+        "position": "LB",
+        "team_id": "ORN",
+        "starter": true
+      },
+      {
+        "player_id": "ORN-06",
+        "name": "Adil Nasser",
+        "number": 6,
+        "position": "DM",
+        "team_id": "ORN",
+        "starter": true
+      },
+      {
+        "player_id": "ORN-07",
+        "name": "Felix Quill",
+        "number": 8,
+        "position": "CM",
+        "team_id": "ORN",
+        "starter": true
+      },
+      {
+        "player_id": "ORN-08",
+        "name": "Bruno Tava",
+        "number": 10,
+        "position": "AM",
+        "team_id": "ORN",
+        "starter": true
+      },
+      {
+        "player_id": "ORN-09",
+        "name": "Oskar Lind",
+        "number": 9,
+        "position": "ST",
+        "team_id": "ORN",
+        "starter": true
+      },
+      {
+        "player_id": "ORN-10",
+        "name": "Nils Hagen",
+        "number": 7,
+        "position": "RW",
+        "team_id": "ORN",
+        "starter": true
+      },
+      {
+        "player_id": "ORN-11",
+        "name": "Ishan Roy",
+        "number": 11,
+        "position": "LW",
+        "team_id": "ORN",
+        "starter": true
+      },
+      {
+        "player_id": "ORN-12",
+        "name": "Erik Vane",
+        "number": 12,
+        "position": "GK",
+        "team_id": "ORN",
+        "starter": false
+      },
+      {
+        "player_id": "ORN-13",
+        "name": "Lars Miro",
+        "number": 13,
+        "position": "CB",
+        "team_id": "ORN",
+        "starter": false
+      },
+      {
+        "player_id": "ORN-14",
+        "name": "Piero Kade",
+        "number": 14,
+        "position": "LB",
+        "team_id": "ORN",
+        "starter": false
+      },
+      {
+        "player_id": "ORN-15",
+        "name": "Sven Oris",
+        "number": 15,
+        "position": "CM",
+        "team_id": "ORN",
+        "starter": false
+      },
+      {
+        "player_id": "ORN-16",
+        "name": "Rafa Quin",
+        "number": 16,
+        "position": "RW",
+        "team_id": "ORN",
+        "starter": false
+      },
+      {
+        "player_id": "VEL-01",
+        "name": "Mateo Rios",
+        "number": 1,
+        "position": "GK",
+        "team_id": "VEL",
+        "starter": true
+      },
+      {
+        "player_id": "VEL-02",
+        "name": "Nico Salas",
+        "number": 2,
+        "position": "RB",
+        "team_id": "VEL",
+        "starter": true
+      },
+      {
+        "player_id": "VEL-03",
+        "name": "Pavel Dune",
+        "number": 4,
+        "position": "CB",
+        "team_id": "VEL",
+        "starter": true
+      },
+      {
+        "player_id": "VEL-04",
+        "name": "Owen Kest",
+        "number": 5,
+        "position": "CB",
+        "team_id": "VEL",
+        "starter": true
+      },
+      {
+        "player_id": "VEL-05",
+        "name": "Ilias Varn",
+        "number": 3,
+        "position": "LB",
+        "team_id": "VEL",
+        "starter": true
+      },
+      {
+        "player_id": "VEL-06",
+        "name": "Rafa Miro",
+        "number": 6,
+        "position": "DM",
+        "team_id": "VEL",
+        "starter": true
+      },
+      {
+        "player_id": "VEL-07",
+        "name": "Sergio Lune",
+        "number": 8,
+        "position": "CM",
+        "team_id": "VEL",
+        "starter": true
+      },
+      {
+        "player_id": "VEL-08",
+        "name": "Timo Vey",
+        "number": 10,
+        "position": "AM",
+        "team_id": "VEL",
+        "starter": true
+      },
+      {
+        "player_id": "VEL-09",
+        "name": "Andre Cala",
+        "number": 9,
+        "position": "ST",
+        "team_id": "VEL",
+        "starter": true
+      },
+      {
+        "player_id": "VEL-10",
+        "name": "Bastian Ruel",
+        "number": 7,
+        "position": "RW",
+        "team_id": "VEL",
+        "starter": true
+      },
+      {
+        "player_id": "VEL-11",
+        "name": "Nestor Vale",
+        "number": 11,
+        "position": "LW",
+        "team_id": "VEL",
+        "starter": true
+      },
+      {
+        "player_id": "VEL-12",
+        "name": "Luka Morn",
+        "number": 12,
+        "position": "GK",
+        "team_id": "VEL",
+        "starter": false
+      },
+      {
+        "player_id": "VEL-13",
+        "name": "Hugo Tern",
+        "number": 13,
+        "position": "CB",
+        "team_id": "VEL",
+        "starter": false
+      },
+      {
+        "player_id": "VEL-14",
+        "name": "Dani Fenn",
+        "number": 14,
+        "position": "LW",
+        "team_id": "VEL",
+        "starter": false
+      },
+      {
+        "player_id": "VEL-15",
+        "name": "Marco Ilves",
+        "number": 15,
+        "position": "CM",
+        "team_id": "VEL",
+        "starter": false
+      },
+      {
+        "player_id": "VEL-16",
+        "name": "Yuri Sable",
+        "number": 16,
+        "position": "RW",
+        "team_id": "VEL",
+        "starter": false
+      }
+    ],
+    "final_score": {
+      "home": 1,
+      "away": 1
+    },
+    "seed": 20261101,
+    "generator": "matchforge-v1"
+  },
+  "labels": [
+    {
+      "moment_id": "m-022-01",
+      "match_id": "ast-2026-1101-orn-vel",
+      "clock": {
+        "period": 1,
+        "minute": 22,
+        "second": 19
+      },
+      "type": "goal",
+      "importance": 0.7,
+      "event_ids": [
+        "e-000284",
+        "e-000285",
+        "e-000286"
+      ],
+      "expected_claims": [
+        "Orion North lead 1-0",
+        "Oskar Lind finishes a central combination"
+      ],
+      "notes": ""
+    },
+    {
+      "moment_id": "m-034-01",
+      "match_id": "ast-2026-1101-orn-vel",
+      "clock": {
+        "period": 1,
+        "minute": 34,
+        "second": 5
+      },
+      "type": "sprint_peak",
+      "importance": 0.5,
+      "event_ids": [
+        "e-000439"
+      ],
+      "expected_claims": [
+        "Nils Hagen reaches 32.9 km/h"
+      ],
+      "notes": "Sprint peak in the Orion transition"
+    },
+    {
+      "moment_id": "m-058-01",
+      "match_id": "ast-2026-1101-orn-vel",
+      "clock": {
+        "period": 2,
+        "minute": 58,
+        "second": 2
+      },
+      "type": "red_card",
+      "importance": 0.85,
+      "event_ids": [
+        "e-000767",
+        "e-000768"
+      ],
+      "expected_claims": [
+        "Orion North are down to 10 men",
+        "Adil Nasser is sent off"
+      ],
+      "notes": "Red card changes the shape"
+    },
+    {
+      "moment_id": "m-076-01",
+      "match_id": "ast-2026-1101-orn-vel",
+      "clock": {
+        "period": 2,
+        "minute": 76,
+        "second": 23
+      },
+      "type": "goal",
+      "importance": 0.85,
+      "event_ids": [
+        "e-001033",
+        "e-001034",
+        "e-001035"
+      ],
+      "expected_claims": [
+        "Vela Athletic equalize against 10",
+        "Andre Cala scores late"
+      ],
+      "notes": ""
+    }
+  ]
+}

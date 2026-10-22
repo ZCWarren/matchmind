@@ -1,0 +1,108 @@
+{
+  "match_id": "ast-2026-1025-vel-kep",
+  "title": "Vela Athletic 3-2 Kepler Town",
+  "summary": "Vela Athletic beat Kepler Town 3-2 in the Aster League. Kepler Town scored in the 12th minute through Iker Sol. Kepler Town scored in the 38th minute through Ronan Pike. Vela Athletic scored in the 55th minute through Andre Cala. Vela Athletic scored in the 68th minute through Bastian Ruel. Vela Athletic scored in the 84th minute through Andre Cala. Bastian Ruel received a yellow card in the 17th minute. Jonas Kade received a yellow card in the 32nd minute. Emil Rask received a yellow card in the 47th minute.",
+  "final_score": {
+    "home": 3,
+    "away": 2
+  },
+  "key_moments": [
+    {
+      "clock": {
+        "period": 1,
+        "minute": 12,
+        "second": 4
+      },
+      "type": "goal",
+      "description": "Kepler Town lead 1-0",
+      "event_ids": [
+        "e-000155",
+        "e-000156",
+        "e-000157"
+      ]
+    },
+    {
+      "clock": {
+        "period": 1,
+        "minute": 38,
+        "second": 31
+      },
+      "type": "goal",
+      "description": "Kepler Town double the lead",
+      "event_ids": [
+        "e-000515",
+        "e-000516",
+        "e-000517"
+      ]
+    },
+    {
+      "clock": {
+        "period": 2,
+        "minute": 47,
+        "second": 17
+      },
+      "type": "yellow_card",
+      "description": "Emil Rask is booked",
+      "event_ids": [
+        "e-000631",
+        "e-000632"
+      ]
+    },
+    {
+      "clock": {
+        "period": 2,
+        "minute": 55,
+        "second": 7
+      },
+      "type": "goal",
+      "description": "Vela Athletic pull one back",
+      "event_ids": [
+        "e-000731",
+        "e-000732",
+        "e-000733"
+      ]
+    },
+    {
+      "clock": {
+        "period": 2,
+        "minute": 68,
+        "second": 19
+      },
+      "type": "goal",
+      "description": "Vela Athletic equalize",
+      "event_ids": [
+        "e-000909",
+        "e-000910",
+        "e-000911"
+      ]
+    },
+    {
+      "clock": {
+        "period": 2,
+        "minute": 79,
+        "second": 0
+      },
+      "type": "sprint_peak",
+      "description": "Late sprint before the 82nd-minute line break",
+      "event_ids": [
+        "e-001042"
+      ]
+    },
+    {
+      "clock": {
+        "period": 2,
+        "minute": 84,
+        "second": 4
+      },
+      "type": "goal",
+      "description": "Late comeback winner",
+      "event_ids": [
+        "e-001110",
+        "e-001111",
+        "e-001112"
+      ]
+    }
+  ],
+  "top_speed_kmh": 33.2,
+  "generated_by": "recap-v1"
+}

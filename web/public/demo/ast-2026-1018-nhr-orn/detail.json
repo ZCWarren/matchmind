@@ -1,0 +1,414 @@
+{
+  "match": {
+    "match_id": "ast-2026-1018-nhr-orn",
+    "competition": "Aster League",
+    "season": "2026",
+    "date": "2026-10-18",
+    "kickoff_utc": "2026-10-18T15:00:00Z",
+    "venue": "Meridian Park",
+    "home": {
+      "team_id": "NHR",
+      "name": "Nova Harbor",
+      "short_name": "Nova",
+      "color": "#0FB5A6",
+      "venue": "Meridian Park"
+    },
+    "away": {
+      "team_id": "ORN",
+      "name": "Orion North",
+      "short_name": "Orion",
+      "color": "#E23B3B",
+      "venue": "Orion Park"
+    },
+    "lineups": [
+      {
+        "player_id": "NHR-01",
+        "name": "Ivo Marchetti",
+        "number": 1,
+        "position": "GK",
+        "team_id": "NHR",
+        "starter": true
+      },
+      {
+        "player_id": "NHR-02",
+        "name": "Rui Calder",
+        "number": 2,
+        "position": "RB",
+        "team_id": "NHR",
+        "starter": true
+      },
+      {
+        "player_id": "NHR-03",
+        "name": "Emil Novak",
+        "number": 4,
+        "position": "CB",
+        "team_id": "NHR",
+        "starter": true
+      },
+      {
+        "player_id": "NHR-04",
+        "name": "Sami Orlov",
+        "number": 5,
+        "position": "CB",
+        "team_id": "NHR",
+        "starter": true
+      },
+      {
+        "player_id": "NHR-05",
+        "name": "Dario Voss",
+        "number": 3,
+        "position": "LB",
+        "team_id": "NHR",
+        "starter": true
+      },
+      {
+        "player_id": "NHR-06",
+        "name": "Kian Mercer",
+        "number": 6,
+        "position": "DM",
+        "team_id": "NHR",
+        "starter": true
+      },
+      {
+        "player_id": "NHR-07",
+        "name": "Leo Arden",
+        "number": 8,
+        "position": "CM",
+        "team_id": "NHR",
+        "starter": true
+      },
+      {
+        "player_id": "NHR-08",
+        "name": "Milo Feng",
+        "number": 10,
+        "position": "AM",
+        "team_id": "NHR",
+        "starter": true
+      },
+      {
+        "player_id": "NHR-09",
+        "name": "Teo Varela",
+        "number": 9,
+        "position": "ST",
+        "team_id": "NHR",
+        "starter": true
+      },
+      {
+        "player_id": "NHR-10",
+        "name": "Arun Kale",
+        "number": 7,
+        "position": "RW",
+        "team_id": "NHR",
+        "starter": true
+      },
+      {
+        "player_id": "NHR-11",
+        "name": "Niko Sarin",
+        "number": 11,
+        "position": "LW",
+        "team_id": "NHR",
+        "starter": true
+      },
+      {
+        "player_id": "NHR-12",
+        "name": "Pavel Orm",
+        "number": 12,
+        "position": "GK",
+        "team_id": "NHR",
+        "starter": false
+      },
+      {
+        "player_id": "NHR-13",
+        "name": "Jonas Vey",
+        "number": 13,
+        "position": "CB",
+        "team_id": "NHR",
+        "starter": false
+      },
+      {
+        "player_id": "NHR-14",
+        "name": "Isak Rune",
+        "number": 14,
+        "position": "LW",
+        "team_id": "NHR",
+        "starter": false
+      },
+      {
+        "player_id": "NHR-15",
+        "name": "Remy Sol",
+        "number": 15,
+        "position": "CM",
+        "team_id": "NHR",
+        "starter": false
+      },
+      {
+        "player_id": "NHR-16",
+        "name": "Tavi Norn",
+        "number": 16,
+        "position": "RW",
+        "team_id": "NHR",
+        "starter": false
+      },
+      {
+        "player_id": "ORN-01",
+        "name": "Jonas Ried",
+        "number": 1,
+        "position": "GK",
+        "team_id": "ORN",
+        "starter": true
+      },
+      {
+        "player_id": "ORN-02",
+        "name": "Pavel Cort",
+        "number": 2,
+        "position": "RB",
+        "team_id": "ORN",
+        "starter": true
+      },
+      {
+        "player_id": "ORN-03",
+        "name": "Miro Salas",
+        "number": 4,
+        "position": "CB",
+        "team_id": "ORN",
+        "starter": true
+      },
+      {
+        "player_id": "ORN-04",
+        "name": "Elio Brandt",
+        "number": 5,
+        "position": "CB",
+        "team_id": "ORN",
+        "starter": true
+      },
+      {
+        "player_id": "ORN-05",
+        "name": "Tomas Rusk",
+        "number": 3,
+        "position": "LB",
+        "team_id": "ORN",
+        "starter": true
+      },
+      {
+        "player_id": "ORN-06",
+        "name": "Adil Nasser",
+        "number": 6,
+        "position": "DM",
+        "team_id": "ORN",
+        "starter": true
+      },
+      {
+        "player_id": "ORN-07",
+        "name": "Felix Quill",
+        "number": 8,
+        "position": "CM",
+        "team_id": "ORN",
+        "starter": true
+      },
+      {
+        "player_id": "ORN-08",
+        "name": "Bruno Tava",
+        "number": 10,
+        "position": "AM",
+        "team_id": "ORN",
+        "starter": true
+      },
+      {
+        "player_id": "ORN-09",
+        "name": "Oskar Lind",
+        "number": 9,
+        "position": "ST",
+        "team_id": "ORN",
+        "starter": true
+      },
+      {
+        "player_id": "ORN-10",
+        "name": "Nils Hagen",
+        "number": 7,
+        "position": "RW",
+        "team_id": "ORN",
+        "starter": true
+      },
+      {
+        "player_id": "ORN-11",
+        "name": "Ishan Roy",
+        "number": 11,
+        "position": "LW",
+        "team_id": "ORN",
+        "starter": true
+      },
+      {
+        "player_id": "ORN-12",
+        "name": "Erik Vane",
+        "number": 12,
+        "position": "GK",
+        "team_id": "ORN",
+        "starter": false
+      },
+      {
+        "player_id": "ORN-13",
+        "name": "Lars Miro",
+        "number": 13,
+        "position": "CB",
+        "team_id": "ORN",
+        "starter": false
+      },
+      {
+        "player_id": "ORN-14",
+        "name": "Piero Kade",
+        "number": 14,
+        "position": "LB",
+        "team_id": "ORN",
+        "starter": false
+      },
+      {
+        "player_id": "ORN-15",
+        "name": "Sven Oris",
+        "number": 15,
+        "position": "CM",
+        "team_id": "ORN",
+        "starter": false
+      },
+      {
+        "player_id": "ORN-16",
+        "name": "Rafa Quin",
+        "number": 16,
+        "position": "RW",
+        "team_id": "ORN",
+        "starter": false
+      }
+    ],
+    "final_score": {
+      "home": 2,
+      "away": 1
+    },
+    "seed": 20261018,
+    "generator": "matchforge-v1"
+  },
+  "labels": [
+    {
+      "moment_id": "m-023-01",
+      "match_id": "ast-2026-1018-nhr-orn",
+      "clock": {
+        "period": 1,
+        "minute": 23,
+        "second": 20
+      },
+      "type": "goal",
+      "importance": 0.7,
+      "event_ids": [
+        "e-000316",
+        "e-000317",
+        "e-000318"
+      ],
+      "expected_claims": [
+        "Nova Harbor take a 1-0 lead",
+        "Teo Varela finishes from inside the box"
+      ],
+      "notes": "Scripted opening goal"
+    },
+    {
+      "moment_id": "m-031-01",
+      "match_id": "ast-2026-1018-nhr-orn",
+      "clock": {
+        "period": 1,
+        "minute": 31,
+        "second": 0
+      },
+      "type": "sprint_peak",
+      "importance": 0.5,
+      "event_ids": [
+        "e-000425"
+      ],
+      "expected_claims": [
+        "Niko Sarin reaches 33.8 km/h"
+      ],
+      "notes": "Verifier demo: the 72' sprint is second-fastest"
+    },
+    {
+      "moment_id": "m-051-01",
+      "match_id": "ast-2026-1018-nhr-orn",
+      "clock": {
+        "period": 2,
+        "minute": 51,
+        "second": 10
+      },
+      "type": "goal",
+      "importance": 0.7,
+      "event_ids": [
+        "e-000708",
+        "e-000709",
+        "e-000710"
+      ],
+      "expected_claims": [
+        "Orion North equalize at 1-1",
+        "Oskar Lind finishes a central combination"
+      ],
+      "notes": "Scripted equalizer"
+    },
+    {
+      "moment_id": "m-066-01",
+      "match_id": "ast-2026-1018-nhr-orn",
+      "clock": {
+        "period": 2,
+        "minute": 66,
+        "second": 1
+      },
+      "type": "yellow_card",
+      "importance": 0.4,
+      "event_ids": [
+        "e-000894",
+        "e-000895"
+      ],
+      "expected_claims": [
+        "Adil Nasser is booked"
+      ],
+      "notes": ""
+    },
+    {
+      "moment_id": "m-072-01",
+      "match_id": "ast-2026-1018-nhr-orn",
+      "clock": {
+        "period": 2,
+        "minute": 72,
+        "second": 12
+      },
+      "type": "line_break_under_press",
+      "importance": 0.92,
+      "event_ids": [
+        "e-000973",
+        "e-000974",
+        "e-000975",
+        "e-000976",
+        "e-000977"
+      ],
+      "expected_claims": [
+        "3 Orion North players were bypassed",
+        "The pass added 0.18 expected threat",
+        "Space opened behind the right back"
+      ],
+      "notes": "Hero moment; the shot is saved and the goal follows at 74'"
+    },
+    {
+      "moment_id": "m-074-01",
+      "match_id": "ast-2026-1018-nhr-orn",
+      "clock": {
+        "period": 2,
+        "minute": 74,
+        "second": 5
+      },
+      "type": "goal",
+      "importance": 0.9,
+      "event_ids": [
+        "e-001000",
+        "e-001001",
+        "e-001002"
+      ],
+      "expected_claims": [
+        "Nova Harbor lead 2-1",
+        "Teo Varela scores from Isak Rune's cross"
+      ],
+      "notes": "Scripted winner"
+    }
+  ]
+}

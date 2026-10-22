@@ -1,0 +1,454 @@
+{
+  "match_id": "ast-2026-1018-nhr-orn",
+  "moment": {
+    "moment_id": "mo-e-000974",
+    "match_id": "ast-2026-1018-nhr-orn",
+    "event_id": "e-000974",
+    "clock": {
+      "period": 2,
+      "minute": 72,
+      "second": 12
+    },
+    "type": "line_break",
+    "importance": 0.8,
+    "headline": "Line break under pressure",
+    "event_ids": [
+      "e-000974"
+    ],
+    "metrics": {
+      "xt_delta": {
+        "name": "xt_delta",
+        "value": 0.1736,
+        "unit": "threat",
+        "formula_version": "xt-grid-v1",
+        "event_ids": [
+          "e-000974"
+        ],
+        "inputs": {},
+        "label": null
+      },
+      "event_pressure": {
+        "name": "event_pressure",
+        "value": 0.82,
+        "unit": "0-1",
+        "formula_version": "pressure-v1",
+        "event_ids": [
+          "e-000974"
+        ],
+        "inputs": {},
+        "label": null
+      }
+    },
+    "analytics_version": "analytics-v1"
+  },
+  "clock": {
+    "period": 2,
+    "minute": 72,
+    "second": 12
+  },
+  "insight": {
+    "moment_id": "mo-e-000974",
+    "match_id": "ast-2026-1018-nhr-orn",
+    "headline": "NHR-08 breaks ORN's press trap with a 24.6 m line-break pass in the 72nd minute",
+    "why_it_matters": "ORN-06 had just applied pressure at 0.9 (e-000973) with a press_trap tag, and NHR-08 answered from x 38.0 under 0.82 pressure with a completed 24.6 m pass into x 62.0. Beating an active pressing trap in that position turns a defensive third reception into a progressive entry toward the final third, which is why the event carries a positive xT delta and immediately precedes a chance-creating sequence rather than a reset.",
+    "watch_next": "Watch item: whether ORN-06's repeated high-pressure actions (0.8 at e-000969, 0.9 at e-000973, 0.89 at e-000978) keep being bypassed by NHR passes into the space behind the pressing line, given NHR's control_home of 0.6069 against ORN's control_away of 0.6328.",
+    "claims": [
+      {
+        "text": "At 72:12 NHR-08 completed a 24.6 m pass to NHR-14 while under ORN pressure of 0.82, recorded with the line_break and under_press tags.",
+        "event_ids": [
+          "e-000974"
+        ],
+        "metric_refs": [
+          {
+            "name": "event_pressure",
+            "value": 0.82,
+            "formula_version": "pressure-v1",
+            "event_ids": [
+              "e-000974"
+            ]
+          }
+        ],
+        "confidence": 0.85
+      },
+      {
+        "text": "The line-break carried an xT delta of 0.1736, moving the ball from x 38.0, y 52.0 to x 62.0, y 44.0 straight out of the press_trap ORN-06 had set two seconds earlier.",
+        "event_ids": [
+          "e-000974",
+          "e-000973"
+        ],
+        "metric_refs": [
+          {
+            "name": "xt_delta",
+            "value": 0.1736,
+            "formula_version": "xt-grid-v1",
+            "event_ids": [
+              "e-000974"
+            ]
+          }
+        ],
+        "confidence": 0.8
+      },
+      {
+        "text": "The completion is logged at a pass difficulty of 8.7, against a window pass completion rate of 0.8292 across the 12 events in the snapshot.",
+        "event_ids": [
+          "e-000974"
+        ],
+        "metric_refs": [
+          {
+            "name": "pass_completion",
+            "value": 0.8292,
+            "formula_version": "pass-quality-v1",
+            "event_ids": [
+              "e-000956",
+              "e-000958",
+              "e-000959",
+              "e-000960",
+              "e-000962",
+              "e-000964",
+              "e-000967",
+              "e-000968",
+              "e-000970",
+              "e-000971",
+              "e-000972",
+              "e-000974"
+            ]
+          }
+        ],
+        "confidence": 0.75
+      },
+      {
+        "text": "NHR-14 received the line-break, sprinted at 33.4 km/h, carried 14.0 m and produced a shot at 104.2 km/h that was saved, so the sequence created a chance but did not change the 1-1 scoreline.",
+        "event_ids": [
+          "e-000974",
+          "e-000975",
+          "e-000976",
+          "e-000977"
+        ],
+        "metric_refs": [],
+        "confidence": 0.8
+      },
+      {
+        "text": "The moment arrives in a level game where NHR's cumulative xT is 20.6046 and ORN's is 21.8865, with xG at 2.047 for NHR and 2.016 for ORN, so a single completed line-break under pressure is one of the few separators available to either side.",
+        "event_ids": [
+          "e-000974",
+          "e-000977"
+        ],
+        "metric_refs": [
+          {
+            "name": "xt_home",
+            "value": 20.6046,
+            "formula_version": "xt-grid-v1",
+            "event_ids": [
+              "e-000956",
+              "e-000958",
+              "e-000959",
+              "e-000960",
+              "e-000962",
+              "e-000964",
+              "e-000967",
+              "e-000968",
+              "e-000970",
+              "e-000971",
+              "e-000972",
+              "e-000974"
+            ]
+          },
+          {
+            "name": "xt_away",
+            "value": 21.8865,
+            "formula_version": "xt-grid-v1",
+            "event_ids": [
+              "e-000907",
+              "e-000915",
+              "e-000925",
+              "e-000926",
+              "e-000933",
+              "e-000934",
+              "e-000935",
+              "e-000936",
+              "e-000944",
+              "e-000946",
+              "e-000950",
+              "e-000951"
+            ]
+          },
+          {
+            "name": "xg_home",
+            "value": 2.047,
+            "formula_version": "xg-v1",
+            "event_ids": [
+              "e-000036",
+              "e-000055",
+              "e-000185",
+              "e-000275",
+              "e-000317",
+              "e-000401",
+              "e-000448",
+              "e-000520",
+              "e-000810",
+              "e-000923"
+            ]
+          },
+          {
+            "name": "xg_away",
+            "value": 2.016,
+            "formula_version": "xg-v1",
+            "event_ids": [
+              "e-000040",
+              "e-000230",
+              "e-000339",
+              "e-000443",
+              "e-000532",
+              "e-000630",
+              "e-000709",
+              "e-000825"
+            ]
+          }
+        ],
+        "confidence": 0.7
+      }
+    ],
+    "importance": 0.8,
+    "confidence": 0.78
+  },
+  "cue": {
+    "cue_id": "cue-mo-e-000974",
+    "insight_id": "mo-e-000974",
+    "template": "lower_third_why",
+    "priority": 0.8,
+    "duration_seconds": 8.0,
+    "safe_area": "lower_third",
+    "payload": {
+      "eyebrow": "NHR vs ORN · 72'",
+      "headline": "NHR-08 beats ORN's press trap with 24.6 m line-break",
+      "stat": "0.82 pressure · xT +0.1736",
+      "subline": "Into x 62.0; NHR-14 shot saved"
+    }
+  },
+  "fan_cards": [
+    {
+      "insight_id": "mo-e-000974",
+      "profile": "analyst",
+      "language": "en",
+      "headline": "NHR-08 breaks ORN's press trap with a 24.6 m line-break pass in the 72nd minute",
+      "what_happened": "At 72:12, NHR-08 received at x 38.0, y 52.0 under ORN pressure of 0.82 — two seconds after ORN-06 applied a press_trap-tagged pressure of 0.9 (e-000973) — and completed a 24.6 m line-break pass to NHR-14 at x 62.0, y 44.0, logged with line_break and under_press tags at pass difficulty 8.7. NHR-14 then sprinted at 33.4 km/h, carried 14.0 m and forced a save from a 104.2 km/h shot.",
+      "why_it_matters": "The completion carries an xT delta of 0.1736, converting a defensive-third reception into a progressive entry against an active pressing trap rather than a reset, against a window pass completion rate of 0.8292 across 12 events. In a level game with NHR at 20.6046 cumulative xT and 2.047 xG versus ORN's 21.8865 and 2.016, that kind of bypass is one of the few separators available.",
+      "watch_next": "Whether ORN-06's repeated high-pressure actions (0.8 at e-000969, 0.9 at e-000973, 0.89 at e-000978) keep being bypassed by NHR passes into the space behind the pressing line, given NHR's control_home of 0.6069 against ORN's control_away of 0.6328.",
+      "how_we_know": "Event e-000974 records the 24.6 m completed pass under 0.82 pressure with line_break and under_press tags, directly following the press_trap pressure at e-000973 and preceding the shot sequence at e-000975 to e-000977.",
+      "evidence_event_ids": [
+        "e-000974",
+        "e-000973",
+        "e-000975",
+        "e-000976",
+        "e-000977"
+      ]
+    },
+    {
+      "insight_id": "mo-e-000974",
+      "profile": "analyst",
+      "language": "es",
+      "headline": "NHR-08 rompe la trampa de presión de ORN con un pase de 24,6 m que supera una línea en el 72'",
+      "what_happened": "En el 72:12, NHR-08 recibió en x 38.0, y 52.0 bajo presión de 0.82 y completó un pase de 24,6 m hasta NHR-14 en x 62.0, y 44.0 (tags line_break y under_press), dos segundos después de la press_trap de ORN-06 (presión 0.9, e-000973). El envío registró un xT delta de 0.1736 con dificultad de pase de 8.7. NHR-14 condujo 14,0 m a 33,4 km/h y remató a 104,2 km/h: parada y 1-1.",
+      "why_it_matters": "Superar una trampa de presión activa desde el tercio defensivo convierte una recepción presionada en una entrada progresiva al tercio final: la acción precede directamente una secuencia de creación de ocasión, no un reinicio. Con xT acumulado de 20.6046 frente a 21.8865 y xG de 2.047 frente a 2.016 en un partido igualado, un line_break completado bajo presión es uno de los pocos separadores disponibles para cualquiera de los dos equipos.",
+      "watch_next": "Observar si ORN-06 (presión 0.8 en e-000969, 0.9 en e-000973, 0.89 en e-000978) vuelve a ser superado por pases de NHR al espacio detrás de la línea de presión, con control_home de 0.6069 frente a control_away de 0.6328.",
+      "how_we_know": "Se sustenta en los eventos e-000974 (pase line_break completado bajo presión de 0.82, xT delta 0.1736), e-000973 (press_trap de ORN-06) y la secuencia posterior e-000975 a e-000977.",
+      "evidence_event_ids": [
+        "e-000974",
+        "e-000973",
+        "e-000975",
+        "e-000976",
+        "e-000977",
+        "e-000969",
+        "e-000978"
+      ]
+    },
+    {
+      "insight_id": "mo-e-000974",
+      "profile": "analyst",
+      "language": "zh",
+      "headline": "NHR-08 在72分钟以24.6米破线传球拆解 ORN 压迫陷阱",
+      "what_happened": "72:12，NHR-08 在0.82压迫下完成24.6米传球至NHR-14，球从x38.0,y52.0推进到x62.0,y44.0，带line_break与under_press标签；此前2秒ORN-06刚设下press_trap。随后NHR-14以33.4 km/h冲刺、带球14.0米，104.2 km/h射门被扑，比分仍1-1。",
+      "why_it_matters": "这次在活跃压迫陷阱中的破线把防守三区接球转为向进攻三区的渐进推进，xT delta 0.1736，且直接引出机会序列而非重置。在累计xT 20.6046对21.8865、xG 2.047对2.016的均势中，这类单次破线是少数分离项。",
+      "watch_next": "关注ORN-06在e-000969、e-000973、e-000978的连续高压（0.8、0.9、0.89）是否仍被NHR向压迫线身后传球绕过；控制值NHR 0.6069、ORN 0.6328。",
+      "how_we_know": "依据e-000974的line_break/under_press标签、0.82压力与0.1736 xT delta，以及e-000973的press_trap和e-000975–e-000977的后续射门序列。",
+      "evidence_event_ids": [
+        "e-000974",
+        "e-000973",
+        "e-000975",
+        "e-000976",
+        "e-000977",
+        "e-000978"
+      ]
+    },
+    {
+      "insight_id": "mo-e-000974",
+      "profile": "casual",
+      "language": "en",
+      "headline": "NHR-08 slips out of the trap",
+      "what_happened": "ORN-06 tried to squeeze NHR-08 in the 72nd minute, but he slid a 24.6 m pass through the pressure to NHR-14. NHR-14 ran on and forced a save.",
+      "why_it_matters": "Beating a press like that is like finding the one open door in a crowded room. It turned a tight spot into a real chance, though the save kept it 1-1.",
+      "watch_next": "Keep an eye on whether NHR keeps finding that gap behind ORN's pressing line.",
+      "how_we_know": "The event log shows NHR-08's completed line-break pass under 0.82 pressure at 72:12, followed by NHR-14's saved shot.",
+      "evidence_event_ids": [
+        "e-000974",
+        "e-000973",
+        "e-000975",
+        "e-000976",
+        "e-000977"
+      ]
+    },
+    {
+      "insight_id": "mo-e-000974",
+      "profile": "casual",
+      "language": "es",
+      "headline": "NHR-08 abre la puerta cerrada de ORN",
+      "what_happened": "NHR-08 tenía un rival encima y sacó un pase de 24,6 m que rompió la presión; NHR-14 corrió y su disparo fue atajado.",
+      "why_it_matters": "Como abrir una puerta cerrada: con el 1-1, esa jugada creó una ocasión clara, pero no movió el marcador.",
+      "watch_next": "Ojo a si ORN-06 sigue presionando arriba y NHR vuelve a encontrar el hueco detrás.",
+      "how_we_know": "Se apoya en los eventos e-000973 a e-000977, que registran la presión rival, el pase bajo presión, la carrera de NHR-14 y el disparo atajado.",
+      "evidence_event_ids": [
+        "e-000973",
+        "e-000974",
+        "e-000975",
+        "e-000976",
+        "e-000977"
+      ]
+    },
+    {
+      "insight_id": "mo-e-000974",
+      "profile": "casual",
+      "language": "zh",
+      "headline": "像从收紧的口袋里钻出来：NHR-08一脚24.6米直塞撕开逼抢",
+      "what_happened": "第72分钟，ORN-06刚把逼抢收紧，NHR-08在自家半场被贴身压迫，还是一脚24.6米把球送到前场队友脚下。",
+      "why_it_matters": "对方堵在门口，他却找到一条缝把球送了出去。随后队友冲刺射门被扑，比分仍是1-1。",
+      "watch_next": "接下来看：ORN-06的持续逼抢会不会一再被NHR从身后打穿。",
+      "how_we_know": "依据事件e-000974（带line_break与under_press标签）以及紧接其后的e-000975至e-000977。",
+      "evidence_event_ids": [
+        "e-000973",
+        "e-000974",
+        "e-000975",
+        "e-000976",
+        "e-000977"
+      ]
+    },
+    {
+      "insight_id": "mo-e-000974",
+      "profile": "player",
+      "language": "en",
+      "headline": "NHR-08 breaks the trap: 24.6 m line-break pass under 0.82 pressure",
+      "what_happened": "NHR-08 took the ball at x 38.0 with ORN-06's press trap already set two seconds earlier (pressure 0.9). Instead of turning back, NHR-08 played forward through the pressure — a completed 24.6 m line-break pass to NHR-14 that moved the ball from x 38.0, y 52.0 to x 62.0, y 44.0 at a pass difficulty of 8.7. NHR-14 then sprinted at 33.4 km/h, carried 14.0 m and hit a 104.2 km/h shot that was saved.",
+      "why_it_matters": "For a midfielder, that is the rep: receive deep, feel the trap close, and still find the pass that turns a defensive-third reception into a progressive entry. The xT delta of 0.1736 shows the ground NHR-08 gained in one action, and because the ball went forward instead of resetting, NHR-14 got a running start into space and the sequence ended in a shot. In a level 1-1 game, that is the difference-making action — the kind that gets you trusted on the ball in the next high-pressure moment.",
+      "watch_next": "Watch whether NHR-08 keeps getting these forward passes off against ORN-06, whose pressure actions keep coming at 0.8, 0.9 and 0.89 — and whether ORN adjusts the trap to close the space behind the pressing line.",
+      "how_we_know": "Event e-000974 records the completed 24.6 m line-break pass under 0.82 pressure with a 0.1736 xT delta, immediately following ORN-06's press_trap at e-000973 and leading into NHR-14's sprint and saved shot (e-000975–e-000977).",
+      "evidence_event_ids": [
+        "e-000974",
+        "e-000973",
+        "e-000975",
+        "e-000976",
+        "e-000977"
+      ]
+    },
+    {
+      "insight_id": "mo-e-000974",
+      "profile": "player",
+      "language": "es",
+      "headline": "NHR-08 rompe la trampa de presión con un pase de 24,6 m",
+      "what_happened": "En el 72:12, NHR-08 recibió en x 38.0 con ORN presionando a 0.82 y soltó un pase filtrado de 24,6 m hasta NHR-14 en x 62.0, saliendo directo de la press_trap que ORN-06 había armado dos segundos antes. NHR-14 controló, aceleró a 33,4 km/h, avanzó 14,0 m y remató a 104,2 km/h; el portero lo salvó.",
+      "why_it_matters": "Para ti como jugador: cuando te presionan a 0.82 no hay que devolver el balón, hay que levantar la cabeza y buscar el espacio detrás de la línea. Ese pase tuvo dificultad 8.7 y un xT delta de 0.1736, y convirtió una recepción en tu propio campo en entrada al último tercio con remate en la misma jugada.",
+      "watch_next": "Ojo si ORN-06 sigue apretando a 0.89 y 0.9 (e-000978, e-000973): busca otra vez el pase a la espalda de la línea de presión.",
+      "how_we_know": "Se apoya en el evento e-000974 (pase completado con etiquetas line_break y under_press, presión 0.82, xT delta 0.1736) y en la secuencia e-000973 a e-000977 (press_trap, carrera de 33,4 km/h y remate atajado).",
+      "evidence_event_ids": [
+        "e-000974",
+        "e-000973",
+        "e-000975",
+        "e-000976",
+        "e-000977"
+      ]
+    },
+    {
+      "insight_id": "mo-e-000974",
+      "profile": "player",
+      "language": "zh",
+      "headline": "NHR-08 在压力下用24.6米直塞拆解ORN逼抢陷阱",
+      "what_happened": "第72分钟，ORN-06 刚在 e-000973 上以0.9的压迫强度设下逼抢陷阱，两秒后 NHR-08 在 x 38.0 处、承受0.82压力的情况下完成一记24.6米传球，球送到 x 62.0，带 line_break 与 under_press 标签。接球的 NHR-14 以33.4 km/h 冲刺、带球14.0米后以104.2 km/h 射门，被扑出，比分仍是1-1。",
+      "why_it_matters": "对球员来说，这一脚的关键在于处理球的动作选择：逼抢贴上来时不慌着回传重置，而是用一次向前的线路突破把防守三区的接球直接变成推进。NHR-08 在0.82压力下出球，说明他的站位、第一脚触球和出球方向都在逼抢合围前完成。",
+      "watch_next": "重点看 ORN-06 的连续高压（e-000969 的0.8、e-000973 的0.9、e-000978 的0.89）是否还会被 NHR 向逼抢线身后的传球反复绕过。",
+      "how_we_know": "证据来自 e-000974 的传球事件及其压力值0.82、xT 增量0.1736，以及随后 e-000975 至 e-000977 的接球、带球与射门事件。",
+      "evidence_event_ids": [
+        "e-000974",
+        "e-000973",
+        "e-000975",
+        "e-000976",
+        "e-000977"
+      ]
+    }
+  ],
+  "verification": {
+    "status": "pass",
+    "issues": [
+      {
+        "code": "review_superlative",
+        "message": "Superlative wording needs explicit support",
+        "claim_index": 0,
+        "severity": "warn"
+      },
+      {
+        "code": "model_issue",
+        "message": "Watch_next cites pressure 0.8 at e-000969, but no such value appears in evidence.",
+        "claim_index": null,
+        "severity": "warn"
+      }
+    ],
+    "checked_claims": 5,
+    "notes": "deterministic verifier"
+  },
+  "decision": {
+    "action": "approve",
+    "priority": 0.72,
+    "duration_seconds": 8.0,
+    "reason": "Verification passed and the insight is broadcast-worthy: a 72nd-minute line-break under pressure in a level game immediately precedes a chance, with positive xT delta. The warnings concern a superlative wording check and an unsupported pressure value only in watch_next, not the core on-air claim."
+  },
+  "trace": [
+    {
+      "agent": "TacticalAnalyst",
+      "model": "deepseek-flash",
+      "prompt_version": "prompt-v2",
+      "latency_ms": 22850.8,
+      "status": "ok",
+      "error": ""
+    },
+    {
+      "agent": "FactChecker",
+      "model": "deepseek-flash",
+      "prompt_version": "prompt-v2",
+      "latency_ms": 5296.1,
+      "status": "ok",
+      "error": ""
+    },
+    {
+      "agent": "StoryProducer",
+      "model": "deepseek-flash",
+      "prompt_version": "prompt-v2",
+      "latency_ms": 8136.7,
+      "status": "ok",
+      "error": ""
+    },
+    {
+      "agent": "AudienceEditor",
+      "model": "deepseek-flash",
+      "prompt_version": "prompt-v2",
+      "latency_ms": 29262.4,
+      "status": "ok",
+      "error": ""
+    },
+    {
+      "agent": "Director",
+      "model": "deepseek-flash",
+      "prompt_version": "prompt-v2",
+      "latency_ms": 5665.6,
+      "status": "ok",
+      "error": ""
+    }
+  ],
+  "fallback": false
+}

@@ -1,0 +1,442 @@
+{
+  "match_id": "ast-2026-1101-orn-vel",
+  "moment": {
+    "moment_id": "mo-e-000286",
+    "match_id": "ast-2026-1101-orn-vel",
+    "event_id": "e-000286",
+    "clock": {
+      "period": 1,
+      "minute": 22,
+      "second": 19
+    },
+    "type": "goal",
+    "importance": 0.95,
+    "headline": "Goal for ORN (ORN-09)",
+    "event_ids": [
+      "e-000285",
+      "e-000286"
+    ],
+    "metrics": {
+      "xg": {
+        "name": "xg",
+        "value": 0.201,
+        "unit": "goals",
+        "formula_version": "xg-v1",
+        "event_ids": [
+          "e-000285"
+        ],
+        "inputs": {},
+        "label": null
+      }
+    },
+    "analytics_version": "analytics-v1"
+  },
+  "clock": {
+    "period": 1,
+    "minute": 22,
+    "second": 19
+  },
+  "insight": {
+    "moment_id": "mo-e-000286",
+    "match_id": "ast-2026-1101-orn-vel",
+    "headline": "ORN-09 opens the scoring for ORN against VEL in the 22nd minute with a shot from the right channel",
+    "why_it_matters": "The goal is the end point of a deliberate progression rather than a single isolated strike: ORN beat a high-pressure moment at 0.87 to break a line, then advanced the ball through two low-pressure carries and a short pass into the box-entry zone at x=80.0 before ORN-09 finished. It shows ORN's possession structure converting territorial threat into a lead, and it forces VEL to play from behind with only 0.423 accumulated xG at that point.",
+    "watch_next": "Watch item, not a finding: whether VEL's immediate post-goal possession, which reached a blocked shot from VEL-05 at 22:45, becomes a repeated response pattern or remains a single sequence.",
+    "claims": [
+      {
+        "text": "ORN-09 shot from x=82.0 at 22:19 with an xG of 0.201 and a shot speed of 107.3 km/h, and the attempt crossed the line to make it 1-0.",
+        "event_ids": [
+          "e-000285",
+          "e-000286"
+        ],
+        "metric_refs": [
+          {
+            "name": "xg",
+            "value": 0.201,
+            "formula_version": "xg-v1",
+            "event_ids": [
+              "e-000285"
+            ]
+          }
+        ],
+        "confidence": 0.94
+      },
+      {
+        "text": "The move started with ORN-07's 27.7 m line-breaking pass to ORN-04 under 0.87 pressure, adding to the 4.0 line breaks recorded in the snapshot.",
+        "event_ids": [
+          "e-000281"
+        ],
+        "metric_refs": [
+          {
+            "name": "line_breaks",
+            "value": 4.0,
+            "formula_version": "pass-quality-v1",
+            "event_ids": [
+              "e-000080",
+              "e-000275",
+              "e-000276",
+              "e-000281"
+            ]
+          }
+        ],
+        "confidence": 0.87
+      },
+      {
+        "text": "ORN-11 and ORN-05 carried 10.9 m and 14.4 m at pressure values of 0.22 and 0.18, moving the ball from x=52.5 to x=75.6 before ORN-08's 18.0 m pass found ORN-09 at x=80.0.",
+        "event_ids": [
+          "e-000282",
+          "e-000283",
+          "e-000284"
+        ],
+        "metric_refs": [],
+        "confidence": 0.9
+      },
+      {
+        "text": "At the moment of the goal ORN's cumulative xG stood at 1.331 across five shot events against VEL's 0.423 across two, giving the home side the larger share of created chance quality.",
+        "event_ids": [
+          "e-000285",
+          "e-000286"
+        ],
+        "metric_refs": [
+          {
+            "name": "xg_home",
+            "value": 1.331,
+            "formula_version": "xg-v1",
+            "event_ids": [
+              "e-000036",
+              "e-000056",
+              "e-000096",
+              "e-000144",
+              "e-000285"
+            ]
+          },
+          {
+            "name": "xg_away",
+            "value": 0.423,
+            "formula_version": "xg-v1",
+            "event_ids": [
+              "e-000019",
+              "e-000213"
+            ]
+          }
+        ],
+        "confidence": 0.85
+      },
+      {
+        "text": "ORN's control share of 0.6771 and home pass completion of 0.9231 describe the possession platform on which the sequence to the goal was built.",
+        "event_ids": [
+          "e-000281",
+          "e-000284",
+          "e-000286"
+        ],
+        "metric_refs": [
+          {
+            "name": "control_home",
+            "value": 0.6771,
+            "formula_version": "control-v1",
+            "event_ids": [
+              "e-000273",
+              "e-000274",
+              "e-000275",
+              "e-000276",
+              "e-000277",
+              "e-000278",
+              "e-000281",
+              "e-000282",
+              "e-000283",
+              "e-000284",
+              "e-000285",
+              "e-000286"
+            ]
+          },
+          {
+            "name": "pass_completion_home",
+            "value": 0.9231,
+            "formula_version": "pass-quality-v1",
+            "event_ids": [
+              "e-000254",
+              "e-000268",
+              "e-000269",
+              "e-000270",
+              "e-000272",
+              "e-000273",
+              "e-000274",
+              "e-000275",
+              "e-000276",
+              "e-000277",
+              "e-000281",
+              "e-000284"
+            ]
+          }
+        ],
+        "confidence": 0.8
+      }
+    ],
+    "importance": 0.95,
+    "confidence": 0.88
+  },
+  "cue": {
+    "cue_id": "cue-mo-e-000286",
+    "insight_id": "mo-e-000286",
+    "template": "lower_third_why",
+    "priority": 0.95,
+    "duration_seconds": 10.0,
+    "safe_area": "lower_third",
+    "payload": {
+      "eyebrow": "ORN 1-0 VEL · 22'",
+      "headline": "ORN-09 scores from the right channel to open the scoring",
+      "stat": "xG 0.201 · 107.3 km/h · shot at x=82.0",
+      "subline": "Built through a 27.7 m line-break pass under 0.87 pressure; ORN xG 1.331 to VEL's 0.423"
+    }
+  },
+  "fan_cards": [
+    {
+      "insight_id": "mo-e-000286",
+      "profile": "analyst",
+      "language": "en",
+      "headline": "ORN-09 finishes a structured move to make it 1-0 in the 22nd minute",
+      "what_happened": "ORN-09 shot from x=82.0 at 22:19 with 0.201 xG and 107.3 km/h, crossing the line for 1-0. The sequence began with ORN-07's 27.7 m line-breaking pass to ORN-04 under 0.87 pressure; ORN-11 and ORN-05 then carried 10.9 m and 14.4 m at 0.22 and 0.18 pressure, moving from x=52.5 to x=75.6, before ORN-08's 18.0 m pass found ORN-09 at x=80.0.",
+      "why_it_matters": "This was progression converted into a lead, not an isolated strike: ORN's cumulative xG was 1.331 across five shots against VEL's 0.423 across two. It forces VEL to chase from behind.",
+      "watch_next": "Watch whether VEL's immediate post-goal possession, which reached a blocked shot from VEL-05 at 22:45, becomes a repeated response pattern or remains a single sequence.",
+      "how_we_know": "The claims are supported by the shot, pass, carry and pressure event records e-000281 through e-000286 and the referenced xG events.",
+      "evidence_event_ids": [
+        "e-000281",
+        "e-000282",
+        "e-000283",
+        "e-000284",
+        "e-000285",
+        "e-000286"
+      ]
+    },
+    {
+      "insight_id": "mo-e-000286",
+      "profile": "analyst",
+      "language": "es",
+      "headline": "ORN-09 abre el marcador para ORN ante VEL al minuto 22 con un disparo desde el carril derecho",
+      "what_happened": "En el minuto 22:19, ORN-09 disparó desde x=82.0 con un xG de 0.201 y una velocidad de 107.3 km/h; el balón cruzó la línea para el 1-0. La acción no fue aislada: ORN-07 rompió una línea con un pase de 27.7 m bajo presión de 0.87, y ORN-11 y ORN-05 condujeron 10.9 m y 14.4 m con presiones de 0.22 y 0.18, llevando el balón de x=52.5 a x=75.6 antes del pase de 18.0 m de ORN-08 a ORN-09 en x=80.0.",
+      "why_it_matters": "Al momento del gol, la xG acumulada de ORN era 1.331 frente a 0.423 de VEL, y su control de 0.6771 con 0.9231 de pases completados describe la plataforma de posesión que convirtió amenaza territorial en ventaja.",
+      "watch_next": "Observar, no conclusión: si la posesión inmediata de VEL tras el gol, que llegó a un disparo bloqueado de VEL-05 al 22:45, se repite como patrón o queda en una secuencia aislada.",
+      "how_we_know": "Los eventos e-000281 a e-000286 y las métricas xg-v1, control-v1 y pass-quality-v1 respaldan la secuencia, el remate y el contexto de xG acumulada.",
+      "evidence_event_ids": [
+        "e-000281",
+        "e-000282",
+        "e-000283",
+        "e-000284",
+        "e-000285",
+        "e-000286",
+        "e-000036",
+        "e-000056",
+        "e-000096",
+        "e-000144",
+        "e-000019",
+        "e-000213"
+      ]
+    },
+    {
+      "insight_id": "mo-e-000286",
+      "profile": "analyst",
+      "language": "zh",
+      "headline": "ORN-09第22分钟右通道破门，ORN以结构化推进取得1-0领先",
+      "what_happened": "第22分钟，ORN-09于x=82.0射门，xG 0.201、球速107.3 km/h，皮球过线。推进始于ORN-07在0.87压力下27.7米破线传球；ORN-11、ORN-05分别带球10.9米、14.4米（压力0.22、0.18），将球从x=52.5推至x=75.6；ORN-08再以18.0米传球找到x=80.0的ORN-09。",
+      "why_it_matters": "该球是控球结构把领地威胁转为领先的终点，而非孤立射门：进球时ORN累计xG 1.331（5射）对VEL 0.423（2射）；控制份额0.6771、传球成功率0.9231，迫使VEL落后追分。",
+      "watch_next": "观察VEL丢球后由VEL-05在22:45完成被封堵射门，是否成为重复回应模式而非单次序列。",
+      "how_we_know": "以上结论基于e-000281至e-000286的连续事件及xG、控制份额、传球成功率指标。",
+      "evidence_event_ids": [
+        "e-000281",
+        "e-000282",
+        "e-000283",
+        "e-000284",
+        "e-000285",
+        "e-000286"
+      ]
+    },
+    {
+      "insight_id": "mo-e-000286",
+      "profile": "casual",
+      "language": "en",
+      "headline": "ORN-09 breaks the deadlock for ORN",
+      "what_happened": "ORN-09 fired home from the right side of the box in the 22nd minute to put ORN 1-0 up. It capped a patient move: ORN slipped out of a tight spot, carried the ball forward, and worked a short pass into the box before the finish.",
+      "why_it_matters": "It turned ORN's possession into a lead and left VEL chasing the game with far less created threat.",
+      "watch_next": "Whether VEL's push straight after the goal becomes a pattern or just a one-off.",
+      "how_we_know": "The goal event and its xG value, plus the passes and carries leading up to it, are logged in the match event data.",
+      "evidence_event_ids": [
+        "e-000285",
+        "e-000286",
+        "e-000281",
+        "e-000282",
+        "e-000283",
+        "e-000284"
+      ]
+    },
+    {
+      "insight_id": "mo-e-000286",
+      "profile": "casual",
+      "language": "es",
+      "headline": "ORN-09 abre el marcador para ORN ante VEL en el minuto 22",
+      "what_happened": "En el minuto 22, ORN-09 remató desde la derecha y marcó el 1-0. La jugada no fue un golpe aislado: ORN aguantó la presión, avanzó con dos conducciones y un pase corto al área antes del remate.",
+      "why_it_matters": "Así ORN convirtió su control del balón en ventaja y obligó a VEL a jugar desde atrás.",
+      "watch_next": "Ver si la respuesta de VEL tras el gol se repite o queda en una sola jugada.",
+      "how_we_know": "Lo sabemos por el remate registrado (e-000285, e-000286) y la secuencia de pases previa (e-000281 a e-000284).",
+      "evidence_event_ids": [
+        "e-000281",
+        "e-000282",
+        "e-000283",
+        "e-000284",
+        "e-000285",
+        "e-000286"
+      ]
+    },
+    {
+      "insight_id": "mo-e-000286",
+      "profile": "casual",
+      "language": "zh",
+      "headline": "ORN-09第22分钟破门，ORN取得领先",
+      "what_happened": "第22分钟，ORN-09在右侧通道射门得分，ORN 1-0领先。",
+      "why_it_matters": "这不是一脚蒙进：队友先破压、再带球推进、短传送到禁区前，耐心配合换来进球，VEL被迫追分。",
+      "watch_next": "看VEL丢球后的进攻会不会形成持续回应。",
+      "how_we_know": "这些判断来自该进球的射门、传球和带球事件记录。",
+      "evidence_event_ids": [
+        "e-000281",
+        "e-000282",
+        "e-000283",
+        "e-000284",
+        "e-000285",
+        "e-000286"
+      ]
+    },
+    {
+      "insight_id": "mo-e-000286",
+      "profile": "player",
+      "language": "en",
+      "headline": "ORN-09 attacks the right channel and finishes at 107.3 km/h",
+      "what_happened": "ORN-09 stayed high and wide right, then timed the run into the box to meet ORN-08's 18.0 m pass at x=80.0. One touch to set, then a strike from x=82.0 at 107.3 km/h that crossed the line at 22:19. The build-up was patient: ORN-07 broke the line under 0.87 pressure, ORN-11 and ORN-05 carried 10.9 m and 14.4 m through low pressure, and the ball kept moving forward. ORN-09's movement was the last link — arriving late, arriving unmarked, finishing clean.",
+      "why_it_matters": "For a striker, this is the read: don't contest the ball early, let the carries drag the back line, then attack the space behind the box-entry zone. ORN-09's positioning turned ORN's controlled possession into a 1-0 lead and forced VEL to chase the game.",
+      "watch_next": "Whether ORN-09 repeats that late-arriving run pattern or VEL adjusts to track him between the lines.",
+      "how_we_know": "Shot location, speed and xG for ORN-09's finish plus the preceding pass and carry events are logged in e-000281 through e-000286.",
+      "evidence_event_ids": [
+        "e-000281",
+        "e-000282",
+        "e-000283",
+        "e-000284",
+        "e-000285",
+        "e-000286"
+      ]
+    },
+    {
+      "insight_id": "mo-e-000286",
+      "profile": "player",
+      "language": "es",
+      "headline": "ORN-09 abre el marcador en el minuto 22 con un disparo desde el carril derecho",
+      "what_happened": "ORN-09 arrancó en el canal derecho, recibió el pase de ORN-08 a x=80.0 y no esperó: soltó el disparo desde x=82.0 a 107.3 km/h, con un xG de 0.201, y el balón cruzó la línea para el 1-0. Antes, ORN-11 y ORN-05 habían empujado el balón 10.9 m y 14.4 m con presión baja (0.22 y 0.18), y ORN-07 había roto una línea con un pase de 27.7 m a ORN-04 bajo presión de 0.87.",
+      "why_it_matters": "Para ti como delantero: el movimiento de ORN-09 no fue quedarse quieto a esperar, fue atacar el espacio justo cuando el balón salió de la zona de presión. Llegó a x=80.0 con el pase, disparó rápido desde el carril derecho y convirtió. Esa combinación de desmarque, control orientado y definición de primer toque es lo que convierte la posesión del equipo en ventaja en el marcador.",
+      "watch_next": "Ojo al patrón: si VEL responde de inmediato con posesión tras el gol, como el disparo bloqueado de VEL-05 al 22:45, observa si ORN-09 sigue presionando alto o si retrocede a cubrir su carril.",
+      "how_we_know": "El registro del disparo de ORN-09 a x=82.0 con xG de 0.201 (eventos e-000285 y e-000286) y la secuencia previa de pases y conducciones (e-000281 a e-000284) sustentan la descripción.",
+      "evidence_event_ids": [
+        "e-000281",
+        "e-000282",
+        "e-000283",
+        "e-000284",
+        "e-000285",
+        "e-000286"
+      ]
+    },
+    {
+      "insight_id": "mo-e-000286",
+      "profile": "player",
+      "language": "zh",
+      "headline": "ORN-09 在右通道以 107.3 km/h 的射门破门，帮助 ORN 1-0 领先 VEL",
+      "what_happened": "第22分钟（22:19），ORN-09 在右通道 x=82.0 处起脚，射门速度 107.3 km/h、xG 0.201，皮球越线，比分变成 1-0。此前 ORN-11 和 ORN-05 分别在 0.22 和 0.18 的低压迫下带球推进 10.9 米和 14.4 米，把球从 x=52.5 带到 x=75.6，ORN-08 随后用一记 18.0 米的传球在 x=80.0 找到 ORN-09。",
+      "why_it_matters": "对 ORN-09 来说，这是一次接球后很少触球、快速完成的射门：他在 x=80.0 接应，在 x=82.0 就完成射门，没有多余的调整。进球前的那次推进也值得注意：ORN-07 在 0.87 压迫下完成 27.7 米破线传球找到 ORN-04，全队由此把高位压迫下的球权转成射门。这粒进球让 ORN 取得领先，也让当时累计 xG 只有 0.423 的 VEL 必须压上踢球。",
+      "watch_next": "观察项（不是结论）：VEL 在失球后的第一次进攻由 VEL-05 在 22:45 完成一记被封堵的射门；接下来要看这会不会成为固定的回应模式，还是只是一次性片段。",
+      "how_we_know": "以上描述基于 e-000281 至 e-000286 的连续事件，其中 e-000285 记录这次射门（x=82.0，xG 0.201，107.3 km/h），e-000286 记录进球。",
+      "evidence_event_ids": [
+        "e-000281",
+        "e-000282",
+        "e-000283",
+        "e-000284",
+        "e-000285",
+        "e-000286"
+      ]
+    }
+  ],
+  "verification": {
+    "status": "pass",
+    "issues": [
+      {
+        "code": "review_superlative",
+        "message": "Superlative wording needs explicit support",
+        "claim_index": 1,
+        "severity": "warn"
+      },
+      {
+        "code": "model_issue",
+        "message": "Claim 2's ORN-07 pass details (27.7 m, ORN-04, 0.87 pressure) lack event-level evidence.",
+        "claim_index": null,
+        "severity": "warn"
+      },
+      {
+        "code": "model_issue",
+        "message": "Claim 3's carry/pass distances, pressures, and x-coordinates are unsupported by the event window.",
+        "claim_index": null,
+        "severity": "warn"
+      },
+      {
+        "code": "model_issue",
+        "message": "Headline's 'right channel' is tactical interpretation not established by the supplied location data.",
+        "claim_index": null,
+        "severity": "warn"
+      }
+    ],
+    "checked_claims": 5,
+    "notes": "deterministic verifier"
+  },
+  "decision": {
+    "action": "approve",
+    "priority": 0.92,
+    "duration_seconds": 8.0,
+    "reason": "Verification passed and the goal is a high-importance scoring moment that changes the match state. Approve for a concise lower-third, using only the verified core goal facts and avoiding the unsupported tactical wording flagged by the verifier."
+  },
+  "trace": [
+    {
+      "agent": "TacticalAnalyst",
+      "model": "deepseek-flash",
+      "prompt_version": "prompt-v2",
+      "latency_ms": 23720.6,
+      "status": "ok",
+      "error": ""
+    },
+    {
+      "agent": "StoryProducer",
+      "model": "deepseek-flash",
+      "prompt_version": "prompt-v2",
+      "latency_ms": 6677.7,
+      "status": "ok",
+      "error": ""
+    },
+    {
+      "agent": "FactChecker",
+      "model": "deepseek-flash",
+      "prompt_version": "prompt-v2",
+      "latency_ms": 20867.2,
+      "status": "ok",
+      "error": ""
+    },
+    {
+      "agent": "AudienceEditor",
+      "model": "deepseek-flash",
+      "prompt_version": "prompt-v2",
+      "latency_ms": 31897.4,
+      "status": "ok",
+      "error": ""
+    },
+    {
+      "agent": "Director",
+      "model": "deepseek-flash",
+      "prompt_version": "prompt-v2",
+      "latency_ms": 7619.9,
+      "status": "ok",
+      "error": ""
+    }
+  ],
+  "fallback": false
+}

@@ -1,0 +1,96 @@
+{
+  "match_id": "ast-2026-1018-nhr-orn",
+  "title": "Nova Harbor 2-1 Orion North",
+  "summary": "Nova Harbor beat Orion North 2-1 in the Aster League. Nova Harbor scored in the 23rd minute through Teo Varela. Orion North scored in the 51st minute through Oskar Lind. Nova Harbor scored in the 74th minute through Teo Varela. Oskar Lind received a yellow card in the 21st minute. Adil Nasser received a yellow card in the 66th minute.",
+  "final_score": {
+    "home": 2,
+    "away": 1
+  },
+  "key_moments": [
+    {
+      "clock": {
+        "period": 1,
+        "minute": 23,
+        "second": 20
+      },
+      "type": "goal",
+      "description": "Scripted opening goal",
+      "event_ids": [
+        "e-000316",
+        "e-000317",
+        "e-000318"
+      ]
+    },
+    {
+      "clock": {
+        "period": 1,
+        "minute": 31,
+        "second": 0
+      },
+      "type": "sprint_peak",
+      "description": "Verifier demo: the 72' sprint is second-fastest",
+      "event_ids": [
+        "e-000425"
+      ]
+    },
+    {
+      "clock": {
+        "period": 2,
+        "minute": 51,
+        "second": 10
+      },
+      "type": "goal",
+      "description": "Scripted equalizer",
+      "event_ids": [
+        "e-000708",
+        "e-000709",
+        "e-000710"
+      ]
+    },
+    {
+      "clock": {
+        "period": 2,
+        "minute": 66,
+        "second": 1
+      },
+      "type": "yellow_card",
+      "description": "Adil Nasser is booked",
+      "event_ids": [
+        "e-000894",
+        "e-000895"
+      ]
+    },
+    {
+      "clock": {
+        "period": 2,
+        "minute": 72,
+        "second": 12
+      },
+      "type": "line_break_under_press",
+      "description": "Hero moment; the shot is saved and the goal follows at 74'",
+      "event_ids": [
+        "e-000973",
+        "e-000974",
+        "e-000975",
+        "e-000976",
+        "e-000977"
+      ]
+    },
+    {
+      "clock": {
+        "period": 2,
+        "minute": 74,
+        "second": 5
+      },
+      "type": "goal",
+      "description": "Scripted winner",
+      "event_ids": [
+        "e-001000",
+        "e-001001",
+        "e-001002"
+      ]
+    }
+  ],
+  "top_speed_kmh": 33.8,
+  "generated_by": "recap-v1"
+}

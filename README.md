@@ -5,6 +5,7 @@
 MatchMind is a real-time explainability layer for football broadcast. It turns synthetic match events into grounded, timed match intelligence — a deterministic analytics engine feeds a five-agent workflow with a verifier, rendered as a broadcast-ready overlay for the studio and as a personalized second-screen experience for analysts, casual fans, and player-focused viewers.
 
 > Status: local closed loop live — five synthetic matches, deterministic analytics, Agent Framework graph, five cached fixtures, live WebSocket replay, and Studio / Overlay / Fan at `http://localhost:8010`.
+> Public static demo: [ruziniuuuuu.github.io/matchmind-demo](https://ruziniuuuuu.github.io/matchmind-demo/) (Studio, five cached fixtures, five overlay templates, Fan).
 > Product and architecture: [PLAN.md](./PLAN.md). Completion checklist: [EXECUTION.md](./EXECUTION.md). Judge walkthrough: [docs/JUDGE-GUIDE.md](./docs/JUDGE-GUIDE.md).
 
 ## Surfaces
@@ -82,6 +83,22 @@ infra/           # Docker, optional Bicep/azd
 tests/           # Unit, contract, and evaluation tests
 docs/            # Architecture, data card, demo script
 ```
+
+## Public demo
+
+The GitHub Pages build is a static snapshot: five fixtures, overlay templates,
+Fan views, recap, replay, and evidence all work without a server. Live generation
+and the WebSocket feed are intentionally disabled there.
+
+```
+https://ruziniuuuuu.github.io/matchmind-demo/
+https://ruziniuuuuu.github.io/matchmind-demo/#/studio
+https://ruziniuuuuu.github.io/matchmind-demo/#/overlay?bg=1&template=stat_card
+https://ruziniuuuuu.github.io/matchmind-demo/#/fan?match=ast-2026-1025-vel-kep
+```
+
+Rebuild and deploy the static snapshot with `scripts/deploy_static_demo.sh`.
+The local app below keeps the full live pipeline, WebSocket replay, and Generate.
 
 ## Local development
 

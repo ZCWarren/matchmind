@@ -1,0 +1,66 @@
+{
+  "match_id": "ast-2026-1101-orn-vel",
+  "title": "Orion North 1-1 Vela Athletic",
+  "summary": "Orion North and Vela Athletic drew 1-1 in the Aster League. Orion North scored in the 22nd minute through Oskar Lind. Vela Athletic scored in the 76th minute through Andre Cala. Adil Nasser received a red card in the 58th minute. Nils Hagen received a yellow card in the 83rd minute.",
+  "final_score": {
+    "home": 1,
+    "away": 1
+  },
+  "key_moments": [
+    {
+      "clock": {
+        "period": 1,
+        "minute": 22,
+        "second": 19
+      },
+      "type": "goal",
+      "description": "Orion North lead 1-0",
+      "event_ids": [
+        "e-000284",
+        "e-000285",
+        "e-000286"
+      ]
+    },
+    {
+      "clock": {
+        "period": 1,
+        "minute": 34,
+        "second": 5
+      },
+      "type": "sprint_peak",
+      "description": "Sprint peak in the Orion transition",
+      "event_ids": [
+        "e-000439"
+      ]
+    },
+    {
+      "clock": {
+        "period": 2,
+        "minute": 58,
+        "second": 2
+      },
+      "type": "red_card",
+      "description": "Red card changes the shape",
+      "event_ids": [
+        "e-000767",
+        "e-000768"
+      ]
+    },
+    {
+      "clock": {
+        "period": 2,
+        "minute": 76,
+        "second": 23
+      },
+      "type": "goal",
+      "description": "Vela Athletic equalize against 10",
+      "event_ids": [
+        "e-001033",
+        "e-001034",
+        "e-001035"
+      ]
+    }
+  ],
+  "top_speed_kmh": 32.9,
+  "generated_by": "recap-v1"
+}

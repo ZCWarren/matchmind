@@ -1,4 +1,4 @@
-.PHONY: install smoke data dev test lint web-install web-build web-dev
+.PHONY: install smoke data dev test lint web-install web-build web-dev static-demo
 
 install:
 	uv sync --extra dev
@@ -26,3 +26,7 @@ web-build:
 
 web-dev:
 	cd web && npm run dev
+
+static-demo:
+	uv run python scripts/export_static_demo.py
+	cd web && npm run build:static

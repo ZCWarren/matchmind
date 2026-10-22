@@ -1,0 +1,5 @@
+{
+  "provider": "static",
+  "demo_mode": "static",
+  "allow_live_generation": false
+}
