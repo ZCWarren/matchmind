@@ -48,7 +48,7 @@ The model layer is provider-agnostic. The public demo runs on DeepSeek; the repo
 
 ## Synthetic data
 
-MatchForge generates football-realistic synthetic matches with fictional clubs and players: events, tracking windows, lineups, and ground-truth labels for evaluation. No real match footage, data, club crests, or player likenesses are used.
+MatchForge generates football-realistic synthetic matches with fictional clubs and players: events, tracking windows, lineups, and ground-truth labels for evaluation. The first demo match (1,304 events, 5 key moments) lives in [`data/demo/`](./data/demo); see the [data README](./data/README.md) and [dataset card](./data/dataset-card.md). No real match footage, data, club crests, or player likenesses are used.
 
 ## Repository layout
 
@@ -69,11 +69,12 @@ D0 workflow:
 make install
 cp .env.example .env      # add DEEPSEEK_API_KEY
 make smoke                # raw API + Agent Framework check
+make data                 # generate the synthetic demo match
 make dev                  # http://localhost:8010/docs
 make test
 ```
 
-Local dev currently runs at `http://localhost:8010` (port 8000 is used by Caddy). The public demo requires a tunnel or host before submission; it will run in `DEMO_MODE=replay` without cloud credentials so judges can test the full experience. Live AI mode uses DeepSeek; a Foundry adapter is included for Azure deployments.
+Local dev currently runs at `http://localhost:8010` (port 8000 is used by Caddy). The API exposes `/api/matches`, `/api/matches/{id}`, and `/api/matches/{id}/events`. The public demo requires a tunnel or host before submission; it will run in `DEMO_MODE=replay` without cloud credentials so judges can test the full experience. Live AI mode uses DeepSeek; a Foundry adapter is included for Azure deployments.
 
 ## License
 

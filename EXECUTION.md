@@ -27,12 +27,13 @@
 | 项 | 状态 |
 |---|---|
 | 报名 | 已确认（个人） |
-| repo 骨架 | 已建：`pyproject.toml`、`Makefile`、FastAPI hello、`.env.example` |
+| repo 骨架 | `pyproject.toml`、`Makefile`、FastAPI、MatchForge、models、data、`.env.example` |
 | Python 依赖 | `uv sync --extra dev` 通过；`agent-framework 1.22.0` / `agent-framework-openai 1.17.0` / `openai 3.36.1` |
 | DeepSeek client | `OpenAIChatClient` / `OpenAIChatCompletionClient` 直接 `base_url` 构造通过 |
 | smoke test | **PASS**：zshrc key 已写入 `.env`；raw DeepSeek + Agent Framework 都通过 |
-| tests | `pytest` 2 passed；`ruff` 通过；本地 API `:8010` healthz OK |
-| 下一步 | MatchForge v0（1 场 1,200 事件 + hero moment） |
+| tests | `pytest` 7 passed；`ruff` 通过；本地 API `:8010` healthz + match endpoints OK |
+| 数据 | **MatchForge v0 已生成**：1 场、1,304 事件、5 个 labels；`/api/matches` 可读 |
+| 下一步 | analytics v0：xG/xT/pressure/pass quality/control-chaos + 测试 |
 
 > `.env` 已创建（权限 600，gitignored）；key 不打印、不提交。
 
@@ -45,7 +46,7 @@
 - **公网**：规则要求评委能访问的 demo URL；**local-only 不行**。D3 用 Cloudflare Tunnel / ngrok / Caddy 反代，D4 固定链接。
 - **Scope**：Must + 少量 Should；砍 5 语言/RTL/Cosmos/Event Hubs/hosted agent。
 - **节奏**：按 PLAN.md §10 的单人 D0-D5，把模型换成 DeepSeek，把部署先换成本地 8010；D3 再把 8010 暴露到公网。
-- **今天的下一步**：MatchForge v0（1 场、~1,200 事件、hero moment）→ analytics v0 → 本地 Studio shell。
+- **今天的下一步**：MatchForge v0 已完成（1,304 事件）→ analytics v0 → 本地 Studio shell。
 
 ### Solo 5 天速查
 

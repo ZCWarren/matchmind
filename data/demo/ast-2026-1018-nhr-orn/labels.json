@@ -1,0 +1,107 @@
+[
+  {
+    "moment_id": "m-023-01",
+    "match_id": "ast-2026-1018-nhr-orn",
+    "clock": {
+      "period": 1,
+      "minute": 23,
+      "second": 20
+    },
+    "type": "goal",
+    "importance": 0.7,
+    "event_ids": [
+      "e-000332",
+      "e-000333",
+      "e-000334"
+    ],
+    "expected_claims": [
+      "Nova Harbor take a 1-0 lead",
+      "Teo Varela finishes from inside the box"
+    ],
+    "notes": "Scripted opening goal"
+  },
+  {
+    "moment_id": "m-031-01",
+    "match_id": "ast-2026-1018-nhr-orn",
+    "clock": {
+      "period": 1,
+      "minute": 31,
+      "second": 3
+    },
+    "type": "sprint_peak",
+    "importance": 0.5,
+    "event_ids": [
+      "e-000450"
+    ],
+    "expected_claims": [
+      "Niko Sarin reaches 33.8 km/h"
+    ],
+    "notes": "Used by the verifier demo: the 72' sprint is second-fastest, not fastest"
+  },
+  {
+    "moment_id": "m-051-01",
+    "match_id": "ast-2026-1018-nhr-orn",
+    "clock": {
+      "period": 2,
+      "minute": 51,
+      "second": 5
+    },
+    "type": "goal",
+    "importance": 0.7,
+    "event_ids": [
+      "e-000726",
+      "e-000727",
+      "e-000728"
+    ],
+    "expected_claims": [
+      "Orion North equalize at 1-1",
+      "Oskar Lind finishes a central combination"
+    ],
+    "notes": "Scripted equalizer"
+  },
+  {
+    "moment_id": "m-072-01",
+    "match_id": "ast-2026-1018-nhr-orn",
+    "clock": {
+      "period": 2,
+      "minute": 72,
+      "second": 9
+    },
+    "type": "line_break_under_press",
+    "importance": 0.92,
+    "event_ids": [
+      "e-001010",
+      "e-001011",
+      "e-001012",
+      "e-001013",
+      "e-001014"
+    ],
+    "expected_claims": [
+      "3 Orion North players were bypassed",
+      "The pass added 0.18 expected threat",
+      "Space opened behind the right back"
+    ],
+    "notes": "Hero moment for the demo; the shot is saved and the goal follows at 74'"
+  },
+  {
+    "moment_id": "m-074-01",
+    "match_id": "ast-2026-1018-nhr-orn",
+    "clock": {
+      "period": 2,
+      "minute": 74,
+      "second": 5
+    },
+    "type": "goal",
+    "importance": 0.9,
+    "event_ids": [
+      "e-001039",
+      "e-001040",
+      "e-001041"
+    ],
+    "expected_claims": [
+      "Nova Harbor lead 2-1",
+      "Teo Varela scores from Isak Rune's cross"
+    ],
+    "notes": "Scripted winner"
+  }
+]
