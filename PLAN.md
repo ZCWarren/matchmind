@@ -153,6 +153,9 @@ Card structure:
 3. What to watch next (labeled as a forward-looking watch item, not fact)
 4. How we know (expandable evidence; one line in casual mode)
 
+A deterministic post-match recap adds the scoreline, goals, cards, key moments,
+and top speed. It is composed from the same event stream and labels.
+
 Languages: English, Spanish, Chinese, Arabic (RTL), Hindi. Language is not
 word-for-word translation: number formats, football terminology, tone, and layout
 adapt.

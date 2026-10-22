@@ -11,6 +11,7 @@ from matchmind import __version__
 from matchmind.api.analytics import router as analytics_router
 from matchmind.api.insights import router as insights_router
 from matchmind.api.matches import router as matches_router
+from matchmind.api.recap import router as recap_router
 from matchmind.api.replay import router as replay_router
 from matchmind.config import settings
 
@@ -27,6 +28,7 @@ app.add_middleware(
 )
 app.include_router(analytics_router)
 app.include_router(insights_router)
+app.include_router(recap_router)
 app.include_router(replay_router)
 app.include_router(matches_router)
 

@@ -1,6 +1,7 @@
 import type {
   AppConfig,
   Event,
+  MatchRecap,
   FeatureSnapshot,
   InsightResult,
   Language,
@@ -32,6 +33,7 @@ export const api = {
     request<{ total: number; events: Event[] }>(
       `/api/matches/${matchId}/events?limit=2000`,
     ),
+  recap: (matchId: string) => request<MatchRecap>(`/api/matches/${matchId}/recap`),
   moments: (matchId: string) =>
     request<MomentsResponse>(`/api/matches/${matchId}/moments?limit=60`),
   features: (matchId: string, untilEventId?: string) =>

@@ -34,6 +34,7 @@ One pipeline, five stages:
 3. **Explain** why a moment matters with specialized agents and an evidence trail.
 4. **Render** the insight as a timed broadcast overlay: lower-thirds, stat cards, momentum ribbons, pressure maps, speed alerts.
 5. **Personalize** the same moment for analyst, casual, and player-focused audiences in multiple languages.
+6. **Recap** the match deterministically: scoreline, goals, cards, key moments, and top speed.
 
 ## The agent team
 
@@ -91,7 +92,7 @@ make dev                  # http://localhost:8010/studio
 make test
 ```
 
-Local dev currently runs at `http://localhost:8010` (port 8000 is used by Caddy). The API exposes `/api/matches`, `/api/matches/{id}`, `/api/matches/{id}/events`, `/api/matches/{id}/features`, `/api/matches/{id}/moments`, `POST /api/matches/{id}/insights` (five-agent pipeline, cached for the demo), `/api/config`, and `WS /ws/matches/{id}` (live replay with cached cue delivery). The public demo requires a tunnel or host; it will run in `DEMO_MODE=replay` without cloud credentials so reviewers can test the full experience. Live AI mode uses DeepSeek; a Foundry adapter is included for Azure deployments.
+Local dev currently runs at `http://localhost:8010` (port 8000 is used by Caddy). The API exposes `/api/matches`, `/api/matches/{id}`, `/api/matches/{id}/events`, `/api/matches/{id}/features`, `/api/matches/{id}/moments`, `POST /api/matches/{id}/insights` (five-agent pipeline, cached for the demo), `/api/config`, `/api/matches/{id}/recap` (deterministic match recap), and `WS /ws/matches/{id}` (live replay with cached cue delivery). The public demo requires a tunnel or host; it will run in `DEMO_MODE=replay` without cloud credentials so reviewers can test the full experience. Live AI mode uses DeepSeek; a Foundry adapter is included for Azure deployments.
 
 ## Deploy
 

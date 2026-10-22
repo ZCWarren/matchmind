@@ -218,3 +218,20 @@ export type AppConfig = {
   demo_mode: string;
   allow_live_generation: boolean;
 };
+
+export type RecapMoment = {
+  clock: Clock;
+  type: string;
+  description: string;
+  event_ids: string[];
+};
+
+export type MatchRecap = {
+  match_id: string;
+  title: string;
+  summary: string;
+  final_score: Score;
+  key_moments: RecapMoment[];
+  top_speed_kmh: number;
+  generated_by: string;
+};

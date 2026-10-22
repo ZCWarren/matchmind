@@ -12,7 +12,7 @@
 | DeepSeek provider | Working: raw OpenAI-compatible API + Agent Framework `OpenAIChatClient(base_url=...)` |
 | Local API | Working on `:8010`; `/healthz`, `/docs`, `/api/matches`, `/api/matches/{id}`, `/api/matches/{id}/events` |
 | MatchForge | Five narrative matches generated: 6,278 events, 27 labels, deterministic seeds |
-| Tests | 23 passing; ruff clean; frontend production build passes |
+| Tests | 25 passing; ruff clean; frontend production build passes |
 | UI | Not started |
 | Analytics | Working: xG, xT, pressure, pass quality, control/chaos, momentum, rhythm, speed; evidence + API |
 | Agents / verifier | Working: real Agent Framework graph, MCP analyst, deterministic gate + advisory checker, cached hero insight |
@@ -113,6 +113,7 @@
   - [x] Analyst / Casual / Player Focus profiles.
   - [x] English / Spanish / Chinese.
   - [x] "How we know" evidence expander.
+  - [x] Deterministic match recap with goals, cards, key moments, and top speed.
   - [ ] Favorite club/player selector and Arabic/Hindi.
 - [x] WebSocket replay stream (events + cached insight/cue delivery).
 - [x] Loading, empty, and error states.

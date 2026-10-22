@@ -10,6 +10,7 @@ import type {
   FeatureSnapshot,
   InsightResult,
   Language,
+  MatchRecap,
   MatchSummary,
   Moment,
   Profile,
@@ -40,6 +41,7 @@ export default function Fan() {
   const [matches, setMatches] = useState<MatchSummary[]>([]);
   const [result, setResult] = useState<InsightResult | null>(null);
   const [features, setFeatures] = useState<FeatureSnapshot | null>(null);
+  const [recap, setRecap] = useState<MatchRecap | null>(null);
   const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
@@ -62,9 +64,11 @@ export default function Fan() {
           use_mcp: true,
         });
         const snapshot = await api.features(matchId, moment.event_id).catch(() => null);
+        const matchRecap = await api.recap(matchId).catch(() => null);
         if (!cancelled) {
           setResult(insight);
           setFeatures(snapshot);
+          setRecap(matchRecap);
         }
       })
       .catch((caught) => {
@@ -185,6 +189,28 @@ export default function Fan() {
               </div>
               <FanCardView card={card} match={displayMatch} />
             </>
+          )}
+
+          {recap && (
+            <section className="fan-recap">
+              <div className="fan-section-label">Match recap</div>
+              <h2>{recap.title}</h2>
+              <p>{recap.summary}</p>
+              <div className="fan-recap-moments">
+                {recap.key_moments.slice(0, 5).map((moment) => (
+                  <div className="fan-recap-row" key={`${moment.clock.minute}-${moment.type}`}>
+                    <span className="mono">{formatClock(moment.clock)}</span>
+                    <span>
+                      <b>{moment.type.replace(/_/g, " ")}</b>
+                      <small>{moment.description}</small>
+                    </span>
+                  </div>
+                ))}
+              </div>
+              <div className="fan-recap-foot">
+                Deterministic recap / top speed {recap.top_speed_kmh} km/h
+              </div>
+            </section>
           )}
 
           <div className="fan-note">
