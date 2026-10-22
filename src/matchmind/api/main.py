@@ -1,7 +1,11 @@
 """Minimal FastAPI entrypoint for the D0 hello-world deploy."""
 
-from fastapi import FastAPI
+from pathlib import Path
+
+from fastapi import FastAPI, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
+from fastapi.responses import FileResponse
+from fastapi.staticfiles import StaticFiles
 
 from matchmind import __version__
 from matchmind.api.analytics import router as analytics_router
@@ -25,8 +29,14 @@ app.include_router(insights_router)
 app.include_router(matches_router)
 
 
+WEB_DIST = Path(__file__).resolve().parents[3] / "web" / "dist"
+
+
 @app.get("/")
-def root() -> dict[str, str]:
+def root():
+    index = WEB_DIST / "index.html"
+    if index.exists():
+        return FileResponse(index)
     return {
         "name": "MatchMind",
         "version": __version__,
@@ -42,3 +52,18 @@ def healthz() -> dict[str, str]:
         "provider": settings.llm_provider,
         "demo_mode": settings.demo_mode,
     }
+
+if WEB_DIST.exists():
+    assets = WEB_DIST / "assets"
+    if assets.exists():
+        app.mount("/assets", StaticFiles(directory=assets), name="assets")
+
+    @app.get("/{full_path:path}")
+    def spa(full_path: str):
+        blocked = ("api/", "docs", "openapi")
+        if full_path.startswith(blocked):
+            raise HTTPException(status_code=404, detail="Not found")
+        candidate = WEB_DIST / full_path
+        if candidate.is_file():
+            return FileResponse(candidate)
+        return FileResponse(WEB_DIST / "index.html")

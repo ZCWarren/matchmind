@@ -12,10 +12,11 @@
 | DeepSeek provider | Working: raw OpenAI-compatible API + Agent Framework `OpenAIChatClient(base_url=...)` |
 | Local API | Working on `:8010`; `/healthz`, `/docs`, `/api/matches`, `/api/matches/{id}`, `/api/matches/{id}/events` |
 | MatchForge | Five narrative matches generated: 6,278 events, 27 labels, deterministic seeds |
-| Tests | 19 passing; ruff clean |
+| Tests | 19 passing; ruff clean; frontend production build passes |
 | UI | Not started |
 | Analytics | Working: xG, xT, pressure, pass quality, control/chaos, momentum, rhythm, speed; evidence + API |
 | Agents / verifier | Working: 5-agent pipeline, MCP analyst, deterministic gate + advisory checker, cached hero insight |
+| UI | Studio, Overlay, Fan built and served from FastAPI; Playwright/Chrome screenshots reviewed |
 
 ---
 
@@ -91,32 +92,32 @@
 
 ## Gate 4 — Studio, Overlay, Fan
 
-- [ ] Vite + React + TypeScript + Tailwind app.
-- [ ] Broadcast control-room design: deep navy, lime accent, tabular numerals, SVG pitch.
-- [ ] Studio:
-  - [ ] Match selector, score, clock, replay speed.
-  - [ ] Event ticker and current possession.
-  - [ ] Agent rundown with state transitions.
-  - [ ] Evidence drawer with event IDs and metric calculations.
-  - [ ] Approve / Hold / Kill.
-  - [ ] Program monitor with safe-area guides.
-  - [ ] Fan preview and language switch.
-  - [ ] Operational HUD: latency, calls, cost.
-- [ ] Overlay:
-  - [ ] Transparent 1920×1080 route.
-  - [ ] Lower-third, stat card, momentum ribbon, pressure map, speed alert.
-  - [ ] Queue, dedupe, timing, and OBS browser-source test.
-- [ ] Fan:
-  - [ ] Analyst / Casual / Player Focus profiles.
-  - [ ] English / Spanish / Chinese; Arabic RTL and Hindi if quality holds.
-  - [ ] Favorite club/player and metric preference.
-  - [ ] “How we know” evidence expander.
-- [ ] WebSocket stream: events, state, insights, cues, verifications, rundown.
-- [ ] Reconnect, empty states, error states, degraded mode.
+- [x] Vite + React + TypeScript app.
+- [x] Broadcast control-room design: deep navy, lime accent, tabular numerals, SVG pitch.
+- [x] Studio:
+  - [x] Match selector, score, clock, replay speed.
+  - [x] Event ticker and current event.
+  - [x] Agent rundown with verified/cached state.
+  - [x] Evidence drawer with event IDs and metric calculations.
+  - [x] Approve / Hold.
+  - [x] Program monitor with safe-area guides.
+  - [x] Agent latency rail.
+  - [ ] Fan preview embedded in Studio (full Fan page exists).
+- [x] Overlay:
+  - [x] Transparent 1920x1080 route.
+  - [x] Lower-third with headline, stat, subline, evidence-verified mark.
+  - [ ] Stat-card, momentum-ribbon, pressure-map, and speed-alert variants.
+  - [ ] Queue/dedupe/OBS browser-source test.
+- [x] Fan:
+  - [x] Analyst / Casual / Player Focus profiles.
+  - [x] English / Spanish / Chinese.
+  - [x] "How we know" evidence expander.
+  - [ ] Favorite club/player selector and Arabic/Hindi.
+- [ ] WebSocket stream (current UI uses the cached REST result; live streaming next).
+- [x] Loading, empty, and error states.
+- [ ] Reconnect and degraded-mode UI.
 
-**Done when:** the closed loop in PLAN.md §2 runs from a clean checkout.
-
----
+**Done when:** the closed loop in PLAN.md §2 runs from a clean checkout. **Local UI closed loop is live; overlay variants, streaming, and polish remain.**
 
 ## Gate 5 — Hardening
 

@@ -71,7 +71,7 @@ def get_match(match_id: str) -> dict[str, Any]:
 def get_events(
     match_id: str,
     offset: int = Query(default=0, ge=0),
-    limit: int = Query(default=50, ge=1, le=500),
+    limit: int = Query(default=50, ge=1, le=2000),
 ) -> dict[str, Any]:
     directory, _ = _find_match(match_id)
     lines = [

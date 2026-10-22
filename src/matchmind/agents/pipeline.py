@@ -325,6 +325,9 @@ class MatchMindPipeline:
                 )
             )
 
+        producer_start = time.perf_counter()
+        checker_start = time.perf_counter()
+        cards_start = time.perf_counter()
         producer_task = asyncio.create_task(self._producer(candidate))
         checker_task = asyncio.create_task(self._checker(candidate, checker_evidence))
         cards_task = asyncio.create_task(
@@ -332,6 +335,15 @@ class MatchMindPipeline:
         )
         try:
             cue = await producer_task
+            trace.append(
+                TraceStep(
+                    agent="StoryProducer",
+                    model=settings.deepseek_model,
+                    prompt_version=PROMPT_VERSION,
+                    latency_ms=round((time.perf_counter() - producer_start) * 1000, 1),
+                    status="ok",
+                )
+            )
         except Exception as exc:  # noqa: BLE001
             fallback = True
             cue = fallback_cue(candidate)
@@ -347,6 +359,16 @@ class MatchMindPipeline:
             )
         try:
             model_verification = await checker_task
+            trace.append(
+                TraceStep(
+                    agent="FactChecker",
+                    model=settings.deepseek_model,
+                    prompt_version=PROMPT_VERSION,
+                    latency_ms=round((time.perf_counter() - checker_start) * 1000, 1),
+                    status="ok" if model_verification.status == "pass" else "fallback",
+                    error="" if model_verification.status == "pass" else model_verification.notes,
+                )
+            )
         except Exception as exc:  # noqa: BLE001
             fallback = True
             model_verification = None
@@ -361,6 +383,19 @@ class MatchMindPipeline:
                 )
             )
         fan_cards = await cards_task
+        card_fallback = any(
+            step.agent.startswith("AudienceEditor:") and step.status == "fallback"
+            for step in trace
+        )
+        trace.append(
+            TraceStep(
+                agent="AudienceEditor",
+                model=settings.deepseek_model,
+                prompt_version=PROMPT_VERSION,
+                latency_ms=round((time.perf_counter() - cards_start) * 1000, 1),
+                status="fallback" if card_fallback else "ok",
+            )
+        )
 
         events_by_id = {event.event_id: event for event in bundle.events}
         deterministic = verify_deterministic(candidate, snapshot, moment, events_by_id)
@@ -381,8 +416,18 @@ class MatchMindPipeline:
                 fallback=fallback,
             )
 
+        director_start = time.perf_counter()
         try:
             decision = await self._director(candidate, verification)
+            trace.append(
+                TraceStep(
+                    agent="Director",
+                    model=settings.deepseek_model,
+                    prompt_version=PROMPT_VERSION,
+                    latency_ms=round((time.perf_counter() - director_start) * 1000, 1),
+                    status="ok",
+                )
+            )
         except Exception as exc:  # noqa: BLE001
             fallback = True
             decision = fallback_decision(verification)

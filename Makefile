@@ -1,4 +1,4 @@
-.PHONY: install smoke dev test lint
+.PHONY: install smoke data dev test lint web-install web-build web-dev
 
 install:
 	uv sync --extra dev
@@ -17,3 +17,12 @@ test:
 
 lint:
 	uv run ruff check .
+
+web-install:
+	cd web && npm install --include=dev
+
+web-build:
+	cd web && npm run build
+
+web-dev:
+	cd web && npm run dev

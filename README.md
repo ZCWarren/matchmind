@@ -4,8 +4,22 @@
 
 MatchMind is a real-time explainability layer for football broadcast. It turns synthetic match events into grounded, timed match intelligence — a deterministic analytics engine feeds a five-agent workflow with a verifier, rendered as a broadcast-ready overlay for the studio and as a personalized second-screen experience for analysts, casual fans, and player-focused viewers.
 
-> Status: local build in progress — synthetic match data and read-only match API on `http://localhost:8010`.
+> Status: local closed loop live — five synthetic matches, deterministic analytics, five-agent pipeline, cached hero insight, and Studio / Overlay / Fan at `http://localhost:8010`.
 > Product and architecture: [PLAN.md](./PLAN.md). Completion checklist: [EXECUTION.md](./EXECUTION.md).
+
+## Surfaces
+
+| Surface | Route | Purpose |
+|---|---|---|
+| **Studio** | `/studio` | Broadcast control room: pitch, event feed, agent rundown, evidence, program monitor. |
+| **Overlay** | `/overlay` | Transparent 1920x1080 browser source for OBS/vMix. Use `/overlay?bg=1` for a dark preview. |
+| **Fan** | `/fan` | Mobile-first second screen: analyst, casual, and player focus in three languages. |
+
+![Studio control room](docs/screenshots/studio.png)
+
+![Broadcast overlay](docs/screenshots/overlay.png)
+
+![Fan second screen](docs/screenshots/fan.png)
 
 ## The problem
 
@@ -35,6 +49,7 @@ The workflow is a typed graph built with Microsoft Agent Framework. All football
 
 ## Technology stack
 
+- **Vite + React + TypeScript** — Studio, transparent overlay, and fan second screen
 - **Microsoft Agent Framework** — graph workflows, shared state, handoffs, checkpointing
 - **MCP** — analytics tools exposed to agents
 - **DeepSeek** — default model provider via an OpenAI-compatible API (`deepseek-flash`, `deepseek-v4-pro`)
@@ -70,7 +85,9 @@ make install
 cp .env.example .env      # add DEEPSEEK_API_KEY
 make smoke                # raw API + Agent Framework check
 make data                 # generate five synthetic matches
-make dev                  # http://localhost:8010/docs
+make web-install
+make web-build            # build Studio / Overlay / Fan
+make dev                  # http://localhost:8010/studio
 make test
 ```
 

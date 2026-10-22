@@ -1,3 +1,10 @@
+FROM node:22-slim AS web
+WORKDIR /app/web
+COPY web/package.json web/package-lock.json ./
+RUN npm ci --include=dev
+COPY web/ ./
+RUN npm run build
+
 FROM python:3.12-slim
 
 ENV PYTHONDONTWRITEBYTECODE=1 \
@@ -11,6 +18,7 @@ WORKDIR /app
 COPY pyproject.toml uv.lock README.md ./
 COPY src ./src
 COPY data ./data
+COPY --from=web /app/web/dist ./web/dist
 
 RUN uv sync --frozen --no-dev
 
