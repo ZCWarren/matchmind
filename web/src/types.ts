@@ -140,6 +140,8 @@ export type OverlayCue = {
   payload: Record<string, string>;
 };
 
+export type OverlayVariant = "lower_third" | "stat_card" | "momentum" | "speed_alert";
+
 export type Profile = "analyst" | "casual" | "player";
 export type Language = "en" | "es" | "zh" | "ar" | "hi";
 

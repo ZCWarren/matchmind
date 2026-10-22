@@ -28,6 +28,7 @@ import type {
   MatchDetail,
   MatchSummary,
   Moment,
+  OverlayVariant,
   Profile,
   Score,
 } from "../types";
@@ -75,6 +76,7 @@ export default function Studio() {
   const [playing, setPlaying] = useState(false);
   const [live, setLive] = useState(false);
   const [speed, setSpeed] = useState(1);
+  const [overlayVariant, setOverlayVariant] = useState<OverlayVariant>("lower_third");
   const liveSocket = useRef<WebSocket | null>(null);
   const [safe, setSafe] = useState(true);
   const [approval, setApproval] = useState<"approved" | "held">("held");
@@ -551,9 +553,17 @@ export default function Studio() {
                 <Monitor size={13} /> Program monitor
               </span>
               <span style={{ display: "flex", alignItems: "center", gap: 6 }}>
-                <span className="mono dim" style={{ fontSize: 8 }}>
-                  16:9 / LOWER THIRD
-                </span>
+                <select
+                  className="template-select"
+                  value={overlayVariant}
+                  onChange={(event) => setOverlayVariant(event.target.value as OverlayVariant)}
+                  aria-label="Overlay template"
+                >
+                  <option value="lower_third">L3</option>
+                  <option value="stat_card">STAT</option>
+                  <option value="momentum">MOM</option>
+                  <option value="speed_alert">SPD</option>
+                </select>
                 <button
                   className={`btn ${live ? "btn-danger" : "btn-quiet"}`}
                   type="button"
@@ -569,7 +579,13 @@ export default function Studio() {
                 <div className="monitor-label">PREVIEW / 1920 × 1080</div>
                 <div className="cue-stage">
                   {cueVisible ? (
-                    <OverlayCueView cue={insight?.cue ?? null} compact />
+                    <OverlayCueView
+                      cue={insight?.cue ?? null}
+                      compact
+                      variant={overlayVariant}
+                      features={features}
+                      moment={selectedMoment}
+                    />
                   ) : (
                     <div className="monitor-standby">
                       <Broadcast size={18} />

@@ -107,7 +107,8 @@
 - [x] Overlay:
   - [x] Transparent 1920x1080 route.
   - [x] Lower-third with headline, stat, subline, evidence-verified mark.
-  - [ ] Stat-card, momentum-ribbon, pressure-map, and speed-alert variants.
+  - [x] Stat-card, momentum-ribbon, and speed-alert variants.
+  - [ ] Pressure-map variant.
   - [ ] Queue/dedupe/OBS browser-source test.
 - [x] Fan:
   - [x] Analyst / Casual / Player Focus profiles.
