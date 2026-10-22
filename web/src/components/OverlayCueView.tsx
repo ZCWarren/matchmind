@@ -1,5 +1,5 @@
 import { clamp, formatClock } from "../lib";
-import type { FeatureSnapshot, Moment, OverlayCue, OverlayVariant } from "../types";
+import type { Event, FeatureSnapshot, Moment, OverlayCue, OverlayVariant } from "../types";
 
 function metric(features: FeatureSnapshot | null | undefined, name: string): number | null {
   const value = features?.metrics[name]?.value;
@@ -124,6 +124,83 @@ function SpeedAlert({
   );
 }
 
+function PressureMap({
+  cue,
+  features,
+  moment,
+  events,
+  compact,
+}: {
+  cue: OverlayCue;
+  features?: FeatureSnapshot | null;
+  moment?: Moment | null;
+  events?: Event[];
+  compact: boolean;
+}) {
+  const index = events?.findIndex((event) => event.event_id === moment?.event_id) ?? -1;
+  const windowEvents = index >= 0 ? (events ?? []).slice(Math.max(0, index - 30), index + 1) : [];
+  const passes = windowEvents.filter((event) => event.end_location).slice(-18);
+  const pressures = windowEvents.filter((event) => event.type === "pressure").slice(-30);
+  const current = index >= 0 ? events?.[index] : undefined;
+  const eventPressure = moment?.metrics.event_pressure?.value ?? metric(features, "pressure") ?? 0;
+  return (
+    <div className={`overlay-variant pressure-map ${compact ? "compact" : ""}`} role="status" aria-live="polite">
+      <div className="variant-top">
+        <span>PRESSURE MAP</span>
+        <span>{moment ? formatClock(moment.clock) : "VERIFIED"}</span>
+      </div>
+      <div className="pressure-title">{cue.payload.headline}</div>
+      <svg className="pressure-svg" viewBox="0 0 100 64" role="img" aria-label="Pressure map">
+        <rect x="0" y="0" width="100" height="64" fill="#071712" />
+        <g stroke="#2b5b4b" strokeWidth="0.22" fill="none">
+          <rect x="2" y="2" width="96" height="60" />
+          <line x1="50" y1="2" x2="50" y2="62" />
+          <circle cx="50" cy="32" r="8.2" />
+          <rect x="2" y="15" width="16" height="34" />
+          <rect x="82" y="15" width="16" height="34" />
+        </g>
+        {passes.map((event) => (
+          <line
+            key={`pass-${event.event_id}`}
+            x1={event.location.x}
+            y1={event.location.y * 0.64}
+            x2={event.end_location?.x}
+            y2={(event.end_location?.y ?? 0) * 0.64}
+            stroke="#49d7ff"
+            strokeWidth="0.22"
+            opacity="0.4"
+          />
+        ))}
+        {pressures.map((event) => (
+          <circle
+            key={`pressure-${event.event_id}`}
+            cx={event.location.x}
+            cy={event.location.y * 0.64}
+            r={1.2 + event.pressure * 2.8}
+            fill="#ff625f"
+            opacity={0.18 + event.pressure * 0.35}
+          />
+        ))}
+        {current && (
+          <circle
+            cx={current.location.x}
+            cy={current.location.y * 0.64}
+            r="2.4"
+            fill="#c8ff3d"
+            stroke="#071712"
+            strokeWidth="0.5"
+          />
+        )}
+      </svg>
+      <div className="pressure-foot">
+        <span><i className="pressure-dot pressure" /> PRESSURE</span>
+        <span><i className="pressure-dot pass" /> PASS</span>
+        <span>EVENT PRESS {eventPressure.toFixed(2)}</span>
+      </div>
+    </div>
+  );
+}
+
 export default function OverlayCueView({
   cue,
   guides = false,
@@ -131,6 +208,7 @@ export default function OverlayCueView({
   variant = "lower_third",
   features = null,
   moment = null,
+  events = [],
 }: {
   cue: OverlayCue | null;
   guides?: boolean;
@@ -138,6 +216,7 @@ export default function OverlayCueView({
   variant?: OverlayVariant;
   features?: FeatureSnapshot | null;
   moment?: Moment | null;
+  events?: Event[];
 }) {
   if (!cue) {
     return <div className="overlay-waiting">MATCHMIND / WAITING FOR VERIFIED INSIGHT</div>;
@@ -154,6 +233,15 @@ export default function OverlayCueView({
       )}
       {variant === "speed_alert" && (
         <SpeedAlert features={features} compact={compact} />
+      )}
+      {variant === "pressure_map" && (
+        <PressureMap
+          cue={cue}
+          features={features}
+          moment={moment}
+          events={events}
+          compact={compact}
+        />
       )}
       {variant === "lower_third" && (
         <div className={`overlay-cue ${compact ? "compact" : ""}`} role="status" aria-live="polite">

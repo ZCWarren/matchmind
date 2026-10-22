@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { useSearchParams } from "react-router-dom";
 import OverlayCueView from "../components/OverlayCueView";
 import { api } from "../api";
-import type { FeatureSnapshot, Moment, OverlayCue, OverlayVariant } from "../types";
+import type { Event, FeatureSnapshot, Moment, OverlayCue, OverlayVariant } from "../types";
 
 const HERO_MATCH = "ast-2026-1018-nhr-orn";
 
@@ -20,12 +20,14 @@ export default function Overlay() {
   const variant: OverlayVariant =
     requestedTemplate === "stat_card" ||
     requestedTemplate === "momentum" ||
-    requestedTemplate === "speed_alert"
+    requestedTemplate === "speed_alert" ||
+    requestedTemplate === "pressure_map"
       ? requestedTemplate
       : "lower_third";
   const [cue, setCue] = useState<OverlayCue | null>(null);
   const [moment, setMoment] = useState<Moment | null>(null);
   const [features, setFeatures] = useState<FeatureSnapshot | null>(null);
+  const [events, setEvents] = useState<Event[]>([]);
   const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
@@ -36,6 +38,12 @@ export default function Overlay() {
 
   useEffect(() => {
     let cancelled = false;
+    api
+      .events(matchId)
+      .then((response) => {
+        if (!cancelled) setEvents(response.events);
+      })
+      .catch(() => undefined);
     api
       .moments(matchId)
       .then(async (response) => {
@@ -73,6 +81,7 @@ export default function Overlay() {
           variant={variant}
           features={features}
           moment={moment}
+          events={events}
         />
       </div>
     </div>

@@ -563,6 +563,7 @@ export default function Studio() {
                   <option value="stat_card">STAT</option>
                   <option value="momentum">MOM</option>
                   <option value="speed_alert">SPD</option>
+                  <option value="pressure_map">MAP</option>
                 </select>
                 <button
                   className={`btn ${live ? "btn-danger" : "btn-quiet"}`}
@@ -585,6 +586,7 @@ export default function Studio() {
                       variant={overlayVariant}
                       features={features}
                       moment={selectedMoment}
+                      events={events}
                     />
                   ) : (
                     <div className="monitor-standby">

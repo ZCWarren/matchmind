@@ -2209,3 +2209,56 @@ body.overlay-body {
   left: 7px;
   transform-origin: top left;
 }
+
+.pressure-map {
+  top: 8%;
+  right: 4%;
+  width: min(620px, 48vw);
+  padding: 16px 18px 12px;
+  border-top-color: var(--cyan);
+}
+.pressure-title {
+  margin: 7px 0 9px;
+  font-size: 17px;
+  line-height: 1.15;
+}
+.pressure-svg {
+  display: block;
+  width: 100%;
+  border: 1px solid rgb(73 215 255 / 20%);
+  background: #071712;
+}
+.pressure-foot {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  margin-top: 8px;
+  color: var(--dim);
+  font-family: var(--mono);
+  font-size: 8px;
+  letter-spacing: 0.08em;
+}
+.pressure-foot span {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+.pressure-dot {
+  display: inline-block;
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+}
+.pressure-dot.pressure {
+  background: var(--coral);
+}
+.pressure-dot.pass {
+  background: var(--cyan);
+}
+.pressure-map.compact {
+  top: 7px;
+  right: 7px;
+  transform: scale(0.34);
+  transform-origin: top right;
+}
