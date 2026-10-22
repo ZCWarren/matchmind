@@ -84,6 +84,11 @@ tests/           # Unit, contract, and evaluation tests
 docs/            # Architecture, data card, demo script
 ```
 
+## Demo video
+
+[Watch the captioned MatchMind walkthrough](https://ruziniuuuuu.github.io/matchmind-demo/demo.mp4)
+(Studio live feed, five overlay templates, and the Fan player view).
+
 ## Public demo
 
 The GitHub Pages build is a static snapshot: five fixtures, overlay templates,

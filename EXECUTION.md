@@ -16,7 +16,7 @@
 | UI | Not started |
 | Analytics | Working: xG, xT, pressure, pass quality, control/chaos, momentum, rhythm, speed; evidence + API |
 | Agents / verifier | Working: real Agent Framework graph, MCP analyst, deterministic gate + advisory checker, cached hero insight |
-| UI | Studio, Overlay, Fan built and served from FastAPI; live WebSocket replay; five cached fixtures; Fan five-match selector; public GitHub Pages static demo |
+| UI | Studio, Overlay, Fan built and served from FastAPI; live WebSocket replay; five cached fixtures; Fan five-match selector and player event log; public GitHub Pages static demo; captioned demo video |
 
 ---
 

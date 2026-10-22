@@ -6,6 +6,8 @@ audiences different views of the same verified moment.
 
 ## Quick path
 
+[Watch the captioned walkthrough](https://ruziniuuuuu.github.io/matchmind-demo/demo.mp4).
+
 Public static demo: <https://ruziniuuuuu.github.io/matchmind-demo/#/studio>.
 It contains all five fixtures and overlay templates; live generation and the
 WebSocket feed are available in the local app.
