@@ -1,0 +1,81 @@
+{
+  "fixtures": 5,
+  "deterministic_pass": 5,
+  "approved_cues": 5,
+  "fan_cards": 45,
+  "claims": 25,
+  "generic_or_cjk_headlines": 0,
+  "fallback_agents": [
+    "FactChecker"
+  ],
+  "mean_summed_trace_ms": 83550.0,
+  "records": [
+    {
+      "match_id": "ast-2026-1018-nhr-orn",
+      "moment_id": "mo-e-000974",
+      "headline": "NHR-08 breaks ORN's press trap with a 24.6 m line-break pass in the 72nd minute",
+      "verification": "pass",
+      "decision": "approve",
+      "claims": 5,
+      "cards": 9,
+      "cue": true,
+      "generic_or_cjk": false,
+      "fallbacks": [],
+      "trace_latency_ms": 71211.6
+    },
+    {
+      "match_id": "ast-2026-1025-vel-kep",
+      "moment_id": "mo-e-001092",
+      "headline": "VEL-11 breaks KEP's press at 82:47 with a 27.4 m line-breaking pass to VEL-09",
+      "verification": "pass",
+      "decision": "approve",
+      "claims": 5,
+      "cards": 9,
+      "cue": true,
+      "generic_or_cjk": false,
+      "fallbacks": [
+        "FactChecker"
+      ],
+      "trace_latency_ms": 97233.7
+    },
+    {
+      "match_id": "ast-2026-1101-orn-vel",
+      "moment_id": "mo-e-000286",
+      "headline": "ORN-09 opens the scoring for ORN against VEL in the 22nd minute with a shot from the right channel",
+      "verification": "pass",
+      "decision": "approve",
+      "claims": 5,
+      "cards": 9,
+      "cue": true,
+      "generic_or_cjk": false,
+      "fallbacks": [],
+      "trace_latency_ms": 90782.8
+    },
+    {
+      "match_id": "ast-2026-1108-kep-nhr",
+      "moment_id": "mo-e-001027",
+      "headline": "At 76:04 KEP-09 breaks NHR's line with a 25.2 m pass into the wide channel for KEP-06",
+      "verification": "pass",
+      "decision": "approve",
+      "claims": 5,
+      "cards": 9,
+      "cue": true,
+      "generic_or_cjk": false,
+      "fallbacks": [],
+      "trace_latency_ms": 92267.8
+    },
+    {
+      "match_id": "ast-2026-1115-nhr-vel",
+      "moment_id": "mo-e-000950",
+      "headline": "VEL-07 breaks NHR's line with a 23.9 m pressured pass in the 72nd minute",
+      "verification": "pass",
+      "decision": "approve",
+      "claims": 5,
+      "cards": 9,
+      "cue": true,
+      "generic_or_cjk": false,
+      "fallbacks": [],
+      "trace_latency_ms": 66254.3
+    }
+  ]
+}

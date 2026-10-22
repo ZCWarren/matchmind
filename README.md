@@ -6,7 +6,7 @@ MatchMind is a real-time explainability layer for football broadcast. It turns s
 
 > Status: local closed loop live — five synthetic matches, deterministic analytics, Agent Framework graph, five cached fixtures, live WebSocket replay, and Studio / Overlay / Fan at `http://localhost:8010`.
 > Public static demo: [ruziniuuuuu.github.io/matchmind-demo](https://ruziniuuuuu.github.io/matchmind-demo/) (Studio, five cached fixtures, five overlay templates, Fan).
-> Product and architecture: [PLAN.md](./PLAN.md). Completion checklist: [EXECUTION.md](./EXECUTION.md). Judge walkthrough: [docs/JUDGE-GUIDE.md](./docs/JUDGE-GUIDE.md).
+> Product and architecture: [PLAN.md](./PLAN.md). Completion checklist: [EXECUTION.md](./EXECUTION.md). Judge walkthrough: [docs/JUDGE-GUIDE.md](./docs/JUDGE-GUIDE.md). Evaluation snapshot: [docs/EVALUATION.md](./docs/EVALUATION.md).
 
 ## Surfaces
 
