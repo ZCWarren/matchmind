@@ -10,6 +10,8 @@ uv run python scripts/export_static_demo.py
 (cd web && npm run build:static)
 
 cp -r web/dist-static/. "$TMP/"
+cp scripts/demo-readme.md "$TMP/README.md"
+cp LICENSE "$TMP/LICENSE"
 mkdir -p "$TMP/.github/workflows"
 cp scripts/pages-workflow.yml "$TMP/.github/workflows/pages.yml"
 
