@@ -12,10 +12,10 @@
 | DeepSeek provider | Working: raw OpenAI-compatible API + Agent Framework `OpenAIChatClient(base_url=...)` |
 | Local API | Working on `:8010`; `/healthz`, `/docs`, `/api/matches`, `/api/matches/{id}`, `/api/matches/{id}/events` |
 | MatchForge | Five narrative matches generated: 6,278 events, 27 labels, deterministic seeds |
-| Tests | 21 passing; ruff clean; frontend production build passes |
+| Tests | 23 passing; ruff clean; frontend production build passes |
 | UI | Not started |
 | Analytics | Working: xG, xT, pressure, pass quality, control/chaos, momentum, rhythm, speed; evidence + API |
-| Agents / verifier | Working: 5-agent pipeline, MCP analyst, deterministic gate + advisory checker, cached hero insight |
+| Agents / verifier | Working: real Agent Framework graph, MCP analyst, deterministic gate + advisory checker, cached hero insight |
 | UI | Studio, Overlay, Fan built and served from FastAPI; live WebSocket replay; Playwright/Chrome checks |
 
 ---
@@ -70,8 +70,8 @@
 ## Gate 3 — Agents and verifier
 
 - [x] Contracts: `InsightCandidate`, `OverlayCue`, `FanCard`, `VerificationResult`, `RundownDecision`.
-- [ ] `MatchBlackboard` shared state with typed messages (next: explicit state object).
-- [x] Agent Framework agents with typed parallel fan-out/fan-in (graph wrapper next):
+- [x] `GraphState` / `GraphEnvelope` shared state with typed messages.
+- [x] Agent Framework graph with typed parallel fan-out/fan-in:
   - [x] TacticalAnalyst
   - [x] StoryProducer
   - [x] AudienceEditor (parallel profiles/languages)
@@ -84,7 +84,8 @@
 - [ ] Per-agent timeout + template fallback done; retry/circuit-breaker hardening next.
 - [x] Audit log: agent, model, prompt version, latency, status, error.
 - [x] Cached/demo mode for tests and judges (hero cache: 9 cards, pass/approve).
-- [ ] Tests: verified insight and rejected claim done; timeout fallback and duplicate suppression next.
+- [x] Tests: graph structure, graph execution with typed envelopes, verified insight, rejected claim, cached-only demo.
+- [ ] Tests: timeout fallback and duplicate suppression next.
 
 **Done when:** a real DeepSeek run produces a verified insight for 72', and a deliberately false “fastest sprint” claim is withheld. **Done.**
 

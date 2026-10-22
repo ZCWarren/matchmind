@@ -32,6 +32,7 @@ class Settings(BaseSettings):
     log_level: str = "INFO"
     demo_mode: str = "replay"  # replay | live
     allow_live_generation: bool = True
+    use_agent_graph: bool = True
     match_data_dir: str = "./data/demo"
     audit_db_path: str = "./data/audit.sqlite3"
     cache_dir: str = "./data/cache"

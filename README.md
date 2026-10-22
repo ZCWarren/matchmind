@@ -45,7 +45,7 @@ One pipeline, five stages:
 | **FactChecker** | Verifies every number and claim against event-level evidence; withholds what it cannot support. |
 | **Director** | Prioritizes the rundown, manages airtime, and asks for human approval. |
 
-The workflow is a typed graph built with Microsoft Agent Framework. All football numbers come from a deterministic engine exposed through an MCP server; the models explain, they do not invent.
+The workflow is a typed Microsoft Agent Framework graph: prepare → analyst → fan-out(producer, audience, checker) → fan-in(finalize). All football numbers come from a deterministic engine exposed through an MCP server; the models explain, they do not invent.
 
 ## Technology stack
 

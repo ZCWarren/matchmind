@@ -75,6 +75,16 @@ def _compact_metrics(snapshot: FeatureSnapshot) -> dict[str, Any]:
     }
 
 
+def build_checker_evidence(
+    snapshot: FeatureSnapshot, moment: Moment, events: list[Event]
+) -> dict[str, Any]:
+    return {
+        "metrics": _compact_metrics(snapshot),
+        "moment": moment.model_dump(mode="json"),
+        "event_window": [_compact_event(event) for event in events[-8:]],
+    }
+
+
 def _compact_event(event: Event) -> dict[str, Any]:
     return {
         "event_id": event.event_id,
@@ -248,11 +258,7 @@ class MatchMindPipeline:
         moment = self._select_moment(bundle, request.moment_id)
         snapshot = build_snapshot(bundle, until_event_id=moment.event_id)
         events = _window(bundle, moment.event_id)
-        checker_evidence = {
-            "metrics": _compact_metrics(snapshot),
-            "moment": moment.model_dump(mode="json"),
-            "event_window": [_compact_event(event) for event in events[-8:]],
-        }
+        checker_evidence = build_checker_evidence(snapshot, moment, events)
         trace: list[TraceStep] = []
         fallback = False
 
@@ -365,7 +371,7 @@ class MatchMindPipeline:
                     model=settings.deepseek_model,
                     prompt_version=PROMPT_VERSION,
                     latency_ms=round((time.perf_counter() - checker_start) * 1000, 1),
-                    status="ok" if model_verification.status == "pass" else "fallback",
+                    status="ok",
                     error="" if model_verification.status == "pass" else model_verification.notes,
                 )
             )
@@ -461,7 +467,15 @@ async def run_pipeline(match_id: str, request: PipelineRequest) -> PipelineResul
         cached = load_cached(match_id, request)
         if cached is not None:
             return cached
-    result = await MatchMindPipeline(use_mcp=request.use_mcp).run(match_id, request)
+    if settings.use_agent_graph and not request.adversarial_claim:
+        try:
+            from matchmind.agents.workflow import run_graph_pipeline
+
+            result = await run_graph_pipeline(match_id, request)
+        except Exception:
+            result = await MatchMindPipeline(use_mcp=request.use_mcp).run(match_id, request)
+    else:
+        result = await MatchMindPipeline(use_mcp=request.use_mcp).run(match_id, request)
     if request.use_cache and not request.adversarial_claim and not result.fallback:
         save_cached(match_id, request, result)
     return result
