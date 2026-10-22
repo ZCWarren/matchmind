@@ -3,6 +3,7 @@ import {
   Broadcast,
   CaretDown,
   DeviceMobile,
+  Info,
   Monitor,
   Pause,
   Play,
@@ -413,6 +414,9 @@ export default function Studio() {
             </Link>
             <Link className="surface-link" to={`/fan?match=${selected}`}>
               <DeviceMobile size={11} /> Fan
+            </Link>
+            <Link className="surface-link" to="/about">
+              <Info size={11} /> About
             </Link>
           </div>
           <button

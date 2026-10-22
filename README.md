@@ -14,6 +14,7 @@ MatchMind is a real-time explainability layer for football broadcast. It turns s
 |---|---|---|
 | **Studio** | `/studio` | Broadcast control room: pitch, event feed, agent rundown, evidence, program monitor. |
 | **Overlay** | `/overlay` | Transparent 1920x1080 browser source for OBS/vMix. Use `/overlay?bg=1` for a dark preview. Templates: `?template=stat_card`, `momentum`, `speed_alert`, or `pressure_map`. |
+| **About** | `/about` | System story: graph, verifier, metrics, and links. |
 | **Fan** | `/fan` | Mobile-first second screen: five fixtures, analyst / casual / player focus, player event log, three languages, and a deterministic recap. |
 
 ![Studio control room](docs/screenshots/studio.png)
@@ -98,6 +99,7 @@ and the WebSocket feed are intentionally disabled there.
 ```
 https://ruziniuuuuu.github.io/matchmind-demo/
 https://ruziniuuuuu.github.io/matchmind-demo/#/studio?match=ast-2026-1025-vel-kep
+https://ruziniuuuuu.github.io/matchmind-demo/#/about
 https://ruziniuuuuu.github.io/matchmind-demo/#/overlay?bg=1&template=stat_card
 https://ruziniuuuuu.github.io/matchmind-demo/#/fan?match=ast-2026-1025-vel-kep
 ```

@@ -41,6 +41,10 @@ try {
     assert.ok((await page.locator(".insight-headline").first().textContent()).length > 20, fixture);
   }
 
+  await page.goto(`${base}#/about`, { waitUntil: "networkidle" });
+  await page.waitForTimeout(500);
+  assert.match(await page.locator(".about-hero h1").innerText(), /Five agents/);
+
   await page.goto(`${base}#/overlay?bg=1&template=stat_card`, { waitUntil: "networkidle" });
   await page.waitForTimeout(1200);
   assert.equal(await page.locator(".overlay-variant.stat-card").count(), 1);
