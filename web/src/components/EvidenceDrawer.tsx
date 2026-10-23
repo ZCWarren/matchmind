@@ -24,8 +24,11 @@ export default function EvidenceDrawer({
         <span className="panel-title">
           <MagnifyingGlass size={13} /> Evidence
         </span>
-        <span className="mono dim" style={{ fontSize: 8 }}>
-          {claim ? `CLAIM ${selectedClaim + 1}/${insight?.claims.length}` : "NO CLAIM"}
+        <span style={{ display: "flex", alignItems: "center", gap: 6 }}>
+          <span className="source-tag evidence">Evidence</span>
+          <span className="mono dim" style={{ fontSize: 8 }}>
+            {claim ? `CLAIM ${selectedClaim + 1}/${insight?.claims.length}` : "NO CLAIM"}
+          </span>
         </span>
       </header>
       <div className="evidence-body">

@@ -39,3 +39,6 @@ data/tracking/*.jsonl
 infra/*.json
 
 web/dist-static
+
+video/out/
+video/node_modules/

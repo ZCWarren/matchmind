@@ -6,7 +6,7 @@ MatchMind is a real-time explainability layer for football broadcast. It turns s
 
 > Status: local closed loop live — five synthetic matches, deterministic analytics, Agent Framework graph, five cached fixtures, live WebSocket replay, and Studio / Overlay / Fan at `http://localhost:8010`.
 > Public static demo: [ruziniuuuuu.github.io/matchmind-demo](https://ruziniuuuuu.github.io/matchmind-demo/) (Studio, five cached fixtures, five overlay templates, Fan).
-> Product and architecture: [PLAN.md](./PLAN.md). Completion checklist: [EXECUTION.md](./EXECUTION.md). Judge walkthrough: [docs/JUDGE-GUIDE.md](./docs/JUDGE-GUIDE.md). Evaluation snapshot: [docs/EVALUATION.md](./docs/EVALUATION.md). Performance: [docs/PERFORMANCE.md](./docs/PERFORMANCE.md). Submission checklist: [docs/SUBMISSION.md](./docs/SUBMISSION.md).
+> Product and architecture: [PLAN.md](./PLAN.md). Completion checklist: [EXECUTION.md](./EXECUTION.md). Judge walkthrough: [docs/JUDGE-GUIDE.md](./docs/JUDGE-GUIDE.md). Evaluation snapshot: [docs/EVALUATION.md](./docs/EVALUATION.md). Performance: [docs/PERFORMANCE.md](./docs/PERFORMANCE.md). Submission checklist: [docs/SUBMISSION.md](./docs/SUBMISSION.md). How to read it: [docs/USER-GUIDE.md](./docs/USER-GUIDE.md).
 
 ## Surfaces
 
@@ -15,6 +15,7 @@ MatchMind is a real-time explainability layer for football broadcast. It turns s
 | **Studio** | `/studio` | Broadcast control room: pitch, event feed, agent rundown, evidence, program monitor. |
 | **Overlay** | `/overlay` | Transparent 1920x1080 browser source for OBS/vMix. Use `/overlay?bg=1` for a dark preview. Templates: `?template=stat_card`, `momentum`, `speed_alert`, or `pressure_map`. |
 | **About** | `/about` | System story: graph, verifier, metrics, and links. |
+| **Guide** | `/guide` | Data vs AI explanation vs evidence, and how to drive the Studio. |
 | **Fan** | `/fan` | Mobile-first second screen: five fixtures, analyst / casual / player focus, player event log, three languages, and a deterministic recap. |
 
 ![Studio control room](docs/screenshots/studio.png)
@@ -87,8 +88,8 @@ docs/            # Architecture, data card, demo script
 
 ## Demo video
 
-[Watch the captioned MatchMind walkthrough](https://ruziniuuuuu.github.io/matchmind-demo/demo.mp4)
-(Studio live feed, five overlay templates, and the Fan player view).
+- [Two-minute MatchMind promo](https://ruziniuuuuu.github.io/matchmind-demo/promo.mp4): the problem, data layer, five-agent graph, verifier, Studio, overlays, and Fan.
+- [Quick 33-second walkthrough](https://ruziniuuuuu.github.io/matchmind-demo/demo.mp4): Studio live feed, overlay templates, and Fan player focus.
 
 ## Public demo
 

@@ -3,8 +3,9 @@
 ## Public links
 
 - **Static demo**: <https://ruziniuuuuu.github.io/matchmind-demo/>
-- **Demo video**: <https://ruziniuuuuu.github.io/matchmind-demo/demo.mp4>
+- **Demo video**: <https://ruziniuuuuu.github.io/matchmind-demo/promo.mp4> (2 minutes) and <https://ruziniuuuuu.github.io/matchmind-demo/demo.mp4> (quick walkthrough)
 - **Judge walkthrough**: [JUDGE-GUIDE.md](./JUDGE-GUIDE.md)
+- **Operator guide**: [USER-GUIDE.md](./USER-GUIDE.md)
 - **Evaluation snapshot**: [EVALUATION.md](./EVALUATION.md)
 - **Main repository**: <https://github.com/ruziniuuuuu/matchmind> (currently private;
   make public or share with the judges before submission)

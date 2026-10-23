@@ -31,6 +31,7 @@ export default function FanCardView({
     <article className={`fan-card ${compact ? "compact" : ""}`}>
       <div className="fan-card-kicker">
         <span className="chip ok">{kicker}</span>
+        <span className="source-tag ai">AI explanation</span>
         {match && (
           <span className="mono dim" style={{ fontSize: 8 }}>
             {match.home.short_name.toUpperCase()} {match.final_score.home} - {match.final_score.away}{" "}

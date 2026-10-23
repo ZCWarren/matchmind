@@ -51,6 +51,7 @@ export default function AgentRundown({
           <Robot size={13} /> Agent rundown
         </span>
         <span className="rundown-count">
+          <span className="source-tag ai">AI explanation</span>
           {result ? `${result.verification.checked_claims} CLAIMS` : "IDLE"}
         </span>
       </header>

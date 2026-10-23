@@ -7,8 +7,10 @@ football broadcast.
 
 - Studio: <https://ruziniuuuuu.github.io/matchmind-demo/#/studio>
 - Overlay: <https://ruziniuuuuu.github.io/matchmind-demo/#/overlay?bg=1&template=stat_card>
+- Guide: <https://ruziniuuuuu.github.io/matchmind-demo/#/guide>
 - Fan: <https://ruziniuuuuu.github.io/matchmind-demo/#/fan?match=ast-2026-1025-vel-kep>
-- Video: <https://ruziniuuuuu.github.io/matchmind-demo/demo.mp4>
+- 2-minute promo: <https://ruziniuuuuu.github.io/matchmind-demo/promo.mp4>
+- Quick walkthrough: <https://ruziniuuuuu.github.io/matchmind-demo/demo.mp4>
 
 ## What works here
 

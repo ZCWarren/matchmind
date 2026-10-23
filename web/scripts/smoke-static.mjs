@@ -41,6 +41,10 @@ try {
     assert.ok((await page.locator(".insight-headline").first().textContent()).length > 20, fixture);
   }
 
+  await page.goto(`${base}#/guide`, { waitUntil: "networkidle" });
+  await page.waitForTimeout(500);
+  assert.match(await page.locator(".guide-legend").innerText(), /DATA ITSELF/);
+
   await page.goto(`${base}#/about`, { waitUntil: "networkidle" });
   await page.waitForTimeout(500);
   assert.match(await page.locator(".about-hero h1").innerText(), /Five agents/);

@@ -17,9 +17,10 @@ export default function About() {
         <Brand />
         <nav className="about-nav">
           <Link to="/studio">Studio</Link>
+          <Link to="/guide">Guide</Link>
           <Link to="/overlay?bg=1">Overlay</Link>
           <Link to="/fan">Fan</Link>
-          <a href="https://ruziniuuuuu.github.io/matchmind-demo/demo.mp4" target="_blank" rel="noreferrer">Video</a>
+          <a href="https://ruziniuuuuu.github.io/matchmind-demo/promo.mp4" target="_blank" rel="noreferrer">Video</a>
         </nav>
       </header>
 
@@ -106,7 +107,7 @@ export default function About() {
           <div>
             <Link to="/studio">Studio <ArrowRight size={11} /></Link>
             <Link to="/fan">Fan <ArrowRight size={11} /></Link>
-            <a href="https://ruziniuuuuu.github.io/matchmind-demo/demo.mp4" target="_blank" rel="noreferrer">Video <ArrowRight size={11} /></a>
+            <a href="https://ruziniuuuuu.github.io/matchmind-demo/promo.mp4" target="_blank" rel="noreferrer">Video <ArrowRight size={11} /></a>
           </div>
         </section>
       </main>

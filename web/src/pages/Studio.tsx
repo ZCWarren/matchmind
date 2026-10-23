@@ -415,8 +415,8 @@ export default function Studio() {
             <Link className="surface-link" to={`/fan?match=${selected}`}>
               <DeviceMobile size={11} /> Fan
             </Link>
-            <Link className="surface-link" to="/about">
-              <Info size={11} /> About
+            <Link className="surface-link" to="/guide">
+              <Info size={11} /> Guide
             </Link>
           </div>
           <button
@@ -462,8 +462,11 @@ export default function Studio() {
               <span className="panel-title">
                 <Broadcast size={13} /> Key moments
               </span>
-              <span className="mono dim" style={{ fontSize: 8 }}>
-                {moments.length} FOUND
+              <span style={{ display: "flex", alignItems: "center", gap: 6 }}>
+                <span className="source-tag detected">Detected</span>
+                <span className="mono dim" style={{ fontSize: 8 }}>
+                  {moments.length} FOUND
+                </span>
               </span>
             </header>
             <div className="panel-body moment-list">
@@ -509,6 +512,7 @@ export default function Studio() {
               <div className="pitch-head-left">
                 <span className="pitch-mode">
                   <Broadcast size={10} /> {playing ? `${speed}x replay` : "event state"}
+                  <span className="source-tag data">Tracking</span>
                 </span>
                 <span className="pitch-attack">ATTACK →</span>
               </div>
@@ -595,6 +599,7 @@ export default function Studio() {
                 <Monitor size={13} /> Program monitor
               </span>
               <span style={{ display: "flex", alignItems: "center", gap: 6 }}>
+                <span className="source-tag cue">Verified cue</span>
                 <select
                   className="template-select"
                   value={overlayVariant}

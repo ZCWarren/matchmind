@@ -3,6 +3,7 @@ import Studio from "./pages/Studio";
 import Overlay from "./pages/Overlay";
 import Fan from "./pages/Fan";
 import About from "./pages/About";
+import Guide from "./pages/Guide";
 
 export default function App() {
   return (
@@ -12,6 +13,7 @@ export default function App() {
       <Route path="/overlay" element={<Overlay />} />
       <Route path="/fan" element={<Fan />} />
       <Route path="/about" element={<About />} />
+      <Route path="/guide" element={<Guide />} />
       <Route path="*" element={<Navigate to="/studio" replace />} />
     </Routes>
   );

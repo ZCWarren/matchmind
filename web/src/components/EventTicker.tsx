@@ -18,8 +18,11 @@ export default function EventTicker({
         <span className="panel-title">
           <ListDashes size={13} /> Event feed
         </span>
-        <span className="mono dim" style={{ fontSize: 8 }}>
-          {events.length.toLocaleString()} EVENTS
+        <span style={{ display: "flex", alignItems: "center", gap: 6 }}>
+          <span className="source-tag data">Data</span>
+          <span className="mono dim" style={{ fontSize: 8 }}>
+            {events.length.toLocaleString()} EVENTS
+          </span>
         </span>
       </header>
       <div className="panel-body event-list">
