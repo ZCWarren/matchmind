@@ -343,7 +343,7 @@ function Outro() {
           <span key={x} style={{ padding: "8px 12px", border: "1px solid rgba(200,255,61,.35)", color: i === 0 ? LIME : MUTED, ...mono(9) }}>{x}</span>
         ))}
       </div>
-      <div style={{ position: "absolute", left: 80, bottom: 54, ...mono(11, LIME) }}>RUZINIUUUUU.GITHUB.IO/MATCHMIND-DEMO</div>
+      <div style={{ position: "absolute", left: 80, bottom: 54, ...mono(11, LIME) }}>RUZINIUUUUU.GITHUB.IO/MATCHMIND</div>
       <div style={{ position: "absolute", right: 80, bottom: 54, ...mono(9, DIM) }}>MATCHMIND / 2026</div>
     </AbsoluteFill>
   );
