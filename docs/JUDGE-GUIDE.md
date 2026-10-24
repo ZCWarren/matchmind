@@ -6,15 +6,15 @@ audiences different views of the same verified moment.
 
 ## Quick path
 
-[Watch the two-minute promo](https://ruziniuuuuu.github.io/matchmind-demo/promo.mp4) or the [quick walkthrough](https://ruziniuuuuu.github.io/matchmind-demo/demo.mp4).
+[Watch the two-minute promo](https://ruziniuuuuu.github.io/matchmind/promo.mp4).
 
-Public static demo: <https://ruziniuuuuu.github.io/matchmind-demo/#/studio>.
-Operator guide: <https://ruziniuuuuu.github.io/matchmind-demo/#/guide>.
-System story: <https://ruziniuuuuu.github.io/matchmind-demo/#/about>.
+Public static demo: <https://ruziniuuuuu.github.io/matchmind/#/studio>.
+Operator guide: <https://ruziniuuuuu.github.io/matchmind/#/guide>.
+System story: <https://ruziniuuuuu.github.io/matchmind/#/about>.
 It contains all five fixtures and overlay templates; live generation and the
 WebSocket feed are available in the local app.
 
-1. Open `https://ruziniuuuuu.github.io/matchmind-demo/#/studio?match=ast-2026-1025-vel-kep` or `http://localhost:8010/studio?match=ast-2026-1025-vel-kep`.
+1. Open `https://ruziniuuuuu.github.io/matchmind/#/studio?match=ast-2026-1025-vel-kep` or `http://localhost:8010/studio?match=ast-2026-1025-vel-kep`.
 2. The hero match is preselected: Nova Harbor vs Orion North, 72:12, 1-1.
    Use the match selector to switch all five fixtures; each has a precomputed
    insight. One fixture shows an advisory FactChecker fallback in its agent trace

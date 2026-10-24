@@ -149,7 +149,7 @@
 - [x] Project description and testing instructions.
 - [x] No secrets; code/data licenses and data card included.
 - [x] Docker image builds and serves cached Studio/API locally (`matchmind:local-test`).
-- [ ] Main repository public (currently private; decision pending).
+- [x] Main repository public; static demo is served from this repository via GitHub Pages.
 - [x] Public links verified from a clean browser session.
 
 **Done when:** an external reviewer can open the demo, follow the 90-second path, and understand the product.

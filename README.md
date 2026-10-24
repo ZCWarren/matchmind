@@ -5,7 +5,7 @@
 MatchMind is a real-time explainability layer for football broadcast. It turns synthetic match events into grounded, timed match intelligence — a deterministic analytics engine feeds a five-agent workflow with a verifier, rendered as a broadcast-ready overlay for the studio and as a personalized second-screen experience for analysts, casual fans, and player-focused viewers.
 
 > Status: local closed loop live — five synthetic matches, deterministic analytics, Agent Framework graph, five cached fixtures, live WebSocket replay, and Studio / Overlay / Fan at `http://localhost:8010`.
-> Public static demo: [ruziniuuuuu.github.io/matchmind-demo](https://ruziniuuuuu.github.io/matchmind-demo/) (Studio, five cached fixtures, five overlay templates, Fan).
+> Public static demo: [ruziniuuuuu.github.io/matchmind](https://ruziniuuuuu.github.io/matchmind/) (Studio, five cached fixtures, five overlay templates, Fan).
 > Product and architecture: [PLAN.md](./PLAN.md). Completion checklist: [EXECUTION.md](./EXECUTION.md). Judge walkthrough: [docs/JUDGE-GUIDE.md](./docs/JUDGE-GUIDE.md). Evaluation snapshot: [docs/EVALUATION.md](./docs/EVALUATION.md). Performance: [docs/PERFORMANCE.md](./docs/PERFORMANCE.md). Submission checklist: [docs/SUBMISSION.md](./docs/SUBMISSION.md). How to read it: [docs/USER-GUIDE.md](./docs/USER-GUIDE.md).
 
 ## Surfaces
@@ -88,24 +88,24 @@ docs/            # Architecture, data card, demo script
 
 ## Demo video
 
-- [Two-minute MatchMind promo](https://ruziniuuuuu.github.io/matchmind-demo/promo.mp4): the problem, data layer, five-agent graph, verifier, Studio, overlays, and Fan.
-- [Quick 33-second walkthrough](https://ruziniuuuuu.github.io/matchmind-demo/demo.mp4): Studio live feed, overlay templates, and Fan player focus.
+- [Two-minute MatchMind promo](https://ruziniuuuuu.github.io/matchmind/promo.mp4): the problem, data layer, five-agent graph, verifier, Studio, overlays, and Fan.
 
 ## Public demo
 
 The GitHub Pages build is a static snapshot: five fixtures, overlay templates,
 Fan views, recap, replay, and evidence all work without a server. Live generation
-and the WebSocket feed are intentionally disabled there.
+and the WebSocket feed are intentionally disabled there. It is deployed from this
+repository, not a separate demo repository.
 
 ```
-https://ruziniuuuuu.github.io/matchmind-demo/
-https://ruziniuuuuu.github.io/matchmind-demo/#/studio?match=ast-2026-1025-vel-kep
-https://ruziniuuuuu.github.io/matchmind-demo/#/about
-https://ruziniuuuuu.github.io/matchmind-demo/#/overlay?bg=1&template=stat_card
-https://ruziniuuuuu.github.io/matchmind-demo/#/fan?match=ast-2026-1025-vel-kep
+https://ruziniuuuuu.github.io/matchmind/
+https://ruziniuuuuu.github.io/matchmind/#/studio?match=ast-2026-1025-vel-kep
+https://ruziniuuuuu.github.io/matchmind/#/about
+https://ruziniuuuuu.github.io/matchmind/#/overlay?bg=1&template=stat_card
+https://ruziniuuuuu.github.io/matchmind/#/fan?match=ast-2026-1025-vel-kep
 ```
 
-Rebuild and deploy the static snapshot with `scripts/deploy_static_demo.sh`.
+The static snapshot is rebuilt by `.github/workflows/pages.yml` on each push.
 The local app below keeps the full live pipeline, WebSocket replay, and Generate.
 
 ## Local development

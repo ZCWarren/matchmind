@@ -64,17 +64,15 @@ point the ingress at port 8000. A Foundry adapter is available through
 
 ## GitHub Pages static demo
 
-The public snapshot is built with `VITE_STATIC_DEMO=true` and `VITE_BASE=./`,
-then served from the public `matchmind-demo` repository. It uses pre-exported
-JSON under `web/public/demo/`; no API or secrets are needed.
+The public snapshot is built from this repository with `VITE_STATIC_DEMO=true`
+and `VITE_BASE=./`. It uses pre-exported JSON under `web/public/demo/`; no API
+or secrets are needed. `.github/workflows/pages.yml` builds and deploys it to
+GitHub Pages on each push to `main`.
 
 ```bash
 uv run python scripts/export_static_demo.py
 cd web && npm run build:static
 ```
-
-`scripts/deploy_static_demo.sh` rebuilds and force-pushes the static output to
-the demo repo, where `.github/workflows/pages.yml` deploys it.
 
 ## What judges should see
 
