@@ -15,7 +15,18 @@ const payload = {
   events: eventPage.events.slice(Math.max(0, heroIndex - 10), heroIndex + 2),
   insight,
   blackboard,
+  finalScore: eventPage.events.at(-1).score,
+  // Compact map of every event: [x, y, typeCode, team (0 home / 1 away), match minute]
+  types: [...new Set(eventPage.events.map((event) => event.type))],
+  allEvents: [],
 };
+payload.allEvents = eventPage.events.map((event) => [
+  event.location?.x ?? 50,
+  event.location?.y ?? 50,
+  payload.types.indexOf(event.type),
+  event.team_id === "NHR" ? 0 : 1,
+  event.clock.minute,
+]);
 fs.mkdirSync(path.join(root, "video/src/generated"), { recursive: true });
-fs.writeFileSync(path.join(root, "video/src/generated/hero.json"), `${JSON.stringify(payload, null, 2)}\n`);
+fs.writeFileSync(path.join(root, "video/src/generated/hero.json"), `${JSON.stringify(payload)}\n`);
 console.log(`Synced ${payload.events.length} real events, ${insight.trace.length} trace steps, and ${blackboard.story_arc.length} story arc chapters`);

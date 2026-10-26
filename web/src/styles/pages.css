@@ -1,0 +1,354 @@
+/* =====================================================================
+   About & Guide — editorial system architecture and operating guide
+   ===================================================================== */
+
+.editorial-page {
+  min-height: 100vh;
+  background:
+    radial-gradient(60% 40% at 50% 0%, rgba(139, 124, 255, 0.08), transparent 70%),
+    radial-gradient(50% 35% at 85% 20%, rgba(255, 77, 46, 0.06), transparent 70%),
+    var(--ink-0);
+}
+
+.editorial-main {
+  padding-top: calc(var(--nav-h) + 64px);
+  padding-bottom: 100px;
+  display: grid;
+  gap: clamp(56px, 8vh, 96px);
+}
+
+.editorial-hero {
+  max-width: 860px;
+  display: grid;
+  gap: 22px;
+}
+
+.editorial-title {
+  font-size: clamp(52px, 8vw, 120px);
+  line-height: 0.92;
+  letter-spacing: -0.025em;
+}
+
+.editorial-lede {
+  max-width: 60ch;
+  font-size: clamp(16px, 1.3vw, 19.5px);
+  line-height: 1.6;
+  color: var(--text-2);
+}
+
+.editorial-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-top: 8px;
+}
+
+/* ---------------------------------------------------------------- metrics strip */
+
+.about-metrics {
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  padding: 24px 12px;
+}
+
+.about-metric-cell {
+  display: grid;
+  justify-items: center;
+  text-align: center;
+  gap: 6px;
+  padding: 6px 14px;
+  border-right: 1px solid var(--line);
+}
+
+.about-metric-cell:last-child {
+  border-right: 0;
+}
+
+.about-metric-cell b {
+  font-size: clamp(28px, 3vw, 42px);
+  font-weight: 600;
+  line-height: 1;
+  background: var(--grad-signal);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+.about-metric-cell span {
+  font-size: 12.5px;
+  color: var(--text-2);
+}
+
+@media (max-width: 960px) {
+  .about-metrics {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 18px 0;
+  }
+  .about-metric-cell:nth-child(3n) {
+    border-right: 0;
+  }
+}
+
+@media (max-width: 540px) {
+  .about-metrics {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  .about-metric-cell {
+    border-right: 0;
+  }
+}
+
+/* ---------------------------------------------------------------- sections */
+
+.editorial-section {
+  display: grid;
+  gap: 20px;
+}
+
+.editorial-section-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.editorial-section-head small {
+  font-size: 12px;
+  color: var(--text-3);
+}
+
+.pipeline-showcase {
+  padding: 28px 24px;
+}
+
+/* ---------------------------------------------------------------- About cards */
+
+.about-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+}
+
+.about-card {
+  height: 100%;
+  padding: 28px;
+  display: grid;
+  align-content: start;
+  gap: 14px;
+}
+
+.about-card-label {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 13px;
+  font-weight: 580;
+  color: var(--tone, var(--flood));
+}
+
+.about-card h2 {
+  font-size: clamp(28px, 2.8vw, 36px);
+  line-height: 1.04;
+}
+
+.about-card p {
+  font-size: 14.5px;
+  line-height: 1.6;
+  color: var(--text-2);
+}
+
+.about-team {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 14px;
+}
+
+.about-team-card {
+  padding: 22px 20px;
+  display: grid;
+  align-content: start;
+  gap: 10px;
+  border-top: 2px solid color-mix(in srgb, var(--tone, var(--violet)) 65%, transparent);
+}
+
+.team-card-num {
+  font-size: 12px;
+  color: var(--tone, var(--flood));
+}
+
+.about-team-card b {
+  font-size: 16px;
+  font-weight: 620;
+  letter-spacing: -0.01em;
+}
+
+.about-team-card p {
+  font-size: 13.5px;
+  line-height: 1.5;
+  color: var(--text-2);
+}
+
+@media (max-width: 1080px) {
+  .about-grid {
+    grid-template-columns: 1fr;
+  }
+  .about-team {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 600px) {
+  .about-team {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* ---------------------------------------------------------------- Guide legend & steps */
+
+.guide-legend {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+}
+
+.guide-source {
+  height: 100%;
+  padding: 28px;
+  display: grid;
+  align-content: start;
+  gap: 14px;
+  border-top: 2px solid color-mix(in srgb, var(--tone, var(--ice)) 65%, transparent);
+}
+
+.guide-source-head {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 13px;
+  font-weight: 580;
+  color: var(--tone, var(--ice));
+}
+
+.guide-source-head b {
+  margin-left: auto;
+  padding: 3px 9px;
+  border-radius: 999px;
+  font-size: 10.5px;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid var(--line);
+}
+
+.guide-source h2 {
+  font-size: clamp(26px, 2.6vw, 34px);
+  line-height: 1.05;
+}
+
+.guide-source p {
+  font-size: 14.5px;
+  line-height: 1.6;
+  color: var(--text-2);
+}
+
+.guide-source ul {
+  display: grid;
+  gap: 8px;
+  margin-top: 6px;
+  padding-top: 14px;
+  border-top: 1px solid var(--line);
+}
+
+.guide-source li {
+  position: relative;
+  padding-left: 16px;
+  font-size: 13.5px;
+  color: var(--text);
+}
+
+.guide-source li::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 8px;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--tone, var(--ice));
+}
+
+.guide-steps {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 16px;
+}
+
+.guide-step-card {
+  padding: 24px 22px;
+  display: grid;
+  align-content: start;
+  gap: 10px;
+}
+
+.step-num {
+  font-size: 40px;
+  font-style: italic;
+  line-height: 1;
+  background: var(--grad-signal);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+.guide-step-card b {
+  font-size: 17px;
+  font-weight: 620;
+}
+
+.guide-step-card p {
+  font-size: 13.5px;
+  line-height: 1.55;
+  color: var(--text-2);
+}
+
+.guide-notes {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+}
+
+.guide-note-card {
+  padding: 24px 26px;
+  display: grid;
+  gap: 10px;
+}
+
+.guide-note-title {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--flood);
+}
+
+.guide-note-card p {
+  font-size: 14.5px;
+  line-height: 1.6;
+  color: var(--text-2);
+}
+
+@media (max-width: 1040px) {
+  .guide-legend {
+    grid-template-columns: 1fr;
+  }
+  .guide-steps {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 680px) {
+  .guide-steps,
+  .guide-notes {
+    grid-template-columns: 1fr;
+  }
+}

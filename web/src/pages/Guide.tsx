@@ -1,122 +1,178 @@
-import { ArrowRight, Broadcast, CheckCircle, Database, Lightning, Robot, ShieldCheck } from "@phosphor-icons/react";
+import {
+  ArrowRight,
+  Broadcast,
+  CheckCircle,
+  Database,
+  Lightning,
+  Robot,
+  ShieldCheck,
+} from "@phosphor-icons/react";
 import { Link } from "react-router-dom";
-import Brand from "../components/Brand";
+import AppNav from "../components/AppNav";
+import { Eyebrow, Magnetic, Reveal, SplitWords, TiltCard, words } from "../components/fx";
+import { SiteFooter } from "./Home";
+
+const STEPS = [
+  {
+    n: "01",
+    title: "Pick a moment",
+    body: "Start with the featured moment or select any ranked play in the Director's rundown. The 3D stadium and timeline follow your cursor.",
+  },
+  {
+    n: "02",
+    title: "Inspect the evidence",
+    body: "Open the Evidence tab or the Agent Graph to see exact event IDs, MCP tool calls and metric formulas behind every claim.",
+  },
+  {
+    n: "03",
+    title: "Decide on air",
+    body: "Hold keeps the cue in standby. Approve sends it live to the 16:9 program monitor. Nothing unverified can be approved.",
+  },
+  {
+    n: "04",
+    title: "Switch the surface",
+    body: "Toggle L3 / STAT / MOM / SPD / MAP in Studio, open the 1080p Overlay source, or read the same play in the Fan app.",
+  },
+];
 
 export default function Guide() {
   return (
-    <div className="about-page guide-page">
-      <header className="about-header">
-        <Brand />
-        <nav className="about-nav">
-          <Link to="/studio">Studio</Link>
-          <Link to="/about">About</Link>
-          <Link to="/overlay?bg=1">Overlay</Link>
-          <Link to="/fan">Fan</Link>
-        </nav>
-      </header>
+    <div className="guide-page editorial-page">
+      <AppNav />
 
-      <main className="about-main">
-        <section className="about-hero">
-          <div className="about-kicker">Read this once / then drive the room</div>
-          <h1>Data in.<br /><em>Explanation out.</em></h1>
-          <p>
-            MatchMind has three layers, and they are deliberately separated:
-            the event data, the deterministic football metrics, and the AI
-            explanation. The verifier is the gate between an explanation and
-            the broadcast.
-          </p>
-          <div className="about-actions">
-            <Link className="btn btn-primary" to="/studio">Open Studio <ArrowRight size={12} /></Link>
-            <Link className="btn btn-quiet" to="/about">System story <ArrowRight size={12} /></Link>
-          </div>
+      <main className="editorial-main container">
+        <section className="about-hero editorial-hero">
+          <Reveal>
+            <Eyebrow tone="flood">Operating guide · Read once, then drive the room</Eyebrow>
+          </Reveal>
+          <h1 className="display editorial-title">
+            <SplitWords words={words("Data in.")} />
+            <br />
+            <SplitWords delay={0.18} words={words("*Explanation* out.")} />
+          </h1>
+          <Reveal delay={0.3}>
+            <p className="editorial-lede">
+              MatchMind separates three layers by design: raw match events, deterministic football metrics, and AI language. The verifier sits between the explanation and the broadcast.
+            </p>
+          </Reveal>
+          <Reveal delay={0.4} className="editorial-actions">
+            <Magnetic>
+              <Link className="btn btn-primary btn-lg" to="/studio">
+                Open Studio <ArrowRight size={17} weight="bold" />
+              </Link>
+            </Magnetic>
+            <Magnetic>
+              <Link className="btn btn-glass btn-lg" to="/about">
+                System architecture <ArrowRight size={17} weight="bold" />
+              </Link>
+            </Magnetic>
+          </Reveal>
         </section>
 
         <section className="guide-legend" aria-label="Data, explanation, and evidence">
-          <article className="guide-source data">
-            <div className="guide-source-head"><Database size={14} /><span>Data itself</span><b>cyan</b></div>
-            <h2>What happened, and what the code measured.</h2>
-            <p>
-              The event feed, score, clock, coordinates, xG, xT, pressure, control,
-              chaos, momentum, and speed. These are deterministic calculations over
-              the synthetic event stream.
-            </p>
-            <ul>
-              <li>1,275 events in the hero match</li>
-              <li>event IDs, players, locations</li>
-              <li>formula versions on every metric</li>
-            </ul>
-          </article>
-          <article className="guide-source ai">
-            <div className="guide-source-head"><Robot size={14} /><span>AI explanation</span><b>lime</b></div>
-            <h2>Why it mattered, written for a human.</h2>
-            <p>
-              The headline, the tactical argument, the watch-next note, and the
-              fan cards. Five agents turn evidence into language; they do not
-              calculate the football numbers.
-            </p>
-            <ul>
-              <li>TacticalAnalyst</li>
-              <li>StoryProducer / AudienceEditor</li>
-              <li>Director decides the rundown</li>
-            </ul>
-          </article>
-          <article className="guide-source evidence">
-            <div className="guide-source-head"><ShieldCheck size={14} /><span>Evidence / verifier</span><b>coral</b></div>
-            <h2>Why you can trust it enough to air.</h2>
-            <p>
-              Every claim carries event IDs and metric references. The
-              deterministic verifier is the release gate; the LLM FactChecker is
-              advisory. If the gate rejects, the cue is withheld.
-            </p>
-            <ul>
-              <li>claim-level evidence</li>
-              <li>deterministic pass / reject</li>
-              <li>approve / hold by the Director</li>
-            </ul>
-          </article>
+          <Reveal delay={0}>
+            <TiltCard className="guide-source panel tone-ice">
+              <div className="guide-source-head">
+                <Database size={16} weight="bold" />
+                <span>Data itself</span>
+                <b className="mono">ICE BLUE</b>
+              </div>
+              <h2 className="display">
+                What happened, and what the code <em>measured.</em>
+              </h2>
+              <p>
+                The event feed, score, clock, coordinates, xG, xT, pressure, control, chaos, momentum and speed. These are deterministic calculations over the synthetic event stream.
+              </p>
+              <ul>
+                <li>1,275 logged events in the hero match</li>
+                <li>Exact event IDs, player IDs and pitch coordinates</li>
+                <li>Formula versions attached to every metric</li>
+              </ul>
+            </TiltCard>
+          </Reveal>
+
+          <Reveal delay={0.1}>
+            <TiltCard className="guide-source panel tone-violet">
+              <div className="guide-source-head">
+                <Robot size={16} weight="bold" />
+                <span>AI explanation</span>
+                <b className="mono">VIOLET</b>
+              </div>
+              <h2 className="display">
+                Why it mattered, written for a <em>human.</em>
+              </h2>
+              <p>
+                The headline, the tactical argument, the watch-next note and the fan cards. Five agents turn evidence into language; they never calculate the football numbers themselves.
+              </p>
+              <ul>
+                <li>TacticalAnalyst grounds claims via MCP tools</li>
+                <li>StoryProducer &amp; AudienceEditor adapt tone and depth</li>
+                <li>Director ranks the rundown and recommends airtime</li>
+              </ul>
+            </TiltCard>
+          </Reveal>
+
+          <Reveal delay={0.2}>
+            <TiltCard className="guide-source panel tone-verify">
+              <div className="guide-source-head">
+                <ShieldCheck size={16} weight="bold" />
+                <span>Evidence / verifier</span>
+                <b className="mono">VERIFY</b>
+              </div>
+              <h2 className="display">
+                Why you can trust it enough to <em>air.</em>
+              </h2>
+              <p>
+                Every claim carries event IDs and metric references. The deterministic verifier is the release gate; the LLM FactChecker is advisory. If the gate rejects, the cue is withheld.
+              </p>
+              <ul>
+                <li>Claim-level event &amp; metric verification</li>
+                <li>Deterministic pass, revise or reject</li>
+                <li>Human approve / hold / kill in Studio</li>
+              </ul>
+            </TiltCard>
+          </Reveal>
         </section>
 
-        <section className="about-section">
-          <div className="about-section-head">
-            <span><Broadcast size={13} /> How to drive Studio</span>
-            <small>one loop / four decisions</small>
+        <section className="editorial-section">
+          <div className="editorial-section-head">
+            <span className="section-label">
+              <Broadcast size={14} weight="bold" /> How to drive Studio
+            </span>
+            <small className="mono">one loop · four decisions</small>
           </div>
           <div className="guide-steps">
-            <div><span>01</span><b>Pick a moment.</b><p>Start with the headline or the key-moments list on the left. The pitch and event feed follow your cursor.</p></div>
-            <div><span>02</span><b>Read the evidence.</b><p>Right side: agent rundown explains, evidence drawer shows the exact event IDs and metric calculations.</p></div>
-            <div><span>03</span><b>Decide on air.</b><p>Hold keeps the cue in standby. Approve sends it to the program monitor. The Director's decision is shown, not hidden.</p></div>
-            <div><span>04</span><b>Switch the surface.</b><p>L3 / STAT / MOM / SPD / MAP changes the broadcast template. Overlay exports the same verified cue at 1920x1080.</p></div>
+            {STEPS.map((step, index) => (
+              <Reveal key={step.n} delay={index * 0.06} className="guide-step-card panel">
+                <span className="step-num display">{step.n}</span>
+                <b>{step.title}</b>
+                <p>{step.body}</p>
+              </Reveal>
+            ))}
           </div>
         </section>
 
         <section className="guide-notes">
-          <div>
-            <div className="guide-note-title"><Lightning size={12} /> Cached vs live</div>
+          <Reveal className="guide-note-card panel">
+            <div className="guide-note-title">
+              <Lightning size={15} weight="fill" /> Cached demo vs live backend
+            </div>
             <p>
-              The public demo is a static snapshot: five cached insights, instant,
-              no API key. The local app adds live generation, MCP tool calls,
-              retries, and the WebSocket replay.
+              The public demo runs as a zero-setup snapshot with cached DeepSeek agent runs across all five fixtures. Running the local FastAPI backend unlocks live model generation, MCP tool execution and WebSocket match replay.
             </p>
-          </div>
-          <div>
-            <div className="guide-note-title"><CheckCircle size={12} /> What to look for</div>
+          </Reveal>
+          <Reveal delay={0.1} className="guide-note-card panel">
+            <div className="guide-note-title">
+              <CheckCircle size={15} weight="fill" /> What to look for
+            </div>
             <p>
-              A good run shows a specific headline, a number tied to an event,
-              a verifier result, and a cue that changes with the template. A held
-              run is not a failure; it is the release gate doing its job.
+              A verified run shows a specific headline, a number tied to an event ID, a green verifier stamp, and a broadcast cue that adapts across all five templates. A held cue is not an error — it is the release gate doing its job.
             </p>
-          </div>
-        </section>
-
-        <section className="about-footer">
-          <p>Start in Studio, then move to About for the architecture and Overlay for the broadcast surface.</p>
-          <div>
-            <Link to="/studio">Studio <ArrowRight size={11} /></Link>
-            <Link to="/about">About <ArrowRight size={11} /></Link>
-            <Link to="/overlay?bg=1">Overlay <ArrowRight size={11} /></Link>
-          </div>
+          </Reveal>
         </section>
       </main>
+
+      <SiteFooter />
     </div>
   );
 }

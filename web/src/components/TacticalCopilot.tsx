@@ -1,8 +1,10 @@
-import { ChatCenteredDots, Check, Compass, Crosshair, PaperPlaneRight, Sparkle } from "@phosphor-icons/react";
-import { FormEvent, useEffect, useState } from "react";
+import { ArrowUpRight, ChatCenteredDots, Check, Crosshair, PaperPlaneRight, Sparkle } from "@phosphor-icons/react";
+import { motion } from "motion/react";
+import { type FormEvent, useEffect, useState } from "react";
 import { api } from "../api";
 import { formatClock } from "../lib";
 import type { CopilotQA, MatchBlackboardState, Moment } from "../types";
+import { EASE } from "./fx";
 
 type TacticalCopilotProps = {
   matchId: string;
@@ -12,6 +14,8 @@ type TacticalCopilotProps = {
   onSelectMoment: (moment: Moment) => void;
   onSeekEvent: (eventId: string) => void;
 };
+
+const ACTS = ["The spark", "The turning point", "The climax"];
 
 export default function TacticalCopilot({
   matchId,
@@ -34,13 +38,11 @@ export default function TacticalCopilot({
 
   const handlePresetClick = (preset: CopilotQA) => {
     setActiveQA(preset);
-    if (preset.event_ids[0]) {
-      onSeekEvent(preset.event_ids[0]);
-    }
+    if (preset.event_ids[0]) onSeekEvent(preset.event_ids[0]);
   };
 
-  const handleAsk = async (e: FormEvent) => {
-    e.preventDefault();
+  const handleAsk = async (event: FormEvent) => {
+    event.preventDefault();
     if (!customQuery.trim()) return;
     setAsking(true);
     try {
@@ -54,29 +56,20 @@ export default function TacticalCopilot({
 
   const handleChapterClick = (momentId: string, eventId: string) => {
     const found = moments.find((m) => m.moment_id === momentId);
-    if (found) {
-      onSelectMoment(found);
-    } else {
-      onSeekEvent(eventId);
-    }
+    if (found) onSelectMoment(found);
+    else onSeekEvent(eventId);
   };
 
-  const SHORT_ACT_NAMES = ["01 · The Spark", "02 · Turning Point", "03 · The Climax"];
-
   return (
-    <section className="blackboard-copilot-section" aria-label="Match Story Arc and Tactical Q&A">
-      {/* 1. 3-Act Match Story */}
-      <div className="story-arc-panel">
-        <header className="story-arc-head">
+    <section className="copilot-deck" aria-label="Match story arc and tactical Q&A">
+      <div className="story-arc-panel panel">
+        <header className="deck-head">
           <div>
-            <span className="section-label"><Compass size={14} /> 3-ACT MATCH STORY</span>
-            <strong>{blackboard.narrative_title}</strong>
-          </div>
-          <div className="blackboard-badges">
-            <span><b>3</b> Key Moments</span>
+            <span className="section-label">Three-act match story</span>
+            <h2 className="deck-title">{blackboard.narrative_title}</h2>
           </div>
         </header>
-
+        <p className="arc-thread">{blackboard.tactical_thread}</p>
         <div className="story-arc-grid">
           {blackboard.story_arc.map((chapter, idx) => {
             const isSelected = selectedMomentId === chapter.moment_id;
@@ -87,29 +80,28 @@ export default function TacticalCopilot({
                 className={`story-arc-card ${isSelected ? "active" : ""}`}
                 onClick={() => handleChapterClick(chapter.moment_id, chapter.event_id)}
               >
-                <div className="arc-card-top">
-                  <span className="arc-act-tag">{SHORT_ACT_NAMES[idx] ?? chapter.act_label}</span>
-                  <span className="arc-clock">{formatClock(chapter.clock)}</span>
-                </div>
+                <span className="arc-top">
+                  <span className="arc-act">Act {["I", "II", "III"][idx] ?? chapter.act} · {ACTS[idx] ?? chapter.act_label}</span>
+                  <span className="arc-clock mono">{formatClock(chapter.clock)}</span>
+                </span>
                 <strong>{chapter.headline}</strong>
-                <div className="arc-card-foot">
-                  <b>{chapter.key_metric_value}</b>
-                  <span>View 3D →</span>
-                </div>
+                <span className="arc-foot">
+                  <b className="mono">{chapter.key_metric_value}</b>
+                  <span>View in 3D <ArrowUpRight size={12} weight="bold" /></span>
+                </span>
               </button>
             );
           })}
         </div>
       </div>
 
-      {/* 2. Ask MatchMind */}
-      <div className="copilot-panel">
-        <header className="copilot-head">
+      <div className="copilot-panel panel">
+        <header className="deck-head">
           <div>
-            <span className="section-label"><Sparkle size={14} /> ASK MATCHMIND</span>
-            <strong>Instant tactical answers, backed by real play</strong>
+            <span className="section-label"><Sparkle size={14} weight="fill" /> Ask MatchMind</span>
+            <h2 className="deck-title">Tactical answers, <em>grounded in play.</em></h2>
           </div>
-          <div className="copilot-lang-switch">
+          <div className="segmented copilot-lang-switch">
             <button type="button" className={lang === "en" ? "active" : ""} onClick={() => setLang("en")}>EN</button>
             <button type="button" className={lang === "zh" ? "active" : ""} onClick={() => setLang("zh")}>中文</button>
           </div>
@@ -129,38 +121,39 @@ export default function TacticalCopilot({
           ))}
         </div>
 
-        <form className="copilot-form" onSubmit={(e) => void handleAsk(e)}>
+        <form className="copilot-form" onSubmit={(event) => void handleAsk(event)}>
           <input
+            className="text-input"
             type="text"
             value={customQuery}
-            onChange={(e) => setCustomQuery(e.target.value)}
-            placeholder={
-              lang === "zh"
-                ? "直接提问：为什么这次逼抢被打穿？"
-                : "Ask anything about this play..."
-            }
+            onChange={(event) => setCustomQuery(event.target.value)}
+            placeholder={lang === "zh" ? "直接提问：为什么这次逼抢被打穿？" : "Ask anything about this play…"}
             aria-label="Ask MatchMind tactical question"
           />
-          <button type="submit" disabled={asking}>
-            <PaperPlaneRight size={15} weight="bold" />
-            <span>{asking ? "..." : lang === "zh" ? "提问" : "Ask"}</span>
+          <button type="submit" className="btn btn-primary btn-sm" disabled={asking}>
+            <PaperPlaneRight size={14} weight="bold" />
+            <span>{asking ? "…" : lang === "zh" ? "提问" : "Ask"}</span>
           </button>
         </form>
 
         {activeQA && (
-          <div className="copilot-answer-box">
-            <div className="copilot-answer-meta">
-              <span className="verified-stamp"><Check size={12} weight="bold" /> Verified</span>
-            </div>
+          <motion.div
+            key={`${activeQA.id}-${lang}`}
+            className="copilot-answer-box"
+            initial={{ opacity: 0, y: 10 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.45, ease: EASE }}
+          >
+            <span className="verified-stamp"><Check size={12} weight="bold" /> Verified against events</span>
             <p className="copilot-answer-text">{lang === "zh" ? activeQA.answer_zh : activeQA.answer}</p>
-            <div className="copilot-evidence-chips">
+            <div className="copilot-evidence">
               {activeQA.event_ids.slice(0, 2).map((evId, idx) => (
                 <button key={evId} type="button" className="ev-chip" onClick={() => onSeekEvent(evId)}>
-                  <Crosshair size={13} /> Watch Play #{idx + 1} on Pitch
+                  <Crosshair size={13} /> Watch play {idx + 1} <code>{evId}</code>
                 </button>
               ))}
             </div>
-          </div>
+          </motion.div>
         )}
       </div>
     </section>

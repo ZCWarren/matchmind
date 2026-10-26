@@ -1,0 +1,835 @@
+/* =====================================================================
+   Overlay — 1920×1080 broadcast graphics canvas + 5 templates
+   ===================================================================== */
+
+body.overlay-body {
+  background: transparent;
+  overflow: hidden;
+}
+
+.overlay-page {
+  position: fixed;
+  inset: 0;
+  width: 100vw;
+  height: 100vh;
+  overflow: hidden;
+  background: transparent;
+}
+
+.overlay-page.preview {
+  background:
+    radial-gradient(65% 50% at 50% 0%, rgba(255, 227, 179, 0.14), transparent 65%),
+    radial-gradient(60% 60% at 50% 100%, rgba(255, 77, 46, 0.12), transparent 70%),
+    linear-gradient(180deg, #090e14 0%, #05070b 100%);
+}
+
+.overlay-backdrop {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  overflow: hidden;
+}
+
+.overlay-beams {
+  position: absolute;
+  inset: -20% -10% 0;
+  background:
+    conic-gradient(from 162deg at 18% -8%, transparent 0deg, rgba(255, 227, 179, 0.14) 14deg, transparent 28deg),
+    conic-gradient(from 176deg at 82% -8%, transparent 0deg, rgba(255, 227, 179, 0.12) 14deg, transparent 28deg);
+  filter: blur(10px);
+}
+
+.overlay-pitch-grid {
+  position: absolute;
+  inset: 0;
+  background:
+    repeating-linear-gradient(90deg, rgba(255, 255, 255, 0.018) 0 8%, transparent 8% 16%),
+    radial-gradient(50% 35% at 50% 78%, rgba(92, 200, 255, 0.08), transparent 70%);
+  transform: perspective(600px) rotateX(48deg) scale(1.4) translateY(22%);
+  transform-origin: 50% 100%;
+}
+
+/* ---------------------------------------------------------------- preview dock */
+
+.overlay-dock {
+  position: fixed;
+  top: 18px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 40;
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 6px 8px 6px 14px;
+  border-radius: 999px;
+  background: rgba(8, 10, 16, 0.78);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  backdrop-filter: saturate(160%) blur(20px);
+  -webkit-backdrop-filter: saturate(160%) blur(20px);
+  box-shadow: 0 20px 50px -20px rgba(0, 0, 0, 0.85);
+  max-width: calc(100vw - 24px);
+}
+
+.dock-back {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 13px;
+  font-weight: 560;
+  color: var(--text-2);
+  white-space: nowrap;
+  transition: color 0.2s;
+}
+
+.dock-back:hover {
+  color: var(--text);
+}
+
+.dock-sep {
+  width: 1px;
+  height: 18px;
+  background: var(--line-2);
+}
+
+.dock-label {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  font-family: var(--font-mono);
+  font-size: 12px;
+  color: var(--flood);
+  white-space: nowrap;
+}
+
+.dock-safe {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  height: 32px;
+  padding: 0 12px;
+  border-radius: 999px;
+  font-size: 12.5px;
+  font-weight: 560;
+  color: var(--text-2);
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid var(--line);
+  white-space: nowrap;
+}
+
+.dock-safe.active {
+  color: var(--verify);
+  background: rgba(61, 245, 166, 0.12);
+  border-color: rgba(61, 245, 166, 0.35);
+}
+
+@media (max-width: 960px) {
+  .dock-label,
+  .dock-sep {
+    display: none;
+  }
+  .dock-templates {
+    overflow-x: auto;
+  }
+}
+
+.overlay-error {
+  position: fixed;
+  top: 84px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 45;
+  padding: 10px 18px;
+  border-radius: 999px;
+  background: rgba(255, 77, 46, 0.18);
+  border: 1px solid rgba(255, 77, 46, 0.45);
+  color: #ffd0c6;
+  font-family: var(--font-mono);
+  font-size: 13px;
+}
+
+.cue-stage {
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+
+/* ---------------------------------------------------------------- BroadcastCanvas (1920x1080) */
+
+.broadcast-viewport {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+}
+
+.broadcast-canvas {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 1920px;
+  height: 1080px;
+  transform-origin: center center;
+  pointer-events: none;
+}
+
+.overlay-safe {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+
+.overlay-safe i {
+  position: absolute;
+  border: 1.5px dashed rgba(61, 245, 166, 0.32);
+  border-radius: 12px;
+}
+
+.overlay-safe i.action {
+  inset: 3.5% 3.5%;
+}
+
+.overlay-safe i.title {
+  inset: 7% 7%;
+  border-color: rgba(255, 227, 179, 0.28);
+}
+
+/* ---------------------------------------------------------------- Scorebug */
+
+.ov-scorebug {
+  position: absolute;
+  top: 76px;
+  left: 96px;
+  display: inline-flex;
+  align-items: center;
+  gap: 16px;
+  height: 62px;
+  padding: 0 22px 0 16px;
+  border-radius: 999px;
+  background: linear-gradient(90deg, rgba(10, 12, 20, 0.94), rgba(18, 22, 36, 0.9));
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  box-shadow: 0 24px 60px -18px rgba(0, 0, 0, 0.85), inset 0 1px 0 rgba(255, 255, 255, 0.08);
+  font-size: 20px;
+  font-weight: 640;
+}
+
+.sb-mark {
+  display: inline-grid;
+  place-items: center;
+}
+
+.sb-team {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  letter-spacing: 0.02em;
+  color: var(--text);
+}
+
+.sb-team i {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+}
+
+.sb-team.home i {
+  background: var(--ice);
+  box-shadow: 0 0 12px var(--ice);
+}
+
+.sb-team.away i {
+  background: var(--signal);
+  box-shadow: 0 0 12px var(--signal);
+}
+
+.sb-score {
+  font-family: var(--font-mono);
+  font-size: 26px;
+  font-weight: 700;
+  padding: 4px 14px;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.08);
+  color: var(--text);
+}
+
+.sb-score em {
+  font-style: normal;
+  color: var(--text-3);
+  margin: 0 4px;
+}
+
+.sb-clock {
+  font-family: var(--font-mono);
+  font-size: 20px;
+  font-weight: 600;
+  color: var(--flood);
+  padding-left: 12px;
+  border-left: 1px solid var(--line-2);
+}
+
+/* ---------------------------------------------------------------- Waiting banner */
+
+.overlay-waiting {
+  position: absolute;
+  left: 96px;
+  bottom: 92px;
+  display: inline-flex;
+  align-items: center;
+  gap: 14px;
+  padding: 16px 26px;
+  border-radius: 999px;
+  background: rgba(10, 12, 20, 0.9);
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  box-shadow: 0 24px 60px -20px rgba(0, 0, 0, 0.85);
+  font-size: 20px;
+  font-weight: 560;
+  color: var(--text-2);
+}
+
+.overlay-waiting span {
+  font-weight: 650;
+  color: var(--text);
+}
+
+/* ---------------------------------------------------------------- Plate shared */
+
+.ov-slot {
+  position: absolute;
+  inset: 0;
+}
+
+.ov-plate {
+  position: relative;
+  overflow: hidden;
+  border-radius: 26px;
+  background:
+    radial-gradient(95% 80% at 90% 0%, rgba(255, 227, 179, 0.14), transparent 60%),
+    linear-gradient(165deg, rgba(18, 22, 36, 0.95) 0%, rgba(8, 10, 17, 0.96) 100%);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  box-shadow:
+    0 50px 120px -30px rgba(0, 0, 0, 0.92),
+    inset 0 1px 0 rgba(255, 255, 255, 0.12);
+}
+
+.ov-shine {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: linear-gradient(115deg, transparent 35%, rgba(255, 255, 255, 0.06) 50%, transparent 65%);
+}
+
+.ov-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 16px;
+  border-radius: 999px;
+  font-family: var(--font-mono);
+  font-size: 16px;
+  font-weight: 600;
+  color: var(--verify);
+  background: rgba(61, 245, 166, 0.1);
+  border: 1px solid rgba(61, 245, 166, 0.3);
+}
+
+.ov-brand {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 18px;
+  font-weight: 640;
+  color: var(--text);
+}
+
+.l3-eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  font-family: var(--font-mono);
+  font-size: 18px;
+  font-weight: 600;
+  letter-spacing: 0.03em;
+  text-transform: uppercase;
+  color: var(--flood);
+}
+
+.l3-live {
+  width: 11px;
+  height: 11px;
+  border-radius: 50%;
+  background: var(--signal);
+  box-shadow: 0 0 16px var(--signal);
+}
+
+.l3-foot {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+  padding-top: 18px;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.l3-foot-note {
+  font-family: var(--font-mono);
+  font-size: 16px;
+  color: var(--text-3);
+}
+
+/* ---------------------------------------------------------------- 1. Lower Third */
+
+.slot-lower_third .overlay-cue {
+  position: absolute;
+  left: 96px;
+  right: 96px;
+  bottom: 76px;
+  padding: 28px 36px 22px;
+  display: grid;
+  gap: 18px;
+}
+
+.l3-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+}
+
+.l3-main {
+  display: grid;
+  grid-template-columns: 8px 1fr auto;
+  align-items: center;
+  gap: 28px;
+}
+
+.l3-accent {
+  width: 8px;
+  height: 100%;
+  min-height: 92px;
+  border-radius: 8px;
+  background: var(--grad-signal);
+  box-shadow: 0 0 24px rgba(255, 77, 46, 0.65);
+  transform-origin: top;
+}
+
+.l3-body {
+  display: grid;
+  gap: 8px;
+  min-width: 0;
+}
+
+.cue-headline {
+  font-family: var(--font-display);
+  font-weight: 400;
+  font-size: 56px;
+  line-height: 1.02;
+  letter-spacing: -0.015em;
+  color: var(--text);
+}
+
+.cue-subline {
+  font-size: 22px;
+  line-height: 1.4;
+  color: var(--text-2);
+  max-width: 72ch;
+}
+
+.l3-stat {
+  display: grid;
+  justify-items: end;
+  gap: 6px;
+  padding: 18px 26px;
+  border-radius: 20px;
+  background: rgba(255, 255, 255, 0.045);
+  border: 1px solid rgba(255, 227, 179, 0.25);
+  min-width: 280px;
+}
+
+.l3-stat strong {
+  font-family: var(--font-mono);
+  font-size: 40px;
+  font-weight: 700;
+  line-height: 1;
+  background: var(--grad-signal);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+.l3-stat span {
+  font-family: var(--font-mono);
+  font-size: 17px;
+  color: var(--text-2);
+}
+
+/* ---------------------------------------------------------------- 2. Stat Card */
+
+.slot-stat_card .stat-card {
+  position: absolute;
+  right: 96px;
+  bottom: 76px;
+  width: 760px;
+  padding: 32px 36px 26px;
+  display: grid;
+  gap: 22px;
+}
+
+.sc-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+}
+
+.sc-clock {
+  padding: 6px 16px;
+  border-radius: 999px;
+  font-family: var(--font-mono);
+  font-size: 18px;
+  font-weight: 700;
+  color: var(--flood);
+  background: rgba(255, 227, 179, 0.12);
+  border: 1px solid rgba(255, 227, 179, 0.26);
+}
+
+.stat-card h2,
+.pressure-map h2 {
+  font-family: var(--font-display);
+  font-weight: 400;
+  font-size: 46px;
+  line-height: 1.04;
+  color: var(--text);
+}
+
+.sc-hero {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+}
+
+.sc-hero > div {
+  padding: 18px 22px;
+  border-radius: 18px;
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid var(--line-2);
+  display: grid;
+  gap: 6px;
+}
+
+.sc-hero span {
+  font-size: 17px;
+  color: var(--text-2);
+}
+
+.sc-hero b {
+  font-family: var(--font-mono);
+  font-size: 46px;
+  font-weight: 700;
+  line-height: 1;
+}
+
+.sc-hero b.sig {
+  color: var(--signal);
+}
+
+.sc-hero b.ice {
+  color: var(--ice);
+}
+
+.sc-row {
+  display: grid;
+  grid-template-columns: 78px 1fr 78px;
+  align-items: center;
+  gap: 16px;
+}
+
+.sc-val {
+  font-family: var(--font-mono);
+  font-size: 24px;
+  font-weight: 650;
+}
+
+.sc-val.home {
+  color: var(--ice);
+}
+
+.sc-val.away {
+  color: var(--signal);
+  text-align: right;
+}
+
+.sc-bar {
+  display: grid;
+  gap: 8px;
+}
+
+.sc-bar span {
+  text-align: center;
+  font-size: 16px;
+  color: var(--text-2);
+}
+
+.sc-bar i {
+  display: flex;
+  height: 10px;
+  border-radius: 999px;
+  overflow: hidden;
+  background: rgba(255, 255, 255, 0.08);
+  gap: 3px;
+}
+
+.sc-bar i b.home {
+  background: var(--ice);
+  height: 100%;
+}
+
+.sc-bar i b.away {
+  background: var(--signal);
+  height: 100%;
+}
+
+.sc-sub {
+  font-size: 19px;
+  line-height: 1.45;
+  color: var(--text-2);
+}
+
+/* ---------------------------------------------------------------- 3. Momentum */
+
+.slot-momentum .momentum {
+  position: absolute;
+  left: 96px;
+  right: 96px;
+  bottom: 76px;
+  padding: 30px 38px;
+  display: grid;
+  gap: 22px;
+}
+
+.mo-title {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 24px;
+}
+
+.mo-title h2 {
+  font-family: var(--font-display);
+  font-weight: 400;
+  font-size: 50px;
+  line-height: 1.03;
+}
+
+.mo-title b {
+  font-family: var(--font-mono);
+  font-size: 40px;
+  font-weight: 700;
+  white-space: nowrap;
+}
+
+.mo-title b.ice {
+  color: var(--ice);
+}
+
+.mo-title b.sig {
+  color: var(--signal);
+}
+
+.mo-bar {
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  align-items: center;
+  gap: 20px;
+  font-family: var(--font-mono);
+  font-size: 22px;
+}
+
+.mo-bar span.home {
+  color: var(--ice);
+}
+
+.mo-bar span.away {
+  color: var(--signal);
+}
+
+.mo-bar i {
+  display: flex;
+  height: 16px;
+  border-radius: 999px;
+  overflow: hidden;
+  background: rgba(255, 255, 255, 0.08);
+  gap: 4px;
+}
+
+.mo-bar i b.home {
+  background: linear-gradient(90deg, #3298db, var(--ice));
+  height: 100%;
+}
+
+.mo-bar i b.away {
+  background: linear-gradient(90deg, var(--signal), var(--signal-2));
+  height: 100%;
+}
+
+.mo-meters {
+  display: grid;
+  grid-template-columns: 200px 1fr 200px;
+  align-items: center;
+  gap: 28px;
+  padding-top: 16px;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.mo-meters > div {
+  display: grid;
+  gap: 6px;
+}
+
+.mo-meters span {
+  font-size: 16px;
+  color: var(--text-3);
+  text-transform: uppercase;
+  font-family: var(--font-mono);
+}
+
+.mo-meters b {
+  font-family: var(--font-mono);
+  font-size: 32px;
+  color: var(--flood);
+}
+
+.mo-swing i {
+  position: relative;
+  display: block;
+  height: 10px;
+  border-radius: 999px;
+  background: linear-gradient(90deg, var(--signal), rgba(255, 255, 255, 0.15) 50%, var(--ice));
+}
+
+.mo-swing i b {
+  position: absolute;
+  top: 50%;
+  width: 22px;
+  height: 22px;
+  transform: translate(-50%, -50%);
+  border-radius: 50%;
+  background: var(--text);
+  box-shadow: 0 0 18px var(--flood);
+}
+
+/* ---------------------------------------------------------------- 4. Speed Alert */
+
+.slot-speed_alert .speed-alert {
+  position: absolute;
+  right: 96px;
+  bottom: 76px;
+  width: 580px;
+  padding: 32px 36px 26px;
+  display: grid;
+  gap: 18px;
+  text-align: center;
+}
+
+.sp-dial {
+  position: relative;
+  width: 270px;
+  height: 270px;
+  margin: 0 auto;
+}
+
+.sp-dial svg {
+  width: 100%;
+  height: 100%;
+}
+
+.sp-value {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-content: center;
+  justify-items: center;
+}
+
+.sp-value b {
+  font-family: var(--font-mono);
+  font-size: 72px;
+  font-weight: 700;
+  line-height: 0.95;
+  background: var(--grad-signal);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+.sp-value span {
+  font-family: var(--font-mono);
+  font-size: 20px;
+  color: var(--text-2);
+  margin-top: 6px;
+}
+
+.speed-alert h2 {
+  font-family: var(--font-display);
+  font-weight: 400;
+  font-size: 42px;
+  line-height: 1.05;
+}
+
+/* ---------------------------------------------------------------- 5. Pressure Map */
+
+.slot-pressure_map .pressure-map {
+  position: absolute;
+  right: 96px;
+  bottom: 76px;
+  width: 780px;
+  padding: 30px 34px 24px;
+  display: grid;
+  gap: 18px;
+}
+
+.pressure-svg {
+  width: 100%;
+  height: auto;
+  border-radius: 16px;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  overflow: hidden;
+}
+
+.pm-foot {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+  font-family: var(--font-mono);
+  font-size: 18px;
+  color: var(--text-2);
+}
+
+.pm-foot span {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.pm-foot .dot {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+}
+
+.pm-foot .dot.sig {
+  background: var(--signal);
+  box-shadow: 0 0 12px var(--signal);
+}
+
+.pm-foot .dot.ice {
+  background: var(--ice);
+  box-shadow: 0 0 12px var(--ice);
+}
+
+.pm-val {
+  margin-left: auto;
+}
+
+.pm-val b {
+  color: var(--signal);
+  font-size: 24px;
+}
