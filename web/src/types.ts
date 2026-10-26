@@ -248,3 +248,62 @@ export type MatchRecap = {
   top_speed_kmh: number;
   generated_by: string;
 };
+
+export type MCPToolInvocation = {
+  tool: string;
+  caller: string;
+  args_summary: string;
+  output_summary: string;
+};
+
+export type StoryArcChapter = {
+  act: number;
+  act_label: string;
+  moment_id: string;
+  event_id: string;
+  clock: Clock;
+  type: string;
+  headline: string;
+  causal_link: string;
+  key_metric_label: string;
+  key_metric_value: string;
+  importance: number;
+};
+
+export type HallucinationChallenge = {
+  challenge_id: string;
+  title: string;
+  category: "unsupported_superlative" | "unsupported_cue_number" | "unknown_event";
+  target_agent: string;
+  injected_claim: string;
+  ground_truth_summary: string;
+  counter_evidence_event_id: string;
+  verdict: "reject" | "revise";
+  issue: VerificationIssue;
+  before_text: string;
+  after_text: string;
+  mcp_tool_used: string;
+};
+
+export type CopilotQA = {
+  id: string;
+  question: string;
+  question_zh: string;
+  answer: string;
+  answer_zh: string;
+  event_ids: string[];
+  metric_refs: MetricRef[];
+  verified: boolean;
+};
+
+export type MatchBlackboardState = {
+  match_id: string;
+  narrative_title: string;
+  tactical_thread: string;
+  story_arc: StoryArcChapter[];
+  used_claim_hashes: string[];
+  deduped_claims_count: number;
+  mcp_invocations: MCPToolInvocation[];
+  hallucination_challenges: HallucinationChallenge[];
+  copilot_presets: CopilotQA[];
+};

@@ -12,11 +12,11 @@
 | DeepSeek provider | Working: raw OpenAI-compatible API + Agent Framework `OpenAIChatClient(base_url=...)` |
 | Local API | Working on `:8010`; matches, events, features, moments, insights, recap, config and WebSocket replay |
 | MatchForge | Five narrative matches generated: 6,281 events, 30 labels, deterministic seeds; all five `prompt-v3` caches verified |
-| Tests | 39 passing; ruff clean; production/static frontend builds and desktop/mobile/reduced-motion Playwright smoke pass |
-| Analytics | Working: xG, xT, pressure, pass quality, control/chaos, momentum, rhythm, speed; evidence + API |
-| Agents / verifier | Real Agent Framework review, one-revision/recheck path, candidate + cue gate, Director ranking and airtime planning |
-| UI | Cinematic Home, interactive Three.js Moment Focus, Director Studio, five Overlay templates, personalized Fan, SVG/reduced-motion fallbacks |
-| Media | 90-second 1080p film + independent 15-second vertical teaser, English narration, original sound design, bilingual sidecar subtitles |
+| Tests | 41 passing; ruff clean; production/static frontend builds and desktop/mobile/reduced-motion Playwright smoke pass |
+| Analytics | Working: xG, xT, pressure, pass quality, control/chaos, momentum, rhythm, speed; 6 MCP tools (`get_event_window`, `get_tactical_chain`, `get_pressure_comparison`, `get_player_summary`, `get_snapshot`, `get_moments`) |
+| Agents / verifier | Real Agent Framework review, one-revision/recheck path, candidate + cue gate, Director ranking, MatchBlackboard 3-act narrative memory, Adversarial Hallucination Gate Lab, and Grounded Tactical Copilot |
+| UI | Cinematic Home, 3D Parabolic Pitch with TV/xT/Press cameras, Live Agent Topology Replay, Hallucination Lab, Studio, five Overlay templates, Fan, 90s Interactive Judge Tour, and 1-Click Vector Poster |
+| Media & GTM | 90-second 1080p film + 15-second vertical teaser, bilingual subtitles, [docs/LAUNCH-KIT.md](./docs/LAUNCH-KIT.md), and [docs/PITCH-DECK.md](./docs/PITCH-DECK.md) |
 
 ---
 

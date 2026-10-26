@@ -82,6 +82,20 @@ def main() -> None:
         )
         insight.raise_for_status()
         write(folder / "insight.json", insight.json())
+
+        blackboard = client.get(f"/api/matches/{match_id}/blackboard")
+        blackboard.raise_for_status()
+        board_data = blackboard.json()
+        write(folder / "blackboard.json", board_data)
+
+        moments_data = client.get(f"/api/matches/{match_id}/moments?limit=60").json()
+        arc_ids = {item["moment_id"] for item in board_data.get("story_arc", [])}
+        top_ids = {item["moment_id"] for item in moments_data.get("moments", [])[:10]}
+        for arc_moment_id in sorted(arc_ids | top_ids):
+            arc_res = client.get(f"/api/matches/{match_id}/arc/{arc_moment_id}")
+            if arc_res.status_code == 200:
+                write(folder / "arc" / f"{arc_moment_id}.json", arc_res.json())
+
         print(match_id, moment.moment_id, "ok", flush=True)
 
 

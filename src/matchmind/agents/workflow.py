@@ -124,7 +124,12 @@ async def analyst(state: GraphState, ctx: WorkflowContext[GraphEnvelope]) -> Non
                 command=sys.executable,
                 args=["-m", "matchmind.mcp.server"],
                 approval_mode="never_require",
-                allowed_tools=["get_event_window"],
+                allowed_tools=[
+                    "get_event_window",
+                    "get_tactical_chain",
+                    "get_pressure_comparison",
+                    "get_player_summary",
+                ],
                 request_timeout=settings.llm_timeout_seconds,
             ) as tool:
                 candidate = await _PIPELINE._analyst(

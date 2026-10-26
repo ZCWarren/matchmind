@@ -1,0 +1,223 @@
+{
+  "match_id": "ast-2026-1115-nhr-vel",
+  "narrative_title": "The 3–3 Chaos Pendulum",
+  "tactical_thread": "End-to-end territorial swings drive extreme chaos index readings as VEL-07 slices through 0.86 pressure at 72' in a six-goal thriller.",
+  "story_arc": [
+    {
+      "act": 1,
+      "act_label": "Act I · Early Catalyst",
+      "moment_id": "mo-e-000125",
+      "event_id": "e-000125",
+      "clock": {
+        "period": 1,
+        "minute": 9,
+        "second": 7
+      },
+      "type": "goal",
+      "headline": "Goal for NHR (NHR-09)",
+      "causal_link": "Sets the physical baseline and territorial reference for the match Blackboard.",
+      "key_metric_label": "Match xG",
+      "key_metric_value": "Verified",
+      "importance": 0.95
+    },
+    {
+      "act": 2,
+      "act_label": "Act II · Tactical Turning Point",
+      "moment_id": "mo-e-000369",
+      "event_id": "e-000369",
+      "clock": {
+        "period": 1,
+        "minute": 27,
+        "second": 29
+      },
+      "type": "goal",
+      "headline": "Goal for VEL (VEL-09)",
+      "causal_link": "Breaks the structure identified in Act I and triggers the five-agent release gate.",
+      "key_metric_label": "Match xG",
+      "key_metric_value": "Verified",
+      "importance": 0.95
+    },
+    {
+      "act": 3,
+      "act_label": "Act III · Decisive Consequence",
+      "moment_id": "mo-e-000950",
+      "event_id": "e-000950",
+      "clock": {
+        "period": 2,
+        "minute": 72,
+        "second": 1
+      },
+      "type": "line_break",
+      "headline": "Line break under pressure",
+      "causal_link": "Directly capitalizes on the structural imbalance created in the previous phase.",
+      "key_metric_label": "xT Added",
+      "key_metric_value": "+0.090 xT",
+      "importance": 0.8
+    }
+  ],
+  "used_claim_hashes": [
+    "467c1a8756",
+    "c65b125140",
+    "cd47843235"
+  ],
+  "deduped_claims_count": 37,
+  "mcp_invocations": [
+    {
+      "tool": "get_event_window",
+      "caller": "TacticalAnalyst",
+      "args_summary": "match_id=ast-2026-1115-nhr-vel, event_id=e-000950, before=5, after=5",
+      "output_summary": "Loaded 11 grounded events around 72:01"
+    },
+    {
+      "tool": "get_tactical_chain",
+      "caller": "TacticalAnalyst",
+      "args_summary": "match_id=ast-2026-1115-nhr-vel, event_id=e-000950, window_size=6",
+      "output_summary": "Possession p-0273: +-21.1m progression, peak pressure 0.86"
+    },
+    {
+      "tool": "get_pressure_comparison",
+      "caller": "FactChecker",
+      "args_summary": "match_id=ast-2026-1115-nhr-vel, event_id=e-000950",
+      "output_summary": "Pressure 0.86 (88.9th pct); match peak speed 33.6 km/h at e-000484"
+    },
+    {
+      "tool": "get_player_summary",
+      "caller": "AudienceEditor",
+      "args_summary": "match_id=ast-2026-1115-nhr-vel, player_id=VEL-07",
+      "output_summary": "Aggregated touches, pass completion, and sprint profile for VEL-07"
+    }
+  ],
+  "hallucination_challenges": [
+    {
+      "challenge_id": "fastest_sprint_trap",
+      "title": "Adversarial Superlative Trap (Fastest Sprint)",
+      "category": "unsupported_superlative",
+      "target_agent": "FactChecker + Deterministic Gate",
+      "injected_claim": "At 72', the attacker hits 33.4 km/h — the fastest sprint of the entire match.",
+      "ground_truth_summary": "Deterministic engine & MCP get_pressure_comparison confirm an earlier sprint reached 33.6 km/h (e-000484), exceeding 33.4 km/h.",
+      "counter_evidence_event_id": "e-000484",
+      "verdict": "reject",
+      "issue": {
+        "code": "unsupported_superlative",
+        "message": "Claim says fastest, but moment speed 33.4 is below match top speed 33.6 (e-000484)",
+        "claim_index": 0,
+        "severity": "error"
+      },
+      "before_text": "[REJECTED DRAFT] VEL-07 triggers the fastest sprint of the match at 33.4 km/h after breaking the press.",
+      "after_text": "[VERIFIED RELEASE] VEL-07 breaks the line under 0.86 pressure (+0.090 xT); release gate stripped unverified superlative.",
+      "mcp_tool_used": "get_pressure_comparison"
+    },
+    {
+      "challenge_id": "unverified_cue_number",
+      "title": "Producer Hallucinated Stat in Broadcast Cue",
+      "category": "unsupported_cue_number",
+      "target_agent": "StoryProducer -> Bounded Revision Loop",
+      "injected_claim": "LOWER-THIRD CUE: '94.6% pass threat index — highest in the league this season'",
+      "ground_truth_summary": "verify_cue() scans every numeric token in OverlayCue payload against verified InsightCandidate metric_refs. '94.6' is absent from the evidence bundle.",
+      "counter_evidence_event_id": "e-000950",
+      "verdict": "revise",
+      "issue": {
+        "code": "unsupported_cue_number",
+        "message": "Cue number 94.6 is absent from the verified candidate; entering bounded revision (max=1)",
+        "claim_index": null,
+        "severity": "error"
+      },
+      "before_text": "[HOLD FOR REVISION] Subline: 'VEL-07 posts a 94.6% pass threat index to slice the press'",
+      "after_text": "[REVISED & RECHECKED] Subline: 'VEL-07 threads pass under 0.86 pressure (+0.090 xT) at 72:01'",
+      "mcp_tool_used": "get_tactical_chain"
+    }
+  ],
+  "copilot_presets": [
+    {
+      "id": "why-press-trap-failed",
+      "question": "Why did the defensive press fail at 72:01?",
+      "question_zh": "为什么 72:01 的高位逼抢被瞬间打穿？",
+      "answer": "At 72:01 (e-000950), the ball carrier faced 0.86 pressure (88.9th match percentile) but released a vertical pass gaining -21.1m and +0.090 xT before the second wave could close the passing lane.",
+      "answer_zh": "在 72:01（事件 e-000950），持球人在承受 0.86 压迫指数（全场前 11.1% 强度）下，用一记纵向穿透球直接推进 -21.1 米并创造 +0.090 xT 威胁增量，在合围形成前打穿了中场防线。",
+      "event_ids": [
+        "e-000944",
+        "e-000945",
+        "e-000946",
+        "e-000947"
+      ],
+      "metric_refs": [
+        {
+          "name": "event_pressure",
+          "value": 0.86,
+          "formula_version": "pressure-v1",
+          "event_ids": [
+            "e-000950"
+          ]
+        },
+        {
+          "name": "xt_delta",
+          "value": 0.0901,
+          "formula_version": "xt-grid-v1",
+          "event_ids": [
+            "e-000950"
+          ]
+        }
+      ],
+      "verified": true
+    },
+    {
+      "id": "speed-verdict-check",
+      "question": "Was this counter-attack the fastest sprint of the match?",
+      "question_zh": "这次反击冲刺是全场比赛的最高速度吗？",
+      "answer": "No. FactChecker and MCP get_pressure_comparison verified that while this sequence reached 33.4 km/h (e-000950), the match peak was 33.6 km/h recorded in event e-000484. Any superlative claim is automatically withheld.",
+      "answer_zh": "不是。FactChecker 与 MCP 工具 get_pressure_comparison 交叉核验显示：当前时刻速度为 33.4 km/h（e-000950），而全场真实最高冲刺速度为 33.6 km/h（事件 e-000484）。任何伪造“全场最快”的口径都会被确定性门禁自动拦截。",
+      "event_ids": [
+        "e-000950",
+        "e-000484"
+      ],
+      "metric_refs": [
+        {
+          "name": "event_pressure",
+          "value": 0.86,
+          "formula_version": "pressure-v1",
+          "event_ids": [
+            "e-000950"
+          ]
+        },
+        {
+          "name": "xt_delta",
+          "value": 0.0901,
+          "formula_version": "xt-grid-v1",
+          "event_ids": [
+            "e-000950"
+          ]
+        }
+      ],
+      "verified": true
+    },
+    {
+      "id": "director-airtime-logic",
+      "question": "Why did the Director schedule this cue for the next stoppage window?",
+      "question_zh": "为什么 Director 导播智能体将这张战术卡排期到下一个死球窗口？",
+      "answer": "Director enforces a 60-second duplicate suppression window and a 15-second minimum lower-third gap. With importance 0.80 and 2 verified metrics, it ranks #1 in the rundown and targets the earliest stoppage window so live ball action is never obstructed.",
+      "answer_zh": "Director 严格执行 60 秒同类事件去重与 15 秒字幕最小间隔约束。该时刻重要性达 0.80 且通过了 2 项确定性指标核验，因此排在导播单第 1 顺位，并锁定最近的死球窗口安全上屏。",
+      "event_ids": [
+        "e-000950"
+      ],
+      "metric_refs": [
+        {
+          "name": "event_pressure",
+          "value": 0.86,
+          "formula_version": "pressure-v1",
+          "event_ids": [
+            "e-000950"
+          ]
+        },
+        {
+          "name": "xt_delta",
+          "value": 0.0901,
+          "formula_version": "xt-grid-v1",
+          "event_ids": [
+            "e-000950"
+          ]
+        }
+      ],
+      "verified": true
+    }
+  ]
+}

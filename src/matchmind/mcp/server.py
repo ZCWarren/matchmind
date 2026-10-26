@@ -103,5 +103,80 @@ def get_player_summary(match_id: str, player_id: str) -> dict[str, Any]:
     }
 
 
+@mcp.tool()
+def get_tactical_chain(
+    match_id: str,
+    event_id: str,
+    window_size: int = 6,
+) -> dict[str, Any]:
+    """Return possession sequence, progression, and pressure chain around an event."""
+    bundle = load_match(match_id)
+    index = next(
+        (pos for pos, event in enumerate(bundle.events) if event.event_id == event_id),
+        None,
+    )
+    if index is None:
+        raise ValueError(f"unknown event_id: {event_id}")
+    anchor = bundle.events[index]
+    start = max(0, index - max(1, window_size))
+    end = min(len(bundle.events), index + max(1, window_size // 2) + 1)
+    chain = bundle.events[start:end]
+    start_x = chain[0].location.x if chain else anchor.location.x
+    end_x = (
+        anchor.end_location.x
+        if anchor.end_location is not None
+        else anchor.location.x
+    )
+    line_breaks = [
+        ev.event_id for ev in chain if "line_break" in ev.tags or (ev.difficulty or 0.0) >= 7.5
+    ]
+    return {
+        "match_id": match_id,
+        "anchor_event_id": event_id,
+        "possession_id": anchor.possession_id,
+        "team_id": anchor.team_id,
+        "sequence_length": len(chain),
+        "territorial_gain_x": round(end_x - start_x, 2),
+        "peak_pressure": round(max((ev.pressure for ev in chain), default=0.0), 2),
+        "line_break_event_ids": line_breaks,
+        "chain_event_ids": [ev.event_id for ev in chain],
+    }
+
+
+@mcp.tool()
+def get_pressure_comparison(match_id: str, event_id: str) -> dict[str, Any]:
+    """Compare event pressure and sprint speed against the match distribution and peaks."""
+    bundle = load_match(match_id)
+    target = next((ev for ev in bundle.events if ev.event_id == event_id), None)
+    if target is None:
+        raise ValueError(f"unknown event_id: {event_id}")
+    pressures = sorted(ev.pressure for ev in bundle.events)
+    rank = sum(1 for p in pressures if p <= target.pressure)
+    percentile = round((rank / max(1, len(pressures))) * 100, 1)
+    sprint_events = [
+        ev for ev in bundle.events if ev.speed_kmh is not None or ev.ball_speed_kmh is not None
+    ]
+    fastest_sprint = max(
+        (ev for ev in bundle.events if ev.speed_kmh is not None),
+        key=lambda ev: ev.speed_kmh or 0.0,
+        default=None,
+    )
+    target_speed = target.speed_kmh or 0.0
+    peak_speed = fastest_sprint.speed_kmh if fastest_sprint and fastest_sprint.speed_kmh else 0.0
+    return {
+        "match_id": match_id,
+        "event_id": event_id,
+        "event_pressure": round(target.pressure, 2),
+        "pressure_percentile": percentile,
+        "event_speed_kmh": round(target_speed, 2),
+        "match_peak_speed_kmh": round(peak_speed, 2),
+        "match_peak_speed_event_id": fastest_sprint.event_id if fastest_sprint else None,
+        "is_match_fastest_sprint": bool(
+            target_speed > 0 and abs(target_speed - peak_speed) <= 0.01
+        ),
+        "tracked_speed_events": len(sprint_events),
+    }
+
+
 if __name__ == "__main__":
     mcp.run(transport="stdio")

@@ -6,6 +6,7 @@ import type {
   FeatureSnapshot,
   InsightResult,
   Language,
+  MatchBlackboardState,
   MatchDetail,
   MatchSummary,
   Moment,
@@ -38,6 +39,7 @@ export function useMatchExperience() {
   const [selectedMoment, setSelectedMoment] = useState<Moment | null>(null);
   const [features, setFeatures] = useState<FeatureSnapshot | null>(null);
   const [insight, setInsight] = useState<InsightResult | null>(null);
+  const [blackboard, setBlackboard] = useState<MatchBlackboardState | null>(null);
   const [cursor, setCursor] = useState(0);
   const [playing, setPlaying] = useState(false);
   const [speed, setSpeed] = useState(10);
@@ -82,18 +84,21 @@ export function useMatchExperience() {
     nextMatchId: string,
     moment: Moment,
     live = false,
+    useArcEndpoint = false,
   ) => {
     const requestId = ++insightRequest.current;
     setGenerating(true);
     try {
-      const result = await api.insight(nextMatchId, {
-        moment_id: moment.moment_id,
-        profiles: DEFAULT_PROFILES,
-        languages: DEFAULT_LANGUAGES,
-        use_cache: !live,
-        cache_only: !live,
-        use_mcp: true,
-      });
+      const result = useArcEndpoint && !live
+        ? await api.arcInsight(nextMatchId, moment.moment_id)
+        : await api.insight(nextMatchId, {
+            moment_id: moment.moment_id,
+            profiles: DEFAULT_PROFILES,
+            languages: DEFAULT_LANGUAGES,
+            use_cache: !live,
+            cache_only: !live,
+            use_mcp: true,
+          }).catch(() => api.arcInsight(nextMatchId, moment.moment_id));
       if (requestId !== insightRequest.current) return;
       setInsight(result);
       const snapshot = await api.features(nextMatchId, moment.event_id).catch(() => null);
@@ -114,6 +119,10 @@ export function useMatchExperience() {
     setPlaying(false);
     setInsight(null);
     setFeatures(null);
+    setBlackboard(null);
+    void api.blackboard(matchId).then((board) => {
+      if (!cancelled) setBlackboard(board);
+    }).catch(() => undefined);
     Promise.all([api.match(matchId), api.events(matchId), api.moments(matchId)])
       .then(async ([nextDetail, eventPage, momentPage]) => {
         if (cancelled) return;
@@ -157,8 +166,10 @@ export function useMatchExperience() {
     setFeatures(null);
     setPlaying(false);
     setCursor(eventIndex(events, moment.event_id));
-    void loadInsight(matchId, moment);
-  }, [events, loadInsight, matchId]);
+    const defaultMoment = chooseMoment(moments);
+    const isOtherMoment = defaultMoment?.moment_id !== moment.moment_id;
+    void loadInsight(matchId, moment, false, isOtherMoment);
+  }, [events, loadInsight, matchId, moments]);
 
   const seekEvent = useCallback((eventId: string) => {
     setPlaying(false);
@@ -186,7 +197,7 @@ export function useMatchExperience() {
   return {
     matchId, setMatchId, matches, match, detail, home, away, events, moments,
     selectedMoment, setSelectedMoment, selectMoment, features, setFeatures, insight, setInsight,
-    currentEvent,
+    blackboard, currentEvent,
     cursor, setCursor, playing, setPlaying, speed, setSpeed, loading, generating,
     allowLive, staticDemo, error, seekEvent, generate,
   };

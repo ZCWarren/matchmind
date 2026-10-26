@@ -50,6 +50,23 @@ try {
   await page.waitForTimeout(250);
   await page.locator(".play-button").click();
 
+  // Verify upgraded Agent Graph Visualizer, Story Arc, Tactical Copilot, Hallucination Lab & Share Poster
+  assert.ok(await page.locator(".agent-graph-card").isVisible());
+  await page.getByRole("button", { name: /Replay Graph/ }).click();
+  await page.waitForTimeout(200);
+  assert.equal(await page.locator(".story-arc-card").count(), 3);
+  await page.locator(".story-arc-card").first().click();
+  await page.waitForTimeout(350);
+  assert.ok(await page.locator(".copilot-answer-box").isVisible());
+  await page.locator(".hallucination-lab .challenge-tabs button").nth(1).click();
+  assert.match(await page.locator(".hallucination-lab .injected-quote").innerText(), /94\.6%/);
+  await page.locator(".share-poster-btn").first().click();
+  assert.ok(await page.locator(".share-card-modal").isVisible());
+  await page.getByRole("button", { name: "Close share card" }).click();
+  await page.locator(".nav-tour-btn").click();
+  assert.ok(await page.locator(".judge-tour-modal").isVisible());
+  await page.getByRole("button", { name: "Close judge guide" }).click();
+
   await page.goto(`${base}#/studio`, { waitUntil: "networkidle" });
   await page.waitForTimeout(800);
   assert.equal(await page.getByText("Static demo", { exact: true }).count(), 1);

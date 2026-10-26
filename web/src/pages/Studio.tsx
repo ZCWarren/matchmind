@@ -1,9 +1,12 @@
-import { ArrowCounterClockwise, ArrowUpRight, Broadcast, Check, Monitor, Pause, Play, ShieldCheck, Sparkle, Stop, X } from "@phosphor-icons/react";
+import { ArrowCounterClockwise, ArrowUpRight, Broadcast, Check, Monitor, Pause, Play, ShareNetwork, ShieldCheck, Sparkle, Stop, X } from "@phosphor-icons/react";
 import { useCallback, useEffect, useRef, useState } from "react";
 import { Link } from "react-router-dom";
 import { api } from "../api";
+import AgentGraphVisualizer from "../components/AgentGraphVisualizer";
 import AppNav from "../components/AppNav";
+import HallucinationLab from "../components/HallucinationLab";
 import OverlayCueView from "../components/OverlayCueView";
+import ShareCardModal from "../components/ShareCardModal";
 import { eventIndex, useMatchExperience } from "../hooks/useMatchExperience";
 import { formatClock } from "../lib";
 import type { InsightResult, OverlayVariant } from "../types";
@@ -20,15 +23,16 @@ export default function Studio() {
   const experience = useMatchExperience();
   const {
     matchId, setMatchId, matches, match, home, away, events, moments, selectedMoment,
-    setSelectedMoment, selectMoment, features, setFeatures, insight, setInsight, currentEvent,
+    setSelectedMoment, selectMoment, features, setFeatures, insight, setInsight, blackboard, currentEvent,
     cursor, setCursor,
-    playing, setPlaying, speed, setSpeed, generating, allowLive, staticDemo, error, generate,
+    playing, setPlaying, speed, setSpeed, generating, allowLive, staticDemo, error, seekEvent, generate,
   } = experience;
   const [variant, setVariant] = useState<OverlayVariant>("lower_third");
   const [safe, setSafe] = useState(true);
   const [approval, setApproval] = useState<"approved" | "held" | "killed">("held");
   const [live, setLive] = useState(false);
   const [liveError, setLiveError] = useState<string | null>(null);
+  const [shareOpen, setShareOpen] = useState(false);
   const socketRef = useRef<WebSocket | null>(null);
 
   useEffect(() => {
@@ -100,6 +104,9 @@ export default function Studio() {
         <button className="generate-button" type="button" onClick={() => void generate()} disabled={!allowLive || generating || !selectedMoment}>
           <Sparkle size={15} /> {generating ? "Agents working" : allowLive ? "Generate" : "Cached"}
         </button>
+        <button type="button" className="share-poster-btn" onClick={() => setShareOpen(true)}>
+          <ShareNetwork size={14} weight="bold" /> Poster
+        </button>
       </section>
 
       {(error || liveError) && <div className="error-banner">{error ?? liveError}</div>}
@@ -166,6 +173,32 @@ export default function Studio() {
           </div>
         </aside>
       </div>
+
+      <div className="studio-deep-deck" id="hallucination-lab">
+        {insight && (
+          <AgentGraphVisualizer
+            trace={insight.trace}
+            verification={insight.verification}
+            mcpInvocations={blackboard?.mcp_invocations}
+          />
+        )}
+        {blackboard && (
+          <HallucinationLab
+            challenges={blackboard.hallucination_challenges}
+            onSeekEvent={seekEvent}
+          />
+        )}
+      </div>
+
+      <ShareCardModal
+        open={shareOpen}
+        onClose={() => setShareOpen(false)}
+        home={home}
+        away={away}
+        moment={selectedMoment}
+        insight={insight}
+        currentEvent={currentEvent}
+      />
     </main>
   );
 }

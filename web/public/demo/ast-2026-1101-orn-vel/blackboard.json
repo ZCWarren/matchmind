@@ -1,0 +1,172 @@
+{
+  "match_id": "ast-2026-1101-orn-vel",
+  "narrative_title": "The Red-Card Structural Shift",
+  "tactical_thread": "Orion North strike first in the 22nd minute through vertical combination before a sending-off forces an asymmetric block and late equalizer pressure.",
+  "story_arc": [
+    {
+      "act": 1,
+      "act_label": "Act I · Early Catalyst",
+      "moment_id": "mo-e-000056",
+      "event_id": "e-000056",
+      "clock": {
+        "period": 1,
+        "minute": 4,
+        "second": 19
+      },
+      "type": "big_chance",
+      "headline": "Big chance for ORN (ORN-11)",
+      "causal_link": "Sets the physical baseline and territorial reference for the match Blackboard.",
+      "key_metric_label": "Pressure",
+      "key_metric_value": "0.47 idx",
+      "importance": 0.9
+    },
+    {
+      "act": 2,
+      "act_label": "Act II · Tactical Turning Point",
+      "moment_id": "mo-e-000286",
+      "event_id": "e-000286",
+      "clock": {
+        "period": 1,
+        "minute": 22,
+        "second": 19
+      },
+      "type": "goal",
+      "headline": "Goal for ORN (ORN-09)",
+      "causal_link": "Breaks the structure identified in Act I and triggers the five-agent release gate.",
+      "key_metric_label": "Match xG",
+      "key_metric_value": "Verified",
+      "importance": 0.95
+    },
+    {
+      "act": 3,
+      "act_label": "Act III · Decisive Consequence",
+      "moment_id": "mo-e-001035",
+      "event_id": "e-001035",
+      "clock": {
+        "period": 2,
+        "minute": 76,
+        "second": 23
+      },
+      "type": "goal",
+      "headline": "Goal for VEL (VEL-09)",
+      "causal_link": "Directly capitalizes on the structural imbalance created in the previous phase.",
+      "key_metric_label": "Match xG",
+      "key_metric_value": "Verified",
+      "importance": 0.95
+    }
+  ],
+  "used_claim_hashes": [
+    "b998bb32a3",
+    "c1d4dd722c",
+    "54aaf426ba"
+  ],
+  "deduped_claims_count": 26,
+  "mcp_invocations": [
+    {
+      "tool": "get_event_window",
+      "caller": "TacticalAnalyst",
+      "args_summary": "match_id=ast-2026-1101-orn-vel, event_id=e-000286, before=5, after=5",
+      "output_summary": "Loaded 11 grounded events around 22:19"
+    },
+    {
+      "tool": "get_tactical_chain",
+      "caller": "TacticalAnalyst",
+      "args_summary": "match_id=ast-2026-1101-orn-vel, event_id=e-000286, window_size=6",
+      "output_summary": "Possession p-0082: +48.6m progression, peak pressure 0.87"
+    },
+    {
+      "tool": "get_pressure_comparison",
+      "caller": "FactChecker",
+      "args_summary": "match_id=ast-2026-1101-orn-vel, event_id=e-000286",
+      "output_summary": "Pressure 0.0 (0.9th pct); match peak speed 32.9 km/h at e-000439"
+    },
+    {
+      "tool": "get_player_summary",
+      "caller": "AudienceEditor",
+      "args_summary": "match_id=ast-2026-1101-orn-vel, player_id=ORN-09",
+      "output_summary": "Aggregated touches, pass completion, and sprint profile for ORN-09"
+    }
+  ],
+  "hallucination_challenges": [
+    {
+      "challenge_id": "fastest_sprint_trap",
+      "title": "Adversarial Superlative Trap (Fastest Sprint)",
+      "category": "unsupported_superlative",
+      "target_agent": "FactChecker + Deterministic Gate",
+      "injected_claim": "At 22', the attacker hits 33.4 km/h — the fastest sprint of the entire match.",
+      "ground_truth_summary": "Deterministic engine & MCP get_pressure_comparison confirm an earlier sprint reached 32.9 km/h (e-000439), exceeding 33.4 km/h.",
+      "counter_evidence_event_id": "e-000439",
+      "verdict": "reject",
+      "issue": {
+        "code": "unsupported_superlative",
+        "message": "Claim says fastest, but moment speed 33.4 is below match top speed 32.9 (e-000439)",
+        "claim_index": 0,
+        "severity": "error"
+      },
+      "before_text": "[REJECTED DRAFT] ORN-09 triggers the fastest sprint of the match at 33.4 km/h after breaking the press.",
+      "after_text": "[VERIFIED RELEASE] ORN-09 breaks the line under 0.00 pressure (+0.174 xT); release gate stripped unverified superlative.",
+      "mcp_tool_used": "get_pressure_comparison"
+    },
+    {
+      "challenge_id": "unverified_cue_number",
+      "title": "Producer Hallucinated Stat in Broadcast Cue",
+      "category": "unsupported_cue_number",
+      "target_agent": "StoryProducer -> Bounded Revision Loop",
+      "injected_claim": "LOWER-THIRD CUE: '94.6% pass threat index — highest in the league this season'",
+      "ground_truth_summary": "verify_cue() scans every numeric token in OverlayCue payload against verified InsightCandidate metric_refs. '94.6' is absent from the evidence bundle.",
+      "counter_evidence_event_id": "e-000286",
+      "verdict": "revise",
+      "issue": {
+        "code": "unsupported_cue_number",
+        "message": "Cue number 94.6 is absent from the verified candidate; entering bounded revision (max=1)",
+        "claim_index": null,
+        "severity": "error"
+      },
+      "before_text": "[HOLD FOR REVISION] Subline: 'ORN-09 posts a 94.6% pass threat index to slice the press'",
+      "after_text": "[REVISED & RECHECKED] Subline: 'ORN-09 threads pass under 0.00 pressure (+0.174 xT) at 22:19'",
+      "mcp_tool_used": "get_tactical_chain"
+    }
+  ],
+  "copilot_presets": [
+    {
+      "id": "why-press-trap-failed",
+      "question": "Why did the defensive press fail at 22:19?",
+      "question_zh": "为什么 22:19 的高位逼抢被瞬间打穿？",
+      "answer": "At 22:19 (e-000286), the ball carrier faced 0.00 pressure (0.9th match percentile) but released a vertical pass gaining +48.6m and +0.174 xT before the second wave could close the passing lane.",
+      "answer_zh": "在 22:19（事件 e-000286），持球人在承受 0.00 压迫指数（全场前 99.1% 强度）下，用一记纵向穿透球直接推进 +48.6 米并创造 +0.174 xT 威胁增量，在合围形成前打穿了中场防线。",
+      "event_ids": [
+        "e-000280",
+        "e-000281",
+        "e-000282",
+        "e-000283"
+      ],
+      "metric_refs": [],
+      "verified": true
+    },
+    {
+      "id": "speed-verdict-check",
+      "question": "Was this counter-attack the fastest sprint of the match?",
+      "question_zh": "这次反击冲刺是全场比赛的最高速度吗？",
+      "answer": "No. FactChecker and MCP get_pressure_comparison verified that while this sequence reached 33.4 km/h (e-000286), the match peak was 32.9 km/h recorded in event e-000439. Any superlative claim is automatically withheld.",
+      "answer_zh": "不是。FactChecker 与 MCP 工具 get_pressure_comparison 交叉核验显示：当前时刻速度为 33.4 km/h（e-000286），而全场真实最高冲刺速度为 32.9 km/h（事件 e-000439）。任何伪造“全场最快”的口径都会被确定性门禁自动拦截。",
+      "event_ids": [
+        "e-000286",
+        "e-000439"
+      ],
+      "metric_refs": [],
+      "verified": true
+    },
+    {
+      "id": "director-airtime-logic",
+      "question": "Why did the Director schedule this cue for the next stoppage window?",
+      "question_zh": "为什么 Director 导播智能体将这张战术卡排期到下一个死球窗口？",
+      "answer": "Director enforces a 60-second duplicate suppression window and a 15-second minimum lower-third gap. With importance 0.95 and 0 verified metrics, it ranks #1 in the rundown and targets the earliest stoppage window so live ball action is never obstructed.",
+      "answer_zh": "Director 严格执行 60 秒同类事件去重与 15 秒字幕最小间隔约束。该时刻重要性达 0.95 且通过了 0 项确定性指标核验，因此排在导播单第 1 顺位，并锁定最近的死球窗口安全上屏。",
+      "event_ids": [
+        "e-000286"
+      ],
+      "metric_refs": [],
+      "verified": true
+    }
+  ]
+}

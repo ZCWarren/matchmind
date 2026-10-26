@@ -1,0 +1,569 @@
+{
+  "match_id": "ast-2026-1108-kep-nhr",
+  "moment": {
+    "moment_id": "mo-e-000853",
+    "match_id": "ast-2026-1108-kep-nhr",
+    "event_id": "e-000853",
+    "clock": {
+      "period": 2,
+      "minute": 62,
+      "second": 42
+    },
+    "type": "line_break",
+    "importance": 0.8,
+    "headline": "Line break under pressure",
+    "event_ids": [
+      "e-000853"
+    ],
+    "metrics": {
+      "xt_delta": {
+        "name": "xt_delta",
+        "value": 0.2824,
+        "unit": "threat",
+        "formula_version": "xt-grid-v1",
+        "event_ids": [
+          "e-000853"
+        ],
+        "inputs": {},
+        "label": null
+      },
+      "event_pressure": {
+        "name": "event_pressure",
+        "value": 0.59,
+        "unit": "0-1",
+        "formula_version": "pressure-v1",
+        "event_ids": [
+          "e-000853"
+        ],
+        "inputs": {},
+        "label": null
+      }
+    },
+    "analytics_version": "analytics-v1"
+  },
+  "clock": {
+    "period": 2,
+    "minute": 62,
+    "second": 42
+  },
+  "insight": {
+    "moment_id": "mo-e-000853",
+    "match_id": "ast-2026-1108-kep-nhr",
+    "headline": "Line break under pressure",
+    "why_it_matters": "At 62:42, this line break shifts territorial control by +24.5m under 0.59 pressure (50.2th match percentile).",
+    "watch_next": "Watch how the defending midfield line adjusts spacing over the next 3 possessions to protect the central half-space.",
+    "claims": [
+      {
+        "text": "Line break under pressure (e-000853) verified at 62:42.",
+        "event_ids": [
+          "e-000853"
+        ],
+        "metric_refs": [
+          {
+            "name": "xt_delta",
+            "value": 0.2824,
+            "formula_version": "xt-grid-v1",
+            "event_ids": [
+              "e-000853"
+            ]
+          },
+          {
+            "name": "event_pressure",
+            "value": 0.59,
+            "formula_version": "pressure-v1",
+            "event_ids": [
+              "e-000853"
+            ]
+          }
+        ],
+        "confidence": 0.88
+      },
+      {
+        "text": "Event pressure reached 0.59 with +24.5m progression across 10 events.",
+        "event_ids": [
+          "e-000847",
+          "e-000848",
+          "e-000849"
+        ],
+        "metric_refs": [
+          {
+            "name": "xt_delta",
+            "value": 0.2824,
+            "formula_version": "xt-grid-v1",
+            "event_ids": [
+              "e-000853"
+            ]
+          }
+        ],
+        "confidence": 0.84
+      }
+    ],
+    "importance": 0.8,
+    "confidence": 0.86
+  },
+  "cue": {
+    "cue_id": "cue-mo-e-000853",
+    "insight_id": "mo-e-000853",
+    "template": "lower_third_why",
+    "priority": 0.8,
+    "duration_seconds": 8.0,
+    "safe_area": "lower_third",
+    "payload": {
+      "eyebrow": "BLACKBOARD ARC · 62'",
+      "headline": "Line break under pressure",
+      "stat": "xt_delta 0.2824",
+      "subline": "At 62:42, this line break shifts territorial control by +24.5m under 0.59 pressure (50.2th match percentile)."
+    }
+  },
+  "fan_cards": [
+    {
+      "insight_id": "mo-e-000853",
+      "profile": "analyst",
+      "language": "en",
+      "headline": "Line break under pressure",
+      "what_happened": "Line break under pressure at 62:42 (e-000853).",
+      "why_it_matters": "At 62:42, this line break shifts territorial control by +24.5m under 0.59 pressure (50.2th match percentile).",
+      "watch_next": "Watch how the defending midfield line adjusts spacing over the next 3 possessions to protect the central half-space.",
+      "how_we_know": "Verified via e-000853 and MCP get_tactical_chain.",
+      "evidence_event_ids": [
+        "e-000853"
+      ]
+    },
+    {
+      "insight_id": "mo-e-000853",
+      "profile": "casual",
+      "language": "en",
+      "headline": "Line break under pressure",
+      "what_happened": "A key line break at 62' changes the match rhythm.",
+      "why_it_matters": "Even under heavy pressure (0.59), the attack gained +24.5m in seconds.",
+      "watch_next": "Watch if the defense drops deeper to prevent another quick break.",
+      "how_we_know": "Backed by event e-000853.",
+      "evidence_event_ids": [
+        "e-000853"
+      ]
+    },
+    {
+      "insight_id": "mo-e-000853",
+      "profile": "player",
+      "language": "en",
+      "headline": "Line break under pressure",
+      "what_happened": "Key involvement at 62:42 under 0.59 pressure.",
+      "why_it_matters": "At 62:42, this line break shifts territorial control by +24.5m under 0.59 pressure (50.2th match percentile).",
+      "watch_next": "Watch how the defending midfield line adjusts spacing over the next 3 possessions to protect the central half-space.",
+      "how_we_know": "Tracked in e-000853.",
+      "evidence_event_ids": [
+        "e-000853"
+      ]
+    },
+    {
+      "insight_id": "mo-e-000853",
+      "profile": "analyst",
+      "language": "zh",
+      "headline": "62' 关键战术时刻：Line break under pressure",
+      "what_happened": "比赛第 62:42（事件 e-000853），触发关键 line break。",
+      "why_it_matters": "在 0.59 压迫强度（全场前 49.8%）下实现 +24.5 米纵向推进。",
+      "watch_next": "观察防守方接下来 3 个回合是否回收中场肋部空间。",
+      "how_we_know": "确定性证据链：e-000853。",
+      "evidence_event_ids": [
+        "e-000853"
+      ]
+    },
+    {
+      "insight_id": "mo-e-000853",
+      "profile": "casual",
+      "language": "zh",
+      "headline": "62' 破局瞬间：Line break under pressure",
+      "what_happened": "第 62 分钟的一次关键处理直接改变了场上攻防节奏。",
+      "why_it_matters": "顶住 0.59 的贴身逼抢瞬间推进 +24.5 米，防线被迫后撤。",
+      "watch_next": "接下来看对手是否会采取犯规或退守来遏制这种推进。",
+      "how_we_know": "数据验证自事件 e-000853。",
+      "evidence_event_ids": [
+        "e-000853"
+      ]
+    },
+    {
+      "insight_id": "mo-e-000853",
+      "profile": "player",
+      "language": "zh",
+      "headline": "球员聚焦（62'）：Line break under pressure",
+      "what_happened": "在 62:42 顶住高压完成核心战术动作。",
+      "why_it_matters": "面对 0.59 压迫依然推进 +24.5 米。",
+      "watch_next": "继续追踪该球员在肋部区域的接球与冲刺表现。",
+      "how_we_know": "数据源：e-000853。",
+      "evidence_event_ids": [
+        "e-000853"
+      ]
+    },
+    {
+      "insight_id": "mo-e-000853",
+      "profile": "analyst",
+      "language": "es",
+      "headline": "Line break under pressure",
+      "what_happened": "Acción clave en el minuto 62:42 (e-000853).",
+      "why_it_matters": "Bajo 0.59 de presión, la jugada gana +24.5m.",
+      "watch_next": "Observar el ajuste del bloque medio defensivo.",
+      "how_we_know": "Evidencia: e-000853.",
+      "evidence_event_ids": [
+        "e-000853"
+      ]
+    },
+    {
+      "insight_id": "mo-e-000853",
+      "profile": "casual",
+      "language": "es",
+      "headline": "Line break under pressure",
+      "what_happened": "Momento decisivo al 62' que rompe el ritmo.",
+      "why_it_matters": "Avance de +24.5m superando una presión de 0.59.",
+      "watch_next": "Atención a la respuesta defensiva en la siguiente transición.",
+      "how_we_know": "Verificado en e-000853.",
+      "evidence_event_ids": [
+        "e-000853"
+      ]
+    },
+    {
+      "insight_id": "mo-e-000853",
+      "profile": "player",
+      "language": "es",
+      "headline": "Line break under pressure",
+      "what_happened": "Intervención clave al 62:42.",
+      "why_it_matters": "Progresión de +24.5m bajo presión 0.59.",
+      "watch_next": "Seguir sus próximos duelos e intervenciones.",
+      "how_we_know": "Eventos: e-000853.",
+      "evidence_event_ids": [
+        "e-000853"
+      ]
+    }
+  ],
+  "verification": {
+    "status": "pass",
+    "issues": [],
+    "checked_claims": 2,
+    "notes": "deterministic Blackboard arc verifier; MCP tools cross-checked"
+  },
+  "decision": {
+    "action": "approve",
+    "priority": 0.8,
+    "duration_seconds": 8.0,
+    "reason": "Blackboard narrative chapter at 62' verified across 2 claims and scheduled for next stoppage window.",
+    "ranked_moment_ids": [
+      "mo-e-000853",
+      "mo-e-000428",
+      "mo-e-000859",
+      "mo-e-000346",
+      "mo-e-000983",
+      "mo-e-000072",
+      "mo-e-000271",
+      "mo-e-000745",
+      "mo-e-000753",
+      "mo-e-000830",
+      "mo-e-000870",
+      "mo-e-000909",
+      "mo-e-001027",
+      "mo-e-001096",
+      "mo-e-001128",
+      "mo-e-000105",
+      "mo-e-000991",
+      "mo-e-000999",
+      "mo-e-000063",
+      "mo-e-000046",
+      "mo-e-000872",
+      "mo-e-000126",
+      "mo-e-000419",
+      "mo-e-000205",
+      "mo-e-000139",
+      "mo-e-000893",
+      "mo-e-000516",
+      "mo-e-000333",
+      "mo-e-000975",
+      "mo-e-000245",
+      "mo-e-000594",
+      "mo-e-000636",
+      "mo-e-001232"
+    ],
+    "air_at": {
+      "period": 2,
+      "minute": 63,
+      "second": 6
+    }
+  },
+  "rundown": [
+    {
+      "moment_id": "mo-e-000853",
+      "rank": 1,
+      "action": "approve",
+      "air_at": {
+        "period": 2,
+        "minute": 63,
+        "second": 6
+      },
+      "reason": "Blackboard narrative chapter at 62' verified across 2 claims and scheduled for next stoppage window."
+    },
+    {
+      "moment_id": "mo-e-000428",
+      "rank": 2,
+      "action": "hold",
+      "air_at": null,
+      "reason": "Deferred by the Director"
+    },
+    {
+      "moment_id": "mo-e-000859",
+      "rank": 3,
+      "action": "hold",
+      "air_at": null,
+      "reason": "Deferred by the Director"
+    },
+    {
+      "moment_id": "mo-e-000346",
+      "rank": 4,
+      "action": "hold",
+      "air_at": null,
+      "reason": "Deferred by the Director"
+    },
+    {
+      "moment_id": "mo-e-000983",
+      "rank": 5,
+      "action": "hold",
+      "air_at": null,
+      "reason": "Deferred by the Director"
+    },
+    {
+      "moment_id": "mo-e-000072",
+      "rank": 6,
+      "action": "hold",
+      "air_at": null,
+      "reason": "Deferred by the Director"
+    },
+    {
+      "moment_id": "mo-e-000271",
+      "rank": 7,
+      "action": "hold",
+      "air_at": null,
+      "reason": "Deferred by the Director"
+    },
+    {
+      "moment_id": "mo-e-000745",
+      "rank": 8,
+      "action": "hold",
+      "air_at": null,
+      "reason": "Deferred by the Director"
+    },
+    {
+      "moment_id": "mo-e-000753",
+      "rank": 9,
+      "action": "hold",
+      "air_at": null,
+      "reason": "Deferred by the Director"
+    },
+    {
+      "moment_id": "mo-e-000830",
+      "rank": 10,
+      "action": "hold",
+      "air_at": null,
+      "reason": "Deferred by the Director"
+    },
+    {
+      "moment_id": "mo-e-000870",
+      "rank": 11,
+      "action": "hold",
+      "air_at": null,
+      "reason": "Deferred by the Director"
+    },
+    {
+      "moment_id": "mo-e-000909",
+      "rank": 12,
+      "action": "hold",
+      "air_at": null,
+      "reason": "Deferred by the Director"
+    },
+    {
+      "moment_id": "mo-e-001027",
+      "rank": 13,
+      "action": "hold",
+      "air_at": null,
+      "reason": "Deferred by the Director"
+    },
+    {
+      "moment_id": "mo-e-001096",
+      "rank": 14,
+      "action": "hold",
+      "air_at": null,
+      "reason": "Deferred by the Director"
+    },
+    {
+      "moment_id": "mo-e-001128",
+      "rank": 15,
+      "action": "hold",
+      "air_at": null,
+      "reason": "Deferred by the Director"
+    },
+    {
+      "moment_id": "mo-e-000105",
+      "rank": 16,
+      "action": "hold",
+      "air_at": null,
+      "reason": "Deferred by the Director"
+    },
+    {
+      "moment_id": "mo-e-000991",
+      "rank": 17,
+      "action": "hold",
+      "air_at": null,
+      "reason": "Deferred by the Director"
+    },
+    {
+      "moment_id": "mo-e-000999",
+      "rank": 18,
+      "action": "hold",
+      "air_at": null,
+      "reason": "Deferred by the Director"
+    },
+    {
+      "moment_id": "mo-e-000063",
+      "rank": 19,
+      "action": "hold",
+      "air_at": null,
+      "reason": "Deferred by the Director"
+    },
+    {
+      "moment_id": "mo-e-000046",
+      "rank": 20,
+      "action": "hold",
+      "air_at": null,
+      "reason": "Deferred by the Director"
+    },
+    {
+      "moment_id": "mo-e-000872",
+      "rank": 21,
+      "action": "hold",
+      "air_at": null,
+      "reason": "Deferred by the Director"
+    },
+    {
+      "moment_id": "mo-e-000126",
+      "rank": 22,
+      "action": "hold",
+      "air_at": null,
+      "reason": "Deferred by the Director"
+    },
+    {
+      "moment_id": "mo-e-000419",
+      "rank": 23,
+      "action": "hold",
+      "air_at": null,
+      "reason": "Deferred by the Director"
+    },
+    {
+      "moment_id": "mo-e-000205",
+      "rank": 24,
+      "action": "hold",
+      "air_at": null,
+      "reason": "Deferred by the Director"
+    },
+    {
+      "moment_id": "mo-e-000139",
+      "rank": 25,
+      "action": "hold",
+      "air_at": null,
+      "reason": "Deferred by the Director"
+    },
+    {
+      "moment_id": "mo-e-000893",
+      "rank": 26,
+      "action": "hold",
+      "air_at": null,
+      "reason": "Deferred by the Director"
+    },
+    {
+      "moment_id": "mo-e-000516",
+      "rank": 27,
+      "action": "hold",
+      "air_at": null,
+      "reason": "Deferred by the Director"
+    },
+    {
+      "moment_id": "mo-e-000333",
+      "rank": 28,
+      "action": "hold",
+      "air_at": null,
+      "reason": "Deferred by the Director"
+    },
+    {
+      "moment_id": "mo-e-000975",
+      "rank": 29,
+      "action": "hold",
+      "air_at": null,
+      "reason": "Deferred by the Director"
+    },
+    {
+      "moment_id": "mo-e-000245",
+      "rank": 30,
+      "action": "hold",
+      "air_at": null,
+      "reason": "Deferred by the Director"
+    },
+    {
+      "moment_id": "mo-e-000594",
+      "rank": 31,
+      "action": "hold",
+      "air_at": null,
+      "reason": "Deferred by the Director"
+    },
+    {
+      "moment_id": "mo-e-000636",
+      "rank": 32,
+      "action": "hold",
+      "air_at": null,
+      "reason": "Deferred by the Director"
+    },
+    {
+      "moment_id": "mo-e-001232",
+      "rank": 33,
+      "action": "hold",
+      "air_at": null,
+      "reason": "Deferred by the Director"
+    }
+  ],
+  "trace": [
+    {
+      "agent": "TacticalAnalyst",
+      "model": "deepseek-chat",
+      "prompt_version": "prompt-v3",
+      "latency_ms": 1420.0,
+      "status": "ok",
+      "error": ""
+    },
+    {
+      "agent": "StoryProducer",
+      "model": "deepseek-chat",
+      "prompt_version": "prompt-v3",
+      "latency_ms": 980.0,
+      "status": "ok",
+      "error": ""
+    },
+    {
+      "agent": "AudienceEditor",
+      "model": "deepseek-chat",
+      "prompt_version": "prompt-v3",
+      "latency_ms": 1640.0,
+      "status": "ok",
+      "error": ""
+    },
+    {
+      "agent": "FactChecker",
+      "model": "deepseek-chat",
+      "prompt_version": "prompt-v3",
+      "latency_ms": 1120.0,
+      "status": "ok",
+      "error": ""
+    },
+    {
+      "agent": "Director",
+      "model": "deepseek-chat",
+      "prompt_version": "prompt-v3",
+      "latency_ms": 890.0,
+      "status": "ok",
+      "error": ""
+    }
+  ],
+  "fallback": false
+}

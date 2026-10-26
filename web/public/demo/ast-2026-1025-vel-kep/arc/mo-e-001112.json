@@ -1,0 +1,529 @@
+{
+  "match_id": "ast-2026-1025-vel-kep",
+  "moment": {
+    "moment_id": "mo-e-001112",
+    "match_id": "ast-2026-1025-vel-kep",
+    "event_id": "e-001112",
+    "clock": {
+      "period": 2,
+      "minute": 84,
+      "second": 4
+    },
+    "type": "goal",
+    "importance": 0.95,
+    "headline": "Goal for VEL (VEL-09)",
+    "event_ids": [
+      "e-001111",
+      "e-001112"
+    ],
+    "metrics": {
+      "xg": {
+        "name": "xg",
+        "value": 0.201,
+        "unit": "goals",
+        "formula_version": "xg-v1",
+        "event_ids": [
+          "e-001111"
+        ],
+        "inputs": {},
+        "label": null
+      }
+    },
+    "analytics_version": "analytics-v1"
+  },
+  "clock": {
+    "period": 2,
+    "minute": 84,
+    "second": 4
+  },
+  "insight": {
+    "moment_id": "mo-e-001112",
+    "match_id": "ast-2026-1025-vel-kep",
+    "headline": "Goal for VEL (VEL-09)",
+    "why_it_matters": "At 84:04, this goal shifts territorial control by +35.4m under 0.00 pressure (1.5th match percentile).",
+    "watch_next": "Watch how the defending midfield line adjusts spacing over the next 3 possessions to protect the central half-space.",
+    "claims": [
+      {
+        "text": "Goal for VEL (VEL-09) (e-001112) verified at 84:04.",
+        "event_ids": [
+          "e-001111",
+          "e-001112"
+        ],
+        "metric_refs": [
+          {
+            "name": "xg",
+            "value": 0.201,
+            "formula_version": "xg-v1",
+            "event_ids": [
+              "e-001111"
+            ]
+          }
+        ],
+        "confidence": 0.88
+      },
+      {
+        "text": "Event pressure reached 0.00 with +35.4m progression across 10 events.",
+        "event_ids": [
+          "e-001106",
+          "e-001107",
+          "e-001108"
+        ],
+        "metric_refs": [
+          {
+            "name": "xg",
+            "value": 0.201,
+            "formula_version": "xg-v1",
+            "event_ids": [
+              "e-001111"
+            ]
+          }
+        ],
+        "confidence": 0.84
+      }
+    ],
+    "importance": 0.95,
+    "confidence": 0.86
+  },
+  "cue": {
+    "cue_id": "cue-mo-e-001112",
+    "insight_id": "mo-e-001112",
+    "template": "lower_third_why",
+    "priority": 0.95,
+    "duration_seconds": 8.0,
+    "safe_area": "lower_third",
+    "payload": {
+      "eyebrow": "BLACKBOARD ARC · 84'",
+      "headline": "Goal for VEL (VEL-09)",
+      "stat": "xg 0.201",
+      "subline": "At 84:04, this goal shifts territorial control by +35.4m under 0.00 pressure (1.5th match percentile)."
+    }
+  },
+  "fan_cards": [
+    {
+      "insight_id": "mo-e-001112",
+      "profile": "analyst",
+      "language": "en",
+      "headline": "Goal for VEL (VEL-09)",
+      "what_happened": "Goal for VEL (VEL-09) at 84:04 (e-001112).",
+      "why_it_matters": "At 84:04, this goal shifts territorial control by +35.4m under 0.00 pressure (1.5th match percentile).",
+      "watch_next": "Watch how the defending midfield line adjusts spacing over the next 3 possessions to protect the central half-space.",
+      "how_we_know": "Verified via e-001111, e-001112 and MCP get_tactical_chain.",
+      "evidence_event_ids": [
+        "e-001111",
+        "e-001112"
+      ]
+    },
+    {
+      "insight_id": "mo-e-001112",
+      "profile": "casual",
+      "language": "en",
+      "headline": "Goal for VEL (VEL-09)",
+      "what_happened": "A key goal at 84' changes the match rhythm.",
+      "why_it_matters": "Even under heavy pressure (0.00), the attack gained +35.4m in seconds.",
+      "watch_next": "Watch if the defense drops deeper to prevent another quick break.",
+      "how_we_know": "Backed by event e-001112.",
+      "evidence_event_ids": [
+        "e-001111",
+        "e-001112"
+      ]
+    },
+    {
+      "insight_id": "mo-e-001112",
+      "profile": "player",
+      "language": "en",
+      "headline": "Goal for VEL (VEL-09)",
+      "what_happened": "Key involvement at 84:04 under 0.00 pressure.",
+      "why_it_matters": "At 84:04, this goal shifts territorial control by +35.4m under 0.00 pressure (1.5th match percentile).",
+      "watch_next": "Watch how the defending midfield line adjusts spacing over the next 3 possessions to protect the central half-space.",
+      "how_we_know": "Tracked in e-001111, e-001112.",
+      "evidence_event_ids": [
+        "e-001111",
+        "e-001112"
+      ]
+    },
+    {
+      "insight_id": "mo-e-001112",
+      "profile": "analyst",
+      "language": "zh",
+      "headline": "84' 关键战术时刻：Goal for VEL (VEL-09)",
+      "what_happened": "比赛第 84:04（事件 e-001112），触发关键 goal。",
+      "why_it_matters": "在 0.00 压迫强度（全场前 98.5%）下实现 +35.4 米纵向推进。",
+      "watch_next": "观察防守方接下来 3 个回合是否回收中场肋部空间。",
+      "how_we_know": "确定性证据链：e-001111, e-001112。",
+      "evidence_event_ids": [
+        "e-001111",
+        "e-001112"
+      ]
+    },
+    {
+      "insight_id": "mo-e-001112",
+      "profile": "casual",
+      "language": "zh",
+      "headline": "84' 破局瞬间：Goal for VEL (VEL-09)",
+      "what_happened": "第 84 分钟的一次关键处理直接改变了场上攻防节奏。",
+      "why_it_matters": "顶住 0.00 的贴身逼抢瞬间推进 +35.4 米，防线被迫后撤。",
+      "watch_next": "接下来看对手是否会采取犯规或退守来遏制这种推进。",
+      "how_we_know": "数据验证自事件 e-001112。",
+      "evidence_event_ids": [
+        "e-001111",
+        "e-001112"
+      ]
+    },
+    {
+      "insight_id": "mo-e-001112",
+      "profile": "player",
+      "language": "zh",
+      "headline": "球员聚焦（84'）：Goal for VEL (VEL-09)",
+      "what_happened": "在 84:04 顶住高压完成核心战术动作。",
+      "why_it_matters": "面对 0.00 压迫依然推进 +35.4 米。",
+      "watch_next": "继续追踪该球员在肋部区域的接球与冲刺表现。",
+      "how_we_know": "数据源：e-001111, e-001112。",
+      "evidence_event_ids": [
+        "e-001111",
+        "e-001112"
+      ]
+    },
+    {
+      "insight_id": "mo-e-001112",
+      "profile": "analyst",
+      "language": "es",
+      "headline": "Goal for VEL (VEL-09)",
+      "what_happened": "Acción clave en el minuto 84:04 (e-001112).",
+      "why_it_matters": "Bajo 0.00 de presión, la jugada gana +35.4m.",
+      "watch_next": "Observar el ajuste del bloque medio defensivo.",
+      "how_we_know": "Evidencia: e-001111, e-001112.",
+      "evidence_event_ids": [
+        "e-001111",
+        "e-001112"
+      ]
+    },
+    {
+      "insight_id": "mo-e-001112",
+      "profile": "casual",
+      "language": "es",
+      "headline": "Goal for VEL (VEL-09)",
+      "what_happened": "Momento decisivo al 84' que rompe el ritmo.",
+      "why_it_matters": "Avance de +35.4m superando una presión de 0.00.",
+      "watch_next": "Atención a la respuesta defensiva en la siguiente transición.",
+      "how_we_know": "Verificado en e-001112.",
+      "evidence_event_ids": [
+        "e-001111",
+        "e-001112"
+      ]
+    },
+    {
+      "insight_id": "mo-e-001112",
+      "profile": "player",
+      "language": "es",
+      "headline": "Goal for VEL (VEL-09)",
+      "what_happened": "Intervención clave al 84:04.",
+      "why_it_matters": "Progresión de +35.4m bajo presión 0.00.",
+      "watch_next": "Seguir sus próximos duelos e intervenciones.",
+      "how_we_know": "Eventos: e-001111, e-001112.",
+      "evidence_event_ids": [
+        "e-001111",
+        "e-001112"
+      ]
+    }
+  ],
+  "verification": {
+    "status": "pass",
+    "issues": [],
+    "checked_claims": 2,
+    "notes": "deterministic Blackboard arc verifier; MCP tools cross-checked"
+  },
+  "decision": {
+    "action": "approve",
+    "priority": 0.95,
+    "duration_seconds": 8.0,
+    "reason": "Blackboard narrative chapter at 84' verified across 2 claims and scheduled for next stoppage window.",
+    "ranked_moment_ids": [
+      "mo-e-001112",
+      "mo-e-000157",
+      "mo-e-000517",
+      "mo-e-000733",
+      "mo-e-000911",
+      "mo-e-000173",
+      "mo-e-000409",
+      "mo-e-000903",
+      "mo-e-000002",
+      "mo-e-000333",
+      "mo-e-000363",
+      "mo-e-000672",
+      "mo-e-000792",
+      "mo-e-000832",
+      "mo-e-000847",
+      "mo-e-000932",
+      "mo-e-001092",
+      "mo-e-000851",
+      "mo-e-000675",
+      "mo-e-000096",
+      "mo-e-000946",
+      "mo-e-000687",
+      "mo-e-000137",
+      "mo-e-000303",
+      "mo-e-000671",
+      "mo-e-001042",
+      "mo-e-000242",
+      "mo-e-000439",
+      "mo-e-000632"
+    ],
+    "air_at": {
+      "period": 2,
+      "minute": 85,
+      "second": 51
+    }
+  },
+  "rundown": [
+    {
+      "moment_id": "mo-e-001112",
+      "rank": 1,
+      "action": "approve",
+      "air_at": {
+        "period": 2,
+        "minute": 85,
+        "second": 51
+      },
+      "reason": "Blackboard narrative chapter at 84' verified across 2 claims and scheduled for next stoppage window."
+    },
+    {
+      "moment_id": "mo-e-000157",
+      "rank": 2,
+      "action": "hold",
+      "air_at": null,
+      "reason": "Deferred by the Director"
+    },
+    {
+      "moment_id": "mo-e-000517",
+      "rank": 3,
+      "action": "hold",
+      "air_at": null,
+      "reason": "Deferred by the Director"
+    },
+    {
+      "moment_id": "mo-e-000733",
+      "rank": 4,
+      "action": "hold",
+      "air_at": null,
+      "reason": "Deferred by the Director"
+    },
+    {
+      "moment_id": "mo-e-000911",
+      "rank": 5,
+      "action": "hold",
+      "air_at": null,
+      "reason": "Deferred by the Director"
+    },
+    {
+      "moment_id": "mo-e-000173",
+      "rank": 6,
+      "action": "hold",
+      "air_at": null,
+      "reason": "Deferred by the Director"
+    },
+    {
+      "moment_id": "mo-e-000409",
+      "rank": 7,
+      "action": "hold",
+      "air_at": null,
+      "reason": "Deferred by the Director"
+    },
+    {
+      "moment_id": "mo-e-000903",
+      "rank": 8,
+      "action": "hold",
+      "air_at": null,
+      "reason": "Deferred by the Director"
+    },
+    {
+      "moment_id": "mo-e-000002",
+      "rank": 9,
+      "action": "hold",
+      "air_at": null,
+      "reason": "Deferred by the Director"
+    },
+    {
+      "moment_id": "mo-e-000333",
+      "rank": 10,
+      "action": "hold",
+      "air_at": null,
+      "reason": "Deferred by the Director"
+    },
+    {
+      "moment_id": "mo-e-000363",
+      "rank": 11,
+      "action": "hold",
+      "air_at": null,
+      "reason": "Deferred by the Director"
+    },
+    {
+      "moment_id": "mo-e-000672",
+      "rank": 12,
+      "action": "hold",
+      "air_at": null,
+      "reason": "Deferred by the Director"
+    },
+    {
+      "moment_id": "mo-e-000792",
+      "rank": 13,
+      "action": "hold",
+      "air_at": null,
+      "reason": "Deferred by the Director"
+    },
+    {
+      "moment_id": "mo-e-000832",
+      "rank": 14,
+      "action": "hold",
+      "air_at": null,
+      "reason": "Deferred by the Director"
+    },
+    {
+      "moment_id": "mo-e-000847",
+      "rank": 15,
+      "action": "hold",
+      "air_at": null,
+      "reason": "Deferred by the Director"
+    },
+    {
+      "moment_id": "mo-e-000932",
+      "rank": 16,
+      "action": "hold",
+      "air_at": null,
+      "reason": "Deferred by the Director"
+    },
+    {
+      "moment_id": "mo-e-001092",
+      "rank": 17,
+      "action": "hold",
+      "air_at": null,
+      "reason": "Deferred by the Director"
+    },
+    {
+      "moment_id": "mo-e-000851",
+      "rank": 18,
+      "action": "hold",
+      "air_at": null,
+      "reason": "Deferred by the Director"
+    },
+    {
+      "moment_id": "mo-e-000675",
+      "rank": 19,
+      "action": "hold",
+      "air_at": null,
+      "reason": "Deferred by the Director"
+    },
+    {
+      "moment_id": "mo-e-000096",
+      "rank": 20,
+      "action": "hold",
+      "air_at": null,
+      "reason": "Deferred by the Director"
+    },
+    {
+      "moment_id": "mo-e-000946",
+      "rank": 21,
+      "action": "hold",
+      "air_at": null,
+      "reason": "Deferred by the Director"
+    },
+    {
+      "moment_id": "mo-e-000687",
+      "rank": 22,
+      "action": "hold",
+      "air_at": null,
+      "reason": "Deferred by the Director"
+    },
+    {
+      "moment_id": "mo-e-000137",
+      "rank": 23,
+      "action": "hold",
+      "air_at": null,
+      "reason": "Deferred by the Director"
+    },
+    {
+      "moment_id": "mo-e-000303",
+      "rank": 24,
+      "action": "hold",
+      "air_at": null,
+      "reason": "Deferred by the Director"
+    },
+    {
+      "moment_id": "mo-e-000671",
+      "rank": 25,
+      "action": "hold",
+      "air_at": null,
+      "reason": "Deferred by the Director"
+    },
+    {
+      "moment_id": "mo-e-001042",
+      "rank": 26,
+      "action": "hold",
+      "air_at": null,
+      "reason": "Deferred by the Director"
+    },
+    {
+      "moment_id": "mo-e-000242",
+      "rank": 27,
+      "action": "hold",
+      "air_at": null,
+      "reason": "Deferred by the Director"
+    },
+    {
+      "moment_id": "mo-e-000439",
+      "rank": 28,
+      "action": "hold",
+      "air_at": null,
+      "reason": "Deferred by the Director"
+    },
+    {
+      "moment_id": "mo-e-000632",
+      "rank": 29,
+      "action": "hold",
+      "air_at": null,
+      "reason": "Deferred by the Director"
+    }
+  ],
+  "trace": [
+    {
+      "agent": "TacticalAnalyst",
+      "model": "deepseek-chat",
+      "prompt_version": "prompt-v3",
+      "latency_ms": 1420.0,
+      "status": "ok",
+      "error": ""
+    },
+    {
+      "agent": "StoryProducer",
+      "model": "deepseek-chat",
+      "prompt_version": "prompt-v3",
+      "latency_ms": 980.0,
+      "status": "ok",
+      "error": ""
+    },
+    {
+      "agent": "AudienceEditor",
+      "model": "deepseek-chat",
+      "prompt_version": "prompt-v3",
+      "latency_ms": 1640.0,
+      "status": "ok",
+      "error": ""
+    },
+    {
+      "agent": "FactChecker",
+      "model": "deepseek-chat",
+      "prompt_version": "prompt-v3",
+      "latency_ms": 1120.0,
+      "status": "ok",
+      "error": ""
+    },
+    {
+      "agent": "Director",
+      "model": "deepseek-chat",
+      "prompt_version": "prompt-v3",
+      "latency_ms": 890.0,
+      "status": "ok",
+      "error": ""
+    }
+  ],
+  "fallback": false
+}

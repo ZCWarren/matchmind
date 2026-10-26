@@ -79,8 +79,8 @@ export default function Home() {
         </motion.div>
         <div className="home-proof" aria-label="Live product proof">
           <span><b>{events.length.toLocaleString() || "1,275"}</b> real synthetic events</span>
-          <span><b>5</b> specialized agents</span>
-          <span><b>1</b> verified moment</span>
+          <span><b>5</b> specialized agents · <b>4</b> MCP tools</span>
+          <span><b>3-act</b> Blackboard story arc</span>
         </div>
       </section>
     </main>

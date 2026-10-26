@@ -1,0 +1,601 @@
+{
+  "match_id": "ast-2026-1018-nhr-orn",
+  "moment": {
+    "moment_id": "mo-e-000532",
+    "match_id": "ast-2026-1018-nhr-orn",
+    "event_id": "e-000532",
+    "clock": {
+      "period": 1,
+      "minute": 38,
+      "second": 56
+    },
+    "type": "big_chance",
+    "importance": 0.9,
+    "headline": "Big chance for ORN (ORN-11)",
+    "event_ids": [
+      "e-000532"
+    ],
+    "metrics": {
+      "xg": {
+        "name": "xg",
+        "value": 0.574,
+        "unit": "goals",
+        "formula_version": "xg-v1",
+        "event_ids": [
+          "e-000532"
+        ],
+        "inputs": {},
+        "label": null
+      },
+      "event_pressure": {
+        "name": "event_pressure",
+        "value": 0.88,
+        "unit": "0-1",
+        "formula_version": "pressure-v1",
+        "event_ids": [
+          "e-000532"
+        ],
+        "inputs": {},
+        "label": null
+      }
+    },
+    "analytics_version": "analytics-v1"
+  },
+  "clock": {
+    "period": 1,
+    "minute": 38,
+    "second": 56
+  },
+  "insight": {
+    "moment_id": "mo-e-000532",
+    "match_id": "ast-2026-1018-nhr-orn",
+    "headline": "Big chance for ORN (ORN-11)",
+    "why_it_matters": "At 38:56, this big chance shifts territorial control by +64.5m under 0.88 pressure (91.4th match percentile).",
+    "watch_next": "Watch how the defending midfield line adjusts spacing over the next 3 possessions to protect the central half-space.",
+    "claims": [
+      {
+        "text": "Big chance for ORN (ORN-11) (e-000532) verified at 38:56.",
+        "event_ids": [
+          "e-000532"
+        ],
+        "metric_refs": [
+          {
+            "name": "xg",
+            "value": 0.574,
+            "formula_version": "xg-v1",
+            "event_ids": [
+              "e-000532"
+            ]
+          },
+          {
+            "name": "event_pressure",
+            "value": 0.88,
+            "formula_version": "pressure-v1",
+            "event_ids": [
+              "e-000532"
+            ]
+          }
+        ],
+        "confidence": 0.88
+      },
+      {
+        "text": "Event pressure reached 0.88 with +64.5m progression across 10 events.",
+        "event_ids": [
+          "e-000526",
+          "e-000527",
+          "e-000528"
+        ],
+        "metric_refs": [
+          {
+            "name": "xg",
+            "value": 0.574,
+            "formula_version": "xg-v1",
+            "event_ids": [
+              "e-000532"
+            ]
+          }
+        ],
+        "confidence": 0.84
+      }
+    ],
+    "importance": 0.9,
+    "confidence": 0.86
+  },
+  "cue": {
+    "cue_id": "cue-mo-e-000532",
+    "insight_id": "mo-e-000532",
+    "template": "lower_third_why",
+    "priority": 0.9,
+    "duration_seconds": 8.0,
+    "safe_area": "lower_third",
+    "payload": {
+      "eyebrow": "BLACKBOARD ARC · 38'",
+      "headline": "Big chance for ORN (ORN-11)",
+      "stat": "xg 0.574",
+      "subline": "At 38:56, this big chance shifts territorial control by +64.5m under 0.88 pressure (91.4th match percentile)."
+    }
+  },
+  "fan_cards": [
+    {
+      "insight_id": "mo-e-000532",
+      "profile": "analyst",
+      "language": "en",
+      "headline": "Big chance for ORN (ORN-11)",
+      "what_happened": "Big chance for ORN (ORN-11) at 38:56 (e-000532).",
+      "why_it_matters": "At 38:56, this big chance shifts territorial control by +64.5m under 0.88 pressure (91.4th match percentile).",
+      "watch_next": "Watch how the defending midfield line adjusts spacing over the next 3 possessions to protect the central half-space.",
+      "how_we_know": "Verified via e-000532 and MCP get_tactical_chain.",
+      "evidence_event_ids": [
+        "e-000532"
+      ]
+    },
+    {
+      "insight_id": "mo-e-000532",
+      "profile": "casual",
+      "language": "en",
+      "headline": "Big chance for ORN (ORN-11)",
+      "what_happened": "A key big chance at 38' changes the match rhythm.",
+      "why_it_matters": "Even under heavy pressure (0.88), the attack gained +64.5m in seconds.",
+      "watch_next": "Watch if the defense drops deeper to prevent another quick break.",
+      "how_we_know": "Backed by event e-000532.",
+      "evidence_event_ids": [
+        "e-000532"
+      ]
+    },
+    {
+      "insight_id": "mo-e-000532",
+      "profile": "player",
+      "language": "en",
+      "headline": "Big chance for ORN (ORN-11)",
+      "what_happened": "Key involvement at 38:56 under 0.88 pressure.",
+      "why_it_matters": "At 38:56, this big chance shifts territorial control by +64.5m under 0.88 pressure (91.4th match percentile).",
+      "watch_next": "Watch how the defending midfield line adjusts spacing over the next 3 possessions to protect the central half-space.",
+      "how_we_know": "Tracked in e-000532.",
+      "evidence_event_ids": [
+        "e-000532"
+      ]
+    },
+    {
+      "insight_id": "mo-e-000532",
+      "profile": "analyst",
+      "language": "zh",
+      "headline": "38' 关键战术时刻：Big chance for ORN (ORN-11)",
+      "what_happened": "比赛第 38:56（事件 e-000532），触发关键 big chance。",
+      "why_it_matters": "在 0.88 压迫强度（全场前 8.6%）下实现 +64.5 米纵向推进。",
+      "watch_next": "观察防守方接下来 3 个回合是否回收中场肋部空间。",
+      "how_we_know": "确定性证据链：e-000532。",
+      "evidence_event_ids": [
+        "e-000532"
+      ]
+    },
+    {
+      "insight_id": "mo-e-000532",
+      "profile": "casual",
+      "language": "zh",
+      "headline": "38' 破局瞬间：Big chance for ORN (ORN-11)",
+      "what_happened": "第 38 分钟的一次关键处理直接改变了场上攻防节奏。",
+      "why_it_matters": "顶住 0.88 的贴身逼抢瞬间推进 +64.5 米，防线被迫后撤。",
+      "watch_next": "接下来看对手是否会采取犯规或退守来遏制这种推进。",
+      "how_we_know": "数据验证自事件 e-000532。",
+      "evidence_event_ids": [
+        "e-000532"
+      ]
+    },
+    {
+      "insight_id": "mo-e-000532",
+      "profile": "player",
+      "language": "zh",
+      "headline": "球员聚焦（38'）：Big chance for ORN (ORN-11)",
+      "what_happened": "在 38:56 顶住高压完成核心战术动作。",
+      "why_it_matters": "面对 0.88 压迫依然推进 +64.5 米。",
+      "watch_next": "继续追踪该球员在肋部区域的接球与冲刺表现。",
+      "how_we_know": "数据源：e-000532。",
+      "evidence_event_ids": [
+        "e-000532"
+      ]
+    },
+    {
+      "insight_id": "mo-e-000532",
+      "profile": "analyst",
+      "language": "es",
+      "headline": "Big chance for ORN (ORN-11)",
+      "what_happened": "Acción clave en el minuto 38:56 (e-000532).",
+      "why_it_matters": "Bajo 0.88 de presión, la jugada gana +64.5m.",
+      "watch_next": "Observar el ajuste del bloque medio defensivo.",
+      "how_we_know": "Evidencia: e-000532.",
+      "evidence_event_ids": [
+        "e-000532"
+      ]
+    },
+    {
+      "insight_id": "mo-e-000532",
+      "profile": "casual",
+      "language": "es",
+      "headline": "Big chance for ORN (ORN-11)",
+      "what_happened": "Momento decisivo al 38' que rompe el ritmo.",
+      "why_it_matters": "Avance de +64.5m superando una presión de 0.88.",
+      "watch_next": "Atención a la respuesta defensiva en la siguiente transición.",
+      "how_we_know": "Verificado en e-000532.",
+      "evidence_event_ids": [
+        "e-000532"
+      ]
+    },
+    {
+      "insight_id": "mo-e-000532",
+      "profile": "player",
+      "language": "es",
+      "headline": "Big chance for ORN (ORN-11)",
+      "what_happened": "Intervención clave al 38:56.",
+      "why_it_matters": "Progresión de +64.5m bajo presión 0.88.",
+      "watch_next": "Seguir sus próximos duelos e intervenciones.",
+      "how_we_know": "Eventos: e-000532.",
+      "evidence_event_ids": [
+        "e-000532"
+      ]
+    }
+  ],
+  "verification": {
+    "status": "pass",
+    "issues": [],
+    "checked_claims": 2,
+    "notes": "deterministic Blackboard arc verifier; MCP tools cross-checked"
+  },
+  "decision": {
+    "action": "approve",
+    "priority": 0.9,
+    "duration_seconds": 8.0,
+    "reason": "Blackboard narrative chapter at 38' verified across 2 claims and scheduled for next stoppage window.",
+    "ranked_moment_ids": [
+      "mo-e-000532",
+      "mo-e-000318",
+      "mo-e-000710",
+      "mo-e-001002",
+      "mo-e-000275",
+      "mo-e-001049",
+      "mo-e-001127",
+      "mo-e-000339",
+      "mo-e-000076",
+      "mo-e-000090",
+      "mo-e-000106",
+      "mo-e-000182",
+      "mo-e-000207",
+      "mo-e-000302",
+      "mo-e-000386",
+      "mo-e-000394",
+      "mo-e-000445",
+      "mo-e-000787",
+      "mo-e-000843",
+      "mo-e-000872",
+      "mo-e-000974",
+      "mo-e-001047",
+      "mo-e-001066",
+      "mo-e-001273",
+      "mo-e-000185",
+      "mo-e-000401",
+      "mo-e-000040",
+      "mo-e-000825",
+      "mo-e-000036",
+      "mo-e-000630",
+      "mo-e-000810",
+      "mo-e-000977",
+      "mo-e-001171",
+      "mo-e-000425",
+      "mo-e-000975",
+      "mo-e-000298",
+      "mo-e-000895"
+    ],
+    "air_at": {
+      "period": 1,
+      "minute": 39,
+      "second": 11
+    }
+  },
+  "rundown": [
+    {
+      "moment_id": "mo-e-000532",
+      "rank": 1,
+      "action": "approve",
+      "air_at": {
+        "period": 1,
+        "minute": 39,
+        "second": 11
+      },
+      "reason": "Blackboard narrative chapter at 38' verified across 2 claims and scheduled for next stoppage window."
+    },
+    {
+      "moment_id": "mo-e-000318",
+      "rank": 2,
+      "action": "hold",
+      "air_at": null,
+      "reason": "Deferred by the Director"
+    },
+    {
+      "moment_id": "mo-e-000710",
+      "rank": 3,
+      "action": "hold",
+      "air_at": null,
+      "reason": "Deferred by the Director"
+    },
+    {
+      "moment_id": "mo-e-001002",
+      "rank": 4,
+      "action": "hold",
+      "air_at": null,
+      "reason": "Deferred by the Director"
+    },
+    {
+      "moment_id": "mo-e-000275",
+      "rank": 5,
+      "action": "hold",
+      "air_at": null,
+      "reason": "Deferred by the Director"
+    },
+    {
+      "moment_id": "mo-e-001049",
+      "rank": 6,
+      "action": "hold",
+      "air_at": null,
+      "reason": "Deferred by the Director"
+    },
+    {
+      "moment_id": "mo-e-001127",
+      "rank": 7,
+      "action": "hold",
+      "air_at": null,
+      "reason": "Deferred by the Director"
+    },
+    {
+      "moment_id": "mo-e-000339",
+      "rank": 8,
+      "action": "hold",
+      "air_at": null,
+      "reason": "Deferred by the Director"
+    },
+    {
+      "moment_id": "mo-e-000076",
+      "rank": 9,
+      "action": "hold",
+      "air_at": null,
+      "reason": "Deferred by the Director"
+    },
+    {
+      "moment_id": "mo-e-000090",
+      "rank": 10,
+      "action": "hold",
+      "air_at": null,
+      "reason": "Deferred by the Director"
+    },
+    {
+      "moment_id": "mo-e-000106",
+      "rank": 11,
+      "action": "hold",
+      "air_at": null,
+      "reason": "Deferred by the Director"
+    },
+    {
+      "moment_id": "mo-e-000182",
+      "rank": 12,
+      "action": "hold",
+      "air_at": null,
+      "reason": "Deferred by the Director"
+    },
+    {
+      "moment_id": "mo-e-000207",
+      "rank": 13,
+      "action": "hold",
+      "air_at": null,
+      "reason": "Deferred by the Director"
+    },
+    {
+      "moment_id": "mo-e-000302",
+      "rank": 14,
+      "action": "hold",
+      "air_at": null,
+      "reason": "Deferred by the Director"
+    },
+    {
+      "moment_id": "mo-e-000386",
+      "rank": 15,
+      "action": "hold",
+      "air_at": null,
+      "reason": "Deferred by the Director"
+    },
+    {
+      "moment_id": "mo-e-000394",
+      "rank": 16,
+      "action": "hold",
+      "air_at": null,
+      "reason": "Deferred by the Director"
+    },
+    {
+      "moment_id": "mo-e-000445",
+      "rank": 17,
+      "action": "hold",
+      "air_at": null,
+      "reason": "Deferred by the Director"
+    },
+    {
+      "moment_id": "mo-e-000787",
+      "rank": 18,
+      "action": "hold",
+      "air_at": null,
+      "reason": "Deferred by the Director"
+    },
+    {
+      "moment_id": "mo-e-000843",
+      "rank": 19,
+      "action": "hold",
+      "air_at": null,
+      "reason": "Deferred by the Director"
+    },
+    {
+      "moment_id": "mo-e-000872",
+      "rank": 20,
+      "action": "hold",
+      "air_at": null,
+      "reason": "Deferred by the Director"
+    },
+    {
+      "moment_id": "mo-e-000974",
+      "rank": 21,
+      "action": "hold",
+      "air_at": null,
+      "reason": "Deferred by the Director"
+    },
+    {
+      "moment_id": "mo-e-001047",
+      "rank": 22,
+      "action": "hold",
+      "air_at": null,
+      "reason": "Deferred by the Director"
+    },
+    {
+      "moment_id": "mo-e-001066",
+      "rank": 23,
+      "action": "hold",
+      "air_at": null,
+      "reason": "Deferred by the Director"
+    },
+    {
+      "moment_id": "mo-e-001273",
+      "rank": 24,
+      "action": "hold",
+      "air_at": null,
+      "reason": "Deferred by the Director"
+    },
+    {
+      "moment_id": "mo-e-000185",
+      "rank": 25,
+      "action": "hold",
+      "air_at": null,
+      "reason": "Deferred by the Director"
+    },
+    {
+      "moment_id": "mo-e-000401",
+      "rank": 26,
+      "action": "hold",
+      "air_at": null,
+      "reason": "Deferred by the Director"
+    },
+    {
+      "moment_id": "mo-e-000040",
+      "rank": 27,
+      "action": "hold",
+      "air_at": null,
+      "reason": "Deferred by the Director"
+    },
+    {
+      "moment_id": "mo-e-000825",
+      "rank": 28,
+      "action": "hold",
+      "air_at": null,
+      "reason": "Deferred by the Director"
+    },
+    {
+      "moment_id": "mo-e-000036",
+      "rank": 29,
+      "action": "hold",
+      "air_at": null,
+      "reason": "Deferred by the Director"
+    },
+    {
+      "moment_id": "mo-e-000630",
+      "rank": 30,
+      "action": "hold",
+      "air_at": null,
+      "reason": "Deferred by the Director"
+    },
+    {
+      "moment_id": "mo-e-000810",
+      "rank": 31,
+      "action": "hold",
+      "air_at": null,
+      "reason": "Deferred by the Director"
+    },
+    {
+      "moment_id": "mo-e-000977",
+      "rank": 32,
+      "action": "hold",
+      "air_at": null,
+      "reason": "Deferred by the Director"
+    },
+    {
+      "moment_id": "mo-e-001171",
+      "rank": 33,
+      "action": "hold",
+      "air_at": null,
+      "reason": "Deferred by the Director"
+    },
+    {
+      "moment_id": "mo-e-000425",
+      "rank": 34,
+      "action": "hold",
+      "air_at": null,
+      "reason": "Deferred by the Director"
+    },
+    {
+      "moment_id": "mo-e-000975",
+      "rank": 35,
+      "action": "hold",
+      "air_at": null,
+      "reason": "Deferred by the Director"
+    },
+    {
+      "moment_id": "mo-e-000298",
+      "rank": 36,
+      "action": "hold",
+      "air_at": null,
+      "reason": "Deferred by the Director"
+    },
+    {
+      "moment_id": "mo-e-000895",
+      "rank": 37,
+      "action": "hold",
+      "air_at": null,
+      "reason": "Deferred by the Director"
+    }
+  ],
+  "trace": [
+    {
+      "agent": "TacticalAnalyst",
+      "model": "deepseek-chat",
+      "prompt_version": "prompt-v3",
+      "latency_ms": 1420.0,
+      "status": "ok",
+      "error": ""
+    },
+    {
+      "agent": "StoryProducer",
+      "model": "deepseek-chat",
+      "prompt_version": "prompt-v3",
+      "latency_ms": 980.0,
+      "status": "ok",
+      "error": ""
+    },
+    {
+      "agent": "AudienceEditor",
+      "model": "deepseek-chat",
+      "prompt_version": "prompt-v3",
+      "latency_ms": 1640.0,
+      "status": "ok",
+      "error": ""
+    },
+    {
+      "agent": "FactChecker",
+      "model": "deepseek-chat",
+      "prompt_version": "prompt-v3",
+      "latency_ms": 1120.0,
+      "status": "ok",
+      "error": ""
+    },
+    {
+      "agent": "Director",
+      "model": "deepseek-chat",
+      "prompt_version": "prompt-v3",
+      "latency_ms": 890.0,
+      "status": "ok",
+      "error": ""
+    }
+  ],
+  "fallback": false
+}

@@ -1,0 +1,775 @@
+{
+  "match_id": "ast-2026-1101-orn-vel",
+  "moment": {
+    "moment_id": "mo-e-000286",
+    "match_id": "ast-2026-1101-orn-vel",
+    "event_id": "e-000286",
+    "clock": {
+      "period": 1,
+      "minute": 22,
+      "second": 19
+    },
+    "type": "goal",
+    "importance": 0.95,
+    "headline": "Goal for ORN (ORN-09)",
+    "event_ids": [
+      "e-000285",
+      "e-000286"
+    ],
+    "metrics": {
+      "xg": {
+        "name": "xg",
+        "value": 0.201,
+        "unit": "goals",
+        "formula_version": "xg-v1",
+        "event_ids": [
+          "e-000285"
+        ],
+        "inputs": {},
+        "label": null
+      }
+    },
+    "analytics_version": "analytics-v1"
+  },
+  "clock": {
+    "period": 1,
+    "minute": 22,
+    "second": 19
+  },
+  "insight": {
+    "moment_id": "mo-e-000286",
+    "match_id": "ast-2026-1101-orn-vel",
+    "headline": "ORN-09 scores past VEL in the 22nd minute to make it 1-0 after ORN-08's pass",
+    "why_it_matters": "The goal is the end point of a short, low-pressure progression rather than a single moment: ORN broke VEL's pressure with a line-breaking pass, carried through two uncontested zones, then delivered into the box for a 0.201 xG finish, showing how ORN's control of the ball turned into a clear chance.",
+    "watch_next": "Watch item, not a confirmed pattern: VEL's immediate response ended in VEL-05's blocked shot at 22:45, so the next phase may show whether VEL sustain that post-goal forward push.",
+    "claims": [
+      {
+        "text": "ORN-07's 27.7 m pass to ORN-04 at 21:59 was completed under 0.87 pressure with a difficulty of 7.5 and carried the line_break tag, moving the ball from x=27.4 to x=52.5.",
+        "event_ids": [
+          "e-000281"
+        ],
+        "metric_refs": [
+          {
+            "name": "line_breaks",
+            "value": 4.0,
+            "formula_version": "pass-quality-v1",
+            "event_ids": [
+              "e-000080",
+              "e-000275",
+              "e-000276",
+              "e-000281"
+            ]
+          },
+          {
+            "name": "pass_completion_home",
+            "value": 0.9231,
+            "formula_version": "pass-quality-v1",
+            "event_ids": [
+              "e-000254",
+              "e-000268",
+              "e-000269",
+              "e-000270",
+              "e-000272",
+              "e-000273",
+              "e-000274",
+              "e-000275",
+              "e-000276",
+              "e-000277",
+              "e-000281",
+              "e-000284"
+            ]
+          }
+        ],
+        "confidence": 0.85
+      },
+      {
+        "text": "ORN advanced the ball from x=52.5 to x=75.6 between 22:05 and 22:13 through carries by ORN-11 (10.9 m at 0.22 pressure) and ORN-05 (14.4 m at 0.18 pressure), with no VEL pressure event recorded against either carry.",
+        "event_ids": [
+          "e-000282",
+          "e-000283"
+        ],
+        "metric_refs": [
+          {
+            "name": "control_home",
+            "value": 0.6771,
+            "formula_version": "control-v1",
+            "event_ids": [
+              "e-000273",
+              "e-000274",
+              "e-000275",
+              "e-000276",
+              "e-000277",
+              "e-000278",
+              "e-000281",
+              "e-000282",
+              "e-000283",
+              "e-000284",
+              "e-000285",
+              "e-000286"
+            ]
+          },
+          {
+            "name": "verticality",
+            "value": 0.4122,
+            "formula_version": "rhythm-v1",
+            "event_ids": [
+              "e-000266",
+              "e-000268",
+              "e-000269",
+              "e-000270",
+              "e-000272",
+              "e-000273",
+              "e-000274",
+              "e-000275",
+              "e-000276",
+              "e-000277",
+              "e-000281",
+              "e-000284"
+            ]
+          }
+        ],
+        "confidence": 0.8
+      },
+      {
+        "text": "ORN-09's finish was a 0.201 xG shot struck at 107.3 km/h from x=82.0, received from ORN-08's 18.0 m pass completed at difficulty 5.5.",
+        "event_ids": [
+          "e-000284",
+          "e-000285",
+          "e-000286"
+        ],
+        "metric_refs": [
+          {
+            "name": "xg",
+            "value": 0.201,
+            "formula_version": "xg-v1",
+            "event_ids": [
+              "e-000285"
+            ]
+          }
+        ],
+        "confidence": 0.9
+      },
+      {
+        "text": "At the moment of the goal the snapshot stood at home xG 1.331 against away xG 0.423 and home xT 8.2689 against away xT 5.31, evidence that ORN had produced the larger share of chance quality and territory threat.",
+        "event_ids": [
+          "e-000285",
+          "e-000286"
+        ],
+        "metric_refs": [
+          {
+            "name": "xg_home",
+            "value": 1.331,
+            "formula_version": "xg-v1",
+            "event_ids": [
+              "e-000036",
+              "e-000056",
+              "e-000096",
+              "e-000144",
+              "e-000285"
+            ]
+          },
+          {
+            "name": "xg_away",
+            "value": 0.423,
+            "formula_version": "xg-v1",
+            "event_ids": [
+              "e-000019",
+              "e-000213"
+            ]
+          },
+          {
+            "name": "xt_home",
+            "value": 8.2689,
+            "formula_version": "xt-grid-v1",
+            "event_ids": [
+              "e-000254",
+              "e-000268",
+              "e-000269",
+              "e-000270",
+              "e-000272",
+              "e-000273",
+              "e-000274",
+              "e-000275",
+              "e-000276",
+              "e-000277",
+              "e-000281",
+              "e-000284"
+            ]
+          },
+          {
+            "name": "xt_away",
+            "value": 5.31,
+            "formula_version": "xt-grid-v1",
+            "event_ids": [
+              "e-000231",
+              "e-000233",
+              "e-000239",
+              "e-000240",
+              "e-000256",
+              "e-000257",
+              "e-000258",
+              "e-000261",
+              "e-000263",
+              "e-000264",
+              "e-000266",
+              "e-000280"
+            ]
+          }
+        ],
+        "confidence": 0.8
+      },
+      {
+        "text": "VEL's response after the 22:19 kickoff reached the ORN box via VEL-09's 26.8 m pass to VEL-10 and ended with VEL-05's shot blocked at 85.7 km/h at 22:45, so the goal did not end VEL's attacking sequence.",
+        "event_ids": [
+          "e-000288",
+          "e-000289",
+          "e-000290",
+          "e-000291",
+          "e-000292"
+        ],
+        "metric_refs": [
+          {
+            "name": "pass_completion_away",
+            "value": 0.8421,
+            "formula_version": "pass-quality-v1",
+            "event_ids": [
+              "e-000231",
+              "e-000233",
+              "e-000239",
+              "e-000240",
+              "e-000256",
+              "e-000257",
+              "e-000258",
+              "e-000261",
+              "e-000263",
+              "e-000264",
+              "e-000266",
+              "e-000280"
+            ]
+          }
+        ],
+        "confidence": 0.75
+      }
+    ],
+    "importance": 0.95,
+    "confidence": 0.85
+  },
+  "cue": {
+    "cue_id": "cue-mo-e-000286",
+    "insight_id": "mo-e-000286",
+    "template": "lower_third_why",
+    "priority": 0.95,
+    "duration_seconds": 10.0,
+    "safe_area": "lower_third",
+    "payload": {
+      "eyebrow": "GOAL · 22nd minute",
+      "headline": "ORN-09 makes it 1-0 for ORN vs VEL in the 22nd minute",
+      "stat": "0.201 xG · 107.3 km/h",
+      "subline": "Finished from ORN-08's 18.0 m pass after ORN beat VEL's pressure"
+    }
+  },
+  "fan_cards": [
+    {
+      "insight_id": "mo-e-000286",
+      "profile": "analyst",
+      "language": "en",
+      "headline": "ORN-09 converts ORN-08 pass to cap low-pressure progression, 1-0 at 22'",
+      "what_happened": "ORN-07's 27.7 m line-breaking pass to ORN-04 at 21:59 beat 0.87 pressure (difficulty 7.5), moving x=27.4 to 52.5. ORN-11 and ORN-05 then carried from x=52.5 to 75.6 under 0.22 and 0.18 pressure with no VEL pressure event. ORN-08's 18.0 m pass (difficulty 5.5) found ORN-09, whose 0.201 xG shot at 107.3 km/h from x=82.0 made it 1-0.",
+      "why_it_matters": "The goal was the endpoint of sustained control: at the snapshot ORN led xG 1.331-0.423 and xT 8.2689-5.31, evidence the chance came from larger chance quality and territory threat. VEL's response still reached the box, ending in VEL-05's blocked 85.7 km/h shot at 22:45.",
+      "watch_next": "Watch whether VEL sustain the post-goal forward push that produced VEL-05's blocked shot.",
+      "how_we_know": "The sequence is documented by the line-break pass (e-000281), carries (e-000282, e-000283), final pass and finish (e-000284-e-000286), and VEL response (e-000288-e-000292).",
+      "evidence_event_ids": [
+        "e-000281",
+        "e-000282",
+        "e-000283",
+        "e-000284",
+        "e-000285",
+        "e-000286",
+        "e-000288",
+        "e-000289",
+        "e-000290",
+        "e-000291",
+        "e-000292"
+      ]
+    },
+    {
+      "insight_id": "mo-e-000286",
+      "profile": "analyst",
+      "language": "es",
+      "headline": "ORN-09 define una progresión limpia y ORN se adelanta 1-0",
+      "what_happened": "En el minuto 22, ORN-09 convirtió el 1-0 tras el pase de ORN-08. La acción nació de un pase de 27,7 m de ORN-07 a ORN-04 bajo presión de 0,87 y dificultad 7,5, con line_break, que movió el balón de x=27,4 a x=52,5. Después, ORN-11 y ORN-05 avanzaron con conducciones de 10,9 m y 14,4 m, sin presión registrada, hasta x=75,6. El remate de ORN-09 tuvo 0,201 xG, 107,3 km/h y se originó en x=82,0.",
+      "why_it_matters": "El gol cierra una progresión corta y de bajo riesgo: ORN rompió la presión, atravesó dos zonas sin oposición y generó un remate claro. En el momento del gol, ORN acumulaba 1,331 xG frente a 0,423 de VEL, y 8,2689 xT frente a 5,31, señal de mayor calidad de ocasión y amenaza territorial. VEL respondió con el remate bloqueado de VEL-05 a 85,7 km/h en el 22:45.",
+      "watch_next": "Observar si VEL sostiene ese empuje posterior al gol; no es un patrón confirmado, pero su respuesta ya llegó al área.",
+      "how_we_know": "Los pases, conducciones, xG, xT y remates citados se respaldan en los eventos e-000281, e-000282, e-000283, e-000284, e-000285, e-000286 y e-000288–e-000292.",
+      "evidence_event_ids": [
+        "e-000281",
+        "e-000282",
+        "e-000283",
+        "e-000284",
+        "e-000285",
+        "e-000286",
+        "e-000288",
+        "e-000289",
+        "e-000290",
+        "e-000291",
+        "e-000292"
+      ]
+    },
+    {
+      "insight_id": "mo-e-000286",
+      "profile": "analyst",
+      "language": "zh",
+      "headline": "ORN-09第22分钟破门：短推进链条将控球转化为0.201 xG机会",
+      "what_happened": "第22分钟，ORN-07于21:59在0.87压力下完成27.7米带line_break标签的传球，球从x=27.4推进至x=52.5；随后ORN-11（10.9米，0.22压力）与ORN-05（14.4米，0.18压力）连续带球至x=75.6，期间无VEL压迫事件。ORN-08送出18.0米传球，ORN-09在x=82.0以107.3 km/h完成0.201 xG射门，比分变为1-0。",
+      "why_it_matters": "这次进球来自低压迫下的连续推进，而非单点终结：破线传球、两次无对抗带球、禁区内终结，体现ORN把球权控制转化为清晰机会。进球时主队xG 1.331对0.423、xT 8.2689对5.31，ORN在机会质量与领土威胁上占优。",
+      "watch_next": "VEL开球后由VEL-09以26.8米传球找到VEL-10，VEL-05于22:45完成85.7 km/h射门但被封堵；下一阶段可观察VEL是否延续这次进球后的前压。",
+      "how_we_know": "以上结论对应事件e-000281至e-000286及VEL回应事件e-000288至e-000292，指标来自pass-quality-v1、xg-v1、xt-grid-v1与control-v1。",
+      "evidence_event_ids": [
+        "e-000281",
+        "e-000282",
+        "e-000283",
+        "e-000284",
+        "e-000285",
+        "e-000286",
+        "e-000288",
+        "e-000289",
+        "e-000290",
+        "e-000291",
+        "e-000292"
+      ]
+    },
+    {
+      "insight_id": "mo-e-000286",
+      "profile": "casual",
+      "language": "en",
+      "headline": "ORN-09 makes it 1-0",
+      "what_happened": "ORN kept the ball moving easily, slipped a pass through VEL's lines, and ORN-08 set up ORN-09 to score in the 22nd minute. VEL answered quickly but had a shot blocked.",
+      "why_it_matters": "It shows how a simple, calm passing move can turn into a real chance — ORN didn't need a lucky bounce, just space and a good final ball.",
+      "watch_next": "Keep an eye on whether VEL keep pushing forward after going behind.",
+      "how_we_know": "The evidence events track the line-breaking pass, the two carries, the assist and the finish, plus VEL-05's blocked shot moments later.",
+      "evidence_event_ids": [
+        "e-000281",
+        "e-000282",
+        "e-000283",
+        "e-000284",
+        "e-000285",
+        "e-000286",
+        "e-000288",
+        "e-000289",
+        "e-000290",
+        "e-000291",
+        "e-000292"
+      ]
+    },
+    {
+      "insight_id": "mo-e-000286",
+      "profile": "casual",
+      "language": "es",
+      "headline": "ORN-09 anota y ORN se pone 1-0",
+      "what_happened": "Como una jugada de entrenamiento: ORN salió limpia de la presión, avanzó sin oposición y ORN-09 remató de cerca para el 1-0.",
+      "why_it_matters": "No fue un gol de suerte: ORN controló el balón y llegó con claridad.",
+      "watch_next": "Ojo: VEL respondió rápido y ya había disparado antes del 23'.",
+      "how_we_know": "Lo muestran los eventos del pase, las conducciones y el remate registrados, más la respuesta de VEL.",
+      "evidence_event_ids": [
+        "e-000281",
+        "e-000282",
+        "e-000283",
+        "e-000284",
+        "e-000285",
+        "e-000286",
+        "e-000292"
+      ]
+    },
+    {
+      "insight_id": "mo-e-000286",
+      "profile": "casual",
+      "language": "zh",
+      "headline": "ORN-09门前把握机会，ORN率先破门",
+      "what_happened": "第22分钟，ORN-09接ORN-08传球破门，帮ORN取得1-0领先。",
+      "why_it_matters": "这球不是天上掉下来的：ORN先是一脚传球撕开防线，接着两段无人干扰的带球推进，最后送进禁区完成射门，像接力一样把球一路送到门前。",
+      "watch_next": "VEL丢球后没有停下，随后一次进攻以VEL-05的射门被封堵收尾，接下来可以看他们能否把这种前压延续下去。",
+      "how_we_know": "依据是这一连串进攻事件，包括撕开防线的传球、两次带球推进、ORN-08的助攻传球和ORN-09的进球，以及随后VEL-05被封堵的射门。",
+      "evidence_event_ids": [
+        "e-000281",
+        "e-000282",
+        "e-000283",
+        "e-000284",
+        "e-000285",
+        "e-000286",
+        "e-000288",
+        "e-000289",
+        "e-000290",
+        "e-000291",
+        "e-000292"
+      ]
+    },
+    {
+      "insight_id": "mo-e-000286",
+      "profile": "player",
+      "language": "en",
+      "headline": "ORN-09 times the run and finishes ORN-08's pass to make it 1-0",
+      "what_happened": "ORN-09 doesn't force it. The ball comes back through ORN-07's line-breaking pass, then ORN-11 and ORN-05 carry it forward through open space with no pressure on them. ORN-09 holds the run, waits for ORN-08's 18.0 m pass, and strikes it first-time at 107.3 km/h from x=82.0 — a 0.201 xG chance buried to make it 1-0 in the 22nd minute.",
+      "why_it_matters": "Your movement off the ball is what creates the finish: ORN-09 stays patient while the carries develop, then attacks the moment the pass is released. That timing, plus a clean strike, turns a controlled progression into a goal — and VEL's blocked shot at 22:45 shows the game doesn't slow down after you score.",
+      "watch_next": "Watch ORN-09's next run pattern: whether that same late-arriving movement repeats as ORN keep control.",
+      "how_we_know": "The pass, carries and shot are logged as events e-000281 through e-000286, with the 0.201 xG finish recorded on e-000285.",
+      "evidence_event_ids": [
+        "e-000281",
+        "e-000282",
+        "e-000283",
+        "e-000284",
+        "e-000285",
+        "e-000286"
+      ]
+    },
+    {
+      "insight_id": "mo-e-000286-player-es",
+      "profile": "player",
+      "language": "es",
+      "headline": "ORN-09 define desde x=82.0: 1-0 con remate de 107.3 km/h",
+      "what_happened": "ORN-09 cerró la jugada en el minuto 22: recibió el pase de 18.0 m de ORN-08, completado con dificultad 5.5, y remató desde x=82.0 a 107.3 km/h para un gol de 0.201 xG.",
+      "why_it_matters": "Su definición convirtió el control de ORN en el 1-0 y llegó después de que ORN avanzara de x=52.5 a x=75.6 con conducciones de ORN-11 y ORN-05, sin eventos de presión de VEL registrados en esas carries.",
+      "watch_next": "Ver si VEL sostiene su respuesta tras el gol: su siguiente avance terminó con el remate bloqueado de VEL-05 a 85.7 km/h en el 22:45.",
+      "how_we_know": "Los eventos e-000284, e-000285 y e-000286 registran el pase, el remate y el gol de ORN-09, mientras que e-000281 a e-000283 muestran la progresión previa.",
+      "evidence_event_ids": [
+        "e-000281",
+        "e-000282",
+        "e-000283",
+        "e-000284",
+        "e-000285",
+        "e-000286",
+        "e-000288",
+        "e-000289",
+        "e-000290",
+        "e-000291",
+        "e-000292"
+      ]
+    },
+    {
+      "insight_id": "mo-e-000286",
+      "profile": "player",
+      "language": "zh",
+      "headline": "ORN-09第22分钟破门：接ORN-08传球，107.3 km/h射门将比分改写为1-0",
+      "what_happened": "第22分钟，ORN-09在x=82.0位置接ORN-08的18.0米传球后完成射门，球速107.3 km/h，射门xG为0.201，帮助ORN取得1-0领先。",
+      "why_it_matters": "对ORN-09来说，这次终结把ORN此前的控球推进转化为实际比分优势；他的射门质量达到0.201 xG，并以107.3 km/h的球速完成终结，直接改变了场上局面。",
+      "watch_next": "VEL在丢球后仍有前压回应，VEL-05的射门在22:45被封堵；接下来可观察VEL是否延续这次进攻推进。",
+      "how_we_know": "依据e-000284至e-000286中ORN-08传球、ORN-09射门及进球事件，以及e-000288至e-000292中VEL随后的回应事件。",
+      "evidence_event_ids": [
+        "e-000284",
+        "e-000285",
+        "e-000286",
+        "e-000288",
+        "e-000289",
+        "e-000290",
+        "e-000291",
+        "e-000292"
+      ]
+    }
+  ],
+  "verification": {
+    "status": "pass",
+    "issues": [
+      {
+        "code": "review_superlative",
+        "message": "Superlative wording needs explicit support",
+        "claim_index": 1,
+        "severity": "warn"
+      }
+    ],
+    "checked_claims": 5,
+    "notes": "deterministic candidate and cue verifier"
+  },
+  "decision": {
+    "action": "approve",
+    "priority": 0.95,
+    "duration_seconds": 10.0,
+    "reason": "Verification passed and this is a goal (importance 0.95) with a fully evidenced build-up chain: a line-breaking pass under 0.87 pressure, two uncontested carries, and a 0.201 xG finish, all backed by event-linked metrics. The only verification issue is a low-severity superlative warning that does not affect the core claims. High broadcast value as a goal with an explanatory arc, so it goes on air as a 10-second lower-third; the build-up line-break moments (mo-e-000275/000276/000281) are excluded because they duplicate this story.",
+    "ranked_moment_ids": [
+      "mo-e-000286",
+      "mo-e-001035",
+      "mo-e-000768",
+      "mo-e-000292",
+      "mo-e-000438",
+      "mo-e-000872",
+      "mo-e-000658",
+      "mo-e-000056",
+      "mo-e-000080",
+      "mo-e-000275",
+      "mo-e-000276",
+      "mo-e-000281",
+      "mo-e-000300",
+      "mo-e-000414",
+      "mo-e-000489",
+      "mo-e-000653",
+      "mo-e-000666",
+      "mo-e-000695",
+      "mo-e-000874",
+      "mo-e-000144",
+      "mo-e-000019",
+      "mo-e-000096",
+      "mo-e-000630",
+      "mo-e-000617",
+      "mo-e-000673",
+      "mo-e-000380",
+      "mo-e-000213",
+      "mo-e-000511",
+      "mo-e-001129"
+    ],
+    "air_at": {
+      "period": 1,
+      "minute": 22,
+      "second": 19
+    }
+  },
+  "rundown": [
+    {
+      "moment_id": "mo-e-000286",
+      "rank": 1,
+      "action": "approve",
+      "air_at": {
+        "period": 1,
+        "minute": 22,
+        "second": 19
+      },
+      "reason": "Verification passed and this is a goal (importance 0.95) with a fully evidenced build-up chain: a line-breaking pass under 0.87 pressure, two uncontested carries, and a 0.201 xG finish, all backed by event-linked metrics. The only verification issue is a low-severity superlative warning that does not affect the core claims. High broadcast value as a goal with an explanatory arc, so it goes on air as a 10-second lower-third; the build-up line-break moments (mo-e-000275/000276/000281) are excluded because they duplicate this story."
+    },
+    {
+      "moment_id": "mo-e-001035",
+      "rank": 2,
+      "action": "hold",
+      "air_at": null,
+      "reason": "Deferred by the Director"
+    },
+    {
+      "moment_id": "mo-e-000768",
+      "rank": 3,
+      "action": "hold",
+      "air_at": null,
+      "reason": "Deferred by the Director"
+    },
+    {
+      "moment_id": "mo-e-000292",
+      "rank": 4,
+      "action": "hold",
+      "air_at": null,
+      "reason": "Deferred by the Director"
+    },
+    {
+      "moment_id": "mo-e-000438",
+      "rank": 5,
+      "action": "hold",
+      "air_at": null,
+      "reason": "Deferred by the Director"
+    },
+    {
+      "moment_id": "mo-e-000872",
+      "rank": 6,
+      "action": "hold",
+      "air_at": null,
+      "reason": "Deferred by the Director"
+    },
+    {
+      "moment_id": "mo-e-000658",
+      "rank": 7,
+      "action": "hold",
+      "air_at": null,
+      "reason": "Deferred by the Director"
+    },
+    {
+      "moment_id": "mo-e-000056",
+      "rank": 8,
+      "action": "hold",
+      "air_at": null,
+      "reason": "Deferred by the Director"
+    },
+    {
+      "moment_id": "mo-e-000080",
+      "rank": 9,
+      "action": "hold",
+      "air_at": null,
+      "reason": "Deferred by the Director"
+    },
+    {
+      "moment_id": "mo-e-000275",
+      "rank": 10,
+      "action": "hold",
+      "air_at": null,
+      "reason": "Deferred by the Director"
+    },
+    {
+      "moment_id": "mo-e-000276",
+      "rank": 11,
+      "action": "hold",
+      "air_at": null,
+      "reason": "Deferred by the Director"
+    },
+    {
+      "moment_id": "mo-e-000281",
+      "rank": 12,
+      "action": "hold",
+      "air_at": null,
+      "reason": "Deferred by the Director"
+    },
+    {
+      "moment_id": "mo-e-000300",
+      "rank": 13,
+      "action": "hold",
+      "air_at": null,
+      "reason": "Deferred by the Director"
+    },
+    {
+      "moment_id": "mo-e-000414",
+      "rank": 14,
+      "action": "hold",
+      "air_at": null,
+      "reason": "Deferred by the Director"
+    },
+    {
+      "moment_id": "mo-e-000489",
+      "rank": 15,
+      "action": "hold",
+      "air_at": null,
+      "reason": "Deferred by the Director"
+    },
+    {
+      "moment_id": "mo-e-000653",
+      "rank": 16,
+      "action": "hold",
+      "air_at": null,
+      "reason": "Deferred by the Director"
+    },
+    {
+      "moment_id": "mo-e-000666",
+      "rank": 17,
+      "action": "hold",
+      "air_at": null,
+      "reason": "Deferred by the Director"
+    },
+    {
+      "moment_id": "mo-e-000695",
+      "rank": 18,
+      "action": "hold",
+      "air_at": null,
+      "reason": "Deferred by the Director"
+    },
+    {
+      "moment_id": "mo-e-000874",
+      "rank": 19,
+      "action": "hold",
+      "air_at": null,
+      "reason": "Deferred by the Director"
+    },
+    {
+      "moment_id": "mo-e-000144",
+      "rank": 20,
+      "action": "hold",
+      "air_at": null,
+      "reason": "Deferred by the Director"
+    },
+    {
+      "moment_id": "mo-e-000019",
+      "rank": 21,
+      "action": "hold",
+      "air_at": null,
+      "reason": "Deferred by the Director"
+    },
+    {
+      "moment_id": "mo-e-000096",
+      "rank": 22,
+      "action": "hold",
+      "air_at": null,
+      "reason": "Deferred by the Director"
+    },
+    {
+      "moment_id": "mo-e-000630",
+      "rank": 23,
+      "action": "hold",
+      "air_at": null,
+      "reason": "Deferred by the Director"
+    },
+    {
+      "moment_id": "mo-e-000617",
+      "rank": 24,
+      "action": "hold",
+      "air_at": null,
+      "reason": "Deferred by the Director"
+    },
+    {
+      "moment_id": "mo-e-000673",
+      "rank": 25,
+      "action": "hold",
+      "air_at": null,
+      "reason": "Deferred by the Director"
+    },
+    {
+      "moment_id": "mo-e-000380",
+      "rank": 26,
+      "action": "hold",
+      "air_at": null,
+      "reason": "Deferred by the Director"
+    },
+    {
+      "moment_id": "mo-e-000213",
+      "rank": 27,
+      "action": "hold",
+      "air_at": null,
+      "reason": "Deferred by the Director"
+    },
+    {
+      "moment_id": "mo-e-000511",
+      "rank": 28,
+      "action": "hold",
+      "air_at": null,
+      "reason": "Deferred by the Director"
+    },
+    {
+      "moment_id": "mo-e-001129",
+      "rank": 29,
+      "action": "hold",
+      "air_at": null,
+      "reason": "Deferred by the Director"
+    }
+  ],
+  "trace": [
+    {
+      "agent": "TacticalAnalyst",
+      "model": "deepseek-flash",
+      "prompt_version": "prompt-v3",
+      "latency_ms": 29871.4,
+      "status": "ok",
+      "error": ""
+    },
+    {
+      "agent": "StoryProducer",
+      "model": "deepseek-flash",
+      "prompt_version": "prompt-v3",
+      "latency_ms": 11002.6,
+      "status": "ok",
+      "error": ""
+    },
+    {
+      "agent": "FactChecker",
+      "model": "deepseek-flash",
+      "prompt_version": "prompt-v3",
+      "latency_ms": 18055.8,
+      "status": "ok",
+      "error": ""
+    },
+    {
+      "agent": "AudienceEditor",
+      "model": "deepseek-flash",
+      "prompt_version": "prompt-v3",
+      "latency_ms": 22124.2,
+      "status": "ok",
+      "error": ""
+    },
+    {
+      "agent": "Director",
+      "model": "deepseek-flash",
+      "prompt_version": "prompt-v3",
+      "latency_ms": 25516.6,
+      "status": "ok",
+      "error": ""
+    }
+  ],
+  "fallback": false
+}

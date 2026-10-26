@@ -4,9 +4,9 @@
 
 MatchMind reveals the pressure, movement and tactical structure underneath football. A deterministic analytics engine feeds a five-agent Microsoft Agent Framework workflow, then presents one verified moment as an interactive 3D story, a broadcast control room, a transparent overlay and a personalized fan experience.
 
-> Status: local closed loop live. Five synthetic matches, real `prompt-v3` agent caches, bounded revision, Director airtime planning, WebSocket replay, and a new Moment-centered frontend at `http://localhost:8010`.
+> Status: local closed loop live. Five synthetic matches, real `prompt-v3` agent caches, bounded revision, Director airtime planning, MatchBlackboard 3-act narrative arcs, Adversarial Hallucination Gate Lab, Grounded Tactical Copilot, WebSocket replay, and a Moment-centered 3D frontend at `http://localhost:8010`.
 > Public static demo: [ruziniuuuuu.github.io/matchmind](https://ruziniuuuuu.github.io/matchmind/) with Home, Moment Focus, Studio, Overlay and Fan.
-> Product and architecture: [PLAN.md](./PLAN.md). Completion checklist: [EXECUTION.md](./EXECUTION.md). Judge walkthrough: [docs/JUDGE-GUIDE.md](./docs/JUDGE-GUIDE.md). Evaluation: [docs/EVALUATION.md](./docs/EVALUATION.md). Submission checklist: [docs/SUBMISSION.md](./docs/SUBMISSION.md).
+> Product and architecture: [PLAN.md](./PLAN.md). Completion checklist: [EXECUTION.md](./EXECUTION.md). Judge walkthrough: [docs/JUDGE-GUIDE.md](./docs/JUDGE-GUIDE.md). Pitch deck & script: [docs/PITCH-DECK.md](./docs/PITCH-DECK.md). Marketing launch kit: [docs/LAUNCH-KIT.md](./docs/LAUNCH-KIT.md). Evaluation: [docs/EVALUATION.md](./docs/EVALUATION.md). Submission checklist: [docs/SUBMISSION.md](./docs/SUBMISSION.md).
 
 ## Experience
 

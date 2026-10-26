@@ -1,11 +1,15 @@
-import { ArrowUpRight, Check, Clock, Eye, GitBranch, ListBullets, UsersThree } from "@phosphor-icons/react";
+import { ArrowUpRight, Check, Clock, Eye, GitBranch, ListBullets, ShareNetwork, UsersThree } from "@phosphor-icons/react";
 import { AnimatePresence, motion } from "motion/react";
 import { useState } from "react";
 import { Link } from "react-router-dom";
+import AgentGraphVisualizer from "../components/AgentGraphVisualizer";
 import AppNav from "../components/AppNav";
 import FanCardView from "../components/FanCardView";
+import HallucinationLab from "../components/HallucinationLab";
 import MomentTimeline from "../components/moment/MomentTimeline";
 import SceneLoader from "../components/moment/SceneLoader";
+import ShareCardModal from "../components/ShareCardModal";
+import TacticalCopilot from "../components/TacticalCopilot";
 import { useMatchExperience } from "../hooks/useMatchExperience";
 import { formatClock, metricNumber } from "../lib";
 import type { Language, Profile } from "../types";
@@ -23,13 +27,15 @@ export default function MomentFocus() {
   const experience = useMatchExperience();
   const {
     matchId, matches, setMatchId, match, home, away, events, moments, selectedMoment,
-    selectMoment, features, insight, currentEvent, cursor, setCursor, playing, setPlaying,
+    selectMoment, features, insight, blackboard, currentEvent, cursor, setCursor, playing, setPlaying,
     seekEvent, error,
   } = experience;
   const [view, setView] = useState<ViewMode>("structure");
   const [profile, setProfile] = useState<Profile>("analyst");
   const [language, setLanguage] = useState<Language>("en");
   const [selectedClaim, setSelectedClaim] = useState(0);
+  const [shareOpen, setShareOpen] = useState(false);
+
   const card = insight?.fan_cards.find((item) => item.profile === profile && item.language === language)
     ?? insight?.fan_cards.find((item) => item.profile === profile);
   const score = currentEvent?.score ?? match?.final_score ?? { home: 0, away: 0 };
@@ -49,7 +55,12 @@ export default function MomentFocus() {
           <span>{away?.short_name.toUpperCase() ?? "ORN"}</span>
         </div>
         <span className="moment-live-label">{currentEvent ? formatClock(currentEvent.clock) : "--:--"} / {currentEvent?.type.replaceAll("_", " ") ?? "loading"}</span>
-        <Link className="text-link" to={`/studio?match=${matchId}`}>Open in Studio <ArrowUpRight size={14} /></Link>
+        <div className="commandbar-actions">
+          <button type="button" className="share-poster-btn" onClick={() => setShareOpen(true)}>
+            <ShareNetwork size={14} weight="bold" /> Poster
+          </button>
+          <Link className="text-link" to={`/studio?match=${matchId}`}>Open in Studio <ArrowUpRight size={14} /></Link>
+        </div>
       </section>
       {error && <div className="error-banner">{error}</div>}
 
@@ -175,7 +186,41 @@ export default function MomentFocus() {
           <div className="inspector-foot"><Clock size={13} /> {selectedMoment ? `${formatClock(selectedMoment.clock)} / ${selectedMoment.analytics_version}` : "Loading match data"}</div>
         </aside>
       </div>
+
+      <div className="moment-deep-deck">
+        {insight && (
+          <AgentGraphVisualizer
+            trace={insight.trace}
+            verification={insight.verification}
+            mcpInvocations={blackboard?.mcp_invocations}
+          />
+        )}
+        <TacticalCopilot
+          matchId={matchId}
+          blackboard={blackboard}
+          moments={moments}
+          selectedMomentId={selectedMoment?.moment_id}
+          onSelectMoment={selectMoment}
+          onSeekEvent={seekEvent}
+        />
+        {blackboard && (
+          <HallucinationLab
+            challenges={blackboard.hallucination_challenges}
+            onSeekEvent={seekEvent}
+          />
+        )}
+      </div>
+
       <div className="moment-bottom-note"><Eye size={14} /> Data creates the structure. Agents explain it. Evidence decides what goes on air.</div>
+      <ShareCardModal
+        open={shareOpen}
+        onClose={() => setShareOpen(false)}
+        home={home}
+        away={away}
+        moment={selectedMoment}
+        insight={insight}
+        currentEvent={currentEvent}
+      />
     </main>
   );
 }
