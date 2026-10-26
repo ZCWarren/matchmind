@@ -94,9 +94,10 @@ try {
   assert.ok(await page.locator(".program-screen .overlay-cue").isVisible());
   await page.getByRole("link", { name: "Full screen" }).click();
   await page.waitForLoadState("networkidle");
+  await page.locator(".overlay-cue").waitFor({ state: "visible", timeout: 5000 });
   assert.ok(await page.locator(".overlay-cue").isVisible());
   await page.goto(`${base}#/overlay?bg=1&match=${fixtures[1]}`, { waitUntil: "networkidle" });
-  await page.locator(".overlay-waiting").waitFor();
+  await page.locator(".overlay-waiting").waitFor({ state: "visible", timeout: 5000 });
   assert.ok(await page.locator(".overlay-waiting").isVisible());
   await page.goto(`${base}#/studio`, { waitUntil: "networkidle" });
   await page.locator(".fixture-select").selectOption(fixtures[0]);
@@ -113,7 +114,7 @@ try {
   await page.locator(".about-hero h1").filter({ hasText: "Five agents" }).waitFor();
   assert.match(await page.locator(".about-hero h1").innerText(), /Five agents/);
   await page.goto(`${base}#/overlay?bg=1&template=stat_card`, { waitUntil: "networkidle" });
-  await page.waitForTimeout(500);
+  await page.locator(".overlay-variant.stat-card").waitFor({ state: "visible", timeout: 5000 });
   assert.equal(await page.locator(".overlay-variant.stat-card").count(), 1);
 
   await page.goto(`${base}#/fan?match=ast-2026-1025-vel-kep`, { waitUntil: "networkidle" });
