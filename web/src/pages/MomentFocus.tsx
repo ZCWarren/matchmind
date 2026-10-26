@@ -83,9 +83,9 @@ export default function MomentFocus() {
           </div>
           <div className="scene-wrap">
             <SceneLoader events={events} cursor={cursor} home={home} away={away} />
-            <div className="scene-coordinate">{currentEvent?.player_id ?? "MATCH"} / X {currentEvent?.location.x.toFixed(1) ?? "--"} / Y {currentEvent?.location.y.toFixed(1) ?? "--"}</div>
+            <div className="scene-coordinate">{currentEvent?.player_id ?? "MATCH"} · {currentEvent?.type.replaceAll("_", " ") ?? "play"}</div>
             <div className="scene-metric">
-              <span>Event pressure</span>
+              <span>Pressure</span>
               <strong>{currentEvent?.pressure.toFixed(2) ?? "--"}</strong>
             </div>
           </div>

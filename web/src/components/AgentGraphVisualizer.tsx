@@ -1,4 +1,4 @@
-import { ArrowsClockwise, CheckCircle, Cpu, GitMerge, Play, ShieldWarning, Sparkle } from "@phosphor-icons/react";
+import { ArrowsClockwise, CheckCircle, Play, ShieldWarning, Sparkle } from "@phosphor-icons/react";
 import { useEffect, useState } from "react";
 import type { MCPToolInvocation, TraceStep, Verification } from "../types";
 
@@ -9,26 +9,25 @@ type AgentGraphVisualizerProps = {
   compact?: boolean;
 };
 
-const STAGES = [
-  { id: "mcp", label: "MCP Tools", role: "4 Deterministic Tools" },
-  { id: "TacticalAnalyst", label: "TacticalAnalyst", role: "Claims & Grounding" },
-  { id: "fanout", label: "Parallel Fan-Out", role: "Producer · Editor · Checker" },
-  { id: "revise", label: "Bounded Revision", role: "Revise Once → Recheck" },
-  { id: "Director", label: "Director", role: "Rundown & Stoppage Slot" },
+const STAGES = ["analyst", "fanout", "gate", "director"] as const;
+
+const FRIENDLY_TOOLS = [
+  { label: "Event Window", desc: "Loads exact ball & player coordinates" },
+  { label: "Pass Chain", desc: "Measures +24.6m progression under pressure" },
+  { label: "Speed Check", desc: "Compares sprint vs 33.8 km/h match peak" },
+  { label: "Player Stats", desc: "Tracks touches, duels & top speed" },
 ];
 
 export default function AgentGraphVisualizer({
   trace,
   verification,
   mcpInvocations = [],
-  compact = false,
 }: AgentGraphVisualizerProps) {
   const [replaying, setReplaying] = useState(false);
   const [activeStage, setActiveStage] = useState<number>(STAGES.length - 1);
   const [selectedTool, setSelectedTool] = useState<number>(0);
 
   const hasRevision = trace.some((step) => step.agent.includes(":revise"));
-  const totalLatencyMs = Math.round(trace.reduce((acc, s) => acc + (s.latency_ms || 0), 0));
 
   useEffect(() => {
     if (!replaying) return;
@@ -49,121 +48,100 @@ export default function AgentGraphVisualizer({
     setReplaying(true);
   };
 
-  const findLatency = (prefix: string) => {
-    const step = trace.find((item) => item.agent.startsWith(prefix));
-    return step?.latency_ms ? `${Math.round(step.latency_ms)}ms` : "cached";
-  };
-
   return (
-    <div className={`agent-graph-card ${compact ? "compact" : ""}`}>
+    <div className="agent-graph-card">
       <div className="agent-graph-header">
         <div>
-          <span className="section-label"><GitMerge size={13} /> Microsoft Agent Framework Graph</span>
-          <strong>5-Agent Typed Topology {hasRevision ? "· 1 Bounded Revision Triggered" : "· Direct Release"}</strong>
+          <span className="section-label">AI TEAMWORK</span>
+          <strong>5 Specialized AI Roles, Zero Guesswork</strong>
         </div>
         <button
           type="button"
           className={`graph-replay-btn ${replaying ? "running" : ""}`}
           onClick={startReplay}
         >
-          {replaying ? <ArrowsClockwise size={14} className="spin" /> : <Play size={13} weight="fill" />}
-          <span>{replaying ? "Simulating..." : "Replay Graph"}</span>
+          {replaying ? <ArrowsClockwise size={15} className="spin" /> : <Play size={14} weight="fill" />}
+          <span>{replaying ? "Running..." : "Replay Graph"}</span>
         </button>
       </div>
 
       <div className="topology-flow" role="list" aria-label="Multi-agent execution topology">
-        {/* Stage 0: MCP + Analyst */}
         <div
           role="listitem"
           className={`topo-node ${activeStage >= 0 ? "lit" : ""} ${activeStage === 0 && replaying ? "pulse" : ""}`}
         >
-          <span className="topo-badge">MCP + 01</span>
-          <strong>TacticalAnalyst</strong>
-          <small>{findLatency("TacticalAnalyst")} · {mcpInvocations.length || 4} MCP calls</small>
+          <span className="topo-badge">STEP 01</span>
+          <strong>Tactical Analyst</strong>
+          <small>Finds the hidden pattern</small>
+        </div>
+
+        <div className={`topo-connector ${activeStage >= 1 ? "lit" : ""}`} aria-hidden="true">→</div>
+
+        <div
+          role="listitem"
+          className={`topo-fanout-group ${activeStage >= 1 ? "lit" : ""} ${activeStage === 1 && replaying ? "pulse" : ""}`}
+        >
+          <div className="topo-subnode">
+            <span>02</span>
+            <strong>TV Producer</strong>
+            <small>Broadcast graphic</small>
+          </div>
+          <div className="topo-subnode">
+            <span>03</span>
+            <strong>Fan Editor</strong>
+            <small>3 styles · 3 languages</small>
+          </div>
+          <div className="topo-subnode checker">
+            <span>04</span>
+            <strong>Fact Checker</strong>
+            <small>Audits every stat</small>
+          </div>
         </div>
 
         <div className={`topo-connector ${activeStage >= 2 ? "lit" : ""}`} aria-hidden="true">→</div>
 
-        {/* Stage 1: Parallel Fan-out */}
         <div
           role="listitem"
-          className={`topo-fanout-group ${activeStage >= 2 ? "lit" : ""} ${activeStage === 2 && replaying ? "pulse" : ""}`}
+          className={`topo-node gate ${hasRevision ? "revised" : "passed"} ${activeStage >= 2 ? "lit" : ""} ${activeStage === 2 && replaying ? "pulse" : ""}`}
         >
-          <div className="topo-subnode">
-            <span>02</span>
-            <strong>StoryProducer</strong>
-            <small>{findLatency("StoryProducer")}</small>
-          </div>
-          <div className="topo-subnode">
-            <span>03</span>
-            <strong>AudienceEditor ×9</strong>
-            <small>{findLatency("AudienceEditor")}</small>
-          </div>
-          <div className="topo-subnode checker">
-            <span>04</span>
-            <strong>FactChecker</strong>
-            <small>{findLatency("FactChecker")}</small>
-          </div>
+          <span className="topo-badge">
+            {hasRevision ? <ShieldWarning size={13} /> : <CheckCircle size={13} />}
+            {hasRevision ? "AUTO-REVISED" : "FACT GATE"}
+          </span>
+          <strong>{hasRevision ? "Rewritten & Verified" : "100% Fact-Checked"}</strong>
+          <small>{verification?.checked_claims ?? 5} claims proven</small>
         </div>
 
         <div className={`topo-connector ${activeStage >= 3 ? "lit" : ""}`} aria-hidden="true">→</div>
 
-        {/* Stage 2: Bounded Revision / Release Gate */}
         <div
           role="listitem"
-          className={`topo-node gate ${hasRevision ? "revised" : "passed"} ${activeStage >= 3 ? "lit" : ""} ${activeStage === 3 && replaying ? "pulse" : ""}`}
+          className={`topo-node director ${activeStage >= 3 ? "lit" : ""} ${activeStage === 3 && replaying ? "pulse" : ""}`}
         >
-          <span className="topo-badge">
-            {hasRevision ? <ShieldWarning size={12} /> : <CheckCircle size={12} />}
-            {hasRevision ? "REVISE LOOP (1×)" : "RELEASE GATE"}
-          </span>
-          <strong>{hasRevision ? "Producer:revise → Recheck" : "Deterministic + LLM Gate"}</strong>
-          <small>{verification?.checked_claims ?? 5} claims verified · {verification?.status ?? "pass"}</small>
-        </div>
-
-        <div className={`topo-connector ${activeStage >= 4 ? "lit" : ""}`} aria-hidden="true">→</div>
-
-        {/* Stage 3: Director */}
-        <div
-          role="listitem"
-          className={`topo-node director ${activeStage >= 4 ? "lit" : ""} ${activeStage === 4 && replaying ? "pulse" : ""}`}
-        >
-          <span className="topo-badge"><Sparkle size={11} /> 05</span>
-          <strong>Director</strong>
-          <small>{findLatency("Director")} · Stoppage Slot</small>
+          <span className="topo-badge"><Sparkle size={12} /> STEP 05</span>
+          <strong>TV Director</strong>
+          <small>Puts it on air</small>
         </div>
       </div>
 
       {mcpInvocations.length > 0 && (
         <div className="mcp-audit-strip">
-          <div className="mcp-pills" aria-label="MCP tool calls">
-            <span className="mcp-title"><Cpu size={13} /> MCP Audit:</span>
-            {mcpInvocations.map((inv, idx) => (
+          <div className="mcp-pills" aria-label="Data tools">
+            <span className="mcp-title">DATA TOOLS:</span>
+            {FRIENDLY_TOOLS.map((tool, idx) => (
               <button
-                key={`${inv.tool}-${idx}`}
+                key={tool.label}
                 type="button"
                 className={selectedTool === idx ? "active" : ""}
                 onClick={() => setSelectedTool(idx)}
               >
-                <code>{inv.tool}()</code>
-                <small>{inv.caller}</small>
+                <strong>{tool.label}</strong>
               </button>
             ))}
           </div>
-          {mcpInvocations[selectedTool] && (
-            <div className="mcp-detail-line">
-              <code>{mcpInvocations[selectedTool].args_summary}</code>
-              <span>→ {mcpInvocations[selectedTool].output_summary}</span>
-            </div>
-          )}
-        </div>
-      )}
-
-      {!compact && (
-        <div className="topo-footer">
-          <span>Total parallel trace: <b>{(totalLatencyMs / 1000).toFixed(1)}s</b></span>
-          <span>Bounded revision max: <b>1 loop</b></span>
-          <span>Deterministic authority: <b>100%</b></span>
+          <div className="mcp-detail-line">
+            <span>{FRIENDLY_TOOLS[selectedTool]?.desc}</span>
+          </div>
         </div>
       )}
     </div>

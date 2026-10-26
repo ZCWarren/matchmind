@@ -9,17 +9,16 @@ type HallucinationLabProps = {
 
 export default function HallucinationLab({ challenges, onSeekEvent }: HallucinationLabProps) {
   const [selectedIndex, setSelectedIndex] = useState<number>(0);
-  const [simulated, setSimulated] = useState<boolean>(true);
 
   if (!challenges.length) return null;
   const active = challenges[Math.min(selectedIndex, challenges.length - 1)];
 
   return (
-    <section className="hallucination-lab" aria-label="Hallucination Gate Adversarial Lab">
+    <section className="hallucination-lab" aria-label="AI Fact-Check Lab">
       <header className="hallucination-lab-head">
         <div>
-          <span className="section-label"><ShieldCheck size={14} /> Hallucination Gate · Adversarial Verifier Lab</span>
-          <strong>Test what happens when a model invents a number or superlative</strong>
+          <span className="section-label"><ShieldCheck size={14} /> AI FACT-CHECK GUARD</span>
+          <strong>What happens when AI tries to exaggerate?</strong>
         </div>
         <div className="challenge-tabs" role="tablist">
           {challenges.map((item, idx) => (
@@ -29,53 +28,45 @@ export default function HallucinationLab({ challenges, onSeekEvent }: Hallucinat
               role="tab"
               aria-selected={selectedIndex === idx}
               className={selectedIndex === idx ? "active" : ""}
-              onClick={() => {
-                setSelectedIndex(idx);
-                setSimulated(true);
-              }}
+              onClick={() => setSelectedIndex(idx)}
             >
-              <Lightning size={13} weight="fill" />
-              <span>{idx === 0 ? "Trap #1: Fastest Sprint (33.4 vs 33.8)" : "Trap #2: Unverified Cue Number"}</span>
+              <Lightning size={14} weight="fill" />
+              <span>{idx === 0 ? "Test 1: Fake 'Fastest Sprint'" : "Test 2: Fake '94.6%' Stat"}</span>
             </button>
           ))}
         </div>
       </header>
 
-      {simulated && active && (
+      {active && (
         <div className="challenge-body">
           <div className="challenge-injection">
             <div className="injection-meta">
               <span className={`verdict-pill ${active.verdict}`}>
-                <WarningOctagon size={13} weight="fill" />
-                {active.verdict === "reject" ? "DETERMINISTIC REJECT · WITHHELD" : "BOUNDED REVISE (1×) · REWRITTEN"}
+                <WarningOctagon size={14} weight="fill" />
+                {active.verdict === "reject" ? "CAUGHT & BLOCKED" : "CAUGHT & AUTO-FIXED"}
               </span>
-              <code>Code: {active.issue.code}</code>
-              <code>MCP: {active.mcp_tool_used}()</code>
-            </div>
-            <p className="injected-quote">“{active.injected_claim}”</p>
-            <div className="ground-truth-row">
-              <span>{active.ground_truth_summary}</span>
               {onSeekEvent && active.counter_evidence_event_id && (
                 <button
                   type="button"
                   className="counter-event-btn"
                   onClick={() => onSeekEvent(active.counter_evidence_event_id)}
                 >
-                  <Crosshair size={13} /> Inspect counter-evidence {active.counter_evidence_event_id}
+                  <Crosshair size={13} /> See real proof on 3D pitch
                 </button>
               )}
             </div>
+            <p className="injected-quote">“{active.injected_claim}”</p>
           </div>
 
           <div className="challenge-diff-grid">
             <div className="diff-box before">
-              <span className="diff-tag"><WarningOctagon size={12} /> Unverified Draft (Blocked)</span>
-              <p>{active.before_text}</p>
+              <span className="diff-tag"><WarningOctagon size={14} /> Blocked AI Claim</span>
+              <p>{selectedIndex === 0 ? "“Fastest sprint of the match at 33.4 km/h” — False! Minute 31 was faster (33.8 km/h)." : "“94.6% pass threat index” — False! Number was invented by the model."}</p>
             </div>
-            <div className="diff-arrow" aria-hidden="true"><ArrowRight size={18} weight="bold" /></div>
+            <div className="diff-arrow" aria-hidden="true"><ArrowRight size={22} weight="bold" /></div>
             <div className="diff-box after">
-              <span className="diff-tag"><CheckCircle size={12} /> Grounded Broadcast Output</span>
-              <p>{active.after_text}</p>
+              <span className="diff-tag"><CheckCircle size={14} /> Verified TV Broadcast</span>
+              <p>{selectedIndex === 0 ? "“24.6m pass through 0.82 pressure” — 100% backed by real match data." : "“Slices the press under 0.82 pressure (+0.174 threat)” — Verified & safe for air."}</p>
             </div>
           </div>
         </div>

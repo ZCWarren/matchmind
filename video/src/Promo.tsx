@@ -2,13 +2,13 @@ import { AbsoluteFill, Audio, Img, Sequence, interpolate, spring, staticFile, us
 import MatchWorld from "./MatchWorld";
 import hero from "./generated/hero.json";
 
-const LIME = "#c8ff3d";
-const CYAN = "#55d6d0";
-const CORAL = "#ff6b5f";
-const TEXT = "#f0f5ef";
-const MUTED = "#9aa99f";
-const DIM = "#6f8075";
-const BG = "#060908";
+const LIME = "#d2ff42";
+const CYAN = "#4ef2e8";
+const CORAL = "#ff6459";
+const TEXT = "#f6fbf7";
+const MUTED = "#a6b8ad";
+const DIM = "#73877b";
+const BG = "#050807";
 const SANS = '"IBM Plex Sans", "Segoe UI", sans-serif';
 const MONO = '"IBM Plex Mono", monospace';
 
@@ -20,6 +20,7 @@ const enter = (frame: number, delay = 0, distance = 32) => ({
 const mono = (size: number, color = MUTED): React.CSSProperties => ({
   fontFamily: MONO,
   fontSize: size,
+  fontWeight: 700,
   letterSpacing: "0.1em",
   textTransform: "uppercase",
   color,
@@ -29,16 +30,16 @@ function Backdrop({ accent = LIME }: { accent?: string }) {
   return (
     <>
       <AbsoluteFill style={{ background: BG }} />
-      <AbsoluteFill style={{ background: `radial-gradient(circle at 72% 42%, ${accent}12, transparent 46%)` }} />
-      <AbsoluteFill style={{ opacity: 0.15, backgroundImage: "linear-gradient(rgba(255,255,255,.05) 1px, transparent 1px)", backgroundSize: "100% 120px", maskImage: "linear-gradient(90deg, transparent, black, transparent)" }} />
+      <AbsoluteFill style={{ background: `radial-gradient(circle at 72% 40%, ${accent}1f, transparent 52%), radial-gradient(circle at 20% 85%, ${CYAN}12, transparent 48%)` }} />
+      <AbsoluteFill style={{ opacity: 0.16, backgroundImage: "linear-gradient(rgba(255,255,255,.06) 1px, transparent 1px)", backgroundSize: "100% 120px", maskImage: "linear-gradient(90deg, transparent, black, transparent)" }} />
     </>
   );
 }
 
 function BrandMark({ right = false }: { right?: boolean }) {
   return (
-    <div style={{ position: "absolute", top: 42, [right ? "right" : "left"]: 54, display: "flex", alignItems: "center", gap: 14, ...mono(15, TEXT), fontWeight: 600 }}>
-      <span style={{ display: "grid", placeItems: "center", width: 42, height: 42, border: `1px solid ${LIME}`, color: LIME, fontSize: 13 }}>MM</span>
+    <div style={{ position: "absolute", top: 42, [right ? "right" : "left"]: 54, display: "flex", alignItems: "center", gap: 14, ...mono(16, TEXT), fontWeight: 700 }}>
+      <span style={{ display: "grid", placeItems: "center", width: 44, height: 44, borderRadius: 8, border: `2px solid ${LIME}`, background: `${LIME}18`, color: LIME, fontSize: 15 }}>MM</span>
       MATCHMIND
     </div>
   );
@@ -46,7 +47,7 @@ function BrandMark({ right = false }: { right?: boolean }) {
 
 function Caption({ children }: { children: React.ReactNode }) {
   return (
-    <div style={{ position: "absolute", right: 100, bottom: 38, left: 100, textAlign: "center", color: TEXT, fontFamily: SANS, fontSize: 24, lineHeight: 1.35, textShadow: `0 2px 16px ${BG}` }}>
+    <div style={{ position: "absolute", right: 100, bottom: 38, left: 100, textAlign: "center", color: TEXT, fontFamily: SANS, fontSize: 28, fontWeight: 600, lineHeight: 1.35, textShadow: `0 4px 24px ${BG}` }}>
       {children}
     </div>
   );
@@ -62,16 +63,16 @@ function EventStorm() {
         const x = (index * 137 + 41) % 1920;
         const y = (index * 83 + 73) % 1080;
         const drift = interpolate(frame, [0, 240], [0, (index % 7 - 3) * 32], clamp);
-        return <i key={index} style={{ position: "absolute", left: x, top: y, width: index % 5 === 0 ? 7 : 3, height: index % 5 === 0 ? 7 : 3, background: index % 4 === 0 ? CORAL : CYAN, opacity: interpolate(frame, [index % 30, 80 + index % 30], [0, 0.55], clamp), transform: `translate(${drift}px, ${-drift * 0.4}px)` }} />;
+        return <i key={index} style={{ position: "absolute", left: x, top: y, width: index % 5 === 0 ? 8 : 4, height: index % 5 === 0 ? 8 : 4, borderRadius: 99, background: index % 4 === 0 ? CORAL : CYAN, opacity: interpolate(frame, [index % 30, 80 + index % 30], [0, 0.65], clamp), transform: `translate(${drift}px, ${-drift * 0.4}px)` }} />;
       })}
       <BrandMark />
-      <div style={{ position: "absolute", left: 90, top: 260, ...enter(frame, 10) }}>
-        <div style={mono(17, CORAL)}>A match is not a highlight reel</div>
-        <div style={{ marginTop: 24, color: TEXT, fontFamily: MONO, fontSize: 178, letterSpacing: "-0.08em", lineHeight: 1 }}>{count.toLocaleString()}</div>
-        <div style={{ color: MUTED, fontFamily: SANS, fontSize: 36 }}>events. One scoreline.</div>
+      <div style={{ position: "absolute", left: 90, top: 240, ...enter(frame, 10) }}>
+        <div style={mono(20, CORAL)}>90 MINUTES OF RAW DATA</div>
+        <div style={{ marginTop: 20, color: TEXT, fontFamily: MONO, fontSize: 196, fontWeight: 700, letterSpacing: "-0.08em", lineHeight: 0.95 }}>{count.toLocaleString()}</div>
+        <div style={{ color: MUTED, fontFamily: SANS, fontSize: 44, fontWeight: 600 }}>events. Only 1 scoreline.</div>
       </div>
-      <div style={{ position: "absolute", right: 100, bottom: 190, color: TEXT, fontFamily: SANS, fontSize: 54, fontWeight: 500, letterSpacing: "-0.04em", ...enter(frame, 105) }}>What actually changed?</div>
-      <Caption>Every match hides thousands of events behind one scoreline.</Caption>
+      <div style={{ position: "absolute", right: 100, bottom: 185, color: LIME, fontFamily: SANS, fontSize: 64, fontWeight: 700, letterSpacing: "-0.04em", ...enter(frame, 105) }}>Where did the game turn?</div>
+      <Caption>Thousands of plays happen every match. Scorelines hide the real story.</Caption>
     </AbsoluteFill>
   );
 }
@@ -85,11 +86,11 @@ function Reveal() {
         <MatchWorld />
       </AbsoluteFill>
       <BrandMark />
-      <div style={{ position: "absolute", left: 70, top: 215, width: 720, ...enter(frame, 22) }}>
-        <div style={mono(16, LIME)}>Match intelligence, made visible</div>
-        <div style={{ marginTop: 22, color: TEXT, fontFamily: SANS, fontSize: 82, fontWeight: 600, letterSpacing: "-0.06em", lineHeight: 0.98 }}>See the game<br /><span style={{ color: LIME }}>beneath the game.</span></div>
+      <div style={{ position: "absolute", left: 70, top: 205, width: 780, ...enter(frame, 22) }}>
+        <div style={mono(18, LIME)}>AI BROADCAST COPILOT</div>
+        <div style={{ marginTop: 20, color: TEXT, fontFamily: SANS, fontSize: 92, fontWeight: 700, letterSpacing: "-0.06em", lineHeight: 0.96, textShadow: "0 12px 36px rgba(0,0,0,0.65)" }}>See the game<br /><span style={{ color: LIME }}>beneath the game.</span></div>
       </div>
-      <Caption>MatchMind reveals the pressure, movement and tactical structure underneath.</Caption>
+      <Caption>Turn raw tracking data into instant, fact-checked TV stories.</Caption>
     </AbsoluteFill>
   );
 }
@@ -103,29 +104,29 @@ function HeroPass({ vertical = false }: { vertical?: boolean }) {
       <AbsoluteFill style={{ transform: vertical ? "translateY(120px)" : "translateX(180px)" }}>
         <MatchWorld vertical={vertical} passMode />
       </AbsoluteFill>
-      <div style={{ position: "absolute", top: vertical ? 150 : 110, left: vertical ? 64 : 74, ...enter(frame, 12) }}>
-        <div style={mono(vertical ? 15 : 16, CORAL)}>72:12 / Nova Harbor vs Orion North</div>
-        <div style={{ marginTop: 16, color: TEXT, fontFamily: SANS, fontSize: vertical ? 64 : 58, fontWeight: 550, letterSpacing: "-0.045em" }}>One pass through the press.</div>
+      <div style={{ position: "absolute", top: vertical ? 150 : 105, left: vertical ? 64 : 74, ...enter(frame, 12) }}>
+        <div style={mono(vertical ? 17 : 18, CORAL)}>72:12 · THE TURNING POINT</div>
+        <div style={{ marginTop: 14, color: TEXT, fontFamily: SANS, fontSize: vertical ? 70 : 68, fontWeight: 700, letterSpacing: "-0.045em" }}>One pass breaks the press.</div>
       </div>
-      <div style={{ position: "absolute", right: vertical ? 64 : 80, bottom: vertical ? 280 : 160, textAlign: "right", transform: `scale(${0.8 + hit * 0.2})`, opacity: hit }}>
-        <div style={{ color: LIME, fontFamily: MONO, fontSize: vertical ? 118 : 142, letterSpacing: "-0.08em", lineHeight: 1 }}>24.6<span style={{ fontSize: 32, letterSpacing: 0 }}> m</span></div>
-        <div style={{ ...mono(vertical ? 17 : 18, TEXT), marginTop: 16 }}>line-breaking pass</div>
-        <div style={{ display: "flex", justifyContent: "flex-end", gap: 28, marginTop: 30 }}>
-          <span style={{ ...mono(vertical ? 17 : 18, CORAL) }}>0.82 pressure</span>
-          <span style={{ ...mono(vertical ? 17 : 18, CYAN) }}>+0.1736 xT</span>
+      <div style={{ position: "absolute", right: vertical ? 64 : 80, bottom: vertical ? 280 : 155, textAlign: "right", transform: `scale(${0.8 + hit * 0.2})`, opacity: hit }}>
+        <div style={{ color: LIME, fontFamily: MONO, fontSize: vertical ? 128 : 156, fontWeight: 700, letterSpacing: "-0.08em", lineHeight: 0.95 }}>24.6<span style={{ fontSize: 38, letterSpacing: 0 }}> m</span></div>
+        <div style={{ ...mono(vertical ? 20 : 22, TEXT), marginTop: 14 }}>LINE-BREAKING PASS</div>
+        <div style={{ display: "flex", justifyContent: "flex-end", gap: 28, marginTop: 26 }}>
+          <span style={{ ...mono(vertical ? 19 : 20, CORAL) }}>0.82 PRESSURE</span>
+          <span style={{ ...mono(vertical ? 19 : 20, CYAN) }}>+0.174 THREAT</span>
         </div>
       </div>
-      {!vertical && <Caption>NHR-08 finds 24.6 meters through 0.82 pressure. The structure becomes a story.</Caption>}
+      {!vertical && <Caption>72:12 — One 24.6m pass slices right through peak defense.</Caption>}
     </AbsoluteFill>
   );
 }
 
 const agentRoles = [
-  ["TacticalAnalyst", "Finds the pattern", LIME],
-  ["StoryProducer", "Writes for air", CYAN],
-  ["AudienceEditor", "Changes the depth", CYAN],
-  ["FactChecker", "Challenges the claim", CORAL],
-  ["Director", "Chooses the moment", LIME],
+  ["Tactical Analyst", "Finds the key play", LIME],
+  ["TV Producer", "Writes the headline", CYAN],
+  ["Fan Editor", "3 audience voices", CYAN],
+  ["Fact Checker", "Blocks fake stats", CORAL],
+  ["TV Director", "Cues the graphic", LIME],
 ];
 
 function Agents() {
@@ -134,26 +135,25 @@ function Agents() {
     <AbsoluteFill>
       <Backdrop />
       <BrandMark />
-      <div style={{ position: "absolute", top: 135, left: 70, ...enter(frame, 8) }}>
-        <div style={mono(15, LIME)}>Microsoft Agent Framework / Typed shared state</div>
-        <div style={{ marginTop: 14, color: TEXT, fontFamily: SANS, fontSize: 60, letterSpacing: "-0.045em" }}>Five agents. One evidence graph.</div>
+      <div style={{ position: "absolute", top: 125, left: 70, ...enter(frame, 8) }}>
+        <div style={mono(18, LIME)}>5 SPECIALISTS · 1 SHARED BRAIN</div>
+        <div style={{ marginTop: 12, color: TEXT, fontFamily: SANS, fontSize: 72, fontWeight: 700, letterSpacing: "-0.045em" }}>Five AI roles. One verified story.</div>
       </div>
-      <div style={{ position: "absolute", top: 335, right: 70, left: 70, display: "grid", gridTemplateColumns: "repeat(5, 1fr)", gap: 12 }}>
+      <div style={{ position: "absolute", top: 325, right: 70, left: 70, display: "grid", gridTemplateColumns: "repeat(5, 1fr)", gap: 16 }}>
         {agentRoles.map(([name, role, color], index) => (
-          <div key={name} style={{ minHeight: 250, padding: "26px 22px", borderTop: `3px solid ${color}`, borderRight: "1px solid #223028", borderBottom: "1px solid #223028", borderLeft: "1px solid #223028", background: "#0d1310", ...enter(frame, 35 + index * 18, 55) }}>
-            <span style={mono(13, color)}>{String(index + 1).padStart(2, "0")}</span>
-            <div style={{ marginTop: 64, color: TEXT, fontFamily: SANS, fontSize: 23, fontWeight: 600 }}>{name}</div>
-            <div style={{ marginTop: 12, color: MUTED, fontFamily: SANS, fontSize: 19, lineHeight: 1.4 }}>{role}</div>
+          <div key={name} style={{ minHeight: 270, padding: "30px 24px", borderRadius: 14, borderTop: `5px solid ${color}`, borderRight: "1px solid #2b4034", borderBottom: "1px solid #2b4034", borderLeft: "1px solid #2b4034", background: "linear-gradient(165deg, #132019, #09100c)", boxShadow: "0 18px 40px rgba(0,0,0,0.45)", ...enter(frame, 35 + index * 18, 55) }}>
+            <span style={mono(16, color)}>0{index + 1}</span>
+            <div style={{ marginTop: 58, color: TEXT, fontFamily: SANS, fontSize: 28, fontWeight: 700, lineHeight: 1.15 }}>{name}</div>
+            <div style={{ marginTop: 14, color: MUTED, fontFamily: SANS, fontSize: 22, fontWeight: 500, lineHeight: 1.35 }}>{role}</div>
           </div>
         ))}
       </div>
-      <div style={{ position: "absolute", left: 70, bottom: 205, display: "flex", gap: 14, ...enter(frame, 130) }}>
-        {["get_event_window()", "get_tactical_chain()", "get_pressure_comparison()", "get_player_summary()"].map((tool) => (
-          <span key={tool} style={{ padding: "8px 14px", border: `1px solid ${CYAN}66`, background: "#0b1412", ...mono(13, CYAN) }}>MCP · {tool}</span>
+      <div style={{ position: "absolute", left: 70, bottom: 170, display: "flex", gap: 16, ...enter(frame, 130) }}>
+        {["Event Window", "Pass Chain", "Speed Check", "Player Stats"].map((tool) => (
+          <span key={tool} style={{ padding: "12px 22px", borderRadius: 999, border: `1px solid ${CYAN}`, background: `${CYAN}18`, ...mono(16, CYAN) }}>✓ {tool}</span>
         ))}
       </div>
-      <div style={{ position: "absolute", left: 70, bottom: 150, ...mono(16, DIM), ...enter(frame, 145) }}>Parallel fan-out / 3-Act MatchBlackboard / 4 MCP Tools / Deterministic fallback</div>
-      <Caption>Each agent has one responsibility. No single prompt owns the whole decision.</Caption>
+      <Caption>Every specialist checks live match data before a word goes on air.</Caption>
     </AbsoluteFill>
   );
 }
@@ -165,24 +165,24 @@ function Revision() {
     <AbsoluteFill>
       <Backdrop accent={CORAL} />
       <BrandMark />
-      <div style={{ position: "absolute", top: 145, left: 74, ...enter(frame, 10) }}>
-        <div style={mono(14, CORAL)}>Hallucination Gate Lab / Bounded recovery (max=1)</div>
-        <div style={{ marginTop: 16, color: TEXT, fontFamily: SANS, fontSize: 64, letterSpacing: "-0.05em" }}>When a claim overreaches.</div>
+      <div style={{ position: "absolute", top: 130, left: 74, ...enter(frame, 10) }}>
+        <div style={mono(18, CORAL)}>AI FACT-CHECK GUARD</div>
+        <div style={{ marginTop: 14, color: TEXT, fontFamily: SANS, fontSize: 72, fontWeight: 700, letterSpacing: "-0.05em" }}>No hype. Only proven facts.</div>
       </div>
-      <div style={{ position: "absolute", top: 340, right: 90, left: 90, display: "grid", gridTemplateColumns: "1fr 90px 1fr", alignItems: "center", gap: 22 }}>
-        <div style={{ padding: 34, border: `1px solid ${CORAL}66`, background: "#120e0d", ...enter(frame, 25) }}>
-          <div style={mono(13, CORAL)}>FactChecker + MCP get_pressure_comparison() / Reject & Revise</div>
-          <div style={{ marginTop: 30, color: TEXT, fontFamily: SANS, fontSize: 34, lineHeight: 1.35 }}>“The <span style={{ position: "relative" }}>fastest / most dangerous<span style={{ position: "absolute", top: "55%", left: 0, width: `${strike}%`, height: 3, background: CORAL }} /></span> sequence (33.4 vs 31' 33.8 km/h).”</div>
-          <div style={{ marginTop: 25, color: MUTED, fontFamily: SANS, fontSize: 18 }}>Unsupported superlative blocked against e-000419 (33.8 km/h).</div>
+      <div style={{ position: "absolute", top: 330, right: 80, left: 80, display: "grid", gridTemplateColumns: "1fr 90px 1fr", alignItems: "stretch", gap: 24 }}>
+        <div style={{ padding: 38, borderRadius: 16, border: `2px solid ${CORAL}`, background: "linear-gradient(165deg, #261211, #110909)", ...enter(frame, 25) }}>
+          <div style={mono(16, CORAL)}>✕ EXAGGERATED AI DRAFT</div>
+          <div style={{ marginTop: 28, color: TEXT, fontFamily: SANS, fontSize: 40, fontWeight: 700, lineHeight: 1.3 }}>“The <span style={{ position: "relative", color: CORAL }}>fastest sprint all night<span style={{ position: "absolute", top: "54%", left: 0, width: `${strike}%`, height: 4, background: CORAL }} /></span> (33.4 km/h).”</div>
+          <div style={{ marginTop: 26, color: MUTED, fontFamily: SANS, fontSize: 22, fontWeight: 500 }}>Blocked! Earlier sprint at 31' was faster (33.8 km/h).</div>
         </div>
-        <div style={{ color: LIME, fontFamily: MONO, fontSize: 44, textAlign: "center", opacity: interpolate(frame, [105, 130], [0, 1], clamp) }}>→</div>
-        <div style={{ padding: 34, border: `1px solid ${LIME}66`, background: "#0d130c", ...enter(frame, 120) }}>
-          <div style={mono(13, LIME)}>StoryProducer:revise → FactChecker:recheck</div>
-          <div style={{ marginTop: 30, color: TEXT, fontFamily: SANS, fontSize: 34, lineHeight: 1.35 }}>“A 24.6 m pass through 0.82 pressure (+0.174 xT).”</div>
-          <div style={{ marginTop: 25, color: LIME, fontFamily: SANS, fontSize: 18 }}>One revision. Grounded on MatchBlackboard. Zero invented stats.</div>
+        <div style={{ display: "grid", placeItems: "center", color: LIME, fontFamily: MONO, fontSize: 54, fontWeight: 700, opacity: interpolate(frame, [105, 130], [0, 1], clamp) }}>→</div>
+        <div style={{ padding: 38, borderRadius: 16, border: `2px solid ${LIME}`, background: "linear-gradient(165deg, #162612, #0a1109)", ...enter(frame, 120) }}>
+          <div style={mono(16, LIME)}>✓ AUTO-CORRECTED FOR TV</div>
+          <div style={{ marginTop: 28, color: TEXT, fontFamily: SANS, fontSize: 40, fontWeight: 700, lineHeight: 1.3 }}>“24.6m pass through 0.82 pressure (+0.174 threat).”</div>
+          <div style={{ marginTop: 26, color: LIME, fontFamily: SANS, fontSize: 22, fontWeight: 600 }}>100% verified against official match data.</div>
         </div>
       </div>
-      <Caption>The checker can send language back once. An unresolved error still stays off air.</Caption>
+      <Caption>When AI exaggerates, the Fact Checker blocks it and rewrites with real numbers.</Caption>
     </AbsoluteFill>
   );
 }

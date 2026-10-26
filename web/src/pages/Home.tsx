@@ -41,7 +41,7 @@ export default function Home() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.4 }}
           >
-            Five agents turn the pressure, movement and meaning inside every moment into evidence-backed match intelligence.
+            Turn every decisive pass into interactive 3D, live TV graphics, and tailored fan stories — 100% fact-checked.
           </motion.p>
           <motion.div
             className="home-actions"
@@ -78,9 +78,9 @@ export default function Home() {
           </div>
         </motion.div>
         <div className="home-proof" aria-label="Live product proof">
-          <span><b>{events.length.toLocaleString() || "1,275"}</b> real synthetic events</span>
-          <span><b>5</b> specialized agents · <b>4</b> MCP tools</span>
-          <span><b>3-act</b> Blackboard story arc</span>
+          <span><b>{events.length.toLocaleString() || "1,275"}</b> match events</span>
+          <span><b>3D</b> interactive pitch</span>
+          <span><b>100%</b> fact-checked</span>
         </div>
       </section>
     </main>
