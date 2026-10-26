@@ -24,6 +24,11 @@ from matchmind.agents.contracts import (
     TraceStep,
     VerificationResult,
 )
+from matchmind.agents.director import (
+    build_rundown,
+    director_options,
+    normalize_decision,
+)
 from matchmind.agents.grounding import ensure_grounded
 from matchmind.agents.json_utils import run_json_agent
 from matchmind.agents.llm import build_chat_client
@@ -47,6 +52,7 @@ from matchmind.agents.verifier import (
     fallback_decision,
     fallback_insight,
     merge_verifications,
+    verify_cue,
     verify_deterministic,
 )
 from matchmind.analytics import build_snapshot, detect_moments, load_match
@@ -132,7 +138,9 @@ class MatchMindPipeline:
             timeout=settings.llm_timeout_seconds,
         )
 
-    async def _producer(self, candidate: InsightCandidate) -> OverlayCue:
+    async def _producer(
+        self, candidate: InsightCandidate, feedback: list[dict[str, Any]] | None = None
+    ) -> OverlayCue:
         async def attempt() -> OverlayCue:
             agent = Agent(
                 client=build_chat_client(),
@@ -142,7 +150,7 @@ class MatchMindPipeline:
             return await asyncio.wait_for(
                 run_json_agent(
                     agent,
-                    producer_prompt(candidate.model_dump(mode="json")),
+                    producer_prompt(candidate.model_dump(mode="json"), feedback),
                     OverlayCue,
                 ),
                 timeout=settings.llm_timeout_seconds,
@@ -204,7 +212,10 @@ class MatchMindPipeline:
         )
 
     async def _director(
-        self, candidate: InsightCandidate, verification: VerificationResult
+        self,
+        candidate: InsightCandidate,
+        verification: VerificationResult,
+        options: list[dict[str, Any]],
     ) -> RundownDecision:
         async def attempt() -> RundownDecision:
             agent = Agent(
@@ -218,6 +229,7 @@ class MatchMindPipeline:
                     director_prompt(
                         candidate.model_dump(mode="json"),
                         verification.model_dump(mode="json"),
+                        options,
                     ),
                     RundownDecision,
                 ),
@@ -428,7 +440,68 @@ class MatchMindPipeline:
 
         events_by_id = {event.event_id: event for event in bundle.events}
         deterministic = verify_deterministic(candidate, snapshot, moment, events_by_id)
+        cue_check = verify_cue(cue, candidate)
+        deterministic = VerificationResult(
+            status="reject" if "reject" in (deterministic.status, cue_check.status) else "pass",
+            issues=deterministic.issues + cue_check.issues,
+            checked_claims=deterministic.checked_claims,
+            notes="deterministic candidate and cue verifier",
+        )
         verification = merge_verifications(deterministic, model_verification)
+
+        if verification.status == "revise":
+            revise_start = time.perf_counter()
+            try:
+                cue = await self._producer(
+                    candidate,
+                    [issue.model_dump() for issue in model_verification.issues]
+                    if model_verification
+                    else [],
+                )
+                trace.append(
+                    TraceStep(
+                        agent="StoryProducer:revise",
+                        model=settings.deepseek_model,
+                        prompt_version=PROMPT_VERSION,
+                        latency_ms=round((time.perf_counter() - revise_start) * 1000, 1),
+                        status="ok",
+                    )
+                )
+                revised_evidence = {**checker_evidence, "cue": cue.model_dump(mode="json")}
+                model_verification = await self._checker(candidate, revised_evidence)
+                trace.append(
+                    TraceStep(
+                        agent="FactChecker:recheck",
+                        model=settings.deepseek_model,
+                        prompt_version=PROMPT_VERSION,
+                        latency_ms=round((time.perf_counter() - revise_start) * 1000, 1),
+                        status="ok",
+                    )
+                )
+            except Exception as exc:  # noqa: BLE001
+                fallback = True
+                cue = fallback_cue(candidate)
+                model_verification = None
+                trace.append(
+                    TraceStep(
+                        agent="FactChecker:recheck",
+                        model=settings.deepseek_model,
+                        prompt_version=PROMPT_VERSION,
+                        latency_ms=0,
+                        status="fallback",
+                        error=str(exc)[:300],
+                    )
+                )
+            cue_check = verify_cue(cue, candidate)
+            deterministic = VerificationResult(
+                status="reject" if cue_check.status == "reject" else deterministic.status,
+                issues=deterministic.issues + cue_check.issues,
+                checked_claims=deterministic.checked_claims,
+                notes="deterministic revised cue verifier",
+            )
+            verification = merge_verifications(
+                deterministic, model_verification, after_revision=True
+            )
 
         if verification.status != "pass":
             decision = fallback_decision(verification)
@@ -446,8 +519,11 @@ class MatchMindPipeline:
             )
 
         director_start = time.perf_counter()
+        moments = detect_moments(bundle)
         try:
-            decision = await self._director(candidate, verification)
+            decision = await self._director(
+                candidate, verification, director_options(moments, moment, bundle.events)
+            )
             trace.append(
                 TraceStep(
                     agent="Director",
@@ -470,16 +546,18 @@ class MatchMindPipeline:
                     error=str(exc)[:300],
                 )
             )
+        decision = normalize_decision(decision, verification, moments, moment, bundle.events)
 
         return PipelineResult(
             match_id=match_id,
             moment=moment,
             clock=moment.clock,
             insight=candidate,
-            cue=cue if decision.action == "approve" else None,
+            cue=cue,
             fan_cards=fan_cards,
             verification=verification,
             decision=decision,
+            rundown=build_rundown(decision, moments, moment),
             trace=trace,
             fallback=fallback,
         )

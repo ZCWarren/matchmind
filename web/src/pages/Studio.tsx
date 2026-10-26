@@ -1,678 +1,171 @@
-import {
-  ArrowCounterClockwise,
-  Broadcast,
-  CaretDown,
-  DeviceMobile,
-  Info,
-  Monitor,
-  Pause,
-  Play,
-  ShieldCheck,
-  Sparkle,
-} from "@phosphor-icons/react";
-import { useCallback, useEffect, useMemo, useRef, useState } from "react";
-import { Link, useSearchParams } from "react-router-dom";
-import AgentRundown from "../components/AgentRundown";
-import Brand from "../components/Brand";
-import EventTicker from "../components/EventTicker";
-import EvidenceDrawer from "../components/EvidenceDrawer";
-import OverlayCueView from "../components/OverlayCueView";
-import Pitch from "../components/Pitch";
+import { ArrowCounterClockwise, ArrowUpRight, Broadcast, Check, Monitor, Pause, Play, ShieldCheck, Sparkle, Stop, X } from "@phosphor-icons/react";
+import { useCallback, useEffect, useRef, useState } from "react";
+import { Link } from "react-router-dom";
 import { api } from "../api";
-import { eventLabel, formatClock, metricNumber } from "../lib";
-import type {
-  Clock,
-  Event,
-  FeatureSnapshot,
-  InsightResult,
-  Language,
-  MatchDetail,
-  MatchSummary,
-  Moment,
-  OverlayVariant,
-  Profile,
-  Score,
-} from "../types";
+import AppNav from "../components/AppNav";
+import OverlayCueView from "../components/OverlayCueView";
+import { eventIndex, useMatchExperience } from "../hooks/useMatchExperience";
+import { formatClock } from "../lib";
+import type { InsightResult, OverlayVariant } from "../types";
 
-const HERO_MATCH = "ast-2026-1018-nhr-orn";
-const PROFILES: Profile[] = ["analyst", "casual", "player"];
-const LANGUAGES: Language[] = ["en", "es", "zh"];
-
-function chooseMoment(moments: Moment[]): Moment | null {
-  if (moments.length === 0) return null;
-  const lateLineBreak = moments.find(
-    (moment) => moment.type === "line_break" && moment.clock.minute >= 70,
-  );
-  return lateLineBreak ?? [...moments].sort((a, b) => b.importance - a.importance)[0];
-}
-
-function eventIndex(events: Event[], eventId: string | undefined): number {
-  if (!eventId) return Math.max(0, events.length - 1);
-  const index = events.findIndex((event) => event.event_id === eventId);
-  return index === -1 ? Math.max(0, events.length - 1) : index;
-}
-
-function scoreFor(event: Event | undefined, fallback: Score): Score {
-  return event?.score ?? fallback;
-}
-
-function clockFor(event: Event | undefined, fallback: Clock): Clock {
-  return event?.clock ?? fallback;
-}
-
-function momentLabel(type: string): string {
-  return type.replace(/_/g, " ");
-}
+const OVERLAYS: { id: OverlayVariant; label: string }[] = [
+  { id: "lower_third", label: "L3" },
+  { id: "stat_card", label: "STAT" },
+  { id: "momentum", label: "MOM" },
+  { id: "speed_alert", label: "SPD" },
+  { id: "pressure_map", label: "MAP" },
+];
 
 export default function Studio() {
-  const [params, setParams] = useSearchParams();
-  const [matches, setMatches] = useState<MatchSummary[]>([]);
-  const [selected, setSelected] = useState(params.get("match") ?? HERO_MATCH);
-  const [detail, setDetail] = useState<MatchDetail | null>(null);
-  const [events, setEvents] = useState<Event[]>([]);
-  const [moments, setMoments] = useState<Moment[]>([]);
-  const [selectedMoment, setSelectedMoment] = useState<Moment | null>(null);
-  const [insight, setInsight] = useState<InsightResult | null>(null);
-  const [features, setFeatures] = useState<FeatureSnapshot | null>(null);
-  const [cursor, setCursor] = useState(0);
-  const [playing, setPlaying] = useState(false);
-  const [live, setLive] = useState(false);
-  const [speed, setSpeed] = useState(1);
-  const [overlayVariant, setOverlayVariant] = useState<OverlayVariant>("lower_third");
-  const liveSocket = useRef<WebSocket | null>(null);
-
-  const selectMatch = (matchId: string) => {
-    setSelected(matchId);
-    const next = new URLSearchParams(params);
-    next.set("match", matchId);
-    setParams(next, { replace: true });
-  };
-
-  useEffect(() => {
-    const fromUrl = params.get("match");
-    if (!fromUrl || matches.length === 0) return;
-    if (!matches.some((match) => match.match_id === fromUrl)) {
-      const fallback = matches[0].match_id;
-      const next = new URLSearchParams(params);
-      next.set("match", fallback);
-      setParams(next, { replace: true });
-      setSelected(fallback);
-      return;
-    }
-    if (fromUrl !== selected) setSelected(fromUrl);
-  }, [matches, params, selected, setParams]);
+  const experience = useMatchExperience();
+  const {
+    matchId, setMatchId, matches, match, home, away, events, moments, selectedMoment,
+    setSelectedMoment, selectMoment, features, setFeatures, insight, setInsight, currentEvent,
+    cursor, setCursor,
+    playing, setPlaying, speed, setSpeed, generating, allowLive, staticDemo, error, generate,
+  } = experience;
+  const [variant, setVariant] = useState<OverlayVariant>("lower_third");
   const [safe, setSafe] = useState(true);
-  const [approval, setApproval] = useState<"approved" | "held">("held");
-  const [loading, setLoading] = useState(true);
-  const [generating, setGenerating] = useState(false);
-  const [cached, setCached] = useState(false);
-  const [allowLive, setAllowLive] = useState(true);
-  const [staticDemo, setStaticDemo] = useState(import.meta.env.VITE_STATIC_DEMO === "true");
-  const [error, setError] = useState<string | null>(null);
-  const [selectedClaim, setSelectedClaim] = useState(0);
-
-  const loadInsight = useCallback(
-    async (matchId: string, moment: Moment, sourceEvents: Event[], useCache: boolean, cacheOnly = false) => {
-      setGenerating(true);
-      setError(null);
-      const started = performance.now();
-      try {
-        const result = await api.insight(matchId, {
-          moment_id: moment.moment_id,
-          profiles: PROFILES,
-          languages: LANGUAGES,
-          use_cache: useCache,
-          cache_only: cacheOnly,
-          use_mcp: true,
-        });
-        setInsight(result);
-        setCached(useCache && performance.now() - started < 2500);
-        setApproval(result.decision.action === "approve" ? "approved" : "held");
-        setSelectedClaim(0);
-        setCursor(eventIndex(sourceEvents, moment.event_id));
-        try {
-          setFeatures(await api.features(matchId, moment.event_id));
-        } catch {
-          setFeatures(null);
-        }
-      } catch (caught) {
-        setError(
-          cacheOnly
-            ? "No cached rundown for this moment yet. Generate to run it live."
-            : caught instanceof Error
-              ? caught.message
-              : "Could not generate insight",
-        );
-      } finally {
-        setGenerating(false);
-      }
-    },
-    [],
-  );
+  const [approval, setApproval] = useState<"approved" | "held" | "killed">("held");
+  const [live, setLive] = useState(false);
+  const [liveError, setLiveError] = useState<string | null>(null);
+  const socketRef = useRef<WebSocket | null>(null);
 
   useEffect(() => {
-    api
-      .config()
-      .then((value) => {
-        setAllowLive(value.allow_live_generation);
-        setStaticDemo(value.demo_mode === "static");
-      })
-      .catch(() => undefined);
-    api
-      .matches()
-      .then((value) => {
-        setMatches(value);
-        if (!value.some((match) => match.match_id === selected)) {
-          setSelected(value[0]?.match_id ?? HERO_MATCH);
-        }
-      })
-      .catch((caught) => setError(caught instanceof Error ? caught.message : "Could not load matches"));
-  }, [selected]);
-
-  useEffect(() => {
-    let cancelled = false;
-    setLoading(true);
-    setError(null);
-    setInsight(null);
-    setFeatures(null);
-    setCached(false);
-    setPlaying(false);
-    setSelectedClaim(0);
-    Promise.all([api.match(selected), api.events(selected), api.moments(selected)])
-      .then(([nextDetail, eventPage, momentPage]) => {
-        if (cancelled) return;
-        const nextMoment = chooseMoment(momentPage.moments);
-        setDetail(nextDetail);
-        setEvents(eventPage.events);
-        setMoments(momentPage.moments);
-        setSelectedMoment(nextMoment);
-        setCursor(eventIndex(eventPage.events, nextMoment?.event_id));
-        setApproval("held");
-        setLoading(false);
-        if (nextMoment) {
-          void loadInsight(selected, nextMoment, eventPage.events, true, true);
-        }
-      })
-      .catch((caught) => {
-        if (cancelled) return;
-        setLoading(false);
-        setError(caught instanceof Error ? caught.message : "Could not load match");
-      });
-    return () => {
-      cancelled = true;
-    };
-  }, [selected, loadInsight]);
-
-  useEffect(() => {
-    if (!playing || events.length === 0) return;
-    const intervalMs = speed === 1 ? 900 : speed === 10 ? 140 : 40;
-    const timer = window.setInterval(() => {
-      setCursor((value) => Math.min(value + 1, events.length - 1));
-    }, intervalMs);
-    return () => window.clearInterval(timer);
-  }, [playing, speed, events.length]);
-
-  useEffect(() => {
-    if (playing && cursor >= events.length - 1) setPlaying(false);
-  }, [playing, cursor, events.length]);
-
-  const match = useMemo(
-    () => matches.find((item) => item.match_id === selected) ?? null,
-    [matches, selected],
-  );
-  const home = detail?.match.home ?? match?.home;
-  const away = detail?.match.away ?? match?.away;
-  const current = events[cursor];
-  const score = scoreFor(current, detail?.match.final_score ?? match?.final_score ?? { home: 0, away: 0 });
-  const clock = clockFor(current, insight?.clock ?? { period: 2, minute: 72, second: 0 });
-  const momentIndex = eventIndex(events, selectedMoment?.event_id);
-  const visibleMoments = useMemo(() => {
-    if (!selectedMoment) return moments.slice(0, 8);
-    const others = moments.filter((moment) => moment.moment_id !== selectedMoment.moment_id).slice(0, 7);
-    return [selectedMoment, ...others];
-  }, [moments, selectedMoment]);
-  const cueVisible = approval === "approved" && insight?.cue && cursor >= momentIndex;
-  const stat = (name: string, digits = 2): string => {
-    const value = features?.metrics[name]?.value;
-    return value === undefined ? "--" : metricNumber(value, digits);
-  };
-
-  const selectMoment = (moment: Moment) => {
-    setSelectedMoment(moment);
-    setCursor(eventIndex(events, moment.event_id));
-    setPlaying(false);
-    if (insight?.moment.moment_id !== moment.moment_id) {
-      setInsight(null);
-      setFeatures(null);
-      setApproval("held");
-      setCached(false);
-    }
-  };
-
-  const selectEvent = (eventId: string) => {
-    setCursor(eventIndex(events, eventId));
-    setPlaying(false);
-  };
-
-  const generate = () => {
-    if (allowLive && selectedMoment) void loadInsight(selected, selectedMoment, events, false);
-  };
+    setApproval(insight?.decision.action === "approve" ? "approved" : "held");
+  }, [insight]);
 
   const stopLive = useCallback(() => {
-    liveSocket.current?.close();
-    liveSocket.current = null;
+    socketRef.current?.close();
+    socketRef.current = null;
     setLive(false);
   }, []);
 
-  const startLive = useCallback(() => {
-    if (!selected || events.length === 0) return;
-    liveSocket.current?.close();
+  useEffect(() => stopLive, [stopLive]);
+  useEffect(() => { stopLive(); }, [matchId, stopLive]);
+
+  const startLive = () => {
+    if (!events.length) return;
+    stopLive();
     setPlaying(false);
-    setError(null);
+    setLiveError(null);
     setLive(true);
     const startEvent = events[Math.max(0, cursor - 6)]?.event_id;
     const protocol = window.location.protocol === "https:" ? "wss" : "ws";
     const query = startEvent ? `&start_event_id=${encodeURIComponent(startEvent)}` : "";
-    const socket = new WebSocket(
-      `${protocol}://${window.location.host}/ws/matches/${selected}?speed=10${query}`,
-    );
-    liveSocket.current = socket;
+    const socket = new WebSocket(`${protocol}://${window.location.host}/ws/matches/${matchId}?speed=10${query}`);
+    socketRef.current = socket;
     socket.onmessage = (message) => {
-      const data = JSON.parse(message.data) as {
-        type: string;
-        index?: number;
-        result?: InsightResult;
-      };
-      if (data.type === "event" && typeof data.index === "number") {
-        setCursor(data.index);
-      }
+      const data = JSON.parse(message.data) as { type: string; index?: number; result?: InsightResult };
+      if (data.type === "event" && typeof data.index === "number") setCursor(data.index);
       if (data.type === "insight" && data.result) {
         setInsight(data.result);
         setSelectedMoment(data.result.moment);
-        setApproval(data.result.decision.action === "approve" ? "approved" : "held");
-        setCached(false);
-        setSelectedClaim(0);
-        void api
-          .features(selected, data.result.moment.event_id)
-          .then(setFeatures)
-          .catch(() => undefined);
+        void api.features(matchId, data.result.moment.event_id).then(setFeatures).catch(() => undefined);
       }
       if (data.type === "end") setLive(false);
     };
-    socket.onerror = () => {
-      if (liveSocket.current !== socket) return;
-      setError("Live feed disconnected");
-      setLive(false);
-    };
-    socket.onclose = () => {
-      if (liveSocket.current !== socket) return;
-      liveSocket.current = null;
-      setLive(false);
-    };
-  }, [cursor, events, selected]);
+    socket.onerror = () => { setLiveError("Live feed disconnected"); setLive(false); };
+    socket.onclose = () => { if (socketRef.current === socket) { socketRef.current = null; setLive(false); } };
+  };
 
-  useEffect(() => {
-    return () => {
-      liveSocket.current?.close();
-    };
-  }, []);
-
-  useEffect(() => {
-    liveSocket.current?.close();
-    setLive(false);
-  }, [selected]);
+  const score = currentEvent?.score ?? match?.final_score ?? { home: 0, away: 0 };
+  const momentIndex = eventIndex(events, selectedMoment?.event_id);
+  const cueVisible = approval === "approved" && insight?.cue && cursor >= momentIndex ? insight.cue : null;
+  const rundown = insight?.rundown?.length ? insight.rundown : moments.slice(0, 8).map((moment, index) => ({
+    moment_id: moment.moment_id,
+    rank: index + 1,
+    action: "hold" as const,
+    reason: "Waiting for Director review",
+    air_at: null,
+  }));
+  const momentById = new Map(moments.map((moment) => [moment.moment_id, moment]));
 
   return (
-    <div className="shell">
-      <header className="topbar">
-        <Brand />
-        <div className="match-select-wrap">
-          <select
-            className="match-select"
-            value={selected}
-            onChange={(event) => selectMatch(event.target.value)}
-            aria-label="Select match"
-          >
-            {matches.map((item) => (
-              <option key={item.match_id} value={item.match_id}>
-                {item.home.name} vs {item.away.name}
-              </option>
-            ))}
-            {matches.length === 0 && <option value={HERO_MATCH}>Nova Harbor vs Orion North</option>}
-          </select>
-          <CaretDown size={12} />
+    <main className="studio-page">
+      <AppNav matchId={matchId} />
+      <section className="studio-commandbar">
+        <select className="fixture-select" value={matchId} onChange={(event) => setMatchId(event.target.value)} aria-label="Select match">
+          {matches.map((item) => <option key={item.match_id} value={item.match_id}>{item.home.name} vs {item.away.name}</option>)}
+        </select>
+        <div className="studio-score"><span>{home?.short_name.toUpperCase()}</span><strong>{score.home} : {score.away}</strong><span>{away?.short_name.toUpperCase()}</span><small>{currentEvent ? formatClock(currentEvent.clock) : "--:--"}</small></div>
+        <div className="replay-controls">
+          <button type="button" onClick={() => setPlaying(!playing)} aria-label={playing ? "Pause replay" : "Play replay"}>{playing ? <Pause size={15} /> : <Play size={15} />}</button>
+          <button type="button" onClick={() => { setPlaying(false); setCursor(Math.max(0, momentIndex - 6)); }} aria-label="Reset replay"><ArrowCounterClockwise size={15} /></button>
+          {[1, 10, 60].map((value) => <button type="button" key={value} className={speed === value ? "active" : ""} onClick={() => setSpeed(value)}>{value}x</button>)}
         </div>
+        <button className={`live-button ${live ? "active" : ""}`} type="button" onClick={live ? stopLive : startLive} disabled={staticDemo}>
+          {live ? <Stop size={14} /> : <Broadcast size={14} />} {live ? "Stop feed" : staticDemo ? "Static demo" : "Go live"}
+        </button>
+        <button className="generate-button" type="button" onClick={() => void generate()} disabled={!allowLive || generating || !selectedMoment}>
+          <Sparkle size={15} /> {generating ? "Agents working" : allowLive ? "Generate" : "Cached"}
+        </button>
+      </section>
 
-        <div className="scoreline">
-          <div className="score-team">
-            <span className="team-dot" style={{ background: home?.color ?? "#c8ff3d" }} />
-            {home?.short_name.toUpperCase() ?? "HOME"}
-          </div>
-          <span className="score-num">{score.home}</span>
-          <span className="score-dash">-</span>
-          <span className="score-num">{score.away}</span>
-          <div className="score-team">
-            <span className="team-dot" style={{ background: away?.color ?? "#ff625f" }} />
-            {away?.short_name.toUpperCase() ?? "AWAY"}
-          </div>
-          <div className="clock-block">
-            <span className="clock-main">{formatClock(clock)}</span>
-            <span className="clock-label">{live ? "LIVE FEED" : playing ? "REPLAYING" : "MATCH CLOCK"}</span>
-          </div>
-        </div>
-
-        <div className="top-controls">
-          <div className="control-cluster">
-            <button
-              className={`icon-btn ${playing ? "active" : ""}`}
-              type="button"
-              aria-label={playing ? "Pause replay" : "Play replay"}
-              onClick={() => {
-                if (cursor >= events.length - 1) setCursor(Math.max(0, momentIndex - 6));
-                setPlaying((value) => !value);
-              }}
-            >
-              {playing ? <Pause size={14} /> : <Play size={14} />}
-            </button>
-            <button
-              className="icon-btn"
-              type="button"
-              aria-label="Reset replay"
-              onClick={() => {
-                setPlaying(false);
-                setCursor(Math.max(0, momentIndex - 6));
-              }}
-            >
-              <ArrowCounterClockwise size={14} />
-            </button>
-          </div>
-          <div className="control-cluster">
-            {[1, 10, 60].map((value) => (
-              <button
-                key={value}
-                className={`speed-btn ${speed === value ? "active" : ""}`}
-                type="button"
-                onClick={() => setSpeed(value)}
-              >
-                {value}x
-              </button>
-            ))}
-          </div>
-          <button className="safe-toggle" data-on={safe} type="button" onClick={() => setSafe((value) => !value)}>
-            <ShieldCheck size={12} />
-            <span>SAFE</span>
-          </button>
-        </div>
-
-        <div className="top-right">
-          <div className="surface-links">
-            <Link className="surface-link active" to="/studio">
-              <Broadcast size={11} /> Studio
-            </Link>
-            <Link className="surface-link" to={`/overlay?bg=1&match=${selected}`}>
-              <Monitor size={11} /> Overlay
-            </Link>
-            <Link className="surface-link" to={`/fan?match=${selected}`}>
-              <DeviceMobile size={11} /> Fan
-            </Link>
-            <Link className="surface-link" to="/guide">
-              <Info size={11} /> Guide
-            </Link>
-          </div>
-          <button
-            className="btn btn-primary"
-            type="button"
-            onClick={generate}
-            disabled={generating || !selectedMoment || !allowLive}
-            title={allowLive ? "Run the live five-agent pipeline" : "Cached public demo"}
-          >
-            {generating ? <span className="spinner" /> : <Sparkle size={12} />}
-            {generating ? "Working" : allowLive ? "Generate" : "Cached"}
-          </button>
-        </div>
-      </header>
-
-      {error && (
-        <div style={{ padding: "10px 10px 0" }}>
-          <div className="error-banner">{error}</div>
-        </div>
-      )}
-
-      <div className="workspace">
-        <aside className="left-col">
-          <section className="panel match-card">
-            <div className="match-comp">{match?.competition ?? "ASTER LEAGUE"} / {match?.date ?? "DEMO"}</div>
-            <h1 className="match-title">
-              {home?.name ?? "Nova Harbor"} <span>vs</span> {away?.name ?? "Orion North"}
-            </h1>
-            <div className="match-meta">
-              <span>{match?.venue ?? "Meridian Park"}</span>
-              <span>{match?.event_count.toLocaleString() ?? "--"} EVENTS</span>
-            </div>
-            <div className="match-score">
-              <span className="big">
-                {score.home} - {score.away}
-              </span>
-              <span className="small">{clock.period === 2 ? "SECOND HALF" : "FIRST HALF"}</span>
-            </div>
-          </section>
-
-          <section className="panel moment-panel">
-            <header className="panel-head">
-              <span className="panel-title">
-                <Broadcast size={13} /> Key moments
-              </span>
-              <span style={{ display: "flex", alignItems: "center", gap: 6 }}>
-                <span className="source-tag detected">Detected</span>
-                <span className="mono dim" style={{ fontSize: 8 }}>
-                  {moments.length} FOUND
-                </span>
-              </span>
-            </header>
-            <div className="panel-body moment-list">
-              {visibleMoments.map((moment) => (
-                <button
-                  type="button"
-                  key={moment.moment_id}
-                  className={`moment-row ${selectedMoment?.moment_id === moment.moment_id ? "active" : ""}`}
-                  onClick={() => selectMoment(moment)}
-                >
-                  <span className="moment-min">{formatClock(moment.clock)}</span>
-                  <span>
-                    <span className="moment-name">{momentLabel(moment.type)}</span>
-                    <br />
-                    <span className="moment-type">{moment.headline.slice(0, 34)}</span>
-                  </span>
-                  <span className="moment-imp" aria-label={`Importance ${Math.round(moment.importance * 100)} percent`}>
-                    <i style={{ width: `${Math.round(moment.importance * 100)}%` }} />
-                  </span>
+      {(error || liveError) && <div className="error-banner">{error ?? liveError}</div>}
+      <div className="studio-workspace">
+        <section className="rundown-panel">
+          <header><div><span className="section-label">Director's rundown</span><h1>What deserves airtime?</h1></div><span>{rundown.length} moments</span></header>
+          <div className="rundown-list">
+            {rundown.map((entry) => {
+              const moment = momentById.get(entry.moment_id);
+              if (!moment) return null;
+              return (
+                <button key={entry.moment_id} type="button" className={selectedMoment?.moment_id === entry.moment_id ? "active" : ""} onClick={() => selectMoment(moment)}>
+                  <span className="rundown-rank">{String(entry.rank).padStart(2, "0")}</span>
+                  <span className="rundown-copy"><strong>{moment.headline}</strong><small>{formatClock(moment.clock)} / {moment.type.replaceAll("_", " ")}</small><em>{entry.reason}</em></span>
+                  <span className={`rundown-state ${entry.action}`}>{entry.action}</span>
                 </button>
-              ))}
-              {moments.length === 0 && <div className="loading-block">{loading ? "LOADING MOMENTS" : "NO MOMENTS"}</div>}
-            </div>
-          </section>
-
-          <EventTicker
-            events={events}
-            cursor={cursor}
-            onSelect={(index) => {
-              setCursor(index);
-              setPlaying(false);
-            }}
-          />
-        </aside>
-
-        <main className="center-col">
-          <section className="panel pitch-panel">
-            <header className="pitch-head">
-              <div className="pitch-head-left">
-                <span className="eyebrow">MATCH VIEW</span>
-                <span className="pitch-venue">{match?.venue ?? "Meridian Park"}</span>
-              </div>
-              <div className="pitch-head-left">
-                <span className="pitch-mode">
-                  <Broadcast size={10} /> {playing ? `${speed}x replay` : "event state"}
-                  <span className="source-tag data">Tracking</span>
-                </span>
-                <span className="pitch-attack">ATTACK →</span>
-              </div>
-            </header>
-            <div className="pitch-stage">
-              {home && away && events.length > 0 ? (
-                <Pitch events={events} cursor={cursor} home={home} away={away} />
-              ) : (
-                <div className="loading-block">{loading ? "LOADING PITCH" : "NO EVENTS"}</div>
-              )}
-              <div className="pitch-caption">
-                <span>PASS NETWORK / PRESSURE RADIUS</span>
-                <span>·</span>
-                <span>{features ? `SNAPSHOT ${formatClock(features.clock)}` : "LIVE STATE"}</span>
-              </div>
-            </div>
-            <div className="event-detail">
-              <div className="event-detail-minute">{current ? formatClock(current.clock) : "--"}</div>
-              <div className="event-detail-main">
-                <div className="event-detail-title">
-                  {current ? eventLabel(current.type, current.player_id) : "Waiting for event"}
-                </div>
-                <div className="event-detail-sub">
-                  {current
-                    ? `${current.team_id ?? "MATCH"} / ${current.outcome ?? "in play"} / possession ${current.possession_id}`
-                    : "Select a moment or start replay"}
-                </div>
-              </div>
-              <div className="event-detail-metrics">
-                <div className="mini-metric">
-                  <b>{current ? current.pressure.toFixed(2) : "--"}</b>
-                  <span>Pressure</span>
-                </div>
-                <div className="mini-metric">
-                  <b>{current?.ball_speed_kmh ?? current?.speed_kmh ?? "--"}</b>
-                  <span>Speed km/h</span>
-                </div>
-                <div className="mini-metric">
-                  <b>{current?.difficulty ?? "--"}</b>
-                  <span>Difficulty</span>
-                </div>
-              </div>
-            </div>
-          </section>
-
-          <div className="stat-row">
-            <div className="stat-tile">
-              <div className="stat-label">xG H / A</div>
-              <div className="stat-value">
-                {stat("xg_home")} <small>/</small> {stat("xg_away")}
-              </div>
-            </div>
-            <div className="stat-tile">
-              <div className="stat-label">xT H / A</div>
-              <div className="stat-value">
-                {stat("xt_home", 1)} <small>/</small> {stat("xt_away", 1)}
-              </div>
-            </div>
-            <div className="stat-tile">
-              <div className="stat-label">Control H</div>
-              <div className="stat-value">{stat("control_home")}</div>
-            </div>
-            <div className="stat-tile">
-              <div className="stat-label">Chaos</div>
-              <div className="stat-value">{stat("chaos")}</div>
-            </div>
-            <div className="stat-tile">
-              <div className="stat-label">Momentum</div>
-              <div className="stat-value">{stat("momentum")}</div>
-            </div>
-            <div className="stat-tile">
-              <div className="stat-label">Top speed</div>
-              <div className="stat-value">
-                {stat("top_speed", 1)} <small>km/h</small>
-              </div>
-            </div>
+              );
+            })}
           </div>
-        </main>
+          <div className="rundown-rule"><ShieldCheck size={15} /> 60s dedupe / 15s airtime gap / stoppage preferred</div>
+        </section>
 
-        <aside className="right-col">
-          <section className="panel monitor-panel">
-            <header className="panel-head">
-              <span className="panel-title">
-                <Monitor size={13} /> Program monitor
-              </span>
-              <span style={{ display: "flex", alignItems: "center", gap: 6 }}>
-                <span className="source-tag cue">Verified cue</span>
-                <select
-                  className="template-select"
-                  value={overlayVariant}
-                  onChange={(event) => setOverlayVariant(event.target.value as OverlayVariant)}
-                  aria-label="Overlay template"
-                >
-                  <option value="lower_third">L3</option>
-                  <option value="stat_card">STAT</option>
-                  <option value="momentum">MOM</option>
-                  <option value="speed_alert">SPD</option>
-                  <option value="pressure_map">MAP</option>
-                </select>
-                {staticDemo ? (
-                  <span className="chip">Static demo</span>
-                ) : (
-                  <button
-                    className={`btn ${live ? "btn-danger" : "btn-quiet"}`}
-                    type="button"
-                    style={{ padding: "4px 7px" }}
-                    onClick={live ? stopLive : startLive}
-                  >
-                    <Broadcast size={10} /> {live ? "Stop" : "Go live"}
-                  </button>
-                )}
-              </span>
-            </header>
-            <div className="monitor-frame">
-              <div className="monitor">
-                <div className="monitor-label">PREVIEW / 1920 × 1080</div>
-                <div className="cue-stage">
-                  {cueVisible ? (
-                    <OverlayCueView
-                      cue={insight?.cue ?? null}
-                      compact
-                      variant={overlayVariant}
-                      features={features}
-                      moment={selectedMoment}
-                      events={events}
-                    />
-                  ) : (
-                    <div className="monitor-standby">
-                      <Broadcast size={18} />
-                      <strong>{approval === "held" ? "STANDBY" : "WAITING"}</strong>
-                      <span>{generating ? "GENERATING INSIGHT" : "APPROVE RUNDOWN TO SEND"}</span>
-                    </div>
-                  )}
-                </div>
-                {safe && <div className="monitor-safe" />}
-              </div>
-            </div>
-          </section>
+        <section className="program-panel">
+          <header><span className="section-label">Program monitor</span><Link to={`/overlay?bg=1&match=${matchId}&approval=${approval}`}>Full screen <ArrowUpRight size={13} /></Link></header>
+          <div className="program-screen">
+            <div className="program-match-meta"><span>{home?.name} vs {away?.name}</span><span>{currentEvent ? formatClock(currentEvent.clock) : "--:--"}</span></div>
+            <OverlayCueView cue={cueVisible} guides={safe} variant={variant} features={features} moment={selectedMoment} events={events} compact />
+            {!cueVisible && <div className="program-hold"><Monitor size={30} /><strong>{approval === "held" ? "Cue held off air" : "Waiting for a verified cue"}</strong><span>The program output changes only after approval.</span></div>}
+          </div>
+          <div className="overlay-switch">
+            {OVERLAYS.map((item) => <button type="button" key={item.id} className={variant === item.id ? "active" : ""} onClick={() => setVariant(item.id)}>{item.label}</button>)}
+            <button type="button" className={safe ? "active safe" : "safe"} onClick={() => setSafe(!safe)}><ShieldCheck size={13} /> SAFE</button>
+          </div>
+          <div className="studio-timeline">
+            <input aria-label="Studio replay timeline" type="range" min={0} max={Math.max(0, events.length - 1)} value={cursor} onChange={(event) => { setPlaying(false); setCursor(Number(event.target.value)); }} />
+            <div><span>{events[cursor]?.event_id ?? "No event"}</span><span>{cursor + 1} / {events.length}</span></div>
+          </div>
+        </section>
 
-          <AgentRundown
-            result={insight}
-            status={approval}
-            cached={cached}
-            generating={generating}
-            onApprove={() => setApproval("approved")}
-            onHold={() => setApproval("held")}
-            onGenerate={generate}
-            allowLive={allowLive}
-            onEvidence={() => setSelectedClaim(0)}
-          />
-
-          <EvidenceDrawer
-            result={insight}
-            events={events}
-            selectedClaim={selectedClaim}
-            onSelectClaim={setSelectedClaim}
-            onSelectEvent={selectEvent}
-          />
+        <aside className="decision-panel">
+          <header><span className="section-label">Decision inspector</span><span className={`decision-status ${insight?.verification.status ?? "loading"}`}>{insight?.verification.status ?? "loading"}</span></header>
+          <div className="decision-story">
+            <span>{selectedMoment ? formatClock(selectedMoment.clock) : "--:--"} / SELECTED MOMENT</span>
+            <h2 className="insight-headline">{insight?.insight?.headline ?? selectedMoment?.headline ?? "Select a moment"}</h2>
+            <p>{insight?.decision.reason ?? "The Director will explain why this moment should air or wait."}</p>
+            {insight?.decision.air_at && <div className="air-slot"><Broadcast size={15} /><span>Suggested airtime</span><strong>{formatClock(insight.decision.air_at)}</strong></div>}
+          </div>
+          <div className="approval-controls">
+            <button type="button" className={approval === "approved" ? "active" : ""} disabled={!insight?.cue || insight.verification.status !== "pass"} onClick={() => setApproval("approved")}><Check size={15} /> Approve</button>
+            <button type="button" className={approval === "held" ? "active" : ""} onClick={() => setApproval("held")}><Pause size={15} /> Hold</button>
+            <button type="button" className={approval === "killed" ? "active" : ""} onClick={() => { setApproval("killed"); }} aria-label="Kill cue"><X size={15} /></button>
+          </div>
+          <div className="agent-trace">
+            <span className="section-label">Agent trace</span>
+            {insight?.trace.map((step, index) => (
+              <div key={`${step.agent}-${index}`}><span className={step.status}>{step.status}</span><strong>{step.agent}</strong><small>{step.latency_ms ? `${Math.round(step.latency_ms)}ms` : "cached"}</small></div>
+            ))}
+          </div>
+          <div className="verification-evidence">
+            <span className="section-label">Release gate</span>
+            <strong>{insight?.verification.checked_claims ?? 0} claims checked</strong>
+            <p>{insight?.verification.notes ?? "No unsupported claim reaches the program monitor."}</p>
+            <Link to={`/moment?match=${matchId}`}>Inspect event evidence <ArrowUpRight size={13} /></Link>
+          </div>
         </aside>
       </div>
-    </div>
+    </main>
   );
 }

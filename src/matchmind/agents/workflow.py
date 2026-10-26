@@ -27,6 +27,11 @@ from matchmind.agents.contracts import (
     TraceStep,
     VerificationResult,
 )
+from matchmind.agents.director import (
+    build_rundown,
+    director_options,
+    normalize_decision,
+)
 from matchmind.agents.grounding import ensure_grounded
 from matchmind.agents.pipeline import MatchMindPipeline, build_checker_evidence
 from matchmind.agents.prompts import PROMPT_VERSION
@@ -35,6 +40,7 @@ from matchmind.agents.verifier import (
     fallback_decision,
     fallback_insight,
     merge_verifications,
+    verify_cue,
     verify_deterministic,
 )
 from matchmind.analytics import build_snapshot, detect_moments, load_match
@@ -69,6 +75,7 @@ class GraphEnvelope:
     cue: OverlayCue | None = None
     cards: list[FanCard] | None = None
     verification: VerificationResult | None = None
+    revision_count: int = 0
 
 
 @executor
@@ -242,32 +249,120 @@ async def checker(envelope: GraphEnvelope, ctx: WorkflowContext[GraphEnvelope]) 
     await ctx.send_message(envelope)
 
 
+def deterministic_review(envelope: GraphEnvelope) -> VerificationResult:
+    state = envelope.state
+    candidate_check = verify_deterministic(
+        envelope.candidate,
+        state.snapshot,
+        state.moment,
+        {event.event_id: event for event in state.bundle.events},
+    )
+    cue_check = (
+        verify_cue(envelope.cue, envelope.candidate)
+        if envelope.cue
+        else VerificationResult(status="reject", notes="missing broadcast cue")
+    )
+    return VerificationResult(
+        status="reject" if "reject" in (candidate_check.status, cue_check.status) else "pass",
+        issues=candidate_check.issues + cue_check.issues,
+        checked_claims=candidate_check.checked_claims,
+        notes="deterministic candidate and cue verifier",
+    )
+
+
 @executor
-async def finalize(
-    envelopes: list[GraphEnvelope], ctx: WorkflowContext[PipelineResult]
+async def review(
+    envelopes: list[GraphEnvelope], ctx: WorkflowContext[GraphEnvelope]
 ) -> None:
     if not envelopes:
         raise RuntimeError("workflow produced no envelopes")
-    state = envelopes[0].state
-    candidate = envelopes[0].candidate
-    cue = next((item.cue for item in envelopes if item.cue is not None), None)
-    cards = next((item.cards for item in envelopes if item.cards is not None), [])
+    first = envelopes[0]
     model_verification = next(
         (item.verification for item in envelopes if item.verification is not None), None
     )
-    events_by_id = {event.event_id: event for event in state.bundle.events}
-    deterministic = verify_deterministic(
-        candidate, state.snapshot, state.moment, events_by_id
+    merged = GraphEnvelope(
+        state=first.state,
+        candidate=first.candidate,
+        cue=next((item.cue for item in envelopes if item.cue is not None), None),
+        cards=next((item.cards for item in envelopes if item.cards is not None), []),
+        revision_count=first.revision_count,
     )
-    verification = merge_verifications(deterministic, model_verification)
+    merged.verification = merge_verifications(
+        deterministic_review(merged), model_verification
+    )
+    await ctx.send_message(merged)
 
+
+@executor
+async def revise(envelope: GraphEnvelope, ctx: WorkflowContext[GraphEnvelope]) -> None:
+    started = time.perf_counter()
+    feedback = envelope.verification.issues if envelope.verification else []
+    try:
+        envelope.cue = await _PIPELINE._producer(
+            envelope.candidate, [issue.model_dump() for issue in feedback]
+        )
+        status = "ok"
+        error = ""
+    except Exception as exc:  # noqa: BLE001
+        envelope.cue = fallback_cue(envelope.candidate)
+        status = "fallback"
+        error = str(exc)[:300]
+    envelope.state.trace.append(
+        TraceStep(
+            agent="StoryProducer:revise",
+            model=settings.deepseek_model,
+            prompt_version=PROMPT_VERSION,
+            latency_ms=round((time.perf_counter() - started) * 1000, 1),
+            status=status,
+            error=error,
+        )
+    )
+    envelope.revision_count += 1
+    await ctx.send_message(envelope)
+
+
+@executor
+async def recheck(envelope: GraphEnvelope, ctx: WorkflowContext[GraphEnvelope]) -> None:
+    started = time.perf_counter()
+    evidence = build_checker_evidence(
+        envelope.state.snapshot, envelope.state.moment, envelope.state.events
+    )
+    evidence["cue"] = envelope.cue.model_dump(mode="json") if envelope.cue else None
+    try:
+        model_verification = await _PIPELINE._checker(envelope.candidate, evidence)
+        status = "ok"
+        error = ""
+    except Exception as exc:  # noqa: BLE001
+        model_verification = None
+        status = "fallback"
+        error = str(exc)[:300]
+    envelope.state.trace.append(
+        TraceStep(
+            agent="FactChecker:recheck",
+            model=settings.deepseek_model,
+            prompt_version=PROMPT_VERSION,
+            latency_ms=round((time.perf_counter() - started) * 1000, 1),
+            status=status,
+            error=error,
+        )
+    )
+    envelope.verification = merge_verifications(
+        deterministic_review(envelope), model_verification, after_revision=True
+    )
+    await ctx.send_message(envelope)
+
+
+@executor
+async def finalize(envelope: GraphEnvelope, ctx: WorkflowContext[PipelineResult]) -> None:
+    state = envelope.state
+    verification = envelope.verification or deterministic_review(envelope)
     if verification.status != "pass":
         await ctx.yield_output(
             PipelineResult(
                 match_id=state.match_id,
                 moment=state.moment,
                 clock=state.moment.clock,
-                insight=candidate,
+                insight=envelope.candidate,
                 cue=None,
                 fan_cards=[],
                 verification=verification,
@@ -279,8 +374,13 @@ async def finalize(
         return
 
     director_started = time.perf_counter()
+    moments = detect_moments(state.bundle)
     try:
-        decision: RundownDecision = await _PIPELINE._director(candidate, verification)
+        decision: RundownDecision = await _PIPELINE._director(
+            envelope.candidate,
+            verification,
+            director_options(moments, state.moment, state.bundle.events),
+        )
         state.trace.append(
             TraceStep(
                 agent="Director",
@@ -302,17 +402,21 @@ async def finalize(
                 error=str(exc)[:300],
             )
         )
+    decision = normalize_decision(
+        decision, verification, moments, state.moment, state.bundle.events
+    )
 
     await ctx.yield_output(
         PipelineResult(
             match_id=state.match_id,
             moment=state.moment,
             clock=state.moment.clock,
-            insight=candidate,
-            cue=cue if decision.action == "approve" else None,
-            fan_cards=cards,
+            insight=envelope.candidate,
+            cue=envelope.cue,
+            fan_cards=envelope.cards or [],
             verification=verification,
             decision=decision,
+            rundown=build_rundown(decision, moments, state.moment),
             trace=state.trace,
             fallback=any(step.status != "ok" for step in state.trace),
         )
@@ -323,7 +427,20 @@ def build_workflow():
     builder = WorkflowBuilder(start_executor=prepare)
     builder.add_edge(prepare, analyst)
     builder.add_fan_out_edges(analyst, [producer, audience, checker])
-    builder.add_fan_in_edges([producer, audience, checker], finalize)
+    builder.add_fan_in_edges([producer, audience, checker], review)
+    builder.add_edge(
+        review,
+        revise,
+        condition=lambda envelope: envelope.verification.status == "revise"
+        and envelope.revision_count < 1,
+    )
+    builder.add_edge(
+        review,
+        finalize,
+        condition=lambda envelope: envelope.verification.status != "revise",
+    )
+    builder.add_edge(revise, recheck)
+    builder.add_edge(recheck, finalize)
     return builder.build()
 
 

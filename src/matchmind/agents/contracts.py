@@ -135,11 +135,23 @@ class VerificationResult(BaseModel):
 
 
 class RundownDecision(BaseModel):
-    model_config = ConfigDict(extra="forbid")
+    model_config = ConfigDict(extra="ignore")
 
     action: DecisionAction
     priority: float = Field(default=0.5, ge=0, le=1)
     duration_seconds: float = Field(default=8.0, ge=2, le=20)
+    reason: str
+    ranked_moment_ids: list[str] = Field(default_factory=list)
+    air_at: Clock | None = None
+
+
+class RundownEntry(BaseModel):
+    model_config = ConfigDict(extra="forbid")
+
+    moment_id: str
+    rank: int = Field(ge=1)
+    action: DecisionAction
+    air_at: Clock | None = None
     reason: str
 
 
@@ -181,5 +193,6 @@ class PipelineResult(BaseModel):
     fan_cards: list[FanCard] = Field(default_factory=list)
     verification: VerificationResult
     decision: RundownDecision
+    rundown: list[RundownEntry] = Field(default_factory=list)
     trace: list[TraceStep] = Field(default_factory=list)
     fallback: bool = False

@@ -16,6 +16,7 @@ export default function Overlay() {
   const matchId = params.get("match") ?? HERO_MATCH;
   const preview = params.get("bg") === "1";
   const guides = params.get("guides") === "1";
+  const humanApproved = params.get("approval") === "approved";
   const requestedTemplate = params.get("template");
   const variant: OverlayVariant =
     requestedTemplate === "stat_card" ||
@@ -38,6 +39,10 @@ export default function Overlay() {
 
   useEffect(() => {
     let cancelled = false;
+    setCue(null);
+    setMoment(null);
+    setFeatures(null);
+    setError(null);
     api
       .events(matchId)
       .then((response) => {
@@ -58,7 +63,7 @@ export default function Overlay() {
         });
         const snapshot = await api.features(matchId, moment.event_id).catch(() => null);
         if (!cancelled) {
-          setCue(result.cue);
+          setCue(result.decision.action === "approve" || humanApproved ? result.cue : null);
           setMoment(moment);
           setFeatures(snapshot);
         }
@@ -69,7 +74,7 @@ export default function Overlay() {
     return () => {
       cancelled = true;
     };
-  }, [matchId]);
+  }, [matchId, humanApproved]);
 
   return (
     <div className={`overlay-page ${preview ? "preview" : ""}`}>

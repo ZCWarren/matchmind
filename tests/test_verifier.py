@@ -9,8 +9,10 @@ from matchmind.agents.contracts import (
     VerificationResult,
 )
 from matchmind.agents.verifier import (
+    fallback_cue,
     fallback_insight,
     merge_verifications,
+    verify_cue,
     verify_deterministic,
 )
 from matchmind.analytics import build_snapshot, detect_moments, load_match
@@ -120,3 +122,21 @@ def test_verification_contract_normalizes_model_json() -> None:
     assert result.status == "pass"
     assert len(result.issues) == 2
     assert all(issue.severity == "warn" for issue in result.issues)
+
+
+def test_cue_verifier_rejects_new_numbers() -> None:
+    _, moment, snapshot, _ = _hero_inputs()
+    candidate = fallback_insight(moment, snapshot)
+    cue = fallback_cue(candidate)
+    cue.payload["headline"] = "A 99.9 m pass changes the match"
+    result = verify_cue(cue, candidate)
+    assert result.status == "reject"
+    assert result.issues[0].code == "unsupported_cue_number"
+
+
+def test_model_revise_requests_bounded_revision() -> None:
+    _, moment, snapshot, events_by_id = _hero_inputs()
+    candidate = fallback_insight(moment, snapshot)
+    deterministic = verify_deterministic(candidate, snapshot, moment, events_by_id)
+    merged = merge_verifications(deterministic, VerificationResult(status="revise"))
+    assert merged.status == "revise"

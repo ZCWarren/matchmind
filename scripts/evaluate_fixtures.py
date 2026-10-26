@@ -12,7 +12,7 @@ CJK = re.compile(r"[\u3040-\u30ff\u3400-\u4dbf\u4e00-\u9fff\uac00-\ud7af]")
 
 def main() -> None:
     records = []
-    for path in sorted(CACHE.glob("*/*__prompt-v2.json")):
+    for path in sorted(CACHE.glob("*/*__prompt-v3.json")):
         data = json.loads(path.read_text())
         insight = data["insight"]
         trace = data["trace"]
@@ -27,6 +27,7 @@ def main() -> None:
                 "claims": len(insight.get("claims", [])),
                 "cards": len(data.get("fan_cards", [])),
                 "cue": data.get("cue") is not None,
+                "revision_loops": sum(step["agent"] == "StoryProducer:revise" for step in trace),
                 "generic_or_cjk": bool(CJK.search(headline))
                 or headline.strip().lower() in {"line break under pressure"},
                 "fallbacks": [
@@ -55,6 +56,7 @@ def main() -> None:
         "claims": claims,
         "generic_or_cjk_headlines": generic,
         "fallback_agents": fallbacks,
+        "revision_loops": sum(row["revision_loops"] for row in records),
         "mean_summed_trace_ms": mean_trace,
         "records": records,
     }
@@ -72,6 +74,7 @@ def main() -> None:
         f"| Approved cues | {approved}/{total} |",
         f"| Fan cards | {cards} |",
         f"| Claims | {claims} |",
+        f"| Bounded revision loops | {sum(row['revision_loops'] for row in records)} |",
         f"| Generic or non-English headlines | {generic} |",
         f"| Fallback agent runs | {len(fallbacks)} |",
         f"| Mean summed agent trace | {mean_trace / 1000:.1f}s |",

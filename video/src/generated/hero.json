@@ -1,0 +1,1256 @@
+{
+  "matchId": "ast-2026-1018-nhr-orn",
+  "eventCount": 1275,
+  "heroIndex": 973,
+  "events": [
+    {
+      "match_id": "ast-2026-1018-nhr-orn",
+      "event_id": "e-000964",
+      "ts": "2026-10-18T16:11:32Z",
+      "clock": {
+        "period": 2,
+        "minute": 71,
+        "second": 32
+      },
+      "type": "pass",
+      "team_id": "NHR",
+      "player_id": "NHR-06",
+      "location": {
+        "x": 39.3,
+        "y": 66
+      },
+      "end_location": {
+        "x": 59.5,
+        "y": 61.5
+      },
+      "recipient_id": "NHR-07",
+      "assist_id": null,
+      "pressure": 0.92,
+      "outcome": "complete",
+      "ball_speed_kmh": 11.9,
+      "shot_speed_kmh": null,
+      "speed_kmh": null,
+      "distance_m": 21.4,
+      "difficulty": 6.9,
+      "possession_id": "p-0287",
+      "score": {
+        "home": 1,
+        "away": 1
+      },
+      "tags": [],
+      "synth": {
+        "seed": 20261018,
+        "generator": "matchforge-v1"
+      }
+    },
+    {
+      "match_id": "ast-2026-1018-nhr-orn",
+      "event_id": "e-000965",
+      "ts": "2026-10-18T16:11:39Z",
+      "clock": {
+        "period": 2,
+        "minute": 71,
+        "second": 39
+      },
+      "type": "carry",
+      "team_id": "NHR",
+      "player_id": "NHR-09",
+      "location": {
+        "x": 59.5,
+        "y": 61.5
+      },
+      "end_location": {
+        "x": 65.5,
+        "y": 59.5
+      },
+      "recipient_id": null,
+      "assist_id": null,
+      "pressure": 0.48,
+      "outcome": "complete",
+      "ball_speed_kmh": null,
+      "shot_speed_kmh": null,
+      "speed_kmh": null,
+      "distance_m": 6.5,
+      "difficulty": null,
+      "possession_id": "p-0287",
+      "score": {
+        "home": 1,
+        "away": 1
+      },
+      "tags": [],
+      "synth": {
+        "seed": 20261018,
+        "generator": "matchforge-v1"
+      }
+    },
+    {
+      "match_id": "ast-2026-1018-nhr-orn",
+      "event_id": "e-000966",
+      "ts": "2026-10-18T16:11:43Z",
+      "clock": {
+        "period": 2,
+        "minute": 71,
+        "second": 43
+      },
+      "type": "carry",
+      "team_id": "NHR",
+      "player_id": "NHR-05",
+      "location": {
+        "x": 65.5,
+        "y": 59.5
+      },
+      "end_location": {
+        "x": 73.4,
+        "y": 66.6
+      },
+      "recipient_id": null,
+      "assist_id": null,
+      "pressure": 0.48,
+      "outcome": "complete",
+      "ball_speed_kmh": null,
+      "shot_speed_kmh": null,
+      "speed_kmh": null,
+      "distance_m": 9.6,
+      "difficulty": null,
+      "possession_id": "p-0287",
+      "score": {
+        "home": 1,
+        "away": 1
+      },
+      "tags": [],
+      "synth": {
+        "seed": 20261018,
+        "generator": "matchforge-v1"
+      }
+    },
+    {
+      "match_id": "ast-2026-1018-nhr-orn",
+      "event_id": "e-000967",
+      "ts": "2026-10-18T16:11:46Z",
+      "clock": {
+        "period": 2,
+        "minute": 71,
+        "second": 46
+      },
+      "type": "pass",
+      "team_id": "NHR",
+      "player_id": "NHR-08",
+      "location": {
+        "x": 73.4,
+        "y": 66.6
+      },
+      "end_location": {
+        "x": 96,
+        "y": 53.8
+      },
+      "recipient_id": null,
+      "assist_id": null,
+      "pressure": 0.85,
+      "outcome": "incomplete",
+      "ball_speed_kmh": 13.2,
+      "shot_speed_kmh": null,
+      "speed_kmh": null,
+      "distance_m": 25.3,
+      "difficulty": 7.6,
+      "possession_id": "p-0287",
+      "score": {
+        "home": 1,
+        "away": 1
+      },
+      "tags": [],
+      "synth": {
+        "seed": 20261018,
+        "generator": "matchforge-v1"
+      }
+    },
+    {
+      "match_id": "ast-2026-1018-nhr-orn",
+      "event_id": "e-000968",
+      "ts": "2026-10-18T16:11:46Z",
+      "clock": {
+        "period": 2,
+        "minute": 71,
+        "second": 46
+      },
+      "type": "pass",
+      "team_id": "NHR",
+      "player_id": "NHR-03",
+      "location": {
+        "x": 32.9,
+        "y": 56.4
+      },
+      "end_location": {
+        "x": 44,
+        "y": 71.4
+      },
+      "recipient_id": "NHR-04",
+      "assist_id": null,
+      "pressure": 0.11,
+      "outcome": "complete",
+      "ball_speed_kmh": 16.6,
+      "shot_speed_kmh": null,
+      "speed_kmh": null,
+      "distance_m": 15.5,
+      "difficulty": 2.3,
+      "possession_id": "p-0288",
+      "score": {
+        "home": 1,
+        "away": 1
+      },
+      "tags": [],
+      "synth": {
+        "seed": 20261018,
+        "generator": "matchforge-v1"
+      }
+    },
+    {
+      "match_id": "ast-2026-1018-nhr-orn",
+      "event_id": "e-000969",
+      "ts": "2026-10-18T16:11:50Z",
+      "clock": {
+        "period": 2,
+        "minute": 71,
+        "second": 50
+      },
+      "type": "pressure",
+      "team_id": "ORN",
+      "player_id": "ORN-06",
+      "location": {
+        "x": 44,
+        "y": 71.4
+      },
+      "end_location": null,
+      "recipient_id": null,
+      "assist_id": null,
+      "pressure": 0.8,
+      "outcome": "applied",
+      "ball_speed_kmh": null,
+      "shot_speed_kmh": null,
+      "speed_kmh": null,
+      "distance_m": null,
+      "difficulty": null,
+      "possession_id": "p-0288",
+      "score": {
+        "home": 1,
+        "away": 1
+      },
+      "tags": [],
+      "synth": {
+        "seed": 20261018,
+        "generator": "matchforge-v1"
+      }
+    },
+    {
+      "match_id": "ast-2026-1018-nhr-orn",
+      "event_id": "e-000970",
+      "ts": "2026-10-18T16:11:56Z",
+      "clock": {
+        "period": 2,
+        "minute": 71,
+        "second": 56
+      },
+      "type": "pass",
+      "team_id": "NHR",
+      "player_id": "NHR-10",
+      "location": {
+        "x": 44,
+        "y": 71.4
+      },
+      "end_location": {
+        "x": 60.5,
+        "y": 88.6
+      },
+      "recipient_id": "NHR-04",
+      "assist_id": null,
+      "pressure": 0.78,
+      "outcome": "complete",
+      "ball_speed_kmh": 25.6,
+      "shot_speed_kmh": null,
+      "speed_kmh": null,
+      "distance_m": 20.8,
+      "difficulty": 4.8,
+      "possession_id": "p-0288",
+      "score": {
+        "home": 1,
+        "away": 1
+      },
+      "tags": [],
+      "synth": {
+        "seed": 20261018,
+        "generator": "matchforge-v1"
+      }
+    },
+    {
+      "match_id": "ast-2026-1018-nhr-orn",
+      "event_id": "e-000971",
+      "ts": "2026-10-18T16:12:00Z",
+      "clock": {
+        "period": 2,
+        "minute": 72,
+        "second": 0
+      },
+      "type": "pass",
+      "team_id": "NHR",
+      "player_id": "NHR-03",
+      "location": {
+        "x": 60.5,
+        "y": 88.6
+      },
+      "end_location": {
+        "x": 71.3,
+        "y": 71
+      },
+      "recipient_id": "NHR-05",
+      "assist_id": null,
+      "pressure": 0.1,
+      "outcome": "complete",
+      "ball_speed_kmh": 11.7,
+      "shot_speed_kmh": null,
+      "speed_kmh": null,
+      "distance_m": 16.5,
+      "difficulty": 2.4,
+      "possession_id": "p-0288",
+      "score": {
+        "home": 1,
+        "away": 1
+      },
+      "tags": [],
+      "synth": {
+        "seed": 20261018,
+        "generator": "matchforge-v1"
+      }
+    },
+    {
+      "match_id": "ast-2026-1018-nhr-orn",
+      "event_id": "e-000972",
+      "ts": "2026-10-18T16:12:03Z",
+      "clock": {
+        "period": 2,
+        "minute": 72,
+        "second": 3
+      },
+      "type": "pass",
+      "team_id": "NHR",
+      "player_id": "NHR-09",
+      "location": {
+        "x": 71.3,
+        "y": 71
+      },
+      "end_location": {
+        "x": 88.1,
+        "y": 52.8
+      },
+      "recipient_id": "NHR-05",
+      "assist_id": null,
+      "pressure": 0.72,
+      "outcome": "complete",
+      "ball_speed_kmh": 23.3,
+      "shot_speed_kmh": null,
+      "speed_kmh": null,
+      "distance_m": 21.5,
+      "difficulty": 6.7,
+      "possession_id": "p-0288",
+      "score": {
+        "home": 1,
+        "away": 1
+      },
+      "tags": [],
+      "synth": {
+        "seed": 20261018,
+        "generator": "matchforge-v1"
+      }
+    },
+    {
+      "match_id": "ast-2026-1018-nhr-orn",
+      "event_id": "e-000973",
+      "ts": "2026-10-18T16:12:10Z",
+      "clock": {
+        "period": 2,
+        "minute": 72,
+        "second": 10
+      },
+      "type": "pressure",
+      "team_id": "ORN",
+      "player_id": "ORN-06",
+      "location": {
+        "x": 42,
+        "y": 52
+      },
+      "end_location": null,
+      "recipient_id": null,
+      "assist_id": null,
+      "pressure": 0.9,
+      "outcome": "applied",
+      "ball_speed_kmh": null,
+      "shot_speed_kmh": null,
+      "speed_kmh": null,
+      "distance_m": null,
+      "difficulty": null,
+      "possession_id": "p-hero",
+      "score": {
+        "home": 1,
+        "away": 1
+      },
+      "tags": [
+        "press_trap",
+        "hero"
+      ],
+      "synth": {
+        "seed": 20261018,
+        "generator": "matchforge-v1"
+      }
+    },
+    {
+      "match_id": "ast-2026-1018-nhr-orn",
+      "event_id": "e-000974",
+      "ts": "2026-10-18T16:12:12Z",
+      "clock": {
+        "period": 2,
+        "minute": 72,
+        "second": 12
+      },
+      "type": "pass",
+      "team_id": "NHR",
+      "player_id": "NHR-08",
+      "location": {
+        "x": 38,
+        "y": 52
+      },
+      "end_location": {
+        "x": 62,
+        "y": 44
+      },
+      "recipient_id": "NHR-14",
+      "assist_id": null,
+      "pressure": 0.82,
+      "outcome": "complete",
+      "ball_speed_kmh": 18.4,
+      "shot_speed_kmh": null,
+      "speed_kmh": null,
+      "distance_m": 24.6,
+      "difficulty": 8.7,
+      "possession_id": "p-hero",
+      "score": {
+        "home": 1,
+        "away": 1
+      },
+      "tags": [
+        "line_break",
+        "under_press",
+        "hero"
+      ],
+      "synth": {
+        "seed": 20261018,
+        "generator": "matchforge-v1"
+      }
+    },
+    {
+      "match_id": "ast-2026-1018-nhr-orn",
+      "event_id": "e-000975",
+      "ts": "2026-10-18T16:12:14Z",
+      "clock": {
+        "period": 2,
+        "minute": 72,
+        "second": 14
+      },
+      "type": "sprint",
+      "team_id": "NHR",
+      "player_id": "NHR-14",
+      "location": {
+        "x": 62,
+        "y": 44
+      },
+      "end_location": {
+        "x": 74,
+        "y": 48
+      },
+      "recipient_id": null,
+      "assist_id": null,
+      "pressure": 0.3,
+      "outcome": "sprint",
+      "ball_speed_kmh": null,
+      "shot_speed_kmh": null,
+      "speed_kmh": 33.4,
+      "distance_m": 26,
+      "difficulty": null,
+      "possession_id": "p-hero",
+      "score": {
+        "home": 1,
+        "away": 1
+      },
+      "tags": [
+        "speed_alert",
+        "hero"
+      ],
+      "synth": {
+        "seed": 20261018,
+        "generator": "matchforge-v1"
+      }
+    }
+  ],
+  "insight": {
+    "match_id": "ast-2026-1018-nhr-orn",
+    "moment": {
+      "moment_id": "mo-e-000974",
+      "match_id": "ast-2026-1018-nhr-orn",
+      "event_id": "e-000974",
+      "clock": {
+        "period": 2,
+        "minute": 72,
+        "second": 12
+      },
+      "type": "line_break",
+      "importance": 0.8,
+      "headline": "Line break under pressure",
+      "event_ids": [
+        "e-000974"
+      ],
+      "metrics": {
+        "xt_delta": {
+          "name": "xt_delta",
+          "value": 0.1736,
+          "unit": "threat",
+          "formula_version": "xt-grid-v1",
+          "event_ids": [
+            "e-000974"
+          ],
+          "inputs": {},
+          "label": null
+        },
+        "event_pressure": {
+          "name": "event_pressure",
+          "value": 0.82,
+          "unit": "0-1",
+          "formula_version": "pressure-v1",
+          "event_ids": [
+            "e-000974"
+          ],
+          "inputs": {},
+          "label": null
+        }
+      },
+      "analytics_version": "analytics-v1"
+    },
+    "clock": {
+      "period": 2,
+      "minute": 72,
+      "second": 12
+    },
+    "insight": {
+      "moment_id": "mo-e-000974",
+      "match_id": "ast-2026-1018-nhr-orn",
+      "headline": "NHR-08 escapes ORN's press trap at minute 72 to release NHR-14 for a saved big chance",
+      "why_it_matters": "ORN-06 had set a press_trap with 0.9 pressure at 72:10, and the 1-1 scoreline at minute 72 meant the next clean progression past the midfield line carried outsized value; NHR-08's completion out of that trap turned a defensive-pressure moment into a direct attacking sequence down the ORN half within seven seconds. The value is in the escape itself: it removed ORN's counter-press trigger and immediately moved the ball into a zone where NHR-14 could attack with space rather than from a set defensive block.",
+      "watch_next": "Watch item, not a finding: ORN-06 applied pressure again at 0.89 (e-000978) and ORN-07 at 0.85 (e-000979) after the shot, so ORN's press intensity did not drop following the chance created; monitor whether NHR's escape routes out of that trap stay available in the closing minutes.",
+      "claims": [
+        {
+          "text": "NHR-08's pass at 72:12 was completed under 0.82 pressure over 24.6 metres with a logged difficulty of 8.7 and the line_break tag, releasing NHR-14 beyond ORN's midfield line.",
+          "event_ids": [
+            "e-000974",
+            "e-000973"
+          ],
+          "metric_refs": [
+            {
+              "name": "event_pressure",
+              "value": 0.82,
+              "formula_version": "pressure-v1",
+              "event_ids": [
+                "e-000974"
+              ]
+            }
+          ],
+          "confidence": 0.86
+        },
+        {
+          "text": "The completed line break added 0.1736 in expected threat on that single action, the threat value attributed to NHR-08's pass.",
+          "event_ids": [
+            "e-000974"
+          ],
+          "metric_refs": [
+            {
+              "name": "xt_delta",
+              "value": 0.1736,
+              "formula_version": "xt-grid-v1",
+              "event_ids": [
+                "e-000974"
+              ]
+            }
+          ],
+          "confidence": 0.82
+        },
+        {
+          "text": "The escape fed a direct chain: NHR-14 sprinted at 33.4 km/h over 26.0 metres, carried 14.0 metres, and produced a shot at 104.2 km/h that was saved, so the sequence yielded a chance created rather than a goal.",
+          "event_ids": [
+            "e-000975",
+            "e-000976",
+            "e-000977"
+          ],
+          "metric_refs": [],
+          "confidence": 0.88
+        },
+        {
+          "text": "NHR's window pass completion of 0.8292 against a pass_difficulty value of 4.3786 frames the 72:12 line break as a completion made under conditions above the window's typical passing profile, since it was logged at difficulty 8.7 and pressure 0.82.",
+          "event_ids": [
+            "e-000974",
+            "e-000970",
+            "e-000972"
+          ],
+          "metric_refs": [
+            {
+              "name": "pass_completion",
+              "value": 0.8292,
+              "formula_version": "pass-quality-v1",
+              "event_ids": [
+                "e-000956",
+                "e-000958",
+                "e-000959",
+                "e-000960",
+                "e-000962",
+                "e-000964",
+                "e-000967",
+                "e-000968",
+                "e-000970",
+                "e-000971",
+                "e-000972",
+                "e-000974"
+              ]
+            },
+            {
+              "name": "pass_difficulty",
+              "value": 4.3786,
+              "formula_version": "pass-quality-v1",
+              "event_ids": [
+                "e-000956",
+                "e-000958",
+                "e-000959",
+                "e-000960",
+                "e-000962",
+                "e-000964",
+                "e-000967",
+                "e-000968",
+                "e-000970",
+                "e-000971",
+                "e-000972",
+                "e-000974"
+              ]
+            }
+          ],
+          "confidence": 0.7
+        },
+        {
+          "text": "The moment occurred inside a high-tempo passage logged at 13.4903 events per minute, with cumulative expected threat standing at 20.6046 for NHR and 21.8865 for ORN at 1-1, so both sides were still generating threat when this line break landed.",
+          "event_ids": [
+            "e-000974",
+            "e-000968"
+          ],
+          "metric_refs": [
+            {
+              "name": "rhythm_events_per_min",
+              "value": 13.4903,
+              "formula_version": "rhythm-v1",
+              "event_ids": [
+                "e-000963",
+                "e-000964",
+                "e-000965",
+                "e-000966",
+                "e-000967",
+                "e-000968",
+                "e-000969",
+                "e-000970",
+                "e-000971",
+                "e-000972",
+                "e-000973",
+                "e-000974"
+              ]
+            },
+            {
+              "name": "xt_home",
+              "value": 20.6046,
+              "formula_version": "xt-grid-v1",
+              "event_ids": [
+                "e-000956",
+                "e-000958",
+                "e-000959",
+                "e-000960",
+                "e-000962",
+                "e-000964",
+                "e-000967",
+                "e-000968",
+                "e-000970",
+                "e-000971",
+                "e-000972",
+                "e-000974"
+              ]
+            },
+            {
+              "name": "xt_away",
+              "value": 21.8865,
+              "formula_version": "xt-grid-v1",
+              "event_ids": [
+                "e-000907",
+                "e-000915",
+                "e-000925",
+                "e-000926",
+                "e-000933",
+                "e-000934",
+                "e-000935",
+                "e-000936",
+                "e-000944",
+                "e-000946",
+                "e-000950",
+                "e-000951"
+              ]
+            }
+          ],
+          "confidence": 0.72
+        }
+      ],
+      "importance": 0.8,
+      "confidence": 0.8
+    },
+    "cue": {
+      "cue_id": "cue-mo-e-000974",
+      "insight_id": "mo-e-000974",
+      "template": "lower_third_why",
+      "priority": 0.64,
+      "duration_seconds": 10,
+      "safe_area": "lower_third",
+      "payload": {
+        "eyebrow": "NHR vs ORN · 72:12",
+        "headline": "NHR-08 escapes ORN's press trap to release NHR-14",
+        "stat": "+0.1736 xT · 24.6 m pass under 0.82 pressure",
+        "subline": "NHR-14 carries 14.0 m at 33.4 km/h, shot saved at 104.2 km/h — 1-1 at minute 72"
+      }
+    },
+    "fan_cards": [
+      {
+        "insight_id": "mo-e-000974",
+        "profile": "analyst",
+        "language": "en",
+        "headline": "NHR-08 beats ORN press trap at 72:12, line break releases NHR-14 for saved chance",
+        "what_happened": "At 72:12, with the score 1-1 and ORN-06's press trap logged at 0.9 pressure at 72:10, NHR-08 completed a 24.6 m pass under 0.82 pressure with difficulty 8.7 and the line_break tag. The pass released NHR-14 beyond ORN's midfield line; NHR-14 sprinted 33.4 km/h over 26.0 m, carried 14.0 m, and forced a save from a 104.2 km/h shot.",
+        "why_it_matters": "The escape added 0.1736 xT on action and removed ORN's counter-press trigger, turning a defensive-pressure moment into a direct attacking sequence in seven seconds. In a 13.4903 events/min passage with cumulative xT at 20.6046 for NHR and 21.8865 for ORN, it created a chance rather than a goal, and ORN's later pressure at 0.89 and 0.85 kept the trap live.",
+        "watch_next": "Monitor whether NHR's escape routes out of that trap stay available as ORN-06 and ORN-07 pressure again at 0.89 and 0.85 (e-000978, e-000979).",
+        "how_we_know": "Evidence comes from the logged 72:12 pass and pressure event e-000974, the preceding trap event e-000973, and the subsequent NHR-14 sprint, carry, and saved shot events e-000975–e-000977.",
+        "evidence_event_ids": [
+          "e-000973",
+          "e-000974",
+          "e-000975",
+          "e-000976",
+          "e-000977",
+          "e-000978",
+          "e-000979"
+        ]
+      },
+      {
+        "insight_id": "mo-e-000974",
+        "profile": "analyst",
+        "language": "es",
+        "headline": "NHR-08 rompe la trampa de presión de ORN en el 72 y habilita a NHR-14 para una ocasión atajada",
+        "what_happened": "En el 72:12, NHR-08 completó bajo 0.82 de presión un pase de 24.6 metros con dificultad 8.7 y etiqueta line_break, saliendo del press_trap que ORN-06 había fijado en 72:10 (0.9 de presión). El pase sumó 0.1736 de expected threat y liberó a NHR-14: 33.4 km/h en 26.0 metros, 14.0 metros conducidos y disparo a 104.2 km/h que fue atajado.",
+        "why_it_matters": "Con 1-1 y 13.4903 eventos por minuto, superar esa trampa eliminó el gatillo de contrapresión de ORN y trasladó el balón a una zona de espacio para NHR-14. La acción superó el perfil de pase de la ventana de NHR (0.8292 de acierto frente a 4.3786 de dificultad media).",
+        "watch_next": "Elemento a vigilar, no un hallazgo: ORN-06 volvió a presionar a 0.89 (e-000978) y ORN-07 a 0.85 (e-000979) tras el disparo, por lo que la intensidad de ORN no cayó; conviene monitorizar si las rutas de salida de NHR siguen disponibles en los minutos finales.",
+        "how_we_know": "Se sostiene en la cadena de eventos e-000973 a e-000977, con presión de 0.82, xt_delta de 0.1736, y los valores de ventana pass_completion 0.8292 y pass_difficulty 4.3786 registrados sobre esos mismos eventos.",
+        "evidence_event_ids": [
+          "e-000973",
+          "e-000974",
+          "e-000975",
+          "e-000976",
+          "e-000977",
+          "e-000968",
+          "e-000978",
+          "e-000979"
+        ]
+      },
+      {
+        "insight_id": "mo-e-000974",
+        "profile": "analyst",
+        "language": "zh",
+        "headline": "NHR-08第72分钟破ORN压迫陷阱，解围式推进助攻NHR-14获射门",
+        "what_happened": "第72分钟1-1，ORN-06在72:10以0.9压力设下press_trap；72:12 NHR-08在0.82压力下完成24.6米、难度8.7且带line_break标签的传球，越过ORN中场线找到NHR-14。随后NHR-14以33.4 km/h冲刺26.0米、带球14.0米，于7秒内完成104.2 km/h射门，被扑出。",
+        "why_it_matters": "这次逃脱的价值高于普通推进：它移除了ORN的反抢触发点，把防守压力瞬间转成直插ORN半场的进攻；该传球单次xt_delta为0.1736，但最终只换来被扑出的机会而非进球。1-1下下一次干净越过中场线价值更高。",
+        "watch_next": "观察项：射门后ORN-06与ORN-07仍分别以0.89、0.85施压（e-000978、e-000979），需监测NHR在收官阶段的逃脱路线是否仍可用。",
+        "how_we_know": "依据e-000974、e-000973、e-000975至e-000977的事件记录与pressure-v1、xt-grid-v1指标。",
+        "evidence_event_ids": [
+          "e-000974",
+          "e-000973",
+          "e-000975",
+          "e-000976",
+          "e-000977",
+          "e-000978",
+          "e-000979"
+        ]
+      },
+      {
+        "insight_id": "mo-e-000974",
+        "profile": "casual",
+        "language": "en",
+        "headline": "NHR-08 slips out of the trap and NHR-14 nearly scores",
+        "what_happened": "At 1-1 in minute 72, ORN-06 tried to corner NHR-08 with a press trap. NHR-08 wriggled free and threaded a 24-metre pass past ORN's midfield. NHR-14 sprinted clear and fired a shot that was saved.",
+        "why_it_matters": "Breaking that trap flipped defence into attack in seconds, turning a squeeze into a real chance.",
+        "watch_next": "ORN kept pressing hard after the shot, so watch whether NHR-08 keeps finding a way out.",
+        "how_we_know": "Tracking data logs NHR-08's completed pass under 0.82 pressure at 72:12 and the shot that followed.",
+        "evidence_event_ids": [
+          "e-000974",
+          "e-000973",
+          "e-000975",
+          "e-000976",
+          "e-000977"
+        ]
+      },
+      {
+        "insight_id": "mo-e-000974",
+        "profile": "casual",
+        "language": "es",
+        "headline": "NHR-08 rompe la trampa y casi cambia el partido",
+        "what_happened": "Con 1-1 en el minuto 72, NHR-08 escapó de la presión de ORN y habilitó a NHR-14, cuyo disparo fue salvado.",
+        "why_it_matters": "Romper esa trampa convirtió defensa en ataque en segundos: ocasión clara, aunque sin gol.",
+        "watch_next": "Ojo: ORN siguió presionando después del disparo; habrá que ver si NHR encuentra otra salida así en los minutos finales.",
+        "how_we_know": "Lo sabemos por el pase registrado de NHR-08 bajo presión (e-000974) y la secuencia de carrera y disparo de NHR-14 (e-000975, e-000976, e-000977).",
+        "evidence_event_ids": [
+          "e-000974",
+          "e-000973",
+          "e-000975",
+          "e-000976",
+          "e-000977"
+        ]
+      },
+      {
+        "insight_id": "mo-e-000974",
+        "profile": "casual",
+        "language": "zh",
+        "headline": "第72分钟：NHR-08破压出球，NHR-14射门被扑",
+        "what_happened": "第72分钟，NHR-08在对方逼抢下送出24.6米直塞，找到前插的NHR-14；后者一路冲刺后射门，被门将扑出。",
+        "why_it_matters": "当时比分1-1，这次脱身把对手的压迫瞬间变成自家快攻，机会虽没进，却相当关键。",
+        "watch_next": "之后ORN仍用接近的强度继续逼抢，值得留意NHR还能否找到出球路线。",
+        "how_we_know": "事件数据显示这脚传球在0.82压迫下完成、被评为高难度并带破线标记，随后连续三次事件构成一次射门。",
+        "evidence_event_ids": [
+          "e-000973",
+          "e-000974",
+          "e-000975",
+          "e-000976",
+          "e-000977"
+        ]
+      },
+      {
+        "insight_id": "mo-e-000974",
+        "profile": "player",
+        "language": "en",
+        "headline": "NHR-08 breaks the trap and springs NHR-14",
+        "what_happened": "At 72:12, NHR-08 took the ball under 0.82 pressure and hit a 24.6-metre line-breaking pass that beat ORN's midfield line. NHR-14 was already gone: 33.4 km/h over 26.0 metres, a 14.0-metre carry, then a 104.2 km/h strike that the keeper saved. Seven seconds from escape to big chance.",
+        "why_it_matters": "The escape is the play. NHR-08 didn't just survive ORN-06's press trap, he removed the counter-press trigger and put the ball into space where NHR-14 could attack a broken block instead of a set one. If you're NHR-08, that's the scan-then-turn picture to repeat: receive, feel pressure, break the line.",
+        "watch_next": "ORN-06 kept pressing at 0.89 and ORN-07 at 0.85 after the shot, so the trap stays live. Watch whether NHR-08 finds those same escape routes late.",
+        "how_we_know": "Tracking and event data show NHR-08's completed line-break pass at 72:12 under 0.82 pressure feeding NHR-14's sprint and saved shot (e-000974 through e-000977).",
+        "evidence_event_ids": [
+          "e-000974",
+          "e-000973",
+          "e-000975",
+          "e-000976",
+          "e-000977"
+        ]
+      },
+      {
+        "insight_id": "mo-e-000974",
+        "profile": "player",
+        "language": "es",
+        "headline": "NHR-08 aguanta la presión de ORN y libera a NHR-14 con un pase de 24,6 metros",
+        "what_happened": "Minuto 72, 1-1. NHR-08 recibe con 0,82 de presión encima y no se precipita: aguanta, gira y mete un pase de 24,6 metros (dificultad 8,7, etiqueta line_break) que rompe la línea de medios de ORN y deja a NHR-14 lanzado. NHR-14 corre 26,0 metros a 33,4 km/h, conduce 14,0 metros y suelta un disparo de 104,2 km/h que el portero salva.",
+        "why_it_matters": "Para NHR-08 el valor está en el primer gesto: aguantar la presión y ejecutar el pase. Esa acción sola añade 0,1736 de amenaza esperada y desactiva el gatillo del contragolpe de ORN; en siete segundos el balón pasa de zona de presión a zona de ataque. NHR-14 llega con espacio gracias a esa salida, no a una jugada aislada.",
+        "watch_next": "Ojo: ORN-06 volvió a presionar a 0,89 y ORN-07 a 0,85 después del disparo, así que la intensidad no bajó. Habrá que ver si NHR-08 encuentra otra vez esa ruta de salida en los minutos finales.",
+        "how_we_know": "Los eventos registrados muestran el pase de NHR-08 bajo 0,82 de presión (e-000974, e-000973) y la cadena posterior de NHR-14 hasta el disparo salvado (e-000975, e-000976, e-000977).",
+        "evidence_event_ids": [
+          "e-000973",
+          "e-000974",
+          "e-000975",
+          "e-000976",
+          "e-000977",
+          "e-000978",
+          "e-000979"
+        ]
+      },
+      {
+        "insight_id": "mo-e-000974",
+        "profile": "player",
+        "language": "zh",
+        "headline": "NHR-08在0.82压迫下转身摆脱，7秒内送出直塞，助NHR-14获得射门机会",
+        "what_happened": "72:12，你（NHR-08）在0.82压迫、难度8.7的情况下完成一记24.6米的前场穿透传球，直接越过ORN中场线，找到前插的NHR-14。NHR-14接球后以33.4 km/h冲刺26.0米、带球14.0米，在104.2 km/h的射速下完成打门，可惜被扑出。",
+        "why_it_matters": "这次处理的关键在于你的第一脚触球和身体朝向：你没有回传，而是用一次转身把对手的压迫陷阱变成了进攻起点，撕开了ORN中场线，让NHR-14在空间里接球，而不是在防守阵型前接球。你自己创造出了这次机会。",
+        "watch_next": "ORN-06随后又以0.89压迫（e-000978），ORN-07以0.85压迫（e-000979），对手的逼抢强度并没有下降；注意观察你在比赛最后阶段是否还能找到同样的摆脱路线。",
+        "how_we_know": "依据e-000974的0.82压迫和8.7传球难度记录、e-000975至e-000977的NHR-14冲刺、带球、射门事件，以及e-000973的压迫陷阱设定。",
+        "evidence_event_ids": [
+          "e-000974",
+          "e-000973",
+          "e-000975",
+          "e-000976",
+          "e-000977",
+          "e-000978",
+          "e-000979"
+        ]
+      }
+    ],
+    "verification": {
+      "status": "pass",
+      "issues": [],
+      "checked_claims": 5,
+      "notes": "deterministic candidate and cue verifier"
+    },
+    "decision": {
+      "action": "approve",
+      "priority": 0.8,
+      "duration_seconds": 8,
+      "reason": "Verification passed and the insight is broadcast-worthy: an 0.8-importance line break under pressure at minute 72 directly created a saved big chance in a 1-1 match. It is clear, contextual, and suitable for a short lower-third.",
+      "ranked_moment_ids": [
+        "mo-e-000974",
+        "mo-e-001002",
+        "mo-e-001049",
+        "mo-e-001127",
+        "mo-e-000318",
+        "mo-e-000710",
+        "mo-e-000275",
+        "mo-e-000532",
+        "mo-e-000339",
+        "mo-e-000076",
+        "mo-e-000090",
+        "mo-e-000106",
+        "mo-e-000182",
+        "mo-e-000207",
+        "mo-e-000302",
+        "mo-e-000386",
+        "mo-e-000394",
+        "mo-e-000445",
+        "mo-e-000787",
+        "mo-e-000843",
+        "mo-e-000872",
+        "mo-e-001047",
+        "mo-e-001066",
+        "mo-e-001273",
+        "mo-e-000185",
+        "mo-e-000401",
+        "mo-e-000040",
+        "mo-e-000825",
+        "mo-e-000036",
+        "mo-e-000630",
+        "mo-e-000810",
+        "mo-e-000977",
+        "mo-e-001171",
+        "mo-e-000425",
+        "mo-e-000975",
+        "mo-e-000298",
+        "mo-e-000895"
+      ],
+      "air_at": {
+        "period": 2,
+        "minute": 73,
+        "second": 32
+      }
+    },
+    "rundown": [
+      {
+        "moment_id": "mo-e-000974",
+        "rank": 1,
+        "action": "approve",
+        "air_at": {
+          "period": 2,
+          "minute": 73,
+          "second": 32
+        },
+        "reason": "Verification passed and the insight is broadcast-worthy: an 0.8-importance line break under pressure at minute 72 directly created a saved big chance in a 1-1 match. It is clear, contextual, and suitable for a short lower-third."
+      },
+      {
+        "moment_id": "mo-e-001002",
+        "rank": 2,
+        "action": "hold",
+        "air_at": null,
+        "reason": "Deferred by the Director"
+      },
+      {
+        "moment_id": "mo-e-001049",
+        "rank": 3,
+        "action": "hold",
+        "air_at": null,
+        "reason": "Deferred by the Director"
+      },
+      {
+        "moment_id": "mo-e-001127",
+        "rank": 4,
+        "action": "hold",
+        "air_at": null,
+        "reason": "Deferred by the Director"
+      },
+      {
+        "moment_id": "mo-e-000318",
+        "rank": 5,
+        "action": "hold",
+        "air_at": null,
+        "reason": "Deferred by the Director"
+      },
+      {
+        "moment_id": "mo-e-000710",
+        "rank": 6,
+        "action": "hold",
+        "air_at": null,
+        "reason": "Deferred by the Director"
+      },
+      {
+        "moment_id": "mo-e-000275",
+        "rank": 7,
+        "action": "hold",
+        "air_at": null,
+        "reason": "Deferred by the Director"
+      },
+      {
+        "moment_id": "mo-e-000532",
+        "rank": 8,
+        "action": "hold",
+        "air_at": null,
+        "reason": "Deferred by the Director"
+      },
+      {
+        "moment_id": "mo-e-000339",
+        "rank": 9,
+        "action": "hold",
+        "air_at": null,
+        "reason": "Deferred by the Director"
+      },
+      {
+        "moment_id": "mo-e-000076",
+        "rank": 10,
+        "action": "hold",
+        "air_at": null,
+        "reason": "Deferred by the Director"
+      },
+      {
+        "moment_id": "mo-e-000090",
+        "rank": 11,
+        "action": "hold",
+        "air_at": null,
+        "reason": "Deferred by the Director"
+      },
+      {
+        "moment_id": "mo-e-000106",
+        "rank": 12,
+        "action": "hold",
+        "air_at": null,
+        "reason": "Deferred by the Director"
+      },
+      {
+        "moment_id": "mo-e-000182",
+        "rank": 13,
+        "action": "hold",
+        "air_at": null,
+        "reason": "Deferred by the Director"
+      },
+      {
+        "moment_id": "mo-e-000207",
+        "rank": 14,
+        "action": "hold",
+        "air_at": null,
+        "reason": "Deferred by the Director"
+      },
+      {
+        "moment_id": "mo-e-000302",
+        "rank": 15,
+        "action": "hold",
+        "air_at": null,
+        "reason": "Deferred by the Director"
+      },
+      {
+        "moment_id": "mo-e-000386",
+        "rank": 16,
+        "action": "hold",
+        "air_at": null,
+        "reason": "Deferred by the Director"
+      },
+      {
+        "moment_id": "mo-e-000394",
+        "rank": 17,
+        "action": "hold",
+        "air_at": null,
+        "reason": "Deferred by the Director"
+      },
+      {
+        "moment_id": "mo-e-000445",
+        "rank": 18,
+        "action": "hold",
+        "air_at": null,
+        "reason": "Deferred by the Director"
+      },
+      {
+        "moment_id": "mo-e-000787",
+        "rank": 19,
+        "action": "hold",
+        "air_at": null,
+        "reason": "Deferred by the Director"
+      },
+      {
+        "moment_id": "mo-e-000843",
+        "rank": 20,
+        "action": "hold",
+        "air_at": null,
+        "reason": "Deferred by the Director"
+      },
+      {
+        "moment_id": "mo-e-000872",
+        "rank": 21,
+        "action": "hold",
+        "air_at": null,
+        "reason": "Deferred by the Director"
+      },
+      {
+        "moment_id": "mo-e-001047",
+        "rank": 22,
+        "action": "hold",
+        "air_at": null,
+        "reason": "Deferred by the Director"
+      },
+      {
+        "moment_id": "mo-e-001066",
+        "rank": 23,
+        "action": "hold",
+        "air_at": null,
+        "reason": "Deferred by the Director"
+      },
+      {
+        "moment_id": "mo-e-001273",
+        "rank": 24,
+        "action": "hold",
+        "air_at": null,
+        "reason": "Deferred by the Director"
+      },
+      {
+        "moment_id": "mo-e-000185",
+        "rank": 25,
+        "action": "hold",
+        "air_at": null,
+        "reason": "Deferred by the Director"
+      },
+      {
+        "moment_id": "mo-e-000401",
+        "rank": 26,
+        "action": "hold",
+        "air_at": null,
+        "reason": "Deferred by the Director"
+      },
+      {
+        "moment_id": "mo-e-000040",
+        "rank": 27,
+        "action": "hold",
+        "air_at": null,
+        "reason": "Deferred by the Director"
+      },
+      {
+        "moment_id": "mo-e-000825",
+        "rank": 28,
+        "action": "hold",
+        "air_at": null,
+        "reason": "Deferred by the Director"
+      },
+      {
+        "moment_id": "mo-e-000036",
+        "rank": 29,
+        "action": "hold",
+        "air_at": null,
+        "reason": "Deferred by the Director"
+      },
+      {
+        "moment_id": "mo-e-000630",
+        "rank": 30,
+        "action": "hold",
+        "air_at": null,
+        "reason": "Deferred by the Director"
+      },
+      {
+        "moment_id": "mo-e-000810",
+        "rank": 31,
+        "action": "hold",
+        "air_at": null,
+        "reason": "Deferred by the Director"
+      },
+      {
+        "moment_id": "mo-e-000977",
+        "rank": 32,
+        "action": "hold",
+        "air_at": null,
+        "reason": "Deferred by the Director"
+      },
+      {
+        "moment_id": "mo-e-001171",
+        "rank": 33,
+        "action": "hold",
+        "air_at": null,
+        "reason": "Deferred by the Director"
+      },
+      {
+        "moment_id": "mo-e-000425",
+        "rank": 34,
+        "action": "hold",
+        "air_at": null,
+        "reason": "Deferred by the Director"
+      },
+      {
+        "moment_id": "mo-e-000975",
+        "rank": 35,
+        "action": "hold",
+        "air_at": null,
+        "reason": "Deferred by the Director"
+      },
+      {
+        "moment_id": "mo-e-000298",
+        "rank": 36,
+        "action": "hold",
+        "air_at": null,
+        "reason": "Deferred by the Director"
+      },
+      {
+        "moment_id": "mo-e-000895",
+        "rank": 37,
+        "action": "hold",
+        "air_at": null,
+        "reason": "Deferred by the Director"
+      }
+    ],
+    "trace": [
+      {
+        "agent": "TacticalAnalyst",
+        "model": "deepseek-flash",
+        "prompt_version": "prompt-v3",
+        "latency_ms": 21498.9,
+        "status": "ok",
+        "error": ""
+      },
+      {
+        "agent": "StoryProducer",
+        "model": "deepseek-flash",
+        "prompt_version": "prompt-v3",
+        "latency_ms": 11166.5,
+        "status": "ok",
+        "error": ""
+      },
+      {
+        "agent": "FactChecker",
+        "model": "deepseek-flash",
+        "prompt_version": "prompt-v3",
+        "latency_ms": 24902.7,
+        "status": "ok",
+        "error": ""
+      },
+      {
+        "agent": "AudienceEditor",
+        "model": "deepseek-flash",
+        "prompt_version": "prompt-v3",
+        "latency_ms": 29414.1,
+        "status": "ok",
+        "error": ""
+      },
+      {
+        "agent": "Director",
+        "model": "deepseek-flash",
+        "prompt_version": "prompt-v3",
+        "latency_ms": 11295.5,
+        "status": "ok",
+        "error": ""
+      }
+    ],
+    "fallback": false
+  }
+}

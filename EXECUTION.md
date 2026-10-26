@@ -10,13 +10,13 @@
 | Area | State |
 |---|---|
 | DeepSeek provider | Working: raw OpenAI-compatible API + Agent Framework `OpenAIChatClient(base_url=...)` |
-| Local API | Working on `:8010`; `/healthz`, `/docs`, `/api/matches`, `/api/matches/{id}`, `/api/matches/{id}/events` |
-| MatchForge | Five narrative matches generated: 6,281 events, 30 labels, deterministic seeds; speed present in every fixture; all five caches verified |
-| Tests | 31 passing; ruff clean; CI green; frontend production and static builds pass; 2-minute Remotion promo |
-| UI | Not started |
+| Local API | Working on `:8010`; matches, events, features, moments, insights, recap, config and WebSocket replay |
+| MatchForge | Five narrative matches generated: 6,281 events, 30 labels, deterministic seeds; all five `prompt-v3` caches verified |
+| Tests | 39 passing; ruff clean; production/static frontend builds and desktop/mobile/reduced-motion Playwright smoke pass |
 | Analytics | Working: xG, xT, pressure, pass quality, control/chaos, momentum, rhythm, speed; evidence + API |
-| Agents / verifier | Working: real Agent Framework graph, MCP analyst, deterministic gate + advisory checker, cached hero insight |
-| UI | Studio, Overlay, Fan built and served from FastAPI; live WebSocket replay; five cached fixtures; Fan five-match selector and player event log; Guide page; public GitHub Pages static demo; 2-minute Remotion promo |
+| Agents / verifier | Real Agent Framework review, one-revision/recheck path, candidate + cue gate, Director ranking and airtime planning |
+| UI | Cinematic Home, interactive Three.js Moment Focus, Director Studio, five Overlay templates, personalized Fan, SVG/reduced-motion fallbacks |
+| Media | 90-second 1080p film + independent 15-second vertical teaser, English narration, original sound design, bilingual sidecar subtitles |
 
 ---
 
@@ -80,12 +80,13 @@
 - [x] MCP tools wired to the analyst (`get_event_window`).
 - [x] Structured outputs validated with Pydantic; one repair attempt.
 - [x] FactChecker recomputes numbers, checks event references, and unsafe superlatives.
-- [x] Verifier rejection path withholds the insight.
-- [ ] Per-agent timeout + template fallback done; retry/circuit-breaker hardening next.
+- [x] Deterministic candidate and cue verification rejects unsupported numbers.
+- [x] One-revision/recheck graph path with unresolved-error hold and warning-only advisory release.
+- [x] Director ranking, 60-second dedupe, 15-second airtime gap and stoppage scheduling.
+- [x] Per-agent timeout, retries and deterministic fallbacks; circuit-breaker hardening remains future work.
 - [x] Audit log: agent, model, prompt version, latency, status, error.
-- [x] Cached/demo mode for tests and judges (hero cache: 9 cards, pass/approve).
-- [x] Tests: graph structure, graph execution with typed envelopes, verified insight, rejected claim, cached-only demo.
-- [ ] Tests: timeout fallback and duplicate suppression next.
+- [x] Five `prompt-v3` caches: 45 cards, 5/5 verified, 4/5 approved, 3 revision loops.
+- [x] Tests: graph structure, revision pass/fail, cue numbers, Director rules, rejected claims, cached-only demo.
 
 **Done when:** a real DeepSeek run produces a verified insight for 72', and a deliberately false “fastest sprint” claim is withheld. **Done.**
 
@@ -93,36 +94,32 @@
 
 ## Gate 4 — Studio, Overlay, Fan
 
-- [x] Vite + React + TypeScript app.
-- [x] Broadcast control-room design: deep navy, lime accent, tabular numerals, SVG pitch.
+- [x] Vite + React + TypeScript app with route-level code splitting.
+- [x] High-energy sports editorial design, dark base, lime accent, tabular numerals.
+- [x] One-screen cinematic Home with real 3D match data and two product entrances.
+- [x] Moment Focus: Events / Structure / Evidence / Audiences, playback, scrubbing, claim-to-event linking.
+- [x] Lazy Three.js scene with SVG fallback, mobile complexity limits, reduced-motion behavior, and offscreen/hidden-tab rendering pause.
 - [x] Studio:
-  - [x] Match selector, score, clock, replay speed.
-  - [x] Event ticker and current event.
-  - [x] Agent rundown with verified/cached state.
-  - [x] Evidence drawer with event IDs and metric calculations.
-  - [x] Approve / Hold.
-  - [x] Program monitor with safe-area guides.
-  - [x] Agent latency rail.
-  - [ ] Fan preview embedded in Studio (full Fan page exists).
+  - [x] Match selector, score, clock, replay speed and WebSocket controls.
+  - [x] Director rundown with ranking, reasons, dedupe and scheduled airtime.
+  - [x] Program monitor with safe-area guides and five Overlay variants.
+  - [x] Decision inspector, agent trace, evidence link and Approve / Hold / Kill.
 - [x] Overlay:
   - [x] Transparent 1920x1080 route.
-  - [x] Lower-third with headline, stat, subline, evidence-verified mark.
-  - [x] Stat-card, momentum-ribbon, speed-alert, and pressure-map variants.
-  - [ ] Queue/dedupe/OBS browser-source test.
+  - [x] Lower-third, stat-card, momentum-ribbon, speed-alert and pressure-map variants.
+  - [x] Deterministic queue/dedupe rules; physical OBS browser-source test remains unchecked.
 - [x] Fan:
   - [x] Analyst / Casual / Player Focus profiles.
   - [x] English / Spanish / Chinese.
-  - [x] "How we know" evidence expander.
-  - [x] Deterministic match recap with goals, cards, key moments, and top speed.
-  - [x] Player focus selector with deterministic event log.
-  - [ ] Favorite club selector and Arabic/Hindi.
-- [x] WebSocket replay stream (events + cached insight/cue delivery).
-- [x] Loading, empty, and error states.
-- [ ] Reconnect, rate limiting, and degraded-mode UI.
-- [x] Cached-only public demo guard (`ALLOW_LIVE_GENERATION=false`); Render/Fly/Docker packaging.
-- [x] All five fixtures precomputed; prompt-versioned cache keys; deterministic headline guard.
+  - [x] "How we know" evidence expander and deterministic recap.
+  - [x] Player selector, event log, passes, completion, shots and speed.
+  - [ ] Favorite club selector and Arabic/Hindi remain future scope.
+- [x] Loading, empty and error states.
+- [ ] Reconnect, rate limiting and degraded-mode UI remain future hardening.
+- [x] Cached-only public demo guard and all five `prompt-v3` fixtures precomputed.
+- [x] Browser smoke covers Home, Moment, five fixtures, approval, Overlay, Fan, mobile, reduced motion, invalid-link recovery, cross-match player validity and stale-request protection.
 
-**Done when:** the closed loop in PLAN.md §2 runs from a clean checkout. **Local UI closed loop is live; overlay variants, streaming, and polish remain.**
+**Done when:** the closed loop in PLAN.md §2 runs from a clean checkout. **Local and static Moment-centered closed loops are live; physical OBS testing remains.**
 
 ## Gate 5 — Hardening
 
@@ -144,13 +141,13 @@
 
 ## Gate 6 — Delivery packaging
 
-- [x] Public static demo on GitHub Pages; captioned video; submission checklist.
-- [x] Captioned demo video showing the running product.
+- [x] Static demo, submission checklist and bilingual sidecar subtitles.
+- [x] 90-second 1080p film and independent 15-second vertical teaser rendered and inspected.
 - [x] Project description and testing instructions.
 - [x] No secrets; code/data licenses and data card included.
 - [x] Docker image builds and serves cached Studio/API locally (`matchmind:local-test`).
-- [x] Main repository public; static demo is served from this repository via GitHub Pages.
-- [x] Public links verified from a clean browser session.
+- [x] Main repository public; static demo deploys from this repository via GitHub Pages on push.
+- [x] New production static build verified locally in Chrome across desktop and mobile.
 
 **Done when:** an external reviewer can open the demo, follow the 90-second path, and understand the product.
 

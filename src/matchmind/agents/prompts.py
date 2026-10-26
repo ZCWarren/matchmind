@@ -5,7 +5,7 @@ from __future__ import annotations
 import json
 from typing import Any
 
-PROMPT_VERSION = "prompt-v2"
+PROMPT_VERSION = "prompt-v3"
 
 ANALYST_INSTRUCTIONS = """You are TacticalAnalyst for MatchMind, a football broadcast
 explainability system.
@@ -77,13 +77,16 @@ Rules:
 - Return only one JSON object matching the VerificationResult schema. No markdown."""
 
 DIRECTOR_INSTRUCTIONS = """You are Director for MatchMind, a live broadcast rundown.
-Decide whether a verified insight should go on air now.
+Decide whether a verified insight should go on air and rank the available moments.
 
 Rules:
 - Write the reason in English.
 - approve only if verification.status is pass and the insight is important enough.
 - hold if it needs more evidence or a better slot.
 - kill if it is not broadcast-worthy.
+- Rank unique, broadcast-worthy moment IDs after the selected moment.
+- Never rank duplicate moments above distinct stories.
+- The deterministic scheduler owns final airtime; do not invent event IDs or moments.
 - Keep duration between 5 and 12 seconds for a lower-third.
 - Return only one JSON object matching the RundownDecision schema. No markdown."""
 
@@ -103,11 +106,19 @@ def analyst_prompt(
     )
 
 
-def producer_prompt(candidate: dict[str, Any]) -> str:
+def producer_prompt(
+    candidate: dict[str, Any], feedback: list[dict[str, Any]] | None = None
+) -> str:
+    revision = (
+        "\nRevise the existing cue to resolve these FactChecker issues without adding facts:\n"
+        + json.dumps(feedback, ensure_ascii=False)
+        if feedback
+        else ""
+    )
     return (
         "Create one broadcast OverlayCue from this InsightCandidate.\n"
         f"{json.dumps(candidate, ensure_ascii=False)}\n"
-        "The payload must contain eyebrow, headline, stat, subline."
+        "The payload must contain eyebrow, headline, stat, subline." + revision
     )
 
 
@@ -122,14 +133,18 @@ def editor_prompt(candidate: dict[str, Any], profile: str, language: str) -> str
 def checker_prompt(candidate: dict[str, Any], evidence: dict[str, Any]) -> str:
     return (
         f"InsightCandidate:\n{json.dumps(candidate, ensure_ascii=False)}\n\n"
-        f"Deterministic evidence:\n{json.dumps(evidence, ensure_ascii=False)}\n\n"
-        "Return a VerificationResult JSON object."
+        f"Deterministic evidence and broadcast cue:\n{json.dumps(evidence, ensure_ascii=False)}\n\n"
+        "Audit both the candidate and the actual cue. Return a VerificationResult JSON object."
     )
 
 
-def director_prompt(candidate: dict[str, Any], verification: dict[str, Any]) -> str:
+def director_prompt(
+    candidate: dict[str, Any], verification: dict[str, Any], options: list[dict[str, Any]]
+) -> str:
     return (
         f"InsightCandidate:\n{json.dumps(candidate, ensure_ascii=False)}\n\n"
         f"VerificationResult:\n{json.dumps(verification, ensure_ascii=False)}\n\n"
-        "Return a RundownDecision JSON object."
+        "Available moments and deterministic airtime constraints:\n"
+        f"{json.dumps(options, ensure_ascii=False)}\n\n"
+        "Return a RundownDecision JSON object with ranked_moment_ids."
     )

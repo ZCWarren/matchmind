@@ -2,6 +2,8 @@
 
 from __future__ import annotations
 
+import re
+
 from matchmind.agents.contracts import (
     Claim,
     FanCard,
@@ -154,25 +156,58 @@ def verify_deterministic(
     )
 
 
+def verify_cue(cue: OverlayCue, candidate: InsightCandidate) -> VerificationResult:
+    issues: list[VerificationIssue] = []
+    if cue.insight_id != candidate.moment_id:
+        issues.append(
+            VerificationIssue(code="cue_mismatch", message="Cue targets another insight")
+        )
+    candidate_text = " ".join(
+        [candidate.headline, candidate.why_it_matters, candidate.watch_next]
+        + [claim.text for claim in candidate.claims]
+    )
+    allowed_numbers = {float(value) for value in re.findall(r"-?\d+(?:\.\d+)?", candidate_text)}
+    allowed_numbers.update(
+        ref.value for claim in candidate.claims for ref in claim.metric_refs
+    )
+    cue_text = " ".join(
+        str(cue.payload.get(key, "")) for key in ("headline", "stat", "subline")
+    )
+    for value in re.findall(r"-?\d+(?:\.\d+)?", cue_text):
+        number = float(value)
+        if not any(abs(number - allowed) <= 0.011 for allowed in allowed_numbers):
+            issues.append(
+                VerificationIssue(
+                    code="unsupported_cue_number",
+                    message=f"Cue number {value} is absent from the verified candidate",
+                )
+            )
+    return VerificationResult(
+        status="reject" if issues else "pass",
+        issues=issues,
+        checked_claims=len(candidate.claims),
+        notes="deterministic cue verifier",
+    )
+
+
 def merge_verifications(
     deterministic: VerificationResult,
     model: VerificationResult | None,
+    *,
+    after_revision: bool = False,
 ) -> VerificationResult:
-    """Deterministic checks are authoritative; the model is an advisory reviewer.
-
-    A model "reject" becomes a "revise" hold, so a stylistic objection cannot
-    silently kill a factually verified insight. A model "pass" never overrides a
-    deterministic rejection.
-    """
+    """The deterministic gate is authoritative; model revision is a bounded hold."""
     if model is None:
         return deterministic
     issues = deterministic.issues + model.issues
-    # Deterministic checks are the release gate. The model reviewer contributes
-    # notes, but a stylistic false positive must not block a factually verified
-    # insight. A deterministic error still rejects.
-    status = "reject" if deterministic.status == "reject" else "pass"
+    unresolved_errors = any(issue.severity == "error" for issue in model.issues)
+    needs_revision = model.status == "revise" and (not after_revision or unresolved_errors)
+    status = (
+        "reject" if deterministic.status == "reject" else "revise" if needs_revision else "pass"
+    )
     notes = f"{deterministic.notes}; {model.notes}".strip("; ")
-    if model.status == "reject":
+    advisory_revision = after_revision and model.status == "revise" and not unresolved_errors
+    if model.status == "reject" or advisory_revision:
         notes = f"{notes}; model reviewer flagged issues (advisory)"
     return VerificationResult(
         status=status,

@@ -1,6 +1,6 @@
 # MatchMind — Product & Architecture
 
-> **Every moment, explained. Every fan, understood.**
+> **See the game beneath the game.**
 >
 > This document defines what MatchMind is and what “complete” means. It deliberately
 > contains no dates, timeboxes, or delivery schedules. Work is driven by the
@@ -10,19 +10,21 @@
 
 ## 1. Product
 
-MatchMind is a real-time explainability layer for football broadcast. It turns a
-synthetic match event stream into grounded, timed match intelligence and renders
-it in three forms:
+MatchMind is a real-time explainability layer for football broadcast. It makes
+invisible match structure visible through one continuous experience:
 
-1. **Studio** — a broadcast control room for a director/producer: replay, agent
-   rundown, evidence, approve/hold, program monitor.
-2. **Overlay** — a transparent, broadcast-ready browser source (1920×1080) for
+1. **Home** — a one-screen cinematic entry with a real data-driven 3D match scene.
+2. **Moment Focus** — interactive Events, Structure, Evidence and Audiences layers
+   connected by playback, scrubbing and claim-to-event navigation.
+3. **Studio** — Director ranking, airtime planning, replay, evidence, approval and
+   program monitoring for a producer.
+4. **Overlay** — a transparent, broadcast-ready browser source (1920×1080) for
    lower-thirds, stat cards, momentum ribbons, pressure maps, and speed alerts.
-3. **Fan** — a personalized second screen for analyst, casual, and player-focused
+5. **Fan** — a personalized second screen for analyst, casual, and player-focused
    audiences, in multiple languages.
 
-The same event can produce three genuinely different experiences without
-changing the underlying facts.
+The same event produces genuinely different experiences without changing the
+underlying facts.
 
 ### 1.1 The problem
 
@@ -33,6 +35,8 @@ player-focused viewer at the same time.
 
 ### 1.2 The core idea
 
+- **Make the invisible visible.** Real event coordinates, pressure and passing
+  lines drive an interactive 3D Moment rather than a canned visualization.
 - **Deterministic facts, probabilistic language.** All football numbers come from
   a deterministic engine. Models explain; they do not invent numbers.
 - **Evidence-first.** Every displayed claim carries event IDs and metric
@@ -183,17 +187,17 @@ checkpoints.
 flowchart TD
   S["FeatureSnapshot + EventWindow"] --> A["TacticalAnalyst"]
   A --> P["StoryProducer"]
-  A --> F1["AudienceEditor: Analyst"]
-  A --> F2["AudienceEditor: Casual"]
-  A --> F3["AudienceEditor: Player Focus"]
-  P --> V["FactChecker"]
-  F1 --> V
-  F2 --> V
-  F3 --> V
-  V -->|pass| D["Director"]
-  V -->|revise| P
-  V -->|reject| X["Withhold + template fallback"]
-  D --> R["Rundown / Overlay / Fan"]
+  A --> F["AudienceEditor: parallel profiles"]
+  A --> C["FactChecker"]
+  P --> V["Review + deterministic candidate/cue gate"]
+  F --> V
+  C --> V
+  V -->|revise once| R["Producer revision"]
+  R --> RC["Recheck"]
+  RC --> D["Director"]
+  V -->|pass or reject| D
+  V -->|reject| X["Withhold"]
+  D --> O["Rundown / Overlay / Fan"]
 ```
 
 ### 7.2 Shared state

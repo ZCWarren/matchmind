@@ -5,17 +5,27 @@
   "type": "module",
   "scripts": {
     "preview": "remotion studio src/index.ts",
-    "render": "remotion render src/index.ts MatchMindPromo out/promo.mp4 --codec=h264 --crf=20 --concurrency=2"
+    "sync": "node scripts/sync-demo.mjs",
+    "render": "npm run render:main && npm run render:teaser",
+    "render:main": "remotion render src/index.ts MatchMindPromo out/promo.mp4 --codec=h264 --crf=19 --concurrency=2",
+    "render:teaser": "remotion render src/index.ts MatchMindTeaser out/teaser.mp4 --codec=h264 --crf=19 --concurrency=2"
   },
   "dependencies": {
+    "@react-three/fiber": "^9.8.2",
     "@remotion/cli": "4.0.538",
+    "@remotion/three": "^4.0.538",
     "react": "19.3.1",
     "react-dom": "19.3.1",
-    "remotion": "4.0.538"
+    "remotion": "4.0.538",
+    "three": "^0.186.1"
   },
   "devDependencies": {
     "@types/react": "^19.2.0",
     "@types/react-dom": "^19.2.0",
+    "@types/three": "^0.186.0",
     "typescript": "^5.9.0"
+  },
+  "overrides": {
+    "zod": "^4.6.6"
   }
 }

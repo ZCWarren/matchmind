@@ -1,15 +1,22 @@
 import { AbsoluteFill, Audio, Img, Sequence, interpolate, spring, staticFile, useCurrentFrame, useVideoConfig } from "remotion";
+import MatchWorld from "./MatchWorld";
+import hero from "./generated/hero.json";
 
 const LIME = "#c8ff3d";
-const CYAN = "#49d7ff";
-const CORAL = "#ff625f";
-const TEXT = "#eef4ff";
-const MUTED = "#8f9bad";
-const DIM = "#5c6878";
-const BG = "#070a12";
+const CYAN = "#55d6d0";
+const CORAL = "#ff6b5f";
+const TEXT = "#f0f5ef";
+const MUTED = "#9aa99f";
+const DIM = "#6f8075";
+const BG = "#060908";
 const SANS = '"IBM Plex Sans", "Segoe UI", sans-serif';
 const MONO = '"IBM Plex Mono", monospace';
 
+const clamp = { extrapolateLeft: "clamp", extrapolateRight: "clamp" } as const;
+const enter = (frame: number, delay = 0, distance = 32) => ({
+  opacity: interpolate(frame, [delay, delay + 16], [0, 1], clamp),
+  transform: `translateY(${interpolate(frame, [delay, delay + 24], [distance, 0], clamp)}px)`,
+});
 const mono = (size: number, color = MUTED): React.CSSProperties => ({
   fontFamily: MONO,
   fontSize: size,
@@ -18,310 +25,260 @@ const mono = (size: number, color = MUTED): React.CSSProperties => ({
   color,
 });
 
-const enter = (frame: number, start: number, distance = 24) => ({
-  opacity: interpolate(frame, [start, start + 18], [0, 1], { extrapolateRight: "clamp" }),
-  transform: `translateY(${interpolate(frame, [start, start + 24], [distance, 0], { extrapolateRight: "clamp" })}px)`,
-});
-
 function Backdrop({ accent = LIME }: { accent?: string }) {
   return (
     <>
-      <AbsoluteFill style={{ background: BG, zIndex: -1 }} />
-      <AbsoluteFill
-        style={{
-          zIndex: -1,
-          backgroundImage:
-            "linear-gradient(rgba(255,255,255,0.035) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.035) 1px, transparent 1px)",
-          backgroundSize: "64px 64px",
-          maskImage: "radial-gradient(circle at 50% 45%, black 10%, transparent 78%)",
-        }}
-      />
-      <div
-        style={{
-          position: "absolute",
-          width: 620,
-          height: 620,
-          borderRadius: "50%",
-          top: -260,
-          right: -180,
-          background: `radial-gradient(circle, ${accent}26, transparent 66%)`,
-          zIndex: -1,
-        }}
-      />
-      <div style={{ position: "absolute", left: 0, right: 0, bottom: 0, height: 180, background: "linear-gradient(0deg, rgba(0,0,0,.5), transparent)", zIndex: -1 }} />
+      <AbsoluteFill style={{ background: BG }} />
+      <AbsoluteFill style={{ background: `radial-gradient(circle at 72% 42%, ${accent}12, transparent 46%)` }} />
+      <AbsoluteFill style={{ opacity: 0.15, backgroundImage: "linear-gradient(rgba(255,255,255,.05) 1px, transparent 1px)", backgroundSize: "100% 120px", maskImage: "linear-gradient(90deg, transparent, black, transparent)" }} />
     </>
   );
 }
 
-function Corner({ index, total, label }: { index: number; total: number; label: string }) {
+function BrandMark({ right = false }: { right?: boolean }) {
   return (
-    <div style={{ position: "absolute", left: 48, right: 48, top: 32, display: "flex", justifyContent: "space-between", ...mono(10, DIM) }}>
-      <span>MATCHMIND / {label}</span>
-      <span>{String(index).padStart(2, "0")} / {String(total).padStart(2, "0")}</span>
+    <div style={{ position: "absolute", top: 42, [right ? "right" : "left"]: 54, display: "flex", alignItems: "center", gap: 14, ...mono(15, TEXT), fontWeight: 600 }}>
+      <span style={{ display: "grid", placeItems: "center", width: 42, height: 42, border: `1px solid ${LIME}`, color: LIME, fontSize: 13 }}>MM</span>
+      MATCHMIND
     </div>
   );
 }
 
-function Intro() {
-  const frame = useCurrentFrame();
-  const { fps } = useVideoConfig();
-  const title = spring({ frame: frame - 10, fps, config: { damping: 18, mass: 0.7 } });
-  const line = interpolate(frame, [0, 32], [0, 520], { extrapolateRight: "clamp" });
+function Caption({ children }: { children: React.ReactNode }) {
   return (
-    <AbsoluteFill style={{ padding: 86, justifyContent: "center" }}>
-      <Backdrop />
-      <div style={{ width: line, height: 3, background: LIME, marginBottom: 28 }} />
-      <div style={{ ...mono(12, LIME), marginBottom: 22, opacity: title }}>BROADCAST INTELLIGENCE / ASTER LEAGUE</div>
-      <div style={{ fontFamily: SANS, fontSize: 104, fontWeight: 600, letterSpacing: "-0.06em", lineHeight: 0.93, color: TEXT, transform: `translateY(${(1 - title) * 28}px)`, opacity: title }}>
-        Every moment,<br /><span style={{ color: LIME }}>explained.</span>
-      </div>
-      <div style={{ marginTop: 28, maxWidth: 700, color: MUTED, fontFamily: SANS, fontSize: 24, lineHeight: 1.45, opacity: interpolate(frame, [38, 62], [0, 1], { extrapolateRight: "clamp" }) }}>
-        Five agents turn football events into verified, timed match intelligence.
-        The models explain. The deterministic engine decides what is true.
-      </div>
-      <div style={{ position: "absolute", right: 86, bottom: 68, ...mono(11, DIM), textAlign: "right" }}>
-        STUDIO / OVERLAY / FAN<br />
-        <span style={{ color: LIME }}>ONE VERIFIED MOMENT</span>
-      </div>
-    </AbsoluteFill>
+    <div style={{ position: "absolute", right: 100, bottom: 38, left: 100, textAlign: "center", color: TEXT, fontFamily: SANS, fontSize: 24, lineHeight: 1.35, textShadow: `0 2px 16px ${BG}` }}>
+      {children}
+    </div>
   );
 }
 
-function Problem() {
+function EventStorm() {
   const frame = useCurrentFrame();
-  const count = Math.round(interpolate(frame, [48, 150], [0, 1275], { extrapolateLeft: "clamp", extrapolateRight: "clamp" }));
-  const score = interpolate(frame, [190, 220], [0, 1], { extrapolateRight: "clamp" });
+  const count = Math.round(interpolate(frame, [0, 115], [0, hero.eventCount], clamp));
   return (
-    <AbsoluteFill style={{ padding: 80, justifyContent: "center" }}>
+    <AbsoluteFill>
       <Backdrop accent={CORAL} />
-      <Corner index={2} total={9} label="THE PROBLEM" />
-      <div style={{ ...mono(12, CORAL), ...enter(frame, 10) }}>A MATCH IS NOT A HIGHLIGHT REEL</div>
-      <div style={{ display: "flex", alignItems: "baseline", gap: 24, marginTop: 16, ...enter(frame, 24) }}>
-        <span style={{ fontFamily: MONO, fontSize: 160, color: TEXT, letterSpacing: "-0.06em", lineHeight: 1 }}>{count.toLocaleString()}</span>
-        <span style={{ fontFamily: SANS, fontSize: 30, color: MUTED }}>events.</span>
+      {Array.from({ length: 90 }, (_, index) => {
+        const x = (index * 137 + 41) % 1920;
+        const y = (index * 83 + 73) % 1080;
+        const drift = interpolate(frame, [0, 240], [0, (index % 7 - 3) * 32], clamp);
+        return <i key={index} style={{ position: "absolute", left: x, top: y, width: index % 5 === 0 ? 7 : 3, height: index % 5 === 0 ? 7 : 3, background: index % 4 === 0 ? CORAL : CYAN, opacity: interpolate(frame, [index % 30, 80 + index % 30], [0, 0.55], clamp), transform: `translate(${drift}px, ${-drift * 0.4}px)` }} />;
+      })}
+      <BrandMark />
+      <div style={{ position: "absolute", left: 90, top: 260, ...enter(frame, 10) }}>
+        <div style={mono(17, CORAL)}>A match is not a highlight reel</div>
+        <div style={{ marginTop: 24, color: TEXT, fontFamily: MONO, fontSize: 178, letterSpacing: "-0.08em", lineHeight: 1 }}>{count.toLocaleString()}</div>
+        <div style={{ color: MUTED, fontFamily: SANS, fontSize: 36 }}>events. One scoreline.</div>
       </div>
-      <div style={{ display: "flex", gap: 18, alignItems: "center", marginTop: 18, opacity: score }}>
-        <span style={{ fontFamily: SANS, fontSize: 62, color: LIME, letterSpacing: "-0.04em" }}>One scoreline.</span>
-        <span style={{ ...mono(13, DIM) }}>WHAT MATTERED?</span>
-      </div>
-      <div style={{ display: "flex", gap: 12, marginTop: 42 }}>
-        {[
-          ["01", "DATA", "1,275 events, coordinates, pressure, speed"],
-          ["02", "EXPLANATION", "Why this moment changed the match"],
-          ["03", "EVIDENCE", "The exact rows behind every number"],
-        ].map(([n, title, body], i) => (
-          <div key={title} style={{ flex: 1, padding: 17, border: "1px solid rgba(255,255,255,.1)", background: "rgba(11,17,28,.82)", opacity: interpolate(frame, [230 + i * 20, 260 + i * 20], [0, 1], { extrapolateRight: "clamp" }) }}>
-            <div style={{ ...mono(9, i === 1 ? LIME : i === 2 ? CORAL : CYAN), marginBottom: 14 }}>{n} / {title}</div>
-            <div style={{ fontFamily: SANS, fontSize: 18, color: TEXT, lineHeight: 1.35 }}>{body}</div>
-          </div>
-        ))}
-      </div>
+      <div style={{ position: "absolute", right: 100, bottom: 190, color: TEXT, fontFamily: SANS, fontSize: 54, fontWeight: 500, letterSpacing: "-0.04em", ...enter(frame, 105) }}>What actually changed?</div>
+      <Caption>Every match hides thousands of events behind one scoreline.</Caption>
     </AbsoluteFill>
   );
 }
 
-const metrics = [
-  ["xG", "2.05 / 2.02", "shot quality", 72],
-  ["xT", "20.6 / 21.9", "threat added", 86],
-  ["Pressure", "0.82", "event-level", 82],
-  ["Control", "0.61", "home share", 61],
-  ["Chaos", "0.85", "event density", 85],
-  ["Top speed", "33.8", "km/h", 94],
-];
-
-function DataScene() {
+function Reveal() {
   const frame = useCurrentFrame();
   return (
-    <AbsoluteFill style={{ padding: 80, justifyContent: "center" }}>
-      <Backdrop accent={CYAN} />
-      <Corner index={3} total={9} label="THE DATA LAYER" />
-      <div style={{ ...mono(12, CYAN), ...enter(frame, 10) }}>DETERMINISTIC / EVENT-LEVEL / VERSIONED</div>
-      <div style={{ fontFamily: SANS, fontSize: 58, fontWeight: 500, letterSpacing: "-0.04em", color: TEXT, marginTop: 14, ...enter(frame, 22) }}>
-        The data is the source of truth.
+    <AbsoluteFill>
+      <Backdrop />
+      <AbsoluteFill style={{ opacity: interpolate(frame, [0, 55], [0, 1], clamp), transform: `scale(${interpolate(frame, [0, 150], [1.12, 1], clamp)})` }}>
+        <MatchWorld />
+      </AbsoluteFill>
+      <BrandMark />
+      <div style={{ position: "absolute", left: 70, top: 215, width: 720, ...enter(frame, 22) }}>
+        <div style={mono(16, LIME)}>Match intelligence, made visible</div>
+        <div style={{ marginTop: 22, color: TEXT, fontFamily: SANS, fontSize: 82, fontWeight: 600, letterSpacing: "-0.06em", lineHeight: 0.98 }}>See the game<br /><span style={{ color: LIME }}>beneath the game.</span></div>
       </div>
-      <div style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: 10, marginTop: 34 }}>
-        {metrics.map(([name, value, note, width], i) => (
-          <div key={name} style={{ padding: 16, border: "1px solid rgba(255,255,255,.1)", background: "rgba(11,17,28,.9)", opacity: interpolate(frame, [65 + i * 12, 85 + i * 12], [0, 1], { extrapolateRight: "clamp" }) }}>
-            <div style={{ ...mono(9, DIM) }}>{name}</div>
-            <div style={{ display: "flex", alignItems: "baseline", gap: 8, marginTop: 7 }}>
-              <span style={{ fontFamily: MONO, fontSize: 30, color: i === 2 ? LIME : TEXT }}>{value}</span>
-              <span style={{ ...mono(8, DIM) }}>{note}</span>
-            </div>
-            <div style={{ height: 3, background: "rgba(255,255,255,.08)", marginTop: 12 }}>
-              <div style={{ width: `${(Number(width) * interpolate(frame, [90 + i * 12, 130 + i * 12], [0, 1], { extrapolateRight: "clamp" }))}%`, height: "100%", background: i === 2 ? LIME : CYAN }} />
-            </div>
-          </div>
-        ))}
-      </div>
-      <div style={{ marginTop: 26, ...mono(10, DIM), opacity: interpolate(frame, [250, 280], [0, 1], { extrapolateRight: "clamp" }) }}>
-        EVERY METRIC CARRIES EVENT IDS + A FORMULA VERSION. NOTHING IS INVENTED.
-      </div>
+      <Caption>MatchMind reveals the pressure, movement and tactical structure underneath.</Caption>
     </AbsoluteFill>
   );
 }
 
-function AgentNode({ label, role, color, delay, frame }: { label: string; role: string; color: string; delay: number; frame: number }) {
+function HeroPass({ vertical = false }: { vertical?: boolean }) {
+  const frame = useCurrentFrame();
+  const hit = spring({ frame: frame - 92, fps: 30, config: { damping: 15, mass: 0.65 } });
   return (
-    <div style={{ width: 190, padding: 12, border: `1px solid ${color}55`, borderTop: `2px solid ${color}`, background: "rgba(11,17,28,.94)", opacity: interpolate(frame, [delay, delay + 16], [0, 1], { extrapolateRight: "clamp" }), transform: `translateY(${interpolate(frame, [delay, delay + 18], [12, 0], { extrapolateRight: "clamp" })}px)` }}>
-      <div style={{ ...mono(8, color) }}>{label}</div>
-      <div style={{ marginTop: 9, fontFamily: SANS, fontSize: 13, color: TEXT, lineHeight: 1.25 }}>{role}</div>
-    </div>
+    <AbsoluteFill>
+      <Backdrop accent={CORAL} />
+      <AbsoluteFill style={{ transform: vertical ? "translateY(120px)" : "translateX(180px)" }}>
+        <MatchWorld vertical={vertical} passMode />
+      </AbsoluteFill>
+      <div style={{ position: "absolute", top: vertical ? 150 : 110, left: vertical ? 64 : 74, ...enter(frame, 12) }}>
+        <div style={mono(vertical ? 15 : 16, CORAL)}>72:12 / Nova Harbor vs Orion North</div>
+        <div style={{ marginTop: 16, color: TEXT, fontFamily: SANS, fontSize: vertical ? 64 : 58, fontWeight: 550, letterSpacing: "-0.045em" }}>One pass through the press.</div>
+      </div>
+      <div style={{ position: "absolute", right: vertical ? 64 : 80, bottom: vertical ? 280 : 160, textAlign: "right", transform: `scale(${0.8 + hit * 0.2})`, opacity: hit }}>
+        <div style={{ color: LIME, fontFamily: MONO, fontSize: vertical ? 118 : 142, letterSpacing: "-0.08em", lineHeight: 1 }}>24.6<span style={{ fontSize: 32, letterSpacing: 0 }}> m</span></div>
+        <div style={{ ...mono(vertical ? 17 : 18, TEXT), marginTop: 16 }}>line-breaking pass</div>
+        <div style={{ display: "flex", justifyContent: "flex-end", gap: 28, marginTop: 30 }}>
+          <span style={{ ...mono(vertical ? 17 : 18, CORAL) }}>0.82 pressure</span>
+          <span style={{ ...mono(vertical ? 17 : 18, CYAN) }}>+0.1736 xT</span>
+        </div>
+      </div>
+      {!vertical && <Caption>NHR-08 finds 24.6 meters through 0.82 pressure. The structure becomes a story.</Caption>}
+    </AbsoluteFill>
   );
 }
 
-function Arrow({ delay, frame }: { delay: number; frame: number }) {
-  return <div style={{ color: DIM, fontFamily: MONO, fontSize: 20, opacity: interpolate(frame, [delay, delay + 14], [0, 1], { extrapolateRight: "clamp" }) }}>→</div>;
-}
+const agentRoles = [
+  ["TacticalAnalyst", "Finds the pattern", LIME],
+  ["StoryProducer", "Writes for air", CYAN],
+  ["AudienceEditor", "Changes the depth", CYAN],
+  ["FactChecker", "Challenges the claim", CORAL],
+  ["Director", "Chooses the moment", LIME],
+];
 
 function Agents() {
   const frame = useCurrentFrame();
   return (
-    <AbsoluteFill style={{ padding: 74, justifyContent: "center" }}>
-      <Backdrop accent={LIME} />
-      <Corner index={4} total={9} label="THE AGENT GRAPH" />
-      <div style={{ ...mono(12, LIME), ...enter(frame, 8) }}>MICROSOFT AGENT FRAMEWORK / TYPED STATE</div>
-      <div style={{ fontFamily: SANS, fontSize: 52, fontWeight: 500, letterSpacing: "-0.04em", color: TEXT, marginTop: 13, ...enter(frame, 20) }}>
-        Five agents. One shared evidence graph.
+    <AbsoluteFill>
+      <Backdrop />
+      <BrandMark />
+      <div style={{ position: "absolute", top: 135, left: 70, ...enter(frame, 8) }}>
+        <div style={mono(15, LIME)}>Microsoft Agent Framework / Typed shared state</div>
+        <div style={{ marginTop: 14, color: TEXT, fontFamily: SANS, fontSize: 60, letterSpacing: "-0.045em" }}>Five agents. One evidence graph.</div>
       </div>
-      <div style={{ display: "flex", alignItems: "center", gap: 12, marginTop: 28 }}>
-        <AgentNode label="01 / ANALYST" role="TacticalAnalyst finds the pattern and writes claims" color={LIME} delay={52} frame={frame} />
-        <Arrow delay={94} frame={frame} />
-        <div style={{ display: "flex", flexDirection: "column", gap: 7 }}>
-          <AgentNode label="02 / PRODUCER" role="StoryProducer writes the broadcast cue" color={CYAN} delay={106} frame={frame} />
-          <AgentNode label="03 / EDITOR" role="AudienceEditor rewrites for three audiences" color={CYAN} delay={122} frame={frame} />
-          <AgentNode label="04 / CHECKER" role="FactChecker audits claims as advisory" color={CORAL} delay={138} frame={frame} />
-        </div>
-        <Arrow delay={178} frame={frame} />
-        <AgentNode label="FAN-IN / VERIFY" role="deterministic gate + evidence merge" color={LIME} delay={190} frame={frame} />
-        <Arrow delay={222} frame={frame} />
-        <AgentNode label="05 / DIRECTOR" role="approve / hold / kill the cue" color={LIME} delay={234} frame={frame} />
-      </div>
-      <div style={{ display: "flex", gap: 7, marginTop: 18, opacity: interpolate(frame, [280, 310], [0, 1], { extrapolateRight: "clamp" }) }}>
-        {["GraphState", "event window", "metrics", "claims", "verification", "trace"].map((x) => (
-          <span key={x} style={{ padding: "5px 7px", border: "1px solid rgba(200,255,61,.3)", color: LIME, fontFamily: MONO, fontSize: 9 }}>{x}</span>
+      <div style={{ position: "absolute", top: 335, right: 70, left: 70, display: "grid", gridTemplateColumns: "repeat(5, 1fr)", gap: 12 }}>
+        {agentRoles.map(([name, role, color], index) => (
+          <div key={name} style={{ minHeight: 250, padding: "26px 22px", borderTop: `3px solid ${color}`, borderRight: "1px solid #223028", borderBottom: "1px solid #223028", borderLeft: "1px solid #223028", background: "#0d1310", ...enter(frame, 35 + index * 18, 55) }}>
+            <span style={mono(13, color)}>{String(index + 1).padStart(2, "0")}</span>
+            <div style={{ marginTop: 64, color: TEXT, fontFamily: SANS, fontSize: 23, fontWeight: 600 }}>{name}</div>
+            <div style={{ marginTop: 12, color: MUTED, fontFamily: SANS, fontSize: 19, lineHeight: 1.4 }}>{role}</div>
+          </div>
         ))}
       </div>
-      <div style={{ ...mono(10, DIM), marginTop: 18, opacity: interpolate(frame, [320, 350], [0, 1], { extrapolateRight: "clamp" }) }}>
-        PARALLEL FAN-OUT. TYPED FAN-IN. RETRIES. DETERMINISTIC FALLBACK.
-      </div>
+      <div style={{ position: "absolute", left: 70, bottom: 170, ...mono(16, DIM), ...enter(frame, 145) }}>Parallel fan-out / Typed fan-in / Real trace / Deterministic fallback</div>
+      <Caption>Each agent has one responsibility. No single prompt owns the whole decision.</Caption>
     </AbsoluteFill>
   );
 }
 
-function Verifier() {
+function Revision() {
   const frame = useCurrentFrame();
-  const stamp = spring({ frame: frame - 220, fps: 30, config: { damping: 14 } });
+  const strike = interpolate(frame, [85, 120], [0, 100], clamp);
   return (
-    <AbsoluteFill style={{ padding: 80, justifyContent: "center" }}>
+    <AbsoluteFill>
       <Backdrop accent={CORAL} />
-      <Corner index={5} total={9} label="THE RELEASE GATE" />
-      <div style={{ ...mono(12, CORAL), ...enter(frame, 10) }}>EVIDENCE FIRST / NO FREE-FLOATING CLAIMS</div>
-      <div style={{ fontFamily: SANS, fontSize: 58, fontWeight: 500, letterSpacing: "-0.04em", color: TEXT, marginTop: 13, ...enter(frame, 22) }}>
-        Claims meet evidence.
+      <BrandMark />
+      <div style={{ position: "absolute", top: 145, left: 74, ...enter(frame, 10) }}>
+        <div style={mono(14, CORAL)}>Bounded recovery / Controlled example</div>
+        <div style={{ marginTop: 16, color: TEXT, fontFamily: SANS, fontSize: 64, letterSpacing: "-0.05em" }}>When a claim overreaches.</div>
       </div>
-      <div style={{ display: "flex", gap: 14, marginTop: 32 }}>
-        <div style={{ flex: 1.25, padding: 18, border: "1px solid rgba(255,255,255,.12)", background: "rgba(11,17,28,.94)" }}>
-          <div style={{ ...mono(9, LIME) }}>CLAIM / AI EXPLANATION</div>
-          <div style={{ marginTop: 12, fontFamily: SANS, fontSize: 20, color: TEXT, lineHeight: 1.35 }}>NHR-08 completed a 24.6 m line-breaking pass under 0.82 pressure.</div>
-          <div style={{ display: "flex", gap: 6, marginTop: 18, flexWrap: "wrap" }}>
-            {["e-000974", "event_pressure 0.82", "xt_delta +0.1736", "difficulty 8.7"].map((x) => <span key={x} style={{ padding: "5px 7px", border: "1px solid rgba(73,215,255,.28)", color: CYAN, fontFamily: MONO, fontSize: 9 }}>{x}</span>)}
-          </div>
+      <div style={{ position: "absolute", top: 340, right: 90, left: 90, display: "grid", gridTemplateColumns: "1fr 90px 1fr", alignItems: "center", gap: 22 }}>
+        <div style={{ padding: 34, border: `1px solid ${CORAL}66`, background: "#120e0d", ...enter(frame, 25) }}>
+          <div style={mono(13, CORAL)}>FactChecker / Revise</div>
+          <div style={{ marginTop: 30, color: TEXT, fontFamily: SANS, fontSize: 34, lineHeight: 1.35 }}>“The <span style={{ position: "relative" }}>most dangerous<span style={{ position: "absolute", top: "55%", left: 0, width: `${strike}%`, height: 3, background: CORAL }} /></span> pass of the match.”</div>
+          <div style={{ marginTop: 25, color: MUTED, fontFamily: SANS, fontSize: 18 }}>Unsupported superlative. The evidence does not prove it.</div>
         </div>
-        <div style={{ flex: 0.8, padding: 18, border: "1px solid rgba(200,255,61,.35)", background: "rgba(200,255,61,.055)", display: "flex", flexDirection: "column", justifyContent: "space-between" }}>
-          <div style={{ ...mono(9, LIME) }}>DETERMINISTIC VERIFIER</div>
-          <div style={{ fontFamily: SANS, fontSize: 38, color: LIME, opacity: stamp, transform: `scale(${0.85 + stamp * 0.15})` }}>PASS</div>
-          <div style={{ fontFamily: SANS, fontSize: 12, color: MUTED, lineHeight: 1.45 }}>4 claims supported by event IDs and metric refs. No unsupported superlative.</div>
+        <div style={{ color: LIME, fontFamily: MONO, fontSize: 44, textAlign: "center", opacity: interpolate(frame, [105, 130], [0, 1], clamp) }}>→</div>
+        <div style={{ padding: 34, border: `1px solid ${LIME}66`, background: "#0d130c", ...enter(frame, 120) }}>
+          <div style={mono(13, LIME)}>StoryProducer / Recheck</div>
+          <div style={{ marginTop: 30, color: TEXT, fontFamily: SANS, fontSize: 34, lineHeight: 1.35 }}>“A 24.6 m pass through 0.82 pressure.”</div>
+          <div style={{ marginTop: 25, color: LIME, fontFamily: SANS, fontSize: 18 }}>One revision. Same facts. No invented certainty.</div>
         </div>
       </div>
-      <div style={{ marginTop: 22, display: "flex", justifyContent: "space-between", gap: 20, ...mono(10, DIM), opacity: interpolate(frame, [300, 330], [0, 1], { extrapolateRight: "clamp" }) }}>
-        <span>MODELS EXPLAIN.</span><span style={{ color: LIME }}>THE VERIFIER DECIDES.</span><span>DIRECTOR APPROVES.</span>
-      </div>
+      <Caption>The checker can send language back once. An unresolved error still stays off air.</Caption>
     </AbsoluteFill>
   );
 }
 
-function Callout({ label, title, color, style, delay, frame }: { label: string; title: string; color: string; style: React.CSSProperties; delay: number; frame: number }) {
-  return (
-    <div style={{ position: "absolute", ...style, padding: 11, borderLeft: `2px solid ${color}`, background: "rgba(7,10,18,.93)", boxShadow: "0 8px 30px rgba(0,0,0,.35)", opacity: interpolate(frame, [delay, delay + 16], [0, 1], { extrapolateRight: "clamp" }), transform: `translateY(${interpolate(frame, [delay, delay + 18], [8, 0], { extrapolateRight: "clamp" })}px)` }}>
-      <div style={{ ...mono(8, color) }}>{label}</div>
-      <div style={{ marginTop: 5, fontFamily: SANS, fontSize: 12, color: TEXT }}>{title}</div>
-    </div>
-  );
-}
-
-function StudioScene() {
+function Evidence() {
   const frame = useCurrentFrame();
-  const scale = 1; // keep the full Studio chrome readable in the frame
+  const claim = hero.insight.insight.claims[0];
+  const stamp = spring({ frame: frame - 125, fps: 30, config: { damping: 13 } });
   return (
-    <AbsoluteFill style={{ background: BG, overflow: "hidden" }}>
-      <Backdrop accent={LIME} />
-      <div style={{ position: "absolute", left: 40, top: 28, ...mono(10, LIME) }}>THE CONTROL ROOM</div>
-      <div style={{ position: "absolute", right: 40, top: 28, ...mono(9, DIM) }}>ONE EVIDENCE TRAIL</div>
-      <div style={{ position: "absolute", left: 210, top: 94, width: 860, height: 538, border: "1px solid rgba(255,255,255,.14)", background: "#0b111c", overflow: "hidden", boxShadow: "0 20px 60px rgba(0,0,0,.5)" }}>
-        <Img src={staticFile("screens/studio.png")} style={{ width: "100%", transform: `scale(${scale})`, transformOrigin: "center" }} />
+    <AbsoluteFill>
+      <Backdrop />
+      <BrandMark />
+      <div style={{ position: "absolute", top: 155, left: 74, ...enter(frame, 10) }}>
+        <div style={mono(15, LIME)}>Deterministic release gate</div>
+        <div style={{ marginTop: 15, color: TEXT, fontFamily: SANS, fontSize: 64, letterSpacing: "-0.05em" }}>Claims meet evidence.</div>
       </div>
-      <Callout label="DATA / LEFT" title="Events, score, pitch, detected moments" color={CYAN} style={{ left: 30, top: 176, width: 160 }} delay={80} frame={frame} />
-      <Callout label="DETERMINISTIC / BOTTOM" title="xG, xT, pressure, control, chaos, speed" color={CORAL} style={{ left: 30, top: 332, width: 160 }} delay={140} frame={frame} />
-      <Callout label="AI / RIGHT" title="Explanation, agent trace, evidence" color={LIME} style={{ right: 30, top: 176, width: 160 }} delay={110} frame={frame} />
-      <Callout label="VERIFIED CUE" title="Program monitor / approve or hold" color={LIME} style={{ right: 30, top: 344, width: 160 }} delay={170} frame={frame} />
-      <div style={{ position: "absolute", left: 210, bottom: 26, fontFamily: SANS, fontSize: 20, color: TEXT }}>
-        Pick a moment. Read the evidence. <span style={{ color: LIME }}>Decide what goes on air.</span>
+      <div style={{ position: "absolute", top: 350, left: 80, width: 1160, padding: 36, borderLeft: `4px solid ${CYAN}`, background: "#0d1310", ...enter(frame, 30) }}>
+        <div style={mono(13, CYAN)}>Claim / Event-level proof</div>
+        <div style={{ marginTop: 22, color: TEXT, fontFamily: SANS, fontSize: 32, lineHeight: 1.45 }}>{claim.text}</div>
+        <div style={{ display: "flex", flexWrap: "wrap", gap: 10, marginTop: 30 }}>
+          {[...claim.event_ids, ...claim.metric_refs.map((ref) => `${ref.name} ${ref.value}`)].map((item) => <span key={item} style={{ padding: "9px 12px", border: `1px solid ${CYAN}55`, color: CYAN, fontFamily: MONO, fontSize: 14 }}>{item}</span>)}
+        </div>
       </div>
+      <div style={{ position: "absolute", right: 95, top: 390, width: 400, padding: 35, border: `2px solid ${LIME}`, color: LIME, opacity: stamp, transform: `scale(${1.2 - stamp * 0.2})` }}>
+        <div style={mono(14, LIME)}>Verified for air</div>
+        <div style={{ marginTop: 12, fontFamily: MONO, fontSize: 88, letterSpacing: "-0.06em" }}>PASS</div>
+        <div style={{ color: MUTED, fontFamily: SANS, fontSize: 18, lineHeight: 1.5 }}>{hero.insight.verification.checked_claims} claims checked. Every number traces back to an event.</div>
+      </div>
+      <Caption>Models explain. The deterministic verifier decides what is true.</Caption>
     </AbsoluteFill>
   );
 }
 
-const overlays = [
-  ["screens/overlay.png", "LOWER THIRD", "headline + stat + evidence"],
-  ["screens/overlay-stat-card.png", "STAT CARD", "xG / xT / event pressure"],
-  ["screens/overlay-momentum.png", "MOMENTUM", "control share / chaos / pressure"],
-  ["screens/overlay-pressure.png", "PRESSURE MAP", "pressure and pass locations"],
-  ["screens/overlay-speed.png", "SPEED ALERT", "match top speed + context"],
-];
+const clock = (value?: { minute: number; second: number } | null) => value ? `${String(value.minute).padStart(2, "0")}:${String(value.second).padStart(2, "0")}` : "WAIT";
 
-function OverlayScene() {
+function Director() {
   const frame = useCurrentFrame();
-  const index = Math.min(4, Math.floor(frame / 84));
-  const [src, label, note] = overlays[index];
+  const rundown = hero.insight.rundown.slice(0, 5);
   return (
-    <AbsoluteFill style={{ background: BG, overflow: "hidden" }}>
-      <Img src={staticFile(src)} style={{ width: "100%", height: "100%", objectFit: "cover" }} />
-      <div style={{ position: "absolute", inset: 0, background: "linear-gradient(180deg, rgba(7,10,18,.62), transparent 32%), linear-gradient(0deg, rgba(7,10,18,.18), transparent 28%)" }} />
-      <div style={{ position: "absolute", left: 46, top: 42, padding: "11px 13px", background: "rgba(7,10,18,.88)", borderLeft: `2px solid ${LIME}` }}>
-        <div style={{ ...mono(9, LIME) }}>BROADCAST OVERLAY / {String(index + 1).padStart(2, "0")}</div>
-        <div style={{ marginTop: 6, fontFamily: SANS, fontSize: 30, color: TEXT }}>{label}</div>
-        <div style={{ marginTop: 3, fontFamily: SANS, fontSize: 13, color: MUTED }}>{note}</div>
+    <AbsoluteFill>
+      <Backdrop />
+      <BrandMark />
+      <div style={{ position: "absolute", top: 145, left: 74, ...enter(frame, 10) }}>
+        <div style={mono(15, LIME)}>Director / Airtime with intent</div>
+        <div style={{ marginTop: 15, color: TEXT, fontFamily: SANS, fontSize: 64, letterSpacing: "-0.05em" }}>Not every moment deserves air.</div>
       </div>
-      <div style={{ position: "absolute", right: 46, top: 44, ...mono(9, DIM) }}>SAME VERIFIED CUE / FIVE TEMPLATES</div>
+      <div style={{ position: "absolute", top: 330, right: 90, left: 90, display: "grid", gridTemplateColumns: "1.35fr .65fr", gap: 40 }}>
+        <div>
+          {rundown.map((entry, index) => (
+            <div key={entry.moment_id} style={{ display: "grid", gridTemplateColumns: "50px 1fr 120px 100px", alignItems: "center", gap: 15, padding: "22px 14px", borderTop: "1px solid #223028", background: index === 0 ? "#111a0e" : "transparent", ...enter(frame, 28 + index * 13, 18) }}>
+              <span style={mono(15, index === 0 ? LIME : DIM)}>{String(entry.rank).padStart(2, "0")}</span>
+              <span style={{ color: TEXT, fontFamily: SANS, fontSize: 21 }}>{entry.moment_id}</span>
+              <span style={mono(14, entry.action === "approve" ? LIME : DIM)}>{entry.action}</span>
+              <span style={mono(14, MUTED)}>{clock(entry.air_at)}</span>
+            </div>
+          ))}
+        </div>
+        <div style={{ padding: 30, border: `1px solid ${LIME}55`, background: "#0d1310", ...enter(frame, 90) }}>
+          <div style={mono(13, LIME)}>Human has the final call</div>
+          <div style={{ marginTop: 24, color: TEXT, fontFamily: SANS, fontSize: 29, lineHeight: 1.35 }}>Approve. Hold. Kill.</div>
+          <div style={{ marginTop: 20, color: MUTED, fontFamily: SANS, fontSize: 18, lineHeight: 1.55 }}>60-second dedupe. 15-second airtime gap. Stoppage preferred.</div>
+        </div>
+      </div>
+      <Caption>The Director ranks and schedules. A human keeps final control.</Caption>
     </AbsoluteFill>
   );
 }
 
-function FanScene() {
+function Product() {
   const frame = useCurrentFrame();
   return (
-    <AbsoluteFill style={{ padding: 64, background: BG }}>
-      <Backdrop accent={LIME} />
-      <Corner index={8} total={9} label="THE SECOND SCREEN" />
-      <div style={{ display: "flex", gap: 54, alignItems: "center", height: "100%" }}>
-        <div style={{ flex: 1 }}>
-          <div style={{ ...mono(11, LIME), ...enter(frame, 12) }}>FAN / PERSONALIZED / EVIDENCE-BACKED</div>
-          <div style={{ marginTop: 12, fontFamily: SANS, fontSize: 46, lineHeight: 1, letterSpacing: "-0.04em", color: TEXT, ...enter(frame, 24) }}>
-            Same fact.<br /><span style={{ color: LIME }}>Different depth.</span>
-          </div>
-          <div style={{ display: "flex", flexDirection: "column", gap: 8, marginTop: 24 }}>
-            {["Analyst / numbers and shape", "Casual / the story in plain language", "Player / selected player event log"].map((x, i) => (
-              <div key={x} style={{ padding: "10px 12px", border: "1px solid rgba(255,255,255,.1)", color: i === 2 ? LIME : MUTED, fontFamily: SANS, fontSize: 14, opacity: interpolate(frame, [52 + i * 12, 70 + i * 12], [0, 1], { extrapolateRight: "clamp" }) }}>{x}</div>
-            ))}
-          </div>
-          <div style={{ ...mono(9, DIM), marginTop: 18 }}>EN / ES / 中文 / PLAYER FOCUS / RECAP</div>
-        </div>
-        <div style={{ width: 310, height: 610, borderRadius: 34, padding: 10, background: "#101722", border: "1px solid rgba(255,255,255,.18)", boxShadow: "0 30px 80px rgba(0,0,0,.6)", transform: `translateY(${interpolate(frame, [0, 45], [16, 0], { extrapolateRight: "clamp" })}px)` }}>
-          <div style={{ width: "100%", height: "100%", overflow: "hidden", borderRadius: 26 }}>
-            <Img src={staticFile("screens/fan.png")} style={{ width: "100%", transform: "translateY(0)" }} />
-          </div>
-        </div>
+    <AbsoluteFill style={{ background: BG }}>
+      <AbsoluteFill style={{ transform: `scale(${interpolate(frame, [0, 300], [1.1, 1], clamp)})` }}>
+        <Img src={staticFile("screens/studio.png")} style={{ width: "100%", height: "100%", objectFit: "cover" }} />
+      </AbsoluteFill>
+      <AbsoluteFill style={{ background: "linear-gradient(90deg, rgba(6,9,8,.94), transparent 58%), linear-gradient(0deg, rgba(6,9,8,.8), transparent 45%)" }} />
+      <div style={{ position: "absolute", left: 64, top: 90, maxWidth: 660, ...enter(frame, 10) }}>
+        <div style={mono(15, LIME)}>A working control room</div>
+        <div style={{ marginTop: 18, color: TEXT, fontFamily: SANS, fontSize: 66, fontWeight: 600, letterSpacing: "-0.05em", lineHeight: 1 }}>From insight<br />to on air.</div>
       </div>
+      <Caption>Replay, inspect, revise, schedule and approve in one continuous workspace.</Caption>
+    </AbsoluteFill>
+  );
+}
+
+function Audiences() {
+  const frame = useCurrentFrame();
+  return (
+    <AbsoluteFill>
+      <Backdrop />
+      <div style={{ position: "absolute", left: 0, top: 0, bottom: 0, width: "63%", overflow: "hidden", ...enter(frame, 5) }}>
+        <Img src={staticFile("screens/overlay.png")} style={{ width: "100%", height: "100%", objectFit: "cover" }} />
+      </div>
+      <div style={{ position: "absolute", right: 70, top: 120, width: 420, height: 800, border: "1px solid #36483c", background: BG, overflow: "hidden", transform: `translateY(${interpolate(frame, [30, 90], [60, 0], clamp)}px)`, opacity: interpolate(frame, [30, 60], [0, 1], clamp) }}>
+        <Img src={staticFile("screens/fan.png")} style={{ width: "100%" }} />
+      </div>
+      <div style={{ position: "absolute", left: 70, top: 110, padding: 28, background: "rgba(6,9,8,.9)", ...enter(frame, 20) }}>
+        <div style={mono(15, LIME)}>One verified moment</div>
+        <div style={{ marginTop: 16, color: TEXT, fontFamily: SANS, fontSize: 58, letterSpacing: "-0.05em", lineHeight: 1.02 }}>Built for the broadcast.<br />Understood by every fan.</div>
+      </div>
+      <Caption>Analyst, casual and player views share the same evidence in three languages.</Caption>
     </AbsoluteFill>
   );
 }
@@ -329,43 +286,92 @@ function FanScene() {
 function Outro() {
   const frame = useCurrentFrame();
   return (
-    <AbsoluteFill style={{ padding: 80, justifyContent: "center" }}>
-      <Backdrop accent={LIME} />
-      <div style={{ ...mono(11, LIME), ...enter(frame, 8) }}>FIVE AGENTS / ONE VERIFIED CALL</div>
-      <div style={{ marginTop: 14, fontFamily: SANS, fontSize: 76, fontWeight: 500, lineHeight: 0.95, letterSpacing: "-0.05em", color: TEXT, ...enter(frame, 20) }}>
-        MatchMind.
+    <AbsoluteFill>
+      <Backdrop />
+      <AbsoluteFill style={{ opacity: 0.24, transform: "scale(1.25)" }}><MatchWorld /></AbsoluteFill>
+      <BrandMark />
+      <div style={{ position: "absolute", top: 280, right: 80, left: 80, textAlign: "center", ...enter(frame, 10) }}>
+        <div style={{ color: TEXT, fontFamily: SANS, fontSize: 94, fontWeight: 600, letterSpacing: "-0.065em", lineHeight: 0.98 }}>See the game<br /><span style={{ color: LIME }}>beneath the game.</span></div>
+        <div style={{ marginTop: 38, ...mono(19, TEXT) }}>MatchMind / Every moment, explained</div>
       </div>
-      <div style={{ marginTop: 18, maxWidth: 720, fontFamily: SANS, fontSize: 20, color: MUTED, lineHeight: 1.45, ...enter(frame, 36) }}>
-        Grounded match intelligence for the studio, the broadcast, and the fan.
+      <div style={{ position: "absolute", right: 80, bottom: 110, left: 80, display: "flex", justifyContent: "space-between", ...mono(17, LIME) }}>
+        <span>ruziniuuuuu.github.io/matchmind</span><span>Best Multi-Agent System</span>
       </div>
-      <div style={{ marginTop: 34, display: "flex", gap: 10 }}>
-        {["STUDIO", "OVERLAY", "FAN", "ABOUT"].map((x, i) => (
-          <span key={x} style={{ padding: "8px 12px", border: "1px solid rgba(200,255,61,.35)", color: i === 0 ? LIME : MUTED, ...mono(9) }}>{x}</span>
-        ))}
-      </div>
-      <div style={{ position: "absolute", left: 80, bottom: 54, ...mono(11, LIME) }}>RUZINIUUUUU.GITHUB.IO/MATCHMIND</div>
-      <div style={{ position: "absolute", right: 80, bottom: 54, ...mono(9, DIM) }}>MATCHMIND / 2026</div>
+      <Caption>MatchMind. Evidence-backed match intelligence for the studio and the fan.</Caption>
     </AbsoluteFill>
   );
 }
 
-export const MatchMindPromo = () => {
-  const frame = useCurrentFrame();
-  const sceneFade = interpolate(frame, [0, 10], [0, 1], { extrapolateRight: "clamp" });
+const sceneAudio = [
+  [0, "storm"], [240, "reveal"], [570, "pass"], [870, "agents"], [1140, "revision"],
+  [1410, "evidence"], [1650, "director"], [1890, "product"], [2190, "audiences"], [2460, "outro"],
+] as const;
+
+function Soundtrack({ teaser = false }: { teaser?: boolean }) {
   return (
-    <AbsoluteFill style={{ background: BG, fontFamily: SANS, isolation: "isolate" }}>
-      <Audio src={staticFile("audio/ambient.mp3")} volume={0.9} />
-      <div style={{ position: "absolute", inset: 0, opacity: sceneFade }}>
-        <Sequence from={0} durationInFrames={210}><Intro /></Sequence>
-        <Sequence from={210} durationInFrames={390}><Problem /></Sequence>
-        <Sequence from={600} durationInFrames={540}><DataScene /></Sequence>
-        <Sequence from={1140} durationInFrames={480}><Agents /></Sequence>
-        <Sequence from={1620} durationInFrames={450}><Verifier /></Sequence>
-        <Sequence from={2070} durationInFrames={540}><StudioScene /></Sequence>
-        <Sequence from={2610} durationInFrames={420}><OverlayScene /></Sequence>
-        <Sequence from={3030} durationInFrames={360}><FanScene /></Sequence>
-        <Sequence from={3390} durationInFrames={210}><Outro /></Sequence>
+    <>
+      <Audio src={staticFile(teaser ? "audio/teaser-music.wav" : "audio/music.wav")} volume={0.32} />
+      {!teaser && sceneAudio.map(([from, name]) => <Sequence key={name} from={from}><Audio src={staticFile(`audio/voice/${name}.mp3`)} /></Sequence>)}
+      <Sequence from={teaser ? 90 : 570}><Audio src={staticFile("audio/impact.wav")} volume={0.75} /></Sequence>
+      <Sequence from={teaser ? 180 : 1410}><Audio src={staticFile("audio/verify.wav")} volume={0.65} /></Sequence>
+    </>
+  );
+}
+
+export const MatchMindPromo = () => (
+  <AbsoluteFill style={{ background: BG, fontFamily: SANS }}>
+    <Soundtrack />
+    <Sequence from={0} durationInFrames={240}><EventStorm /></Sequence>
+    <Sequence from={240} durationInFrames={330}><Reveal /></Sequence>
+    <Sequence from={570} durationInFrames={300}><HeroPass /></Sequence>
+    <Sequence from={870} durationInFrames={270}><Agents /></Sequence>
+    <Sequence from={1140} durationInFrames={270}><Revision /></Sequence>
+    <Sequence from={1410} durationInFrames={240}><Evidence /></Sequence>
+    <Sequence from={1650} durationInFrames={240}><Director /></Sequence>
+    <Sequence from={1890} durationInFrames={300}><Product /></Sequence>
+    <Sequence from={2190} durationInFrames={270}><Audiences /></Sequence>
+    <Sequence from={2460} durationInFrames={240}><Outro /></Sequence>
+  </AbsoluteFill>
+);
+
+function TeaserLock() {
+  const frame = useCurrentFrame();
+  return (
+    <AbsoluteFill>
+      <Backdrop />
+      <BrandMark />
+      <div style={{ position: "absolute", top: 350, left: 64, ...enter(frame, 15) }}>
+        <div style={mono(15, LIME)}>Evidence locked</div>
+        <div style={{ marginTop: 20, color: TEXT, fontFamily: SANS, fontSize: 70, letterSpacing: "-0.05em", lineHeight: 1.05 }}>Not just a claim.<br /><span style={{ color: LIME }}>A verified call.</span></div>
+      </div>
+      <div style={{ position: "absolute", right: 64, bottom: 320, left: 64, display: "grid", gridTemplateColumns: "1fr 1fr", gap: 12 }}>
+        {["event e-000974", "pressure 0.82", "xT +0.1736", "PASS"].map((item, index) => <div key={item} style={{ padding: 22, border: `1px solid ${index === 3 ? LIME : CYAN}`, color: index === 3 ? LIME : CYAN, fontFamily: MONO, fontSize: 18, ...enter(frame, 40 + index * 10) }}>{item}</div>)}
       </div>
     </AbsoluteFill>
   );
-};
+}
+
+function TeaserOutro() {
+  const frame = useCurrentFrame();
+  return (
+    <AbsoluteFill>
+      <Backdrop />
+      <div style={{ position: "absolute", inset: 0, opacity: 0.28 }}><MatchWorld vertical /></div>
+      <div style={{ position: "absolute", top: 460, right: 55, left: 55, ...enter(frame, 10) }}>
+        <div style={{ color: TEXT, fontFamily: SANS, fontSize: 76, fontWeight: 600, letterSpacing: "-0.06em", lineHeight: 1 }}>See the game<br /><span style={{ color: LIME }}>beneath<br />the game.</span></div>
+        <div style={{ marginTop: 50, ...mono(24, TEXT) }}>MATCHMIND</div>
+        <div style={{ marginTop: 18, ...mono(14, LIME) }}>Explore the moment</div>
+      </div>
+    </AbsoluteFill>
+  );
+}
+
+export const MatchMindTeaser = () => (
+  <AbsoluteFill style={{ background: BG, fontFamily: SANS }}>
+    <Soundtrack teaser />
+    <Sequence from={0} durationInFrames={180}><HeroPass vertical /></Sequence>
+    <Sequence from={180} durationInFrames={90}><TeaserLock /></Sequence>
+    <Sequence from={270} durationInFrames={90}><Product /></Sequence>
+    <Sequence from={360} durationInFrames={90}><TeaserOutro /></Sequence>
+  </AbsoluteFill>
+);

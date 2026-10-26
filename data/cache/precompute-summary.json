@@ -2,7 +2,7 @@
   {
     "match_id": "ast-2026-1018-nhr-orn",
     "moment_id": "mo-e-000974",
-    "elapsed_seconds": 57.9,
+    "elapsed_seconds": 62.3,
     "verification": "pass",
     "decision": "approve",
     "fallback": false,
@@ -14,11 +14,11 @@
         "ok"
       ],
       [
-        "FactChecker",
+        "StoryProducer",
         "ok"
       ],
       [
-        "StoryProducer",
+        "FactChecker",
         "ok"
       ],
       [
@@ -34,39 +34,26 @@
   {
     "match_id": "ast-2026-1025-vel-kep",
     "moment_id": "mo-e-001092",
-    "elapsed_seconds": 61.3,
+    "elapsed_seconds": 137.7,
     "verification": "pass",
-    "decision": "approve",
-    "fallback": true,
+    "decision": "hold",
+    "fallback": false,
     "cards": 9,
     "cue": true,
     "trace": [
-      [
-        "TacticalAnalyst",
-        "ok"
-      ],
-      [
-        "StoryProducer",
-        "ok"
-      ],
-      [
-        "AudienceEditor",
-        "ok"
-      ],
-      [
-        "FactChecker",
-        "fallback"
-      ],
-      [
-        "Director",
-        "ok"
-      ]
+      ["TacticalAnalyst", "ok"],
+      ["StoryProducer", "ok"],
+      ["AudienceEditor", "ok"],
+      ["FactChecker", "ok"],
+      ["StoryProducer:revise", "ok"],
+      ["FactChecker:recheck", "ok"],
+      ["Director", "ok"]
     ]
   },
   {
     "match_id": "ast-2026-1101-orn-vel",
     "moment_id": "mo-e-000286",
-    "elapsed_seconds": 0.0,
+    "elapsed_seconds": 77.7,
     "verification": "pass",
     "decision": "approve",
     "fallback": false,
@@ -98,39 +85,26 @@
   {
     "match_id": "ast-2026-1108-kep-nhr",
     "moment_id": "mo-e-001027",
-    "elapsed_seconds": 70.0,
+    "elapsed_seconds": 99.4,
     "verification": "pass",
     "decision": "approve",
     "fallback": false,
     "cards": 9,
     "cue": true,
     "trace": [
-      [
-        "TacticalAnalyst",
-        "ok"
-      ],
-      [
-        "FactChecker",
-        "ok"
-      ],
-      [
-        "StoryProducer",
-        "ok"
-      ],
-      [
-        "AudienceEditor",
-        "ok"
-      ],
-      [
-        "Director",
-        "ok"
-      ]
+      ["TacticalAnalyst", "ok"],
+      ["StoryProducer", "ok"],
+      ["FactChecker", "ok"],
+      ["AudienceEditor", "ok"],
+      ["StoryProducer:revise", "ok"],
+      ["FactChecker:recheck", "ok"],
+      ["Director", "ok"]
     ]
   },
   {
     "match_id": "ast-2026-1115-nhr-vel",
     "moment_id": "mo-e-000950",
-    "elapsed_seconds": 0.0,
+    "elapsed_seconds": 123.3,
     "verification": "pass",
     "decision": "approve",
     "fallback": false,
@@ -142,15 +116,23 @@
         "ok"
       ],
       [
-        "FactChecker",
-        "ok"
-      ],
-      [
         "StoryProducer",
         "ok"
       ],
       [
+        "FactChecker",
+        "ok"
+      ],
+      [
         "AudienceEditor",
+        "ok"
+      ],
+      [
+        "StoryProducer:revise",
+        "ok"
+      ],
+      [
+        "FactChecker:recheck",
         "ok"
       ],
       [

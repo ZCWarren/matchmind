@@ -1,0 +1,761 @@
+{
+  "match_id": "ast-2026-1115-nhr-vel",
+  "moment": {
+    "moment_id": "mo-e-000950",
+    "match_id": "ast-2026-1115-nhr-vel",
+    "event_id": "e-000950",
+    "clock": {
+      "period": 2,
+      "minute": 72,
+      "second": 1
+    },
+    "type": "line_break",
+    "importance": 0.8,
+    "headline": "Line break under pressure",
+    "event_ids": [
+      "e-000950"
+    ],
+    "metrics": {
+      "xt_delta": {
+        "name": "xt_delta",
+        "value": 0.0901,
+        "unit": "threat",
+        "formula_version": "xt-grid-v1",
+        "event_ids": [
+          "e-000950"
+        ],
+        "inputs": {},
+        "label": null
+      },
+      "event_pressure": {
+        "name": "event_pressure",
+        "value": 0.86,
+        "unit": "0-1",
+        "formula_version": "pressure-v1",
+        "event_ids": [
+          "e-000950"
+        ],
+        "inputs": {},
+        "label": null
+      }
+    },
+    "analytics_version": "analytics-v1"
+  },
+  "clock": {
+    "period": 2,
+    "minute": 72,
+    "second": 1
+  },
+  "insight": {
+    "moment_id": "mo-e-000950",
+    "match_id": "ast-2026-1115-nhr-vel",
+    "headline": "VEL-07 breaks NHR's line under 0.86 pressure in the 72nd minute",
+    "why_it_matters": "NHR and VEL were level at 2-2 with both sides moving the ball at high completion rates, so the value of this moment is in how VEL progressed from a congested wide position into space between NHR's lines rather than in any immediate shot. VEL-07's line-breaking pass to VEL-09 was executed under 0.86 pressure and carried the largest single-event threat gain of the sequence, which is why the following pass into the final third was attempted from a more advanced position — VEL's route to the box ran through this escape from NHR's press.",
+    "watch_next": "Watch item: whether NHR sustains its counter-press immediately after VEL's line breaks — NHR-03 applied pressure at 0.63 on the next VEL carry (e-000955), which is worth tracking rather than treating as an established pattern.",
+    "claims": [
+      {
+        "text": "VEL-07's 23.9 m pass to VEL-09 at minute 72:01 was completed under 0.86 pressure and was tagged as a line break.",
+        "event_ids": [
+          "e-000950"
+        ],
+        "metric_refs": [
+          {
+            "name": "event_pressure",
+            "value": 0.86,
+            "formula_version": "pressure-v1",
+            "event_ids": [
+              "e-000950"
+            ]
+          }
+        ],
+        "confidence": 0.92
+      },
+      {
+        "text": "That line break produced an expected threat gain of 0.0901 for VEL on a single event.",
+        "event_ids": [
+          "e-000950"
+        ],
+        "metric_refs": [
+          {
+            "name": "xt_delta",
+            "value": 0.0901,
+            "formula_version": "xt-grid-v1",
+            "event_ids": [
+              "e-000950"
+            ]
+          },
+          {
+            "name": "event_pressure",
+            "value": 0.86,
+            "formula_version": "pressure-v1",
+            "event_ids": [
+              "e-000950"
+            ]
+          }
+        ],
+        "confidence": 0.9
+      },
+      {
+        "text": "The pass carried a difficulty rating of 6.9 on a 0-10 scale, above the snapshot's pass_difficulty value of 4.3803 for the sampled window.",
+        "event_ids": [
+          "e-000950"
+        ],
+        "metric_refs": [
+          {
+            "name": "pass_difficulty",
+            "value": 4.3803,
+            "formula_version": "pass-quality-v1",
+            "event_ids": [
+              "e-000937",
+              "e-000938",
+              "e-000939",
+              "e-000941",
+              "e-000942",
+              "e-000943",
+              "e-000944",
+              "e-000946",
+              "e-000947",
+              "e-000948",
+              "e-000949",
+              "e-000950"
+            ]
+          }
+        ],
+        "confidence": 0.85
+      },
+      {
+        "text": "The break was not turned into a shot: VEL-02's follow-up pass from x 68.4 to x 90.8 at minute 72:08 was incomplete at 0.38 pressure, ending the sequence.",
+        "event_ids": [
+          "e-000951"
+        ],
+        "metric_refs": [
+          {
+            "name": "pass_completion_away",
+            "value": 0.8345,
+            "formula_version": "pass-quality-v1",
+            "event_ids": [
+              "e-000924",
+              "e-000925",
+              "e-000935",
+              "e-000936",
+              "e-000937",
+              "e-000938",
+              "e-000939",
+              "e-000941",
+              "e-000947",
+              "e-000948",
+              "e-000949",
+              "e-000950"
+            ]
+          }
+        ],
+        "confidence": 0.88
+      },
+      {
+        "text": "The line break came in a phase where both teams were circulating the ball well, with VEL's sampled pass completion at 0.8345 against NHR's 0.8203, so beating NHR's structure required the individual escape rather than a breakdown in NHR's passing.",
+        "event_ids": [
+          "e-000950",
+          "e-000946"
+        ],
+        "metric_refs": [
+          {
+            "name": "pass_completion_away",
+            "value": 0.8345,
+            "formula_version": "pass-quality-v1",
+            "event_ids": [
+              "e-000924",
+              "e-000925",
+              "e-000935",
+              "e-000936",
+              "e-000937",
+              "e-000938",
+              "e-000939",
+              "e-000941",
+              "e-000947",
+              "e-000948",
+              "e-000949",
+              "e-000950"
+            ]
+          },
+          {
+            "name": "pass_completion_home",
+            "value": 0.8203,
+            "formula_version": "pass-quality-v1",
+            "event_ids": [
+              "e-000918",
+              "e-000919",
+              "e-000927",
+              "e-000928",
+              "e-000929",
+              "e-000930",
+              "e-000931",
+              "e-000933",
+              "e-000942",
+              "e-000943",
+              "e-000944",
+              "e-000946"
+            ]
+          }
+        ],
+        "confidence": 0.8
+      }
+    ],
+    "importance": 0.8,
+    "confidence": 0.86
+  },
+  "cue": {
+    "cue_id": "cue-mo-e-000950",
+    "insight_id": "mo-e-000950",
+    "template": "lower_third_why",
+    "priority": 0.8,
+    "duration_seconds": 8.0,
+    "safe_area": "lower_third",
+    "payload": {
+      "eyebrow": "VEL 2-2 NHR • LINE BREAK",
+      "headline": "VEL-07 breaks NHR's line under 0.86 pressure, 72'",
+      "stat": "23.9 m to VEL-09 • +0.0901 xT",
+      "subline": "Completed under 0.86 pressure; follow-up pass incomplete at 0.38"
+    }
+  },
+  "fan_cards": [
+    {
+      "insight_id": "mo-e-000950",
+      "profile": "analyst",
+      "language": "en",
+      "headline": "VEL-07 breaks NHR's line under 0.86 pressure in the 72nd minute",
+      "what_happened": "Level at 2-2 in the 72nd minute, VEL-07 completed a 23.9 m pass to VEL-09 at 72:01 under 0.86 pressure, tagged as a line break. The single event carried an xT gain of 0.0901, the largest of the sequence, and a pass difficulty of 6.9 against a sampled window value of 4.3803. The escape did not become a shot: VEL-02's pass from x 68.4 to x 90.8 at 72:08 was incomplete at 0.38 pressure, ending the move.",
+      "why_it_matters": "This was not a product of NHR's passing breaking down. VEL circulated at 0.8345 pass completion against NHR's 0.8203 in the sampled phase, so progressing from a congested wide position into the space between NHR's lines required an individual escape under pressure. Because the line break was the sequence's largest threat gain, VEL's next pass into the final third was attempted from a more advanced position — the route to the box ran through this exit from NHR's press, even though the follow-up failed.",
+      "watch_next": "Whether NHR sustains its counter-press immediately after VEL line breaks: NHR-03 applied 0.63 pressure on the next VEL carry (e-000955), a single instance worth tracking rather than an established pattern.",
+      "how_we_know": "Evidence comes from event e-000950 (line-break pass, pressure 0.86, xT delta 0.0901, difficulty 6.9) and e-000951 for the incomplete follow-up, with completion rates drawn from the events listed on the e-000950 and e-000946 metric refs.",
+      "evidence_event_ids": [
+        "e-000950",
+        "e-000951",
+        "e-000946",
+        "e-000955"
+      ]
+    },
+    {
+      "insight_id": "mo-e-000950",
+      "profile": "analyst",
+      "language": "es",
+      "headline": "VEL-07 rompe la línea de NHR con 0.86 de presión en el minuto 72",
+      "what_happened": "En el 72:01, con 2-2, VEL-07 completó un pase de 23.9 m a VEL-09 bajo 0.86 de presión, etiquetado como line break y con un xt_delta de 0.0901, el mayor del secuencia. La dificultad del pase fue 6.9/10, por encima del 4.3803 del ventana muestreada. Sin embargo, VEL-02 no completó el pase siguiente desde x 68.4 a x 90.8 a 0.38 de presión en el 72:08, cerrando la acción sin remate.",
+      "why_it_matters": "La ruptura llegó con ambos equipos circulando bien: 0.8345 de completitud de pase para VEL frente a 0.8203 de NHR. Por eso el valor está en la salida individual de VEL-07 desde banda congestionada hacia el espacio entre líneas, no en un fallo de NHR. NHR-03 aplicó 0.63 de presión en el siguiente conducción de VEL, un dato a seguir, no un patrón consolidado.",
+      "watch_next": "Observar si NHR sostiene su contrapresión tras las rupturas de línea de VEL: la presión de NHR-03 a 0.63 en e-000955 es una señal puntual, no una tendencia establecida.",
+      "how_we_know": "Se apoya en los eventos e-000950 y e-000951, con métricas de presión, xt_delta y dificultad de pase etiquetadas para la secuencia.",
+      "evidence_event_ids": [
+        "e-000950",
+        "e-000951",
+        "e-000955",
+        "e-000946"
+      ]
+    },
+    {
+      "insight_id": "mo-e-000950",
+      "profile": "analyst",
+      "language": "zh",
+      "headline": "第72分钟：VEL-07在0.86压力下打穿NHR防线",
+      "what_happened": "第72分钟双方2-2，VEL-07在0.86压力下向VEL-09送出23.9米线路突破传球，单次xT增益0.0901；该传球难度6.9，高于采样窗口的4.3803。第72:08，VEL-02从x=68.4向x=90.8的后续传球在0.38压力下未完成，序列终止。",
+      "why_it_matters": "VEL的推进价值不在立即射门，而在从边路拥挤区进入NHR两线之间：这是该序列最大单次威胁增益，使后续进入前场三区的传球起点更靠前。突破后的后续传球未完成，说明这次摆脱没有直接转化为射门。",
+      "watch_next": "观察NHR在VEL线路突破后的即时反抢：下一次VEL带球时NHR-03施压0.63（e-000955），需继续跟踪而非视为稳定模式。",
+      "how_we_know": "以上来自e-000950的传球、压力与xT/难度指标，以及e-000951后续传球和e-000955反抢事件。",
+      "evidence_event_ids": [
+        "e-000950",
+        "e-000951",
+        "e-000955"
+      ]
+    },
+    {
+      "insight_id": "mo-e-000950",
+      "profile": "casual",
+      "language": "en",
+      "headline": "VEL-07 slips through the gap",
+      "what_happened": "In the 72nd minute, with the score 2-2, VEL-07 threaded a 23.9 m pass to VEL-09 right through NHR's midfield line while under pressure. The next pass forward went incomplete, so no shot came of it.",
+      "why_it_matters": "Think of it like squeezing through a closing door: both teams were passing well, so VEL needed one player to find the gap. VEL-07 did, but the move fizzled out.",
+      "watch_next": "Watch whether NHR presses back quickly after VEL breaks their line.",
+      "how_we_know": "The line-break pass is logged as event e-000950 with a pressure reading of 0.86 and a threat gain of 0.0901, and the incomplete follow-up is event e-000951.",
+      "evidence_event_ids": [
+        "e-000950",
+        "e-000951",
+        "e-000946"
+      ]
+    },
+    {
+      "insight_id": "mo-e-000950",
+      "profile": "casual",
+      "language": "es",
+      "headline": "VEL-07 encuentra el hueco en la línea del NHR",
+      "what_happened": "Con 2-2, VEL-07 metió un pase de 23,9 metros a VEL-09 por un hueco estrecho, bajo presión del NHR. El siguiente pase largo se fue sin remate.",
+      "why_it_matters": "Fue como encontrar una puerta en una pared: el NHR defendía ordenado y VEL necesitaba esa chispa individual para avanzar, aunque el ataque no acabó en gol.",
+      "watch_next": "Queda por ver si el NHR mantiene su presión inmediata tras ese tipo de pases.",
+      "how_we_know": "El registro del evento e-000950 muestra el pase completado bajo 0,86 de presión y etiquetado como ruptura de línea.",
+      "evidence_event_ids": [
+        "e-000950"
+      ]
+    },
+    {
+      "insight_id": "mo-e-000950",
+      "profile": "casual",
+      "language": "zh",
+      "headline": "第72分钟，VEL-07从人堆里钻了出来",
+      "what_happened": "比分2-2，双方传球都很稳。第72分钟，VEL-07在压力下送出一脚23.9米的直塞，找到了队友VEL-09，一下穿过了NHR的防线。可惜随后那脚往前场的传球没接上，这次进攻就此结束。",
+      "why_it_matters": "就像挤在人群里突然找到一条缝——VEL-07这一下是VEL唯一能走到禁区前的路。",
+      "watch_next": "接下来可以留意：NHR丢球后会不会马上反抢。",
+      "how_we_know": "依据是第72分钟那次被标记为“穿越防线”的传球记录（e-000950），以及随后那脚未完成的传球（e-000951）。",
+      "evidence_event_ids": [
+        "e-000950",
+        "e-000951"
+      ]
+    },
+    {
+      "insight_id": "mo-e-000950",
+      "profile": "player",
+      "language": "en",
+      "headline": "VEL-07 escapes pressure and breaks NHR's line",
+      "what_happened": "In the 72nd minute, VEL-07 took the ball in a congested wide area, stayed composed under 0.86 pressure and clipped a 23.9 m pass into VEL-09 between NHR's lines. That line break was the sequence's biggest threat gain (xT +0.0901). VEL-07's escape moved VEL into a more advanced position, though VEL-02's next pass into the final third was incomplete.",
+      "why_it_matters": "For VEL-07, the impact was in the movement and decision: not a shot, but a pressure-beating pass that turned congestion into space and gave VEL a cleaner route toward the box.",
+      "watch_next": "Watch whether NHR counter-presses immediately after VEL's line breaks; NHR-03 applied 0.63 pressure on the next VEL carry.",
+      "how_we_know": "The evidence is event e-000950, where VEL-07's completed 23.9 m line-breaking pass was recorded under 0.86 pressure with a 0.0901 xT gain, followed by the incomplete final-third pass in e-000951.",
+      "evidence_event_ids": [
+        "e-000950",
+        "e-000951",
+        "e-000946",
+        "e-000955"
+      ]
+    },
+    {
+      "insight_id": "mo-e-000950",
+      "profile": "player",
+      "language": "es",
+      "headline": "VEL-07 rompe la línea de NHR con presión 0.86 en el minuto 72",
+      "what_happened": "VEL-07 recibió en zona congestionada y ejecutó un pase de 23.9 m a VEL-09 en el minuto 72:01, completado bajo presión 0.86 y etiquetado como line break. Ese pase generó una ganancia de amenaza de 0.0901 y tuvo dificultad 6.9/10. La secuencia no terminó en remate: el pase posterior de VEL-02 al minuto 72:08 fue incompleto bajo presión 0.38.",
+      "why_it_matters": "Para VEL-07, la acción clave fue escapar de la presión de NHR y encontrar el espacio entre líneas, no solo completar el pase. Su line break produjo la mayor ganancia de amenaza de la secuencia y permitió que VEL intentara el pase al tercio final desde una posición más avanzada, aunque la jugada se cortó después.",
+      "watch_next": "Queda por ver si NHR sostiene su contrapresión tras las rupturas de línea de VEL: NHR-03 aplicó presión 0.63 en la siguiente conducción de VEL (e-000955).",
+      "how_we_know": "Se basa en e-000950 (pase de 23.9 m, presión 0.86, line break y xt_delta 0.0901) y en e-000951 (pase incompleto posterior bajo presión 0.38).",
+      "evidence_event_ids": [
+        "e-000950",
+        "e-000951",
+        "e-000955"
+      ]
+    },
+    {
+      "insight_id": "mo-e-000950",
+      "profile": "player",
+      "language": "zh",
+      "headline": "VEL-07在0.86压力下破线：72分钟的关键向前传球",
+      "what_happened": "第72分钟，VEL-07在0.86压力下完成一记23.9米传球找到VEL-09，并被标记为破线。该事件为VEL带来0.0901的预期威胁增量，传球难度为6.9/10；随后VEL-02在72:08的跟进传球未完成，序列结束。",
+      "why_it_matters": "对VEL-07来说，关键是他在拥挤的边路区域受压时仍把球送入NHR两条线之间，让VEL从更靠前的位置继续进攻。虽然这次推进没有形成射门，但这是VEL通往禁区路线上的重要逃脱。",
+      "watch_next": "关注NHR在VEL破线后的即时反抢：下一次VEL持球时NHR-03施加了0.63压力（e-000955），看这一压力是否延续。",
+      "how_we_know": "以上依据e-000950的破线传球及压力、预期威胁数据，以及e-000951的未完成跟进传球记录。",
+      "evidence_event_ids": [
+        "e-000950",
+        "e-000951",
+        "e-000955"
+      ]
+    }
+  ],
+  "verification": {
+    "status": "pass",
+    "issues": [],
+    "checked_claims": 5,
+    "notes": "deterministic candidate and cue verifier"
+  },
+  "decision": {
+    "action": "approve",
+    "priority": 0.62,
+    "duration_seconds": 8.0,
+    "reason": "Verification passed with all five claims checked and no issues, and the moment is a distinct, well-evidenced tactical story: VEL-07's 23.9 m line-break pass under 0.86 pressure at 72:01 produced the sequence's largest single-event threat gain (xT +0.0901) and a difficulty rating of 6.9, well above the window average of 4.38. It is not a duplicate of any goal or big chance and fits a lower-third cleanly by explaining how VEL escaped NHR's press at 2-2. Framed honestly, since the move ended without a shot, it is approved at moderate priority rather than as a headliner.",
+    "ranked_moment_ids": [
+      "mo-e-000950",
+      "mo-e-000969",
+      "mo-e-001162",
+      "mo-e-001011",
+      "mo-e-000125",
+      "mo-e-000369",
+      "mo-e-000587",
+      "mo-e-000810",
+      "mo-e-000157",
+      "mo-e-000779",
+      "mo-e-000828",
+      "mo-e-000889",
+      "mo-e-000016",
+      "mo-e-000209",
+      "mo-e-000219",
+      "mo-e-000296",
+      "mo-e-000326",
+      "mo-e-000418",
+      "mo-e-000570",
+      "mo-e-000597",
+      "mo-e-000677",
+      "mo-e-000681",
+      "mo-e-000742",
+      "mo-e-000876",
+      "mo-e-000956",
+      "mo-e-001014",
+      "mo-e-001044",
+      "mo-e-001116",
+      "mo-e-001091",
+      "mo-e-000981",
+      "mo-e-000734",
+      "mo-e-000391",
+      "mo-e-000619",
+      "mo-e-000252",
+      "mo-e-000396",
+      "mo-e-000868",
+      "mo-e-001142",
+      "mo-e-000484",
+      "mo-e-000689",
+      "mo-e-001059"
+    ],
+    "air_at": {
+      "period": 2,
+      "minute": 73,
+      "second": 7
+    }
+  },
+  "rundown": [
+    {
+      "moment_id": "mo-e-000950",
+      "rank": 1,
+      "action": "approve",
+      "air_at": {
+        "period": 2,
+        "minute": 73,
+        "second": 7
+      },
+      "reason": "Verification passed with all five claims checked and no issues, and the moment is a distinct, well-evidenced tactical story: VEL-07's 23.9 m line-break pass under 0.86 pressure at 72:01 produced the sequence's largest single-event threat gain (xT +0.0901) and a difficulty rating of 6.9, well above the window average of 4.38. It is not a duplicate of any goal or big chance and fits a lower-third cleanly by explaining how VEL escaped NHR's press at 2-2. Framed honestly, since the move ended without a shot, it is approved at moderate priority rather than as a headliner."
+    },
+    {
+      "moment_id": "mo-e-000969",
+      "rank": 2,
+      "action": "hold",
+      "air_at": null,
+      "reason": "Deferred by the Director"
+    },
+    {
+      "moment_id": "mo-e-001162",
+      "rank": 3,
+      "action": "hold",
+      "air_at": null,
+      "reason": "Deferred by the Director"
+    },
+    {
+      "moment_id": "mo-e-001011",
+      "rank": 4,
+      "action": "hold",
+      "air_at": null,
+      "reason": "Deferred by the Director"
+    },
+    {
+      "moment_id": "mo-e-000125",
+      "rank": 5,
+      "action": "hold",
+      "air_at": null,
+      "reason": "Deferred by the Director"
+    },
+    {
+      "moment_id": "mo-e-000369",
+      "rank": 6,
+      "action": "hold",
+      "air_at": null,
+      "reason": "Deferred by the Director"
+    },
+    {
+      "moment_id": "mo-e-000587",
+      "rank": 7,
+      "action": "hold",
+      "air_at": null,
+      "reason": "Deferred by the Director"
+    },
+    {
+      "moment_id": "mo-e-000810",
+      "rank": 8,
+      "action": "hold",
+      "air_at": null,
+      "reason": "Deferred by the Director"
+    },
+    {
+      "moment_id": "mo-e-000157",
+      "rank": 9,
+      "action": "hold",
+      "air_at": null,
+      "reason": "Deferred by the Director"
+    },
+    {
+      "moment_id": "mo-e-000779",
+      "rank": 10,
+      "action": "hold",
+      "air_at": null,
+      "reason": "Deferred by the Director"
+    },
+    {
+      "moment_id": "mo-e-000828",
+      "rank": 11,
+      "action": "hold",
+      "air_at": null,
+      "reason": "Deferred by the Director"
+    },
+    {
+      "moment_id": "mo-e-000889",
+      "rank": 12,
+      "action": "hold",
+      "air_at": null,
+      "reason": "Deferred by the Director"
+    },
+    {
+      "moment_id": "mo-e-000016",
+      "rank": 13,
+      "action": "hold",
+      "air_at": null,
+      "reason": "Deferred by the Director"
+    },
+    {
+      "moment_id": "mo-e-000209",
+      "rank": 14,
+      "action": "hold",
+      "air_at": null,
+      "reason": "Deferred by the Director"
+    },
+    {
+      "moment_id": "mo-e-000219",
+      "rank": 15,
+      "action": "hold",
+      "air_at": null,
+      "reason": "Deferred by the Director"
+    },
+    {
+      "moment_id": "mo-e-000296",
+      "rank": 16,
+      "action": "hold",
+      "air_at": null,
+      "reason": "Deferred by the Director"
+    },
+    {
+      "moment_id": "mo-e-000326",
+      "rank": 17,
+      "action": "hold",
+      "air_at": null,
+      "reason": "Deferred by the Director"
+    },
+    {
+      "moment_id": "mo-e-000418",
+      "rank": 18,
+      "action": "hold",
+      "air_at": null,
+      "reason": "Deferred by the Director"
+    },
+    {
+      "moment_id": "mo-e-000570",
+      "rank": 19,
+      "action": "hold",
+      "air_at": null,
+      "reason": "Deferred by the Director"
+    },
+    {
+      "moment_id": "mo-e-000597",
+      "rank": 20,
+      "action": "hold",
+      "air_at": null,
+      "reason": "Deferred by the Director"
+    },
+    {
+      "moment_id": "mo-e-000677",
+      "rank": 21,
+      "action": "hold",
+      "air_at": null,
+      "reason": "Deferred by the Director"
+    },
+    {
+      "moment_id": "mo-e-000681",
+      "rank": 22,
+      "action": "hold",
+      "air_at": null,
+      "reason": "Deferred by the Director"
+    },
+    {
+      "moment_id": "mo-e-000742",
+      "rank": 23,
+      "action": "hold",
+      "air_at": null,
+      "reason": "Deferred by the Director"
+    },
+    {
+      "moment_id": "mo-e-000876",
+      "rank": 24,
+      "action": "hold",
+      "air_at": null,
+      "reason": "Deferred by the Director"
+    },
+    {
+      "moment_id": "mo-e-000956",
+      "rank": 25,
+      "action": "hold",
+      "air_at": null,
+      "reason": "Within the 60-second duplicate window"
+    },
+    {
+      "moment_id": "mo-e-001014",
+      "rank": 26,
+      "action": "hold",
+      "air_at": null,
+      "reason": "Deferred by the Director"
+    },
+    {
+      "moment_id": "mo-e-001044",
+      "rank": 27,
+      "action": "hold",
+      "air_at": null,
+      "reason": "Deferred by the Director"
+    },
+    {
+      "moment_id": "mo-e-001116",
+      "rank": 28,
+      "action": "hold",
+      "air_at": null,
+      "reason": "Deferred by the Director"
+    },
+    {
+      "moment_id": "mo-e-001091",
+      "rank": 29,
+      "action": "hold",
+      "air_at": null,
+      "reason": "Deferred by the Director"
+    },
+    {
+      "moment_id": "mo-e-000981",
+      "rank": 30,
+      "action": "hold",
+      "air_at": null,
+      "reason": "Deferred by the Director"
+    },
+    {
+      "moment_id": "mo-e-000734",
+      "rank": 31,
+      "action": "hold",
+      "air_at": null,
+      "reason": "Deferred by the Director"
+    },
+    {
+      "moment_id": "mo-e-000391",
+      "rank": 32,
+      "action": "hold",
+      "air_at": null,
+      "reason": "Deferred by the Director"
+    },
+    {
+      "moment_id": "mo-e-000619",
+      "rank": 33,
+      "action": "hold",
+      "air_at": null,
+      "reason": "Deferred by the Director"
+    },
+    {
+      "moment_id": "mo-e-000252",
+      "rank": 34,
+      "action": "hold",
+      "air_at": null,
+      "reason": "Deferred by the Director"
+    },
+    {
+      "moment_id": "mo-e-000396",
+      "rank": 35,
+      "action": "hold",
+      "air_at": null,
+      "reason": "Deferred by the Director"
+    },
+    {
+      "moment_id": "mo-e-000868",
+      "rank": 36,
+      "action": "hold",
+      "air_at": null,
+      "reason": "Deferred by the Director"
+    },
+    {
+      "moment_id": "mo-e-001142",
+      "rank": 37,
+      "action": "hold",
+      "air_at": null,
+      "reason": "Deferred by the Director"
+    },
+    {
+      "moment_id": "mo-e-000484",
+      "rank": 38,
+      "action": "hold",
+      "air_at": null,
+      "reason": "Deferred by the Director"
+    },
+    {
+      "moment_id": "mo-e-000689",
+      "rank": 39,
+      "action": "hold",
+      "air_at": null,
+      "reason": "Deferred by the Director"
+    },
+    {
+      "moment_id": "mo-e-001059",
+      "rank": 40,
+      "action": "hold",
+      "air_at": null,
+      "reason": "Deferred by the Director"
+    }
+  ],
+  "trace": [
+    {
+      "agent": "TacticalAnalyst",
+      "model": "deepseek-flash",
+      "prompt_version": "prompt-v3",
+      "latency_ms": 26327.9,
+      "status": "ok",
+      "error": ""
+    },
+    {
+      "agent": "StoryProducer",
+      "model": "deepseek-flash",
+      "prompt_version": "prompt-v3",
+      "latency_ms": 7622.2,
+      "status": "ok",
+      "error": ""
+    },
+    {
+      "agent": "FactChecker",
+      "model": "deepseek-flash",
+      "prompt_version": "prompt-v3",
+      "latency_ms": 20893.3,
+      "status": "ok",
+      "error": ""
+    },
+    {
+      "agent": "AudienceEditor",
+      "model": "deepseek-flash",
+      "prompt_version": "prompt-v3",
+      "latency_ms": 26750.1,
+      "status": "ok",
+      "error": ""
+    },
+    {
+      "agent": "StoryProducer:revise",
+      "model": "deepseek-flash",
+      "prompt_version": "prompt-v3",
+      "latency_ms": 19500.2,
+      "status": "ok",
+      "error": ""
+    },
+    {
+      "agent": "FactChecker:recheck",
+      "model": "deepseek-flash",
+      "prompt_version": "prompt-v3",
+      "latency_ms": 25682.6,
+      "status": "ok",
+      "error": ""
+    },
+    {
+      "agent": "Director",
+      "model": "deepseek-flash",
+      "prompt_version": "prompt-v3",
+      "latency_ms": 24732.3,
+      "status": "ok",
+      "error": ""
+    }
+  ],
+  "fallback": false
+}

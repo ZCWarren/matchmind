@@ -1,122 +1,92 @@
 # MatchMind judge guide
 
-MatchMind is a real-time explainability layer for football broadcast. It turns
-synthetic event data into grounded, timed match intelligence and gives three
-audiences different views of the same verified moment.
+**See the game beneath the game.** MatchMind turns synthetic football events into visible tactical structure, verified explanations and audience-specific match intelligence.
 
-## Quick path
+## Fast path
 
-[Watch the two-minute promo](https://ruziniuuuuu.github.io/matchmind/promo.mp4).
+1. [Watch the 90-second film](https://ruziniuuuuu.github.io/matchmind/promo.mp4). A [15-second vertical teaser](https://ruziniuuuuu.github.io/matchmind/teaser.mp4) is also available.
+2. Open the [immersive Home](https://ruziniuuuuu.github.io/matchmind/). The 3D scene uses real match events, not a stock video.
+3. Choose **Explore the moment**. Scrub the timeline and switch **Events / Structure / Evidence / Audiences**.
+4. In **Evidence**, select a claim. The scene returns to its supporting event, with event IDs and formula versions alongside.
+5. Open **Studio**. Inspect Director's ranked rundown, suggested airtime and actual agent trace. Use **Hold**, then **Approve**, and watch the program monitor change. Select Vela vs Kepler to override a verified Director Hold with a human Approve.
+6. Switch **L3 / STAT / MOM / SPD / MAP**. Open `/overlay` without `bg=1` for the transparent OBS source. Director-held cues stay off air unless Studio's Full screen link carries `approval=approved`.
+7. Open **Fan**, switch Analyst / Casual / Player and EN / ES / 中文. Open the deterministic match recap.
 
-Public static demo: <https://ruziniuuuuu.github.io/matchmind/#/studio>.
-Operator guide: <https://ruziniuuuuu.github.io/matchmind/#/guide>.
-System story: <https://ruziniuuuuu.github.io/matchmind/#/about>.
-It contains all five fixtures and overlay templates; live generation and the
-WebSocket feed are available in the local app.
+Local equivalents use `http://localhost:8010/moment`, `/studio`, `/overlay` and `/fan`.
 
-1. Open `https://ruziniuuuuu.github.io/matchmind/#/studio?match=ast-2026-1025-vel-kep` or `http://localhost:8010/studio?match=ast-2026-1025-vel-kep`.
-2. The hero match is preselected: Nova Harbor vs Orion North, 72:12, 1-1.
-   Use the match selector to switch all five fixtures; each has a precomputed
-   insight. One fixture shows an advisory FactChecker fallback in its agent trace
-   while the deterministic gate still passes.
-3. Read the **key moment**, then the **agent rundown** and **evidence drawer**.
-4. Press **Go live** to watch events arrive over WebSocket; the cached insight
-   and cue are delivered when the stream reaches the hero moment.
-5. Use the program-monitor selector to switch **L3 / STAT / MOM / SPD / MAP**.
-6. Open `/overlay?bg=1` for the full-screen preview, or `/overlay` for the
-   transparent OBS source. Add `?template=stat_card`, `momentum`, `speed_alert`,
-   or `pressure_map` for the other templates.
-7. Open `/fan` and switch the fixture, analyst / casual / player, English / Spanish / Chinese.
-   Scroll to the deterministic match recap.
+## The 72:12 hero moment
+
+Nova Harbor vs Orion North is the default fixture. NHR-08 releases NHR-14 with a 24.6 m pass under 0.82 pressure, adding 0.1736 xT. The event, metrics, agent claims and broadcast cue all come from the same cached `prompt-v3` run.
+
+The public static demo never needs a model key. Live generation and WebSocket replay remain available locally.
 
 ## What to look at
 
+### Home and Moment Focus
+
+- **Real 3D**: a lazy-loaded Three.js pitch with event coordinates, passing lines and pressure rings.
+- **Interactive anatomy**: playback, scrubbing and key-moment jumps change the same shared match state.
+- **Four layers**: raw events, tactical structure, claim evidence and audience readings.
+- **Real trace**: agent names, revision steps and fallback states come from the API response.
+- **Accessible fallbacks**: reduced-motion users get the real-data SVG scene; all controls remain available.
+
 ### Studio
 
-- **Control room layout**: match selector, score and clock, event feed, key
-  moments, pitch trail, program monitor, agent rundown, evidence, stat row.
-- **Evidence first**: every claim shows event IDs and metric calculations.
-  Contradictory model claims are rejected by the deterministic verifier.
-- **Agent trace**: TacticalAnalyst, StoryProducer, AudienceEditor, FactChecker,
-  Director, each with status and latency.
-- **Approval is real**: Hold removes the cue from the program monitor; Approve
-  puts it back on air.
-- **Live feed**: the same UI consumes a WebSocket replay rather than polling.
+- **Director's rundown**: ranked candidates, reasons, duplicate suppression and scheduled airtime.
+- **Program monitor**: five transparent overlay templates with safe-area guides.
+- **Human control**: Hold removes the cue; Approve restores it; Kill keeps it off air.
+- **Live replay**: the local app consumes a WebSocket stream, not polling.
 
-### Overlay
-
-Five transparent templates share the verified cue payload:
-
-| Template | Query | What it shows |
-|---|---|---|
-| Lower third | `/overlay` | Headline, stat, subline, evidence mark |
-| Stat card | `?template=stat_card` | xG, xT, event pressure |
-| Momentum | `?template=momentum` | Control share, chaos, pressure |
-| Speed alert | `?template=speed_alert` | Match top speed and event count |
-| Pressure map | `?template=pressure_map` | Recent pressure and pass locations |
-
-Add `bg=1` for a dark preview. Without it the background is transparent.
-
-### Fan
-
-- Analyst, casual, and player-focused cards for the same moment.
-- Player focus selector with a deterministic event log: passes, completion, shots,
-  and top speed for any player in the match.
-- Three languages, with the same evidence underneath.
-- A deterministic match recap with scoreline, goals, cards, key moments, and
-  top speed.
-- Mobile-first layout, readable without the control-room chrome.
-
-## Architecture
+### Multi-agent collaboration
 
 ```mermaid
 flowchart LR
-  A[Synthetic event stream] --> B[Deterministic analytics]
-  B --> C[MCP analytics server]
-  C --> D[Agent Framework graph]
-  D --> D1[TacticalAnalyst]
-  D1 --> D2[StoryProducer]
-  D1 --> D3[AudienceEditor]
-  D1 --> D4[FactChecker]
-  D2 --> E[Finalize]
-  D3 --> E
-  D4 --> E
-  E --> F[Deterministic verifier]
-  F --> G[Director]
-  G --> H[Studio / Overlay / Fan / WebSocket]
+  A[Event stream] --> B[Deterministic analytics]
+  B --> C[TacticalAnalyst + MCP]
+  C --> D[StoryProducer]
+  C --> E[AudienceEditor]
+  C --> F[FactChecker]
+  D --> G[Review]
+  E --> G
+  F --> G
+  G -->|revise once| H[Producer revision]
+  H --> I[Recheck]
+  G -->|pass or reject| J[Director]
+  I --> J
+  J --> K[Studio / Overlay / Fan]
 ```
 
-- **Graph**: `prepare -> analyst -> fan-out(producer, audience, checker) ->
-  fan-in(finalize) -> director`, built with Microsoft Agent Framework
-  `WorkflowBuilder`. The sequential pipeline remains as a fallback.
-- **Grounding**: the models never compute football numbers. xG, xT, pressure,
-  pass difficulty, control, chaos, momentum, and speed come from the deterministic
-  engine. The MCP server exposes the same evidence to agents.
-- **Verification**: the deterministic verifier is the release gate. The LLM
-  FactChecker is advisory. A claim that cannot be supported is withheld rather
-  than softened.
-- **Delivery**: one container serves the API, WebSocket, and built SPA. Cached
-  insights keep the public demo fast and prevent visitors from spending the
-  owner's model budget.
+- The deterministic verifier checks candidate claims and actual cue numbers.
+- `revise` enters the loop once. Unresolved errors remain held.
+- Warning-only model notes remain advisory after recheck; they cannot override deterministic facts.
+- Director ranks within deterministic candidate and airtime constraints. It cannot approve failed verification.
 
-## Where the score comes from
+### Evidence you can verify
 
-| Criterion | Evidence |
-|---|---|
-| Technological implementation | Deterministic analytics, MCP, Agent Framework graph, WebSocket replay, verifier gate, tests, Docker/Render/Fly packaging |
-| Agentic design | Five typed roles, concurrent fan-out/fan-in, shared graph state, fallbacks, trace, advisory FactChecker |
-| Real-world impact | Broadcast control room, transparent overlays, fan second screen, match recap, approval workflow |
-| UX / presentation | Broadcast-grade visual system, evidence drawer, safe-area guides, five overlay templates, mobile Fan |
-| Category fit | Best Multi-Agent System: a working five-agent workflow with grounded evidence, not a chat wrapper |
+- **5/5** cached fixtures pass verification.
+- **4/5** are approved for air. Vela vs Kepler is deliberately held by Director.
+- **45** fan cards and **25** claims across five fixtures.
+- **3** real bounded revision loops in committed `prompt-v3` traces.
+- **39** Python tests, plus static browser smoke on desktop, mobile and reduced motion.
+
+See [EVALUATION.md](./EVALUATION.md) for per-fixture results.
 
 ## Verify it yourself
 
 ```bash
 uv run pytest -q
 uv run ruff check .
-cd web && npm run build
+uv run python scripts/export_static_demo.py
+cd web && npm run build && npm run build:static && npm run smoke:static
+cd ../video && npx tsc --noEmit
 ```
 
-The suite covers matchforge determinism, analytics, verifier behavior, the
-Agent Framework graph, WebSocket replay, recap generation, and cached-only demo
-mode.
+## Where the score comes from
+
+| Criterion | Evidence |
+|---|---|
+| Technological implementation | Deterministic analytics, MCP, Agent Framework revision graph, Three.js, WebSocket, tests and packaging |
+| Agentic design | Five typed roles, parallel fan-out, bounded feedback, advisory review, Director planning and real trace |
+| Real-world impact | Broadcast rundown, transparent overlays, human approval and personalized second screen |
+| UX / presentation | Cinematic Home, interactive 3D Moment anatomy, energetic motion, responsive Fan and two produced films |
+| Category fit | Best Multi-Agent System: collaboration, correction and airtime decisions with evidence, not a chat wrapper |

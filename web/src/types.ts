@@ -176,6 +176,16 @@ export type Decision = {
   priority: number;
   duration_seconds: number;
   reason: string;
+  ranked_moment_ids?: string[];
+  air_at?: Clock | null;
+};
+
+export type RundownEntry = {
+  moment_id: string;
+  rank: number;
+  action: "approve" | "hold" | "kill";
+  air_at?: Clock | null;
+  reason: string;
 };
 
 export type TraceStep = {
@@ -196,6 +206,7 @@ export type InsightResult = {
   fan_cards: FanCard[];
   verification: Verification;
   decision: Decision;
+  rundown?: RundownEntry[];
   trace: TraceStep[];
   fallback: boolean;
 };
