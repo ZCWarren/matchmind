@@ -147,7 +147,12 @@ function Agents() {
           </div>
         ))}
       </div>
-      <div style={{ position: "absolute", left: 70, bottom: 170, ...mono(16, DIM), ...enter(frame, 145) }}>Parallel fan-out / Typed fan-in / Real trace / Deterministic fallback</div>
+      <div style={{ position: "absolute", left: 70, bottom: 205, display: "flex", gap: 14, ...enter(frame, 130) }}>
+        {["get_event_window()", "get_tactical_chain()", "get_pressure_comparison()", "get_player_summary()"].map((tool) => (
+          <span key={tool} style={{ padding: "8px 14px", border: `1px solid ${CYAN}66`, background: "#0b1412", ...mono(13, CYAN) }}>MCP · {tool}</span>
+        ))}
+      </div>
+      <div style={{ position: "absolute", left: 70, bottom: 150, ...mono(16, DIM), ...enter(frame, 145) }}>Parallel fan-out / 3-Act MatchBlackboard / 4 MCP Tools / Deterministic fallback</div>
       <Caption>Each agent has one responsibility. No single prompt owns the whole decision.</Caption>
     </AbsoluteFill>
   );
@@ -161,20 +166,20 @@ function Revision() {
       <Backdrop accent={CORAL} />
       <BrandMark />
       <div style={{ position: "absolute", top: 145, left: 74, ...enter(frame, 10) }}>
-        <div style={mono(14, CORAL)}>Bounded recovery / Controlled example</div>
+        <div style={mono(14, CORAL)}>Hallucination Gate Lab / Bounded recovery (max=1)</div>
         <div style={{ marginTop: 16, color: TEXT, fontFamily: SANS, fontSize: 64, letterSpacing: "-0.05em" }}>When a claim overreaches.</div>
       </div>
       <div style={{ position: "absolute", top: 340, right: 90, left: 90, display: "grid", gridTemplateColumns: "1fr 90px 1fr", alignItems: "center", gap: 22 }}>
         <div style={{ padding: 34, border: `1px solid ${CORAL}66`, background: "#120e0d", ...enter(frame, 25) }}>
-          <div style={mono(13, CORAL)}>FactChecker / Revise</div>
-          <div style={{ marginTop: 30, color: TEXT, fontFamily: SANS, fontSize: 34, lineHeight: 1.35 }}>“The <span style={{ position: "relative" }}>most dangerous<span style={{ position: "absolute", top: "55%", left: 0, width: `${strike}%`, height: 3, background: CORAL }} /></span> pass of the match.”</div>
-          <div style={{ marginTop: 25, color: MUTED, fontFamily: SANS, fontSize: 18 }}>Unsupported superlative. The evidence does not prove it.</div>
+          <div style={mono(13, CORAL)}>FactChecker + MCP get_pressure_comparison() / Reject & Revise</div>
+          <div style={{ marginTop: 30, color: TEXT, fontFamily: SANS, fontSize: 34, lineHeight: 1.35 }}>“The <span style={{ position: "relative" }}>fastest / most dangerous<span style={{ position: "absolute", top: "55%", left: 0, width: `${strike}%`, height: 3, background: CORAL }} /></span> sequence (33.4 vs 31' 33.8 km/h).”</div>
+          <div style={{ marginTop: 25, color: MUTED, fontFamily: SANS, fontSize: 18 }}>Unsupported superlative blocked against e-000419 (33.8 km/h).</div>
         </div>
         <div style={{ color: LIME, fontFamily: MONO, fontSize: 44, textAlign: "center", opacity: interpolate(frame, [105, 130], [0, 1], clamp) }}>→</div>
         <div style={{ padding: 34, border: `1px solid ${LIME}66`, background: "#0d130c", ...enter(frame, 120) }}>
-          <div style={mono(13, LIME)}>StoryProducer / Recheck</div>
-          <div style={{ marginTop: 30, color: TEXT, fontFamily: SANS, fontSize: 34, lineHeight: 1.35 }}>“A 24.6 m pass through 0.82 pressure.”</div>
-          <div style={{ marginTop: 25, color: LIME, fontFamily: SANS, fontSize: 18 }}>One revision. Same facts. No invented certainty.</div>
+          <div style={mono(13, LIME)}>StoryProducer:revise → FactChecker:recheck</div>
+          <div style={{ marginTop: 30, color: TEXT, fontFamily: SANS, fontSize: 34, lineHeight: 1.35 }}>“A 24.6 m pass through 0.82 pressure (+0.174 xT).”</div>
+          <div style={{ marginTop: 25, color: LIME, fontFamily: SANS, fontSize: 18 }}>One revision. Grounded on MatchBlackboard. Zero invented stats.</div>
         </div>
       </div>
       <Caption>The checker can send language back once. An unresolved error still stays off air.</Caption>

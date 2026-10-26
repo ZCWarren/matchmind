@@ -6,12 +6,12 @@ import hero from "./generated/hero.json";
 
 type MatchEvent = (typeof hero.events)[number];
 
-const point = (event: MatchEvent, end = false) => {
+const point = (event: MatchEvent, end = false, height = 0.16) => {
   const location = end ? event.end_location : event.location;
   const fallback = event.location;
   return new THREE.Vector3(
     ((location?.x ?? fallback.x) - 50) * 0.18,
-    0.16,
+    height,
     ((location?.y ?? fallback.y) - 50) * 0.11,
   );
 };
@@ -24,13 +24,26 @@ function PitchLine({ points, color = "#739984", opacity = 0.4 }: { points: THREE
   return <primitive object={line} />;
 }
 
+function ParabolicArc({ start, end, color = "#c8ff3d", opacity = 0.92, lift = 1.15 }: { start: THREE.Vector3; end: THREE.Vector3; color?: string; opacity?: number; lift?: number }) {
+  const mid = start.clone().lerp(end, 0.5);
+  mid.y += lift;
+  const curve = new THREE.QuadraticBezierCurve3(start, mid, end);
+  const pts = curve.getPoints(32);
+  return <PitchLine points={pts} color={color} opacity={opacity} />;
+}
+
 function World({ vertical, passMode }: { vertical: boolean; passMode: boolean }) {
   const frame = useCurrentFrame();
   const { camera } = useThree();
   const reveal = interpolate(frame, [0, 90], [0, 1], { extrapolateLeft: "clamp", extrapolateRight: "clamp" });
   const pass = interpolate(frame, passMode ? [45, 115] : [0, 1], [0, 1], { extrapolateLeft: "clamp", extrapolateRight: "clamp" });
   const heroEvent = hero.events.find((event) => event.event_id === "e-000974")!;
-  const ballPosition = point(heroEvent).lerp(point(heroEvent, true), pass);
+  const startVec = point(heroEvent, false, 0.18);
+  const endVec = point(heroEvent, true, 0.18);
+  const midVec = startVec.clone().lerp(endVec, 0.5);
+  midVec.y += 1.35;
+  const heroCurve = new THREE.QuadraticBezierCurve3(startVec, midVec, endVec);
+  const ballPosition = heroCurve.getPoint(pass);
   const scale = vertical ? 0.74 : 1;
   camera.position.set(
     (7.8 - reveal * 3.8) * scale,
@@ -40,14 +53,35 @@ function World({ vertical, passMode }: { vertical: boolean; passMode: boolean })
   camera.lookAt(0, 0, 0);
   camera.updateProjectionMatrix();
 
+  const v3 = (coords: [number, number, number?][]) =>
+    coords.map(([x, z, y]) => new THREE.Vector3(x, y ?? 0.012, z));
+
+  const circlePts = Array.from({ length: 65 }, (_, index) => {
+    const angle = (index / 64) * Math.PI * 2;
+    return new THREE.Vector3(Math.cos(angle) * 1.5, 0.015, Math.sin(angle) * 1.5);
+  });
+
   return (
     <group scale={scale} rotation={[0, -0.18 + reveal * 0.18, 0]}>
       <mesh position={[0, -0.12, 0]}>
         <boxGeometry args={[18.35, 0.2, 11.35]} />
         <meshStandardMaterial color="#0c1d14" roughness={0.72} metalness={0.14} />
       </mesh>
-      <PitchLine points={[[-9, 0.01, -5.5], [9, 0.01, -5.5], [9, 0.01, 5.5], [-9, 0.01, 5.5], [-9, 0.01, -5.5]].map(([x, y, z]) => new THREE.Vector3(x, y, z))} />
-      <PitchLine points={[new THREE.Vector3(0, 0.01, -5.5), new THREE.Vector3(0, 0.01, 5.5)]} />
+      {/* Subtle xT grid */}
+      {[-6, -3, 3, 6].map((gx) => (
+        <PitchLine key={`gx-${gx}`} points={v3([[gx, -5.5, 0.006], [gx, 5.5, 0.006]])} color="#c8ff3d" opacity={0.07} />
+      ))}
+      {[-2.75, 2.75].map((gz) => (
+        <PitchLine key={`gz-${gz}`} points={v3([[-9, gz, 0.006], [9, gz, 0.006]])} color="#c8ff3d" opacity={0.07} />
+      ))}
+      {/* Boundary, halfway, center circle, penalty boxes & goals */}
+      <PitchLine points={v3([[-9, -5.5], [9, -5.5], [9, 5.5], [-9, 5.5], [-9, -5.5]])} />
+      <PitchLine points={v3([[0, -5.5], [0, 5.5]])} />
+      <PitchLine points={circlePts} />
+      <PitchLine points={v3([[-9, -3.2], [-6.1, -3.2], [-6.1, 3.2], [-9, 3.2]])} />
+      <PitchLine points={v3([[9, -3.2], [6.1, -3.2], [6.1, 3.2], [9, 3.2]])} />
+      <PitchLine points={v3([[-9, -1.45], [-7.95, -1.45], [-7.95, 1.45], [-9, 1.45]])} />
+      <PitchLine points={v3([[9, -1.45], [7.95, -1.45], [7.95, 1.45], [9, 1.45]])} />
       {hero.events.slice(0, -1).map((event, index) => {
         const start = point(event);
         const end = event.end_location ? point(event, true) : null;
@@ -57,7 +91,7 @@ function World({ vertical, passMode }: { vertical: boolean; passMode: boolean })
               <sphereGeometry args={[0.065 + index * 0.003, 12, 12]} />
               <meshBasicMaterial color={event.team_id === "orn" ? "#ff6b5f" : "#55d6d0"} transparent opacity={0.2 + index * 0.055} />
             </mesh>
-            {end && <PitchLine points={[start, end]} color="#55d6d0" opacity={0.15 + index * 0.05} />}
+            {end && <ParabolicArc start={start} end={end} color="#55d6d0" opacity={0.18 + index * 0.05} lift={0.45} />}
           </group>
         );
       })}
@@ -67,7 +101,12 @@ function World({ vertical, passMode }: { vertical: boolean; passMode: boolean })
           <meshBasicMaterial color="#ff6b5f" transparent opacity={(0.55 - index * 0.13) * reveal} side={THREE.DoubleSide} />
         </mesh>
       ))}
-      {pass > 0 && <PitchLine points={[point(heroEvent), point(heroEvent, true)]} color="#c8ff3d" opacity={0.95} />}
+      {pass > 0 && (
+        <>
+          <ParabolicArc start={startVec} end={endVec} color="#c8ff3d" opacity={0.96} lift={1.35} />
+          <PitchLine points={[point(heroEvent, false, 0.02), point(heroEvent, true, 0.02)]} color="#c8ff3d" opacity={0.3} />
+        </>
+      )}
       <mesh position={ballPosition.toArray()}>
         <sphereGeometry args={[0.17, 24, 24]} />
         <meshStandardMaterial color="#f1ffd8" emissive="#c8ff3d" emissiveIntensity={2.2} />
