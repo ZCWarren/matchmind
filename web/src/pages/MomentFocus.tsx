@@ -1,6 +1,6 @@
 import { ArrowUpRight, Check, Eye, GitBranch, ListBullets, ShareNetwork, UsersThree } from "@phosphor-icons/react";
 import { AnimatePresence, motion } from "motion/react";
-import { useState } from "react";
+import { useMemo, useState } from "react";
 import { Link } from "react-router-dom";
 import AgentGraphVisualizer from "../components/AgentGraphVisualizer";
 import AppNav from "../components/AppNav";
@@ -9,10 +9,12 @@ import { EASE } from "../components/fx";
 import HallucinationLab from "../components/HallucinationLab";
 import MomentTimeline from "../components/moment/MomentTimeline";
 import SceneLoader from "../components/moment/SceneLoader";
+import PlayerText from "../components/PlayerText";
 import ShareCardModal from "../components/ShareCardModal";
 import TacticalCopilot from "../components/TacticalCopilot";
 import { useMatchExperience } from "../hooks/useMatchExperience";
 import { formatClock, metricNumber } from "../lib";
+import { displayPlayer, momentPlayerLabels } from "../lib/playerDisplay";
 import type { Language, Profile } from "../types";
 
 type ViewMode = "events" | "structure" | "evidence" | "audiences";
@@ -50,6 +52,8 @@ export default function MomentFocus() {
   const metrics = selectedMoment?.metrics ?? {};
   const nearbyEvents = events.slice(Math.max(0, cursor - 4), cursor + 4);
   const pressure = currentEvent?.pressure ?? 0;
+  const narrative = `${insight?.insight?.headline ?? selectedMoment?.headline ?? ""} ${insight?.insight?.why_it_matters ?? ""}`;
+  const playerLabels = useMemo(() => momentPlayerLabels(events, selectedMoment, narrative), [events, selectedMoment, narrative]);
 
   return (
     <main className="moment-page app-page">
@@ -75,7 +79,7 @@ export default function MomentFocus() {
       <div className="moment-workspace">
         <section className="moment-stage panel">
           <div className="stage-scene">
-            <SceneLoader events={events} cursor={cursor} home={home} away={away} variant="focus" />
+            <SceneLoader events={events} cursor={cursor} home={home} away={away} variant="focus" playerLabels={playerLabels} />
             <div className="stage-shade" aria-hidden="true" />
             <div className="stage-headline">
               <span className="stage-kicker">
@@ -83,19 +87,13 @@ export default function MomentFocus() {
                 {selectedMoment ? formatClock(selectedMoment.clock) : "--'--"} · {selectedMoment?.type.replaceAll("_", " ") ?? "moment"}
                 <span className="verified-stamp"><Check size={12} weight="bold" /> {insight?.verification.status ?? "event data"}</span>
               </span>
-              <h1>{insight?.insight?.headline ?? selectedMoment?.headline ?? "Revealing the match"}</h1>
             </div>
-            <div className="stage-readouts">
-              <div>
-                <span>Pressure</span>
-                <b className="mono tone-signal">{currentEvent ? pressure.toFixed(2) : "--"}</b>
-                <i className="meter"><b style={{ width: `${Math.min(100, pressure * 100)}%` }} /></i>
-              </div>
-              <div>
-                <span>Event</span>
-                <b className="mono">{currentEvent?.player_id ?? "—"}</b>
-                <small>{currentEvent?.type.replaceAll("_", " ") ?? "play"}</small>
-              </div>
+          </div>
+          <div className="stage-context">
+            <h1><PlayerText text={insight?.insight?.headline ?? selectedMoment?.headline ?? "Revealing the match"} labels={playerLabels} home={home} away={away} /></h1>
+            <div className="stage-context-facts">
+              <span><PlayerText text={displayPlayer(currentEvent?.player_id, playerLabels)} labels={playerLabels} home={home} away={away} /> · {currentEvent?.type.replaceAll("_", " ") ?? "play"}</span>
+              <span>Pressure <strong className="mono">{currentEvent ? pressure.toFixed(2) : "--"}</strong></span>
             </div>
           </div>
           <MomentTimeline
@@ -139,7 +137,7 @@ export default function MomentFocus() {
                         <button key={event.event_id} type="button" className={event.event_id === currentEvent?.event_id ? "active" : ""} onClick={() => seekEvent(event.event_id)}>
                           <span className="mono">{formatClock(event.clock)}</span>
                           <strong>{event.type.replaceAll("_", " ")}</strong>
-                          <small className={event.team_id === home?.team_id ? "home" : "away"}>{event.player_id ?? event.team_id ?? "Match"}</small>
+                          <small className={event.team_id === home?.team_id ? "home" : "away"}>{event.player_id ? displayPlayer(event.player_id, playerLabels) : event.team_id ?? "Match"}</small>
                           <i className="mini-meter"><b style={{ width: `${event.pressure * 100}%` }} /></i>
                         </button>
                       ))}
@@ -150,7 +148,7 @@ export default function MomentFocus() {
                 {view === "structure" && (
                   <>
                     <h2 className="inspector-title">What the score can't show</h2>
-                    <p className="inspector-intro">{insight?.insight?.why_it_matters ?? "Move through the event stream to reveal pressure, passing lanes and territorial threat."}</p>
+                    <p className="inspector-intro"><PlayerText text={insight?.insight?.why_it_matters ?? "Move through the event stream to reveal pressure, passing lanes and territorial threat."} labels={playerLabels} home={home} away={away} /></p>
                     <div className="structure-metrics">
                       {["event_pressure", "xt_delta", "difficulty", "event_speed"].map((name) => {
                         const metric = metrics[name] ?? features?.metrics[name];
@@ -184,7 +182,7 @@ export default function MomentFocus() {
                       {insight?.insight?.claims.map((claim, index) => (
                         <button key={`${claim.text}-${index}`} type="button" className={selectedClaim === index ? "active" : ""} onClick={() => { setSelectedClaim(index); if (claim.event_ids[0]) seekEvent(claim.event_ids[0]); }}>
                           <span className="claim-n mono">Claim {index + 1} · {Math.round(claim.confidence * 100)}%</span>
-                          <strong>{claim.text}</strong>
+                          <strong><PlayerText text={claim.text} labels={playerLabels} home={home} away={away} /></strong>
                           <span className="claim-refs">
                             {claim.event_ids.slice(0, 3).map((id) => <code key={id}>{id}</code>)}
                             {claim.metric_refs.slice(0, 2).map((ref) => <code key={ref.name} className="metric">{ref.name} {ref.value}</code>)}

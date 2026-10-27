@@ -12,7 +12,7 @@ import {
   Stop,
   X,
 } from "@phosphor-icons/react";
-import { useCallback, useEffect, useRef, useState, type CSSProperties } from "react";
+import { useCallback, useEffect, useMemo, useRef, useState, type CSSProperties } from "react";
 import { Link } from "react-router-dom";
 import { api } from "../api";
 import AgentGraphVisualizer from "../components/AgentGraphVisualizer";
@@ -20,9 +20,11 @@ import AppNav from "../components/AppNav";
 import HallucinationLab from "../components/HallucinationLab";
 import SceneLoader from "../components/moment/SceneLoader";
 import OverlayCueView from "../components/OverlayCueView";
+import PlayerText from "../components/PlayerText";
 import ShareCardModal from "../components/ShareCardModal";
 import { eventIndex, useMatchExperience } from "../hooks/useMatchExperience";
 import { formatClock } from "../lib";
+import { momentPlayerLabels } from "../lib/playerDisplay";
 import type { InsightResult, OverlayVariant } from "../types";
 
 const OVERLAYS: { id: OverlayVariant; label: string; name: string }[] = [
@@ -138,6 +140,9 @@ export default function Studio() {
   const momentById = new Map(moments.map((moment) => [moment.moment_id, moment]));
   const maxCursor = Math.max(1, events.length - 1);
   const fillPct = `${(cursor / maxCursor) * 100}%`;
+  const narrative = `${insight?.insight?.headline ?? selectedMoment?.headline ?? ""} ${insight?.insight?.why_it_matters ?? ""}`;
+  const playerLabels = useMemo(() => momentPlayerLabels(events, selectedMoment, narrative), [events, selectedMoment, narrative]);
+  const rundownLabels = useMemo(() => new Map(moments.map((moment) => [moment.moment_id, momentPlayerLabels(events, moment, moment.headline)])), [events, moments]);
 
   const scorebug = {
     home: home?.short_name ?? "NHR",
@@ -265,11 +270,11 @@ export default function Studio() {
                 >
                   <span className="rundown-rank mono">{String(entry.rank).padStart(2, "0")}</span>
                   <span className="rundown-copy">
-                    <strong>{moment.headline}</strong>
+                    <strong><PlayerText text={moment.headline} labels={rundownLabels.get(moment.moment_id) ?? playerLabels} home={home} away={away} /></strong>
                     <small className="mono">
                       {formatClock(moment.clock)} · {moment.type.replaceAll("_", " ")}
                     </small>
-                    <em>{entry.reason}</em>
+                    <em><PlayerText text={entry.reason} labels={rundownLabels.get(moment.moment_id) ?? playerLabels} home={home} away={away} /></em>
                   </span>
                   <span className={`rundown-state ${entry.action}`}>{entry.action}</span>
                 </button>
@@ -307,6 +312,8 @@ export default function Studio() {
               moment={selectedMoment}
               events={events}
               scorebug={scorebug}
+              homeTeam={home}
+              awayTeam={away}
               compact
             />
             {!cueVisible && (
@@ -384,9 +391,9 @@ export default function Studio() {
               {selectedMoment ? formatClock(selectedMoment.clock) : "--'--"} · selected moment
             </span>
             <h2 className="insight-headline display">
-              {insight?.insight?.headline ?? selectedMoment?.headline ?? "Select a moment"}
+              <PlayerText text={insight?.insight?.headline ?? selectedMoment?.headline ?? "Select a moment"} labels={playerLabels} home={home} away={away} />
             </h2>
-            <p>{insight?.decision.reason ?? "The Director will explain why this moment should air or wait."}</p>
+            <p><PlayerText text={insight?.decision.reason ?? "The Director will explain why this moment should air or wait."} labels={playerLabels} home={home} away={away} /></p>
             {insight?.decision.air_at && (
               <div className="air-slot">
                 <Broadcast size={15} weight="bold" />

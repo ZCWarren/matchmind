@@ -433,8 +433,7 @@ input[type="range"]::-moz-range-thumb {
 .scene-tag,
 .camera-mode-bar,
 .overlay-dock,
-.program-hold,
-.stage-readouts > div {
+.program-hold {
   color: var(--text);
   background: rgba(255, 255, 255, 0.86);
   border-color: var(--line);
@@ -546,10 +545,6 @@ input[type="range"]::-moz-range-thumb {
     linear-gradient(0deg, rgba(244, 247, 241, 0.82) 0%, transparent 34%);
 }
 
-.stage-headline h1 {
-  text-shadow: none;
-}
-
 .camera-mode-bar button.active {
   color: #fff;
   background: var(--flood);
@@ -558,6 +553,40 @@ input[type="range"]::-moz-range-thumb {
 .scene-tag[data-team="home"],
 .scene-tag[data-team="away"] {
   box-shadow: none;
+}
+
+.player-token {
+  font-weight: 700;
+  white-space: nowrap;
+}
+
+.player-token::before,
+.match-scene-focus .scene-tag::before {
+  content: "";
+  display: inline-block;
+  width: 0.2em;
+  height: 0.2em;
+  margin-right: 0.16em;
+  border-radius: 50%;
+  background: currentColor;
+  vertical-align: 0.16em;
+}
+
+.player-token.home { color: #126f95; }
+.player-token.away { color: #bb4d38; }
+.scoreline .team.home, .sb-team.home { color: #126f95; }
+.scoreline .team.away, .sb-team.away { color: #bb4d38; }
+
+.match-scene-focus .scene-tag[data-team="home"] {
+  color: #126f95;
+  background: #e7f5fa;
+  border-color: rgba(18, 111, 149, 0.42);
+}
+
+.match-scene-focus .scene-tag[data-team="away"] {
+  color: #bb4d38;
+  background: #fff0eb;
+  border-color: rgba(187, 77, 56, 0.42);
 }
 
 .program-bg {

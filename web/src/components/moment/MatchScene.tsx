@@ -21,6 +21,8 @@ type MatchSceneProps = {
   stage?: number;
   /** Story variant only: index of the hero event the camera frames. */
   anchor?: number;
+  /** Moment-local public labels; the renderer still tracks raw player IDs. */
+  playerLabels?: Record<string, string>;
 };
 
 const FALLBACK_HOME = { team_id: "home", name: "Home", short_name: "HOM", color: "#167C9F", venue: "" };
@@ -245,12 +247,14 @@ export default function MatchScene({
   variant = "focus",
   stage = 4,
   anchor,
+  playerLabels,
 }: MatchSceneProps) {
   const mount = useRef<HTMLDivElement>(null);
   const tagRef = useRef<HTMLDivElement>(null);
   const cursorRef = useRef(cursor);
   const stageRef = useRef(stage);
   const anchorRef = useRef(anchor ?? cursor);
+  const playerLabelsRef = useRef(playerLabels);
   const cameraModeRef = useRef<CameraMode>("broadcast");
   const [cameraMode, setCameraMode] = useState<CameraMode>("broadcast");
   const [failed, setFailed] = useState(false);
@@ -261,6 +265,7 @@ export default function MatchScene({
   useEffect(() => { cursorRef.current = cursor; }, [cursor]);
   useEffect(() => { stageRef.current = stage; }, [stage]);
   useEffect(() => { anchorRef.current = anchor ?? cursor; }, [anchor, cursor]);
+  useEffect(() => { playerLabelsRef.current = playerLabels; }, [playerLabels]);
   useEffect(() => { cameraModeRef.current = cameraMode; }, [cameraMode]);
 
   useEffect(() => {
@@ -994,7 +999,9 @@ export default function MatchScene({
           const y = (-tmpVec.y * 0.5 + 0.5) * container.clientHeight;
           tag.style.transform = `translate3d(${x.toFixed(1)}px, ${y.toFixed(1)}px, 0) translate(-50%, -100%)`;
           tag.style.opacity = visible ? "1" : "0";
-          const label = `${current.player_id ?? ""} · ${current.type.replaceAll("_", " ")}`;
+          const label = variant === "focus" && playerLabelsRef.current
+            ? playerLabelsRef.current[current.player_id ?? ""] ?? current.player_id ?? ""
+            : `${current.player_id ?? ""} · ${current.type.replaceAll("_", " ")}`;
           if (tag.dataset.label !== label) {
             tag.dataset.label = label;
             tag.textContent = label;
@@ -1055,7 +1062,7 @@ export default function MatchScene({
   }, [events, homeTeam.team_id, awayTeam.team_id, reduceMotion, variant]);
 
   if (reduceMotion || failed) {
-    return <Pitch events={events} cursor={cursor} home={homeTeam} away={awayTeam} />;
+    return <Pitch events={events} cursor={cursor} home={homeTeam} away={awayTeam} playerLabels={playerLabels} />;
   }
   return (
     <div className={`match-scene match-scene-${variant}`} ref={mount} role="img" aria-label="Interactive three-dimensional match structure">
