@@ -1,7 +1,8 @@
+import React from "react";
 import { Composition } from "remotion";
 import { MatchMindPromo, MatchMindTeaser } from "./Promo";
 
-export const RemotionRoot = () => (
+export const RemotionRoot: React.FC = () => (
   <>
     <Composition
       id="MatchMindPromo"

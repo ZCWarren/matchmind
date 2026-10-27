@@ -7,13 +7,20 @@
     "preview": "remotion studio src/index.ts",
     "sync": "node scripts/sync-demo.mjs",
     "render": "npm run render:main && npm run render:teaser",
-    "render:main": "remotion render src/index.ts MatchMindPromo out/promo.mp4 --codec=h264 --crf=19 --concurrency=2",
-    "render:teaser": "remotion render src/index.ts MatchMindTeaser out/teaser.mp4 --codec=h264 --crf=19 --concurrency=2"
+    "render:main": "remotion render src/index.ts MatchMindPromo out/promo.mp4 --codec=h264 --crf=19 --concurrency=2 --gl=angle-egl --browser-executable=/usr/bin/google-chrome",
+    "render:teaser": "remotion render src/index.ts MatchMindTeaser out/teaser.mp4 --codec=h264 --crf=19 --concurrency=2 --gl=angle-egl --browser-executable=/usr/bin/google-chrome"
   },
   "dependencies": {
+    "@fontsource-variable/inter-tight": "^5.3.0",
+    "@fontsource/instrument-serif": "^5.3.0",
+    "@fontsource/jetbrains-mono": "^5.3.0",
     "@react-three/fiber": "^9.8.2",
+    "@react-three/postprocessing": "^3.2.2",
     "@remotion/cli": "4.0.538",
+    "@remotion/motion-blur": "^4.0.538",
     "@remotion/three": "^4.0.538",
+    "@remotion/transitions": "^4.0.538",
+    "postprocessing": "^6.39.5",
     "react": "19.3.1",
     "react-dom": "19.3.1",
     "remotion": "4.0.538",

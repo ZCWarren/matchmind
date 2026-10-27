@@ -1,5 +1,6 @@
 import { lazy, Suspense } from "react";
 import type { Event, Team } from "../../types";
+import type { SceneVariant } from "./MatchScene";
 
 const MatchScene = lazy(() => import("./MatchScene"));
 
@@ -8,10 +9,18 @@ export default function SceneLoader(props: {
   cursor: number;
   home?: Team;
   away?: Team;
-  variant?: "hero" | "focus";
+  variant?: SceneVariant;
+  stage?: number;
+  anchor?: number;
 }) {
   return (
-    <Suspense fallback={<div className="match-scene" aria-label="Loading three-dimensional match structure" />}>
+    <Suspense
+      fallback={
+        <div className={`match-scene match-scene-${props.variant ?? "focus"} is-loading`} aria-label="Loading three-dimensional match structure">
+          <span className="scene-loading-glow" />
+        </div>
+      }
+    >
       <MatchScene {...props} />
     </Suspense>
   );

@@ -84,15 +84,16 @@ try {
   ];
   for (const fixture of fixtures) {
     await page.locator(".fixture-select").selectOption(fixture);
-    await page.waitForTimeout(550);
+    await page.locator(".decision-status.pass").waitFor({ state: "visible", timeout: 5000 });
     assert.equal(await page.locator(".error-banner").count(), 0, fixture);
     assert.ok((await page.locator(".insight-headline").textContent()).length > 20, fixture);
   }
   await page.locator(".fixture-select").selectOption(fixtures[1]);
-  await page.waitForTimeout(600);
+  await page.locator(".decision-status.pass").waitFor({ state: "visible", timeout: 5000 });
   assert.equal(await page.locator(".rundown-state").first().textContent(), "hold");
   assert.equal(await page.getByRole("button", { name: "Approve", exact: true }).isEnabled(), true);
   await page.getByRole("button", { name: "Approve", exact: true }).click();
+  await page.locator(".program-screen .overlay-cue").waitFor({ state: "visible", timeout: 5000 });
   assert.ok(await page.locator(".program-screen .overlay-cue").isVisible());
   await page.getByRole("link", { name: "Full screen" }).click();
   await page.waitForLoadState("networkidle");
@@ -103,15 +104,17 @@ try {
   assert.ok(await page.locator(".overlay-waiting").isVisible());
   await page.goto(`${base}#/studio`, { waitUntil: "networkidle" });
   await page.locator(".fixture-select").selectOption(fixtures[0]);
-  await page.waitForTimeout(600);
+  await page.locator(".decision-status.pass").waitFor({ state: "visible", timeout: 5000 });
   await page.getByRole("button", { name: "Hold", exact: true }).click();
+  await page.locator(".program-hold").waitFor({ state: "visible", timeout: 5000 });
   assert.ok(await page.locator(".program-hold").isVisible());
   await page.getByRole("button", { name: "Approve", exact: true }).click();
+  await page.locator(".program-screen .overlay-cue").waitFor({ state: "visible", timeout: 5000 });
   assert.ok(await page.locator(".program-screen .overlay-cue").isVisible());
 
   await page.goto(`${base}#/guide`, { waitUntil: "networkidle" });
   await page.locator(".guide-legend").waitFor();
-  assert.match(await page.locator(".guide-legend").innerText(), /DATA ITSELF/);
+  assert.match(await page.locator(".guide-legend").innerText(), /Data itself/i);
   await page.goto(`${base}#/about`, { waitUntil: "networkidle" });
   await page.locator(".about-hero h1").filter({ hasText: "Five agents" }).waitFor();
   assert.match(await page.locator(".about-hero h1").innerText(), /Five agents/);
@@ -170,7 +173,7 @@ try {
     assert.ok(await mobile.locator("h1, .fan-card-headline").first().isVisible());
   }
   await mobile.goto(`${base}#/`, { waitUntil: "networkidle" });
-  assert.ok(await mobile.locator(".pitch-svg").isVisible());
+  assert.ok(await mobile.locator(".pitch-svg").first().isVisible());
   await mobile.setViewportSize({ width: 320, height: 740 });
   await mobile.goto(`${base}#/moment`, { waitUntil: "networkidle" });
   await mobile.waitForTimeout(350);
