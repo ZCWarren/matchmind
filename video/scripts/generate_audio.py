@@ -1,18 +1,29 @@
-"""Generate concise English narration, original music, effects, and subtitles."""
+"""Generate concise English narration, the original score, sound effects, and subtitles.
+
+python scripts/generate_audio.py               # narration (needs network) + score + sfx + subtitles
+python scripts/generate_audio.py --music-only  # score + sfx only, reuses the narration on disk
+"""
 
 from __future__ import annotations
 
+import argparse
 import asyncio
+import sys
 from pathlib import Path
 
-import edge_tts
 import numpy as np
+
+sys.path.insert(0, str(Path(__file__).resolve().parent))
+
+import cuesheet  # noqa: E402
+import score  # noqa: E402
+import soundlab as sl  # noqa: E402
 
 ROOT = Path(__file__).resolve().parents[2]
 AUDIO = ROOT / "video/public/audio"
+SFX = AUDIO / "sfx"
 OUT = ROOT / "video/out"
 WEB = ROOT / "web/public"
-RATE = 44100
 
 SCENES = [
     ("storm", 0, 8, "1,275 events. One scoreline. Almost no explanation."),
@@ -29,6 +40,8 @@ SCENES = [
 
 
 async def narration() -> None:
+    import edge_tts
+
     folder = AUDIO / "voice"
     folder.mkdir(parents=True, exist_ok=True)
     for name, _, _, text in SCENES:
@@ -47,80 +60,69 @@ async def narration() -> None:
         print(f"voice: {name}", flush=True)
 
 
-def envelope(length: int, attack: float, release: float) -> np.ndarray:
-    env = np.ones(length)
-    attack_n = min(length, int(attack * RATE))
-    release_n = min(length, int(release * RATE))
-    if attack_n:
-        env[:attack_n] = np.linspace(0, 1, attack_n)
-    if release_n:
-        env[-release_n:] = np.linspace(1, 0, release_n)
-    return env
+def music() -> None:
+    scratch = AUDIO / ".master-scratch.wav"
+    for label, arrangement, target in (
+        ("promo score", cuesheet.promo(AUDIO / "voice", SCENES), AUDIO / "music.wav"),
+        ("teaser score", cuesheet.teaser(), AUDIO / "teaser-music.wav"),
+    ):
+        print(f"{label}:", flush=True)
+        mix = score.render(arrangement)
+        mastered = score.master(arrangement, mix, scratch)
+        sl.write_wav(target, mastered)
+        print(f"  {target.name}: {sl.measure_lufs(target)} LUFS", flush=True)
 
 
-def music(seconds: int, bpm: int, target: Path) -> None:
-    rng = np.random.default_rng(20261026)
-    total = seconds * RATE
-    mix = np.zeros(total)
-    beat = 60 / bpm
-    roots = [73.42, 65.41, 87.31, 98.0]
-    for index, start in enumerate(np.arange(0, seconds, beat)):
-        length = min(int(beat * RATE), total - int(start * RATE))
-        t = np.arange(length) / RATE
-        kick = np.sin(2 * np.pi * (48 * t + 35 * 0.07 * (1 - np.exp(-t * 20)))) * np.exp(-t * 12)
-        root = roots[(index // 8) % len(roots)]
-        bass = np.sin(2 * np.pi * root * t) * np.exp(-t * 4.5) * 0.4
-        hat = rng.normal(0, 1, length) * np.exp(-t * 42) * 0.12
-        bar = (kick * 0.65 + bass + hat) * envelope(length, 0.004, 0.08)
-        offset = int(start * RATE)
-        mix[offset:offset + length] += bar
-        if index % 2 == 0:
-            pad_length = min(int(beat * 8 * RATE), total - offset)
-            pt = np.arange(pad_length) / RATE
-            pad = sum(np.sin(2 * np.pi * root * ratio * pt) for ratio in (1, 1.5, 2)) / 3
-            mix[offset:offset + pad_length] += pad * envelope(pad_length, 0.25, 0.7) * 0.1
-    for start in np.arange(7, seconds, 8):
-        length = min(RATE, total - int(start * RATE))
-        if length <= 0:
-            continue
-        t = np.arange(length) / RATE
-        riser = rng.normal(0, 1, length) * np.sin(np.pi * t) ** 2 * 0.055
-        offset = int(start * RATE)
-        mix[offset:offset + length] += riser
-    mix = np.tanh(mix * 1.35)
-    mix *= 0.82 / max(0.01, float(np.max(np.abs(mix))))
-    stereo = np.column_stack((mix, np.roll(mix, 173)))
-    write_wav(target, stereo)
+def tick_ladder() -> list[float]:
+    """D major pentatonic: UI blips climb the key of the score."""
+    return [74, 76, 78, 81, 83]
+
+
+def strike_sfx() -> np.ndarray:
+    t = sl.seconds_axis(0.6)
+    swipe = sl.stft_filter(
+        sl._noise(61, len(t)), sl.log_curve([(0, 8000), (0.42, 1100)]), "lp", 2, 512
+    )
+    swipe = sl.stft_filter(swipe, 800, "hp", 2, 512) * (
+        sl.smoothstep(t / 0.015) * np.exp(-t * 7.5)
+    ).astype(np.float32)
+    drop = 940 * np.exp(-t * 2.4)
+    dive = np.sin(sl.TAU * np.cumsum(drop) / sl.RATE) + 0.55 * np.sin(
+        sl.TAU * np.cumsum(drop * 1.4142) / sl.RATE
+    )
+    dive = dive * np.exp(-t * 8.5) * 0.4
+    return sl.normalize(sl.fade_edges((swipe + dive).astype(np.float32), 0.002, 0.12), 0.8)
+
+
+def verify_sfx() -> np.ndarray:
+    stage = sl.Stage(2.2)
+    for at, midi, gain in ((0.0, 74, 1.0), (0.07, 81, 0.85), (0.14, 86, 0.75), (0.23, 90, 0.6)):
+        stage.put(sl.bell(sl.mtof(midi), 2.0, 1.8, 3.0, 2.4), at, gain, (midi - 80) / 30)
+    stage.put(sl.pluck(sl.mtof(62), 1.2, 0.6, 2.0), 0.0, 0.35, 0.0)
+    return sl.normalize(stage.buf, 0.85)
+
+
+def lock_sfx() -> np.ndarray:
+    stage = sl.Stage(1.4)
+    t = sl.seconds_axis(0.3)
+    thunk = np.sin(sl.TAU * np.cumsum(58 + 120 * np.exp(-t * 26)) / sl.RATE) * np.exp(-t * 17)
+    stage.put(sl.rim().astype(np.float32), 0.0, 0.8)
+    stage.put(sl.normalize(thunk.astype(np.float32)), 0.0, 0.9)
+    stage.put(sl.bell(sl.mtof(86), 1.2, 1.2, 3.0, 4.5), 0.035, 0.5, 0.2)
+    stage.put(sl.bell(sl.mtof(93), 1.2, 1.0, 3.0, 5.0), 0.07, 0.3, -0.2)
+    return sl.normalize(stage.buf, 0.8)
 
 
 def effects() -> None:
-    length = int(1.4 * RATE)
-    t = np.arange(length) / RATE
-    impact = (np.sin(2 * np.pi * (52 * t + 18 * (1 - np.exp(-t * 9)))) * np.exp(-t * 4) * 0.85)
-    impact += np.random.default_rng(72).normal(0, 1, length) * np.exp(-t * 18) * 0.18
-    write_wav(AUDIO / "impact.wav", impact)
-    length = int(0.8 * RATE)
-    t = np.arange(length) / RATE
-    verify = sum(np.sin(2 * np.pi * frequency * t) for frequency in (660, 880, 1320)) / 3
-    verify *= np.exp(-t * 5) * envelope(length, 0.005, 0.3)
-    write_wav(AUDIO / "verify.wav", verify)
-
-
-def write_wav(target: Path, samples: np.ndarray) -> None:
-    import wave
-
-    target.parent.mkdir(parents=True, exist_ok=True)
-    values = np.clip(samples, -1, 1)
-    if values.ndim == 1:
-        channels = 1
-    else:
-        channels = values.shape[1]
-    pcm = (values * 32767).astype("<i2")
-    with wave.open(str(target), "wb") as output:
-        output.setnchannels(channels)
-        output.setsampwidth(2)
-        output.setframerate(RATE)
-        output.writeframes(pcm.tobytes())
+    sl.write_wav(SFX / "impact.wav", sl.normalize(sl.boom(), 0.85))
+    sl.write_wav(SFX / "whoosh.wav", sl.whoosh(1.0, peak_at=0.75) * 0.9)
+    for index, midi in enumerate(tick_ladder()):
+        sl.write_wav(SFX / f"tick-{index}.wav", sl.blip(sl.mtof(midi), 0.3) * 0.8)
+    sl.write_wav(SFX / "strike.wav", strike_sfx())
+    sl.write_wav(SFX / "verify.wav", verify_sfx())
+    sl.write_wav(SFX / "lock.wav", lock_sfx())
+    for stale in (AUDIO / "impact.wav", AUDIO / "verify.wav"):
+        stale.unlink(missing_ok=True)
 
 
 def timestamp(seconds: float) -> str:
@@ -142,11 +144,16 @@ def subtitles() -> None:
 
 
 if __name__ == "__main__":
+    parser = argparse.ArgumentParser()
+    parser.add_argument(
+        "--music-only", action="store_true", help="skip narration synthesis (no network needed)"
+    )
+    args = parser.parse_args()
     AUDIO.mkdir(parents=True, exist_ok=True)
     OUT.mkdir(parents=True, exist_ok=True)
-    asyncio.run(narration())
-    music(90, 120, AUDIO / "music.wav")
-    music(15, 128, AUDIO / "teaser-music.wav")
+    if not args.music_only:
+        asyncio.run(narration())
+    music()
     effects()
     subtitles()
     print("audio, music, effects, and subtitles ready")
