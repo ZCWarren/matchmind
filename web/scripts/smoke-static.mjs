@@ -176,9 +176,12 @@ try {
   await page.locator(".fixture-select").selectOption(fixtures[0]);
   await page.waitForTimeout(1100);
   assert.equal(await page.locator(".fixture-select").inputValue(), fixtures[0]);
-  await eventually(async () =>
-    assert.match(await page.locator(".insight-headline").textContent(), /NHR-/),
-  );
+  // Headlines render team names, not raw ids: fixture 0 is Nova Harbor vs Orion North.
+  await eventually(async () => {
+    const headline = await page.locator(".insight-headline").textContent();
+    assert.match(headline, /Orion North/);
+    assert.doesNotMatch(headline, /Kepler|Vela/);
+  });
   await page.unroute("**/demo/*/insight.json");
 
   const mobile = await browser.newPage({
