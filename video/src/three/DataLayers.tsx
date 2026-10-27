@@ -40,11 +40,11 @@ export const glowSprite = (color: string) => {
   }
   return new THREE.SpriteMaterial({
     map: glowTex,
-    color: new THREE.Color(color).multiplyScalar(2),
-    blending: THREE.AdditiveBlending,
+    color,
+    blending: THREE.NormalBlending,
     depthWrite: false,
     transparent: true,
-    toneMapped: false,
+    opacity: 0.2,
   });
 };
 
@@ -54,7 +54,7 @@ export const Ball = ({ t, frame, opacity = 1 }: { t: number; frame: number; opac
   const trailGeo = useMemo(() => new THREE.TubeGeometry(PASS_CURVE, 120, 0.09, 8, false), []);
   const pos = ballAt(t);
   const p = passProgress(t);
-  glow.opacity = 0.9 * opacity;
+  glow.opacity = 0.2 * opacity;
   trail.uniforms.uProgress.value = p;
   trail.uniforms.uTail.value = 0.28;
   trail.uniforms.uDash.value = 0;
@@ -64,7 +64,7 @@ export const Ball = ({ t, frame, opacity = 1 }: { t: number; frame: number; opac
     <group>
       <mesh position={pos} castShadow>
         <sphereGeometry args={[0.24, 32, 24]} />
-        <meshBasicMaterial color={new THREE.Color("#ffffff").multiplyScalar(3 * opacity)} toneMapped={false} />
+        <meshStandardMaterial color="#FFFFFF" roughness={0.5} />
       </mesh>
       <sprite position={pos} scale={[2.6, 2.6, 2.6]} material={glow} />
       <mesh geometry={trailGeo} material={trail} />

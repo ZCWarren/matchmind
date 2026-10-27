@@ -21,18 +21,18 @@ const drawPitch = () => {
   canvas.height = ch;
   const g = canvas.getContext("2d")!;
   // base
-  g.fillStyle = "#0b1916";
+  g.fillStyle = "#638D60";
   g.fillRect(0, 0, cw, ch);
   // mowing stripes
   const stripes = 18;
   for (let i = 0; i < stripes; i++) {
-    g.fillStyle = i % 2 ? "#163327" : "#0a1712";
+    g.fillStyle = i % 2 ? "#6D9B67" : "#7DA976";
     g.fillRect((pad + (i * L) / stripes) * s, pad * s, (L / stripes) * s, W * s);
   }
   // subtle cross-hatching grain
   const r = rng(7);
   for (let i = 0; i < 26000; i++) {
-    g.fillStyle = `rgba(${r() > 0.5 ? "255,255,255" : "0,0,0"},${0.012 + r() * 0.018})`;
+    g.fillStyle = `rgba(${r() > 0.5 ? "255,255,255" : "36,77,50"},${0.012 + r() * 0.018})`;
     g.fillRect(r() * cw, r() * ch, 2 + r() * 3, 1);
   }
   // lines
@@ -46,7 +46,7 @@ const drawPitch = () => {
     ctx.save();
     ctx.translate(pad * s, pad * s);
     ctx.scale(s, s);
-    ctx.strokeStyle = ctx === g ? "rgba(235,240,245,0.62)" : "rgba(255,255,255,1)";
+    ctx.strokeStyle = ctx === g ? "rgba(255,255,255,0.78)" : "rgba(255,255,255,1)";
     ctx.lineWidth = 0.12;
     ctx.strokeRect(0, 0, L, W);
     ctx.beginPath();
@@ -91,19 +91,19 @@ export const Pitch = ({ lineGlow = 0.18 }: { lineGlow?: number }) => {
         <meshPhysicalMaterial
           map={tex.map}
           emissiveMap={tex.emissive}
-          emissive={"#dfe8ff"}
-          emissiveIntensity={lineGlow}
-          roughness={0.72}
+          emissive={"#ffffff"}
+          emissiveIntensity={lineGlow * 0.2}
+          roughness={0.86}
           metalness={0}
-          clearcoat={0.3}
-          clearcoatRoughness={0.3}
-          envMapIntensity={0.6}
+          clearcoat={0.05}
+          clearcoatRoughness={0.8}
+          envMapIntensity={0.4}
         />
       </mesh>
       {/* outer apron */}
       <mesh rotation-x={-Math.PI / 2} position-y={-0.02} receiveShadow>
         <planeGeometry args={[220, 170]} />
-        <meshStandardMaterial color={"#06080c"} roughness={0.6} metalness={0.1} envMapIntensity={0.5} />
+        <meshStandardMaterial color={"#CBDCBF"} roughness={0.9} metalness={0} envMapIntensity={0.4} />
       </mesh>
     </group>
   );
@@ -117,12 +117,12 @@ const drawBoard = () => {
   canvas.height = 128;
   const g = canvas.getContext("2d")!;
   const grad = g.createLinearGradient(0, 0, 4096, 0);
-  grad.addColorStop(0, "#130708");
-  grad.addColorStop(0.5, "#0a0f1a");
-  grad.addColorStop(1, "#130708");
+  grad.addColorStop(0, "#F4F7F1");
+  grad.addColorStop(0.5, "#EAF0E6");
+  grad.addColorStop(1, "#F4F7F1");
   g.fillStyle = grad;
   g.fillRect(0, 0, 4096, 128);
-  g.font = "italic 84px 'Instrument Serif'";
+  g.font = "600 76px 'Inter Tight'";
   g.textBaseline = "middle";
   const words = ["MatchMind", "See the game beneath the game", "MatchMind", "Nova Harbor · Orion North"];
   let x = 40;
@@ -234,24 +234,24 @@ const drawSeats = () => {
   canvas.width = 512;
   canvas.height = 1024;
   const g = canvas.getContext("2d")!;
-  g.fillStyle = "#0b0d14";
+  g.fillStyle = "#D3DFCD";
   g.fillRect(0, 0, 512, 1024);
   const r = rng(99);
   const rows = 48;
   for (let j = 0; j < rows; j++) {
     const y = (j / rows) * 1024;
-    g.fillStyle = "#141826";
+    g.fillStyle = "#E4EDDF";
     g.fillRect(0, y, 512, 1024 / rows / 2.4);
     // crowd specks
     for (let k = 0; k < 90; k++) {
       const v = r();
-      g.fillStyle = v > 0.97 ? "rgba(255,227,179,0.5)" : v > 0.94 ? "rgba(92,200,255,0.28)" : v > 0.9 ? "rgba(255,77,46,0.3)" : `rgba(160,170,190,${0.05 + r() * 0.08})`;
+      g.fillStyle = v > 0.97 ? "rgba(22,124,159,0.32)" : v > 0.94 ? "rgba(207,96,72,0.28)" : `rgba(83,100,90,${0.08 + r() * 0.12})`;
       g.fillRect(r() * 512, y + 4 + r() * 8, 3 + r() * 3, 4 + r() * 4);
     }
   }
   // vomitory gaps
   for (let i = 0; i < 4; i++) {
-    g.fillStyle = "#05060a";
+    g.fillStyle = "#A9BCA3";
     g.fillRect(60 + i * 128, 380, 18, 140);
   }
   const t = new THREE.CanvasTexture(canvas);
@@ -284,25 +284,25 @@ export const Bowl = ({ glow = 1 }: { glow?: number }) => {
   return (
     <group>
       <mesh geometry={parts.lower} receiveShadow>
-        <meshStandardMaterial map={parts.seats} emissiveMap={parts.seats} emissive={"#9aa6c8"} emissiveIntensity={0.9 * glow} roughness={0.85} metalness={0.05} side={THREE.DoubleSide} envMapIntensity={0.25} />
+        <meshStandardMaterial map={parts.seats} roughness={0.9} metalness={0} side={THREE.DoubleSide} envMapIntensity={0.25} />
       </mesh>
       <mesh geometry={parts.upper}>
-        <meshStandardMaterial map={parts.seats} emissiveMap={parts.seats} emissive={"#9aa6c8"} emissiveIntensity={0.7 * glow} roughness={0.85} metalness={0.05} side={THREE.DoubleSide} envMapIntensity={0.25} />
+        <meshStandardMaterial map={parts.seats} roughness={0.9} metalness={0} side={THREE.DoubleSide} envMapIntensity={0.25} />
       </mesh>
       <mesh geometry={parts.fascia}>
-        <meshStandardMaterial color="#07080d" roughness={0.4} side={THREE.DoubleSide} />
+        <meshStandardMaterial color="#D3DFCD" roughness={0.7} side={THREE.DoubleSide} />
       </mesh>
       <mesh geometry={parts.roof}>
-        <meshStandardMaterial color="#090b12" roughness={0.6} metalness={0.4} side={THREE.DoubleSide} />
+        <meshStandardMaterial color="#E4EDDF" roughness={0.8} metalness={0.05} side={THREE.DoubleSide} />
       </mesh>
       <mesh geometry={parts.back}>
-        <meshStandardMaterial color="#06070b" roughness={0.8} side={THREE.DoubleSide} />
+        <meshStandardMaterial color="#CBDCBF" roughness={0.9} side={THREE.DoubleSide} />
       </mesh>
       <mesh geometry={parts.ring}>
-        <meshBasicMaterial color={new THREE.Color(C.flood).multiplyScalar(2.2 * glow)} toneMapped={false} />
+        <meshBasicMaterial color={C.flood} />
       </mesh>
       <mesh geometry={parts.fasciaLine}>
-        <meshBasicMaterial color={new THREE.Color(C.signal).multiplyScalar(1.6 * glow)} toneMapped={false} />
+        <meshBasicMaterial color={C.signal} />
       </mesh>
     </group>
   );
@@ -383,29 +383,25 @@ export const Floodlights = ({ power, frame, beam = 1 }: { power: number[]; frame
         );
         mats[k].uniforms.uIntensity.value = p * beam;
         mats[k].uniforms.uTime.value = frame;
-        glow[k].uniforms.uOpacity.value = p;
+        glow[k].uniforms.uOpacity.value = p * 0.08;
         const mid = head.clone().add(dir.clone().multiplyScalar(0.5));
         return (
           <group key={k}>
             {/* mast */}
             <mesh position={[x, MAST_H / 2, z]}>
               <cylinderGeometry args={[0.6, 1.3, MAST_H, 10]} />
-              <meshStandardMaterial color="#0b0d14" roughness={0.5} metalness={0.7} />
+              <meshStandardMaterial color="#80927C" roughness={0.75} metalness={0.2} />
             </mesh>
             {/* lamp head */}
             <group position={head} quaternion={faceQuat}>
               <mesh position-z={0.6}>
                 <boxGeometry args={[11, 7.5, 0.8]} />
-                <meshStandardMaterial color="#0a0b10" roughness={0.4} metalness={0.8} />
+                <meshStandardMaterial color="#A9BCA3" roughness={0.7} metalness={0.2} />
               </mesh>
               {lamps.map(([lx, ly], i) => (
                 <mesh key={i} position={[lx, ly, -0.05]} rotation-x={Math.PI}>
                   <circleGeometry args={[0.6, 16]} />
-                  <meshBasicMaterial
-                    color={new THREE.Color(C.flood).multiplyScalar(0.15 + 9 * p)}
-                    toneMapped={false}
-                    side={THREE.DoubleSide}
-                  />
+                  <meshBasicMaterial color="#FFFDF5" side={THREE.DoubleSide} />
                 </mesh>
               ))}
               <mesh position-z={-0.6} material={glow[k]}>
@@ -436,7 +432,7 @@ export const FloodLighting = ({ power, shadows = true }: { power: number[]; shad
   );
   return (
     <group>
-      <hemisphereLight args={["#2a3550", "#05060a", 0.25]} />
+      <hemisphereLight args={["#F4F7F1", "#6F8F68", 0.85]} />
       {TOWERS.map(([x, z], k) => (
         <group key={k}>
           <primitive object={targets[k]} />
@@ -447,8 +443,8 @@ export const FloodLighting = ({ power, shadows = true }: { power: number[]; shad
             penumbra={1}
             decay={0}
             distance={0}
-            intensity={1.6 * (power[k] ?? 1)}
-            color={"#e4e9f5"}
+            intensity={0.9 * (power[k] ?? 1)}
+            color={"#FFFDF5"}
             castShadow={shadows}
             shadow-mapSize-width={2048}
             shadow-mapSize-height={2048}
@@ -469,22 +465,22 @@ export const FloodEnvironment = () => {
   const scene = useThree((s) => s.scene);
   useMemo(() => {
     const env = new THREE.Scene();
-    env.background = new THREE.Color("#020306");
-    const lampMat = new THREE.MeshBasicMaterial({ color: new THREE.Color(C.flood).multiplyScalar(5) });
+    env.background = new THREE.Color("#DFEADA");
+    const lampMat = new THREE.MeshBasicMaterial({ color: "#FFFDF5" });
     for (const [x, z] of TOWERS) {
       const m = new THREE.Mesh(new THREE.PlaneGeometry(14, 9), lampMat);
       m.position.set(x, MAST_H, z);
       m.lookAt(0, 0, 0);
       env.add(m);
     }
-    const ringMat = new THREE.MeshBasicMaterial({ color: new THREE.Color(C.flood).multiplyScalar(1.4), side: THREE.DoubleSide });
+    const ringMat = new THREE.MeshBasicMaterial({ color: C.flood, side: THREE.DoubleSide });
     const ring = new THREE.Mesh(new THREE.TorusGeometry(105, 1.2, 6, 120), ringMat);
     ring.rotation.x = Math.PI / 2;
     ring.position.y = 45;
     env.add(ring);
     const sky = new THREE.Mesh(
       new THREE.SphereGeometry(400, 32, 16),
-      new THREE.MeshBasicMaterial({ color: "#0a0e1a", side: THREE.BackSide }),
+      new THREE.MeshBasicMaterial({ color: "#DFEADA", side: THREE.BackSide }),
     );
     env.add(sky);
     const pm = new THREE.PMREMGenerator(gl);

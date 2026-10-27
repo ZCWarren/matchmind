@@ -12,15 +12,20 @@ from matchmind import __version__
 from matchmind.api.analytics import router as analytics_router
 from matchmind.api.insights import router as insights_router
 from matchmind.api.matches import router as matches_router
+from matchmind.api.observability import configure_observability
 from matchmind.api.recap import router as recap_router
 from matchmind.api.replay import router as replay_router
+from matchmind.api.security import LiveRateLimitMiddleware
 from matchmind.config import settings
+
+configure_observability()
 
 app = FastAPI(
     title="MatchMind",
     version=__version__,
     description="Real-time explainable match intelligence for football broadcast.",
 )
+app.add_middleware(LiveRateLimitMiddleware)
 app.add_middleware(GZipMiddleware, minimum_size=1024)
 app.add_middleware(
     CORSMiddleware,

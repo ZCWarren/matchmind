@@ -8,12 +8,13 @@ from pydantic import BaseModel, ConfigDict, Field
 from matchmind.agents.blackboard import (
     CopilotQA,
     MatchBlackboardState,
-    answer_copilot_question,
     build_arc_insight,
     build_blackboard,
 )
+from matchmind.agents.budget import live_budget
 from matchmind.agents.cache import load_cached
 from matchmind.agents.contracts import PipelineRequest, PipelineResult
+from matchmind.agents.copilot import answer_copilot_question
 from matchmind.agents.pipeline import run_pipeline
 from matchmind.config import settings
 
@@ -45,11 +46,14 @@ def get_arc_moment_insight(match_id: str, moment_id: str) -> PipelineResult:
 
 
 @router.post("/{match_id}/copilot", response_model=CopilotQA)
-def query_tactical_copilot(match_id: str, body: CopilotQueryRequest) -> CopilotQA:
+async def query_tactical_copilot(match_id: str, body: CopilotQueryRequest) -> CopilotQA:
     try:
-        return answer_copilot_question(match_id, body.question)
+        with live_budget(match_id):
+            return await answer_copilot_question(match_id, body.question)
     except FileNotFoundError as exc:
         raise HTTPException(status_code=404, detail=str(exc)) from exc
+    except RuntimeError as exc:
+        raise HTTPException(status_code=503, detail=str(exc)) from exc
 
 
 @router.post("/{match_id}/insights", response_model=PipelineResult)
@@ -66,7 +70,8 @@ async def create_insight(match_id: str, request: PipelineRequest) -> PipelineRes
             )
         return cached
     try:
-        return await run_pipeline(match_id, request)
+        with live_budget(match_id):
+            return await run_pipeline(match_id, request)
     except FileNotFoundError as exc:
         raise HTTPException(status_code=404, detail=str(exc)) from exc
     except ValueError as exc:

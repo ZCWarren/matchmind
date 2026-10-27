@@ -6,6 +6,8 @@ import json
 
 from pydantic import BaseModel, ValidationError
 
+from matchmind.agents.budget import consume_llm_call
+
 
 def extract_json(text: str) -> dict:
     """Extract the first JSON object from a model response."""
@@ -29,6 +31,7 @@ async def run_json_agent[T: BaseModel](
     repair: bool = True,
 ) -> T:
     """Run an agent and validate its JSON output, with one repair attempt."""
+    consume_llm_call()
     result = await agent.run(prompt)
     text = getattr(result, "text", None) or str(result)
     try:
@@ -41,6 +44,7 @@ async def run_json_agent[T: BaseModel](
             f"Return only valid JSON matching this schema:\n"
             f"{json.dumps(schema.model_json_schema(), ensure_ascii=False)}"
         )
+        consume_llm_call()
         result = await agent.run(repair_prompt)
         text = getattr(result, "text", None) or str(result)
         return schema.model_validate(extract_json(text))

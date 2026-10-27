@@ -7,32 +7,26 @@ export const FloodBackdrop: React.FC<{
   accent?: string;
   secondary?: string;
   dim?: number;
-}> = ({ accent = C.signal, secondary = C.ice, dim = 1 }) => (
+}> = ({ accent = C.flood, secondary = C.ice, dim = 1 }) => (
   <AbsoluteFill style={{ background: C.ink0, pointerEvents: "none" }}>
     <AbsoluteFill
       style={{
         opacity: dim,
         background: `
-          radial-gradient(65% 55% at 50% 0%, rgba(255, 227, 179, 0.10) 0%, transparent 70%),
-          radial-gradient(50% 50% at 82% 28%, ${accent}22 0%, transparent 65%),
-          radial-gradient(55% 50% at 18% 78%, ${secondary}18 0%, transparent 65%)
+          radial-gradient(60% 50% at 82% 18%, ${accent}16 0%, transparent 70%),
+          radial-gradient(55% 50% at 12% 82%, ${secondary}10 0%, transparent 70%)
         `,
       }}
     />
     <AbsoluteFill
       style={{
-        opacity: 0.22 * dim,
+        opacity: 0.16 * dim,
         backgroundImage: `
-          linear-gradient(to right, rgba(255,255,255,0.035) 1px, transparent 1px),
-          linear-gradient(to bottom, rgba(255,255,255,0.035) 1px, transparent 1px)
+          linear-gradient(to right, rgba(24,62,39,0.08) 1px, transparent 1px),
+          linear-gradient(to bottom, rgba(24,62,39,0.08) 1px, transparent 1px)
         `,
         backgroundSize: "96px 96px",
         maskImage: "radial-gradient(circle at 50% 48%, black 25%, transparent 80%)",
-      }}
-    />
-    <AbsoluteFill
-      style={{
-        background: "radial-gradient(circle at 50% 50%, transparent 52%, rgba(2, 3, 7, 0.72) 100%)",
       }}
     />
   </AbsoluteFill>
@@ -55,9 +49,9 @@ export const Eyebrow: React.FC<{
         gap: 10,
         padding: "7px 14px",
         borderRadius: 999,
-        background: "rgba(15, 19, 32, 0.75)",
-        border: `1px solid ${color}44`,
-        boxShadow: `0 0 24px ${color}18`,
+        background: "rgba(255, 255, 255, 0.82)",
+        border: `1px solid ${color}33`,
+        boxShadow: "0 12px 32px rgba(33,72,45,0.10)",
         opacity: a,
         transform: `translateY(${y}px)`,
       }}
@@ -68,7 +62,6 @@ export const Eyebrow: React.FC<{
           height: 7,
           borderRadius: 99,
           background: color,
-          boxShadow: `0 0 10px ${color}`,
         }}
       />
       <span
@@ -91,34 +84,19 @@ export const SerifSpan: React.FC<{
   children: React.ReactNode;
   gradient?: "signal" | "ai" | "flood";
   color?: string;
-}> = ({ children, gradient = "signal", color }) => {
-  const bg =
-    gradient === "ai"
-      ? GRAD.ai
-      : gradient === "flood"
-        ? `linear-gradient(120deg, ${C.flood} 0%, #ffffff 55%, ${C.ice} 100%)`
-        : GRAD.signal;
-  return (
-    <span
-      style={{
-        fontFamily: FONT.serif,
-        fontStyle: "italic",
-        fontWeight: 400,
-        letterSpacing: "-0.01em",
-        paddingRight: "0.08em",
-        ...(color
-          ? { color }
-          : {
-              backgroundImage: bg,
-              WebkitBackgroundClip: "text",
-              WebkitTextFillColor: "transparent",
-            }),
-      }}
-    >
-      {children}
-    </span>
-  );
-};
+}> = ({ children, color }) => (
+  <span
+    style={{
+      fontFamily: FONT.sans,
+      fontStyle: "normal",
+      fontWeight: 650,
+      letterSpacing: "-0.045em",
+      color: color ?? C.verify,
+    }}
+  >
+    {children}
+  </span>
+);
 
 export const TopChrome: React.FC<{
   chapter: string;
@@ -150,11 +128,10 @@ export const TopChrome: React.FC<{
             width: 36,
             height: 36,
             borderRadius: 10,
-            background: "linear-gradient(135deg, rgba(255,77,46,0.22), rgba(255,227,179,0.08))",
-            border: "1px solid rgba(255,77,46,0.5)",
+            background: "rgba(255,255,255,0.82)",
+            border: "1px solid rgba(30,103,66,0.22)",
             display: "grid",
             placeItems: "center",
-            boxShadow: "0 0 22px rgba(255,77,46,0.28)",
           }}
         >
           <div
@@ -164,7 +141,6 @@ export const TopChrome: React.FC<{
               borderRadius: 3,
               transform: "rotate(45deg)",
               background: GRAD.signal,
-              boxShadow: `0 0 12px ${C.signal}`,
             }}
           />
         </div>
@@ -189,7 +165,7 @@ export const TopChrome: React.FC<{
                 letterSpacing: "0.08em",
               }}
             >
-              FLOODLIGHT
+              DAYLIGHT
             </span>
           )}
         </div>
@@ -203,7 +179,7 @@ export const TopChrome: React.FC<{
           gap: 14,
           padding: "7px 16px",
           borderRadius: 999,
-          background: "rgba(11, 13, 20, 0.78)",
+          background: "rgba(255, 255, 255, 0.84)",
           border: `1px solid ${C.line}`,
           backdropFilter: "blur(12px)",
           fontFamily: FONT.mono,
@@ -251,62 +227,45 @@ export const SubtitleBar: React.FC<{
   en: string;
   zh?: string;
   duration: number;
-}> = ({ en, zh, duration }) => {
+}> = ({ en, duration }) => {
   const frame = useCurrentFrame();
   const a = life(frame, 4, duration - 4, 10, 10);
   return (
     <div
       style={{
         position: "absolute",
-        left: 80,
-        right: 80,
-        bottom: 30,
+        left: "50%",
+        bottom: 32,
         display: "flex",
         justifyContent: "center",
         opacity: a,
+        transform: "translateX(-50%)",
         zIndex: 40,
         pointerEvents: "none",
       }}
     >
       <div
         style={{
-          padding: "10px 24px",
-          borderRadius: 999,
-          background: "rgba(5, 6, 10, 0.78)",
-          border: "1px solid rgba(255, 255, 255, 0.09)",
+          padding: "11px 22px",
+          borderRadius: 14,
+          background: "rgba(255, 255, 255, 0.92)",
+          border: "1px solid rgba(24, 62, 39, 0.14)",
           backdropFilter: "blur(14px)",
-          boxShadow: "0 12px 32px rgba(0, 0, 0, 0.55)",
-          display: "flex",
-          alignItems: "center",
-          gap: 16,
+          boxShadow: "0 14px 36px rgba(33, 72, 45, 0.14)",
         }}
       >
         <span
           style={{
             fontFamily: FONT.sans,
-            fontSize: 20,
-            fontWeight: 500,
-            letterSpacing: "-0.01em",
+            fontSize: 19,
+            fontWeight: 550,
+            letterSpacing: "-0.015em",
             color: C.text,
+            whiteSpace: "nowrap",
           }}
         >
           {en}
         </span>
-        {zh && (
-          <>
-            <span style={{ color: C.text3, fontSize: 16 }}>·</span>
-            <span
-              style={{
-                fontFamily: FONT.sans,
-                fontSize: 17,
-                fontWeight: 400,
-                color: C.text2,
-              }}
-            >
-              {zh}
-            </span>
-          </>
-        )}
       </div>
     </div>
   );
@@ -326,9 +285,9 @@ export const GlassCard: React.FC<{
       style={{
         position: "relative",
         borderRadius: 20,
-        background: "linear-gradient(165deg, rgba(20, 24, 38, 0.84) 0%, rgba(11, 13, 20, 0.90) 100%)",
-        border: `1px solid rgba(255, 255, 255, 0.09)`,
-        boxShadow: `0 24px 60px rgba(0, 0, 0, 0.55), inset 0 1px 0 rgba(255, 255, 255, 0.10)`,
+        background: "rgba(255, 255, 255, 0.90)",
+        border: `1px solid rgba(24, 62, 39, 0.12)`,
+        boxShadow: `0 24px 60px rgba(33, 72, 45, 0.14)`,
         backdropFilter: "blur(20px)",
         overflow: "hidden",
         opacity: a,
@@ -398,12 +357,8 @@ export const TiltScreen: React.FC<{
           height: "100%",
           borderRadius: 22,
           background: C.ink1,
-          border: `1px solid rgba(255,255,255,0.14)`,
-          boxShadow: `
-            0 40px 90px rgba(0, 0, 0, 0.78),
-            0 0 60px ${accent}24,
-            inset 0 1px 0 rgba(255, 255, 255, 0.22)
-          `,
+          border: `1px solid rgba(24,62,39,0.14)`,
+          boxShadow: `0 36px 90px rgba(33, 72, 45, 0.20)`,
           overflow: "hidden",
           display: "flex",
           flexDirection: "column",
@@ -422,7 +377,7 @@ export const TiltScreen: React.FC<{
           style={{
             height: 36,
             padding: "0 16px",
-            background: "rgba(8, 10, 16, 0.95)",
+            background: "rgba(255, 255, 255, 0.96)",
             borderBottom: `1px solid ${C.line}`,
             display: "flex",
             alignItems: "center",

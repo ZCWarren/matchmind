@@ -1,6 +1,6 @@
 # MatchMind films
 
-Two independently composed Remotion productions share the same real hero data and visual language:
+Two independently composed Remotion productions share the same real hero data and Daylight visual language:
 
 - `MatchMindPromo`: 1920x1080, 30fps, 2700 frames, exactly 90 seconds.
 - `MatchMindTeaser`: 1080x1920, 30fps, 450 frames, exactly 15 seconds.
@@ -31,14 +31,14 @@ npx remotion compositions src/index.ts --browser-executable=/usr/bin/google-chro
 - `scripts/sync-demo.mjs` reads the actual static hero events and `prompt-v3` insight, then writes `src/generated/hero.json`.
 - `src/MatchWorld.tsx` renders those event coordinates through `@remotion/three` and React Three Fiber.
 - `public/screens/` contains captures of the current product, not the old dashboard.
-- `scripts/generate_audio.py` creates ten scene narration files with Edge TTS, original synthesized music and effects, plus English and Chinese sidecar subtitles.
+- `scripts/generate_audio.py` creates ten concise English narration files with Edge TTS, original synthesized music and effects, plus English sidecar subtitles.
 - `public/audio/` contains the generated narration, WAV music and effects.
 
 ## Output
 
 - `out/promo.mp4` is copied to `web/public/promo.mp4` and `docs/promo.mp4`.
 - `out/teaser.mp4` is copied to `web/public/teaser.mp4`.
-- `out/promo.en.srt` and `out/promo.zh.srt` are also written to `web/public/`.
+- `out/promo.en.srt` is also written to `web/public/`; no Chinese captions are rendered.
 
 Validate the actual media:
 

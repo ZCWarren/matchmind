@@ -18,7 +18,7 @@ Local equivalents use `http://localhost:8010/moment`, `/studio`, `/overlay` and 
 
 Nova Harbor vs Orion North is the default fixture. NHR-08 releases NHR-14 with a 24.6 m pass under 0.82 pressure, adding 0.1736 xT. The event, metrics, agent claims and broadcast cue all come from the same cached `prompt-v3` run.
 
-The public static demo never needs a model key. Live generation and WebSocket replay remain available locally.
+The public static demo never needs a model key and supports preset Copilot answers only. The local dynamic app makes real Copilot and five-agent model calls with MCP evidence; free-form answers that fail deterministic checks are explicitly withheld. WebSocket replay remains available locally.
 
 ## What to look at
 
@@ -67,9 +67,9 @@ flowchart LR
 - **4/5** are approved for air. Vela vs Kepler is deliberately held by Director.
 - **45** fan cards and **25** claims across five fixtures.
 - **3** real bounded revision loops in committed `prompt-v3` traces.
-- **39** Python tests, plus static browser smoke on desktop, mobile and reduced motion.
+- **49** Python tests, plus static browser smoke on desktop, mobile and reduced motion.
 
-See [EVALUATION.md](./EVALUATION.md) for per-fixture results.
+See [EVALUATION.md](./EVALUATION.md) for per-fixture agent results and [DATA-QUALITY.md](./DATA-QUALITY.md) for synthetic-data checks and calibration limits.
 
 ## Verify it yourself
 

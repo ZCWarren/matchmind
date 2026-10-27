@@ -44,25 +44,24 @@ export const Players = ({ t, look = {} }: { t: number; look?: PlayerLook }) => {
     return { body, head, band, ring, disc };
   }, []);
   const mats = useMemo(() => {
-    const body = new THREE.MeshPhysicalMaterial({
-      color: "#11141d",
-      roughness: 0.28,
-      metalness: 0.15,
-      clearcoat: 1,
-      clearcoatRoughness: 0.12,
-      envMapIntensity: 1.6,
-    });
     const make = (team: Player["team"]) => ({
-      band: new THREE.MeshBasicMaterial({ color: new THREE.Color(teamColor(team)).multiplyScalar(2.2), toneMapped: false }),
+      body: new THREE.MeshPhysicalMaterial({
+        color: teamColor(team),
+        roughness: 0.65,
+        metalness: 0,
+        clearcoat: 0.1,
+        envMapIntensity: 0.5,
+      }),
+      band: new THREE.MeshBasicMaterial({ color: "#FFFFFF" }),
       ring: new THREE.MeshBasicMaterial({
-        color: new THREE.Color(teamColor(team)).multiplyScalar(2.4),
-        toneMapped: false,
+        color: teamColor(team),
         transparent: true,
+        opacity: 0.8,
         side: THREE.DoubleSide,
       }),
-      glow: makeGlowMaterial(teamColor(team), 0.5, 2.4),
+      glow: makeGlowMaterial(teamColor(team), 0.12, 2.4),
     });
-    return { body, home: make("home"), away: make("away") };
+    return { home: make("home"), away: make("away") };
   }, []);
 
   const { dim = 1, highlight = [], fadeOthers = 0 } = look;
@@ -80,8 +79,8 @@ export const Players = ({ t, look = {} }: { t: number; look?: PlayerLook }) => {
         return (
           <group key={p.id} position={[s.x, 0, s.z]} rotation-y={s.heading} visible={vis > 0.02}>
             <group rotation-x={lean}>
-              <mesh geometry={geo.body} material={mats.body} castShadow scale={[1, 1.12, 1]} />
-              <mesh geometry={geo.head} material={mats.body} position-y={1.9} castShadow />
+              <mesh geometry={geo.body} material={m.body} castShadow scale={[1, 1.12, 1]} />
+              <mesh geometry={geo.head} material={m.body} position-y={1.9} castShadow />
               <mesh geometry={geo.band} material={m.band} position-y={1.38} rotation-x={Math.PI / 2} scale={vis} />
             </group>
             <mesh geometry={geo.ring} material={m.ring} rotation-x={-Math.PI / 2} position-y={0.03} scale={ringScale * (0.4 + 0.6 * vis)} />

@@ -5,6 +5,8 @@ from __future__ import annotations
 from fastapi.testclient import TestClient
 
 from matchmind.api.main import app
+from matchmind.api.security import live_rate_limiter
+from matchmind.config import settings
 
 client = TestClient(app)
 HERO = "ast-2026-1018-nhr-orn"
@@ -32,3 +34,16 @@ def test_insight_request_is_bounded() -> None:
         },
     )
     assert response.status_code == 422
+
+
+def test_live_endpoints_are_rate_limited(monkeypatch) -> None:
+    live_rate_limiter.reset()
+    monkeypatch.setattr(settings, "live_rate_limit_per_minute", 1)
+    board = client.get(f"/api/matches/{HERO}/blackboard").json()
+    question = board["copilot_presets"][0]["question"]
+    first = client.post(f"/api/matches/{HERO}/copilot", json={"question": question})
+    second = client.post(f"/api/matches/{HERO}/copilot", json={"question": question})
+    live_rate_limiter.reset()
+    assert first.status_code == 200
+    assert second.status_code == 429
+    assert int(second.headers["Retry-After"]) >= 1

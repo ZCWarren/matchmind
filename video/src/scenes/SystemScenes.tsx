@@ -6,25 +6,23 @@ import { easeOut, pop, tween } from "../lib/motion";
 import { C, FONT, GRAD } from "../theme";
 
 /* ==========================================================================
-   SCENE 4 — FIVE AGENTS & SHARED EVIDENCE GRAPH (870..1140, 9s = 270f)
+   SCENE 4 — VERIFIED INTELLIGENCE BEHIND THE SCENES (870..1140, 9s = 270f)
    ========================================================================== */
 export const AgentsScene: React.FC = () => {
   const frame = useCurrentFrame();
 
   const agentColors = [C.ice, C.flood, C.violet, C.signal, C.verify];
-  const traces = hero.insight.trace;
-  const mcps = hero.blackboard.mcp_invocations;
 
   return (
     <AbsoluteFill style={{ background: C.ink0 }}>
       <FloodBackdrop accent={C.violet} secondary={C.ice} />
 
-      <TopChrome code="04" chapter="Multi-Agent Architecture" clock="72:12" />
+      <TopChrome code="04" chapter="Verified Intelligence" clock="72:12" />
 
       {/* Header */}
       <div style={{ position: "absolute", left: 68, top: 112, right: 68, display: "flex", justifyContent: "space-between", alignItems: "flex-end" }}>
         <div>
-          <Eyebrow text="5 SPECIALIZED AGENTS · 1 SHARED BLACKBOARD" color={C.violet} delay={4} />
+          <Eyebrow text="BEHIND THE SCENES · VERIFIED INTELLIGENCE" color={C.violet} delay={4} />
           <div
             style={{
               marginTop: 14,
@@ -38,7 +36,7 @@ export const AgentsScene: React.FC = () => {
               transform: `translateY(${tween(frame, 8, 26, 22, 0)}px)`,
             }}
           >
-            Five minds. <SerifSpan gradient="ai">One evidence graph.</SerifSpan>
+            The intelligence stays <SerifSpan gradient="ai">behind the scenes.</SerifSpan>
           </div>
         </div>
 
@@ -115,163 +113,78 @@ export const AgentsScene: React.FC = () => {
         })}
       </svg>
 
-      {/* 5 Agent Specialist Cards */}
+      {/* User outcomes, with agent infrastructure kept behind the scenes. */}
       <div
         style={{
           position: "absolute",
-          top: 355,
+          top: 390,
           left: 68,
           right: 68,
           display: "grid",
-          gridTemplateColumns: "repeat(5, 1fr)",
-          gap: 18,
+          gridTemplateColumns: "repeat(3, 1fr)",
+          gap: 24,
           zIndex: 10,
         }}
       >
-        {AGENTS.map((agent, index) => {
-          const color = agentColors[index];
-          const tr = traces.find((t) => t.agent === agent.id);
-          const latencySec = tr ? (tr.latency_ms / 1000).toFixed(1) + "s" : "1.2s";
-          return (
-            <GlassCard
-              key={agent.id}
-              accent={color}
-              delay={24 + index * 12}
-              style={{
-                padding: "26px 22px",
-                minHeight: 340,
-                display: "flex",
-                flexDirection: "column",
-                justifyContent: "space-between",
-              }}
-            >
-              <div>
-                <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
-                  <span
-                    style={{
-                      padding: "4px 10px",
-                      borderRadius: 99,
-                      background: `${color}18`,
-                      border: `1px solid ${color}55`,
-                      fontFamily: FONT.mono,
-                      fontSize: 11,
-                      fontWeight: 500,
-                      color,
-                    }}
-                  >
-                    AGENT 0{index + 1}
-                  </span>
-                  <span style={{ fontFamily: FONT.mono, fontSize: 11, color: C.text3 }}>
-                    {tr?.model ?? "deepseek-flash"}
-                  </span>
-                </div>
-
-                <div
-                  style={{
-                    marginTop: 22,
-                    fontFamily: FONT.sans,
-                    fontSize: 27,
-                    fontWeight: 700,
-                    letterSpacing: "-0.025em",
-                    lineHeight: 1.12,
-                    color: C.text,
-                  }}
-                >
-                  {agent.id}
-                </div>
-
-                <div
-                  style={{
-                    marginTop: 10,
-                    fontFamily: FONT.serif,
-                    fontStyle: "italic",
-                    fontSize: 24,
-                    color,
-                  }}
-                >
-                  {agent.role}
-                </div>
-
-                <div
-                  style={{
-                    marginTop: 14,
-                    fontFamily: FONT.sans,
-                    fontSize: 16,
-                    lineHeight: 1.45,
-                    color: C.text2,
-                  }}
-                >
-                  {agent.verb}
-                </div>
-              </div>
-
-              <div
-                style={{
-                  paddingTop: 16,
-                  borderTop: `1px solid ${C.line}`,
-                  display: "flex",
-                  justifyContent: "space-between",
-                  alignItems: "center",
-                  fontFamily: FONT.mono,
-                  fontSize: 11,
-                  color: C.text3,
-                }}
-              >
-                <span style={{ color: C.verify }}>● VERIFIED</span>
-                <span>{latencySec} trace</span>
-              </div>
-            </GlassCard>
-          );
-        })}
-      </div>
-
-      {/* Bottom Grounding MCP Tool Invocations */}
-      <div
-        style={{
-          position: "absolute",
-          left: 68,
-          right: 68,
-          bottom: 108,
-          display: "grid",
-          gridTemplateColumns: "repeat(4, 1fr)",
-          gap: 16,
-        }}
-      >
-        {mcps.map((inv, idx) => (
+        {[
+          {
+            label: "UNDERSTAND",
+            title: "Read the play",
+            body: "Pressure, passing lanes and momentum become visible.",
+            color: C.ice,
+          },
+          {
+            label: "TRUST",
+            title: "Check every claim",
+            body: "Event-level evidence blocks unsupported numbers.",
+            color: C.verify,
+          },
+          {
+            label: "SHARE",
+            title: "Serve every audience",
+            body: "One verified moment, ready for broadcast and fans.",
+            color: C.flood,
+          },
+        ].map((item, index) => (
           <GlassCard
-            key={inv.tool}
-            accent={C.ice}
-            delay={96 + idx * 12}
-            style={{ padding: "16px 20px" }}
+            key={item.label}
+            accent={item.color}
+            delay={28 + index * 16}
+            style={{ padding: "30px 28px", minHeight: 310 }}
           >
-            <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
-              <span style={{ fontFamily: FONT.mono, fontSize: 12, fontWeight: 500, color: C.ice }}>
-                MCP · {inv.tool}()
-              </span>
-              <span style={{ fontFamily: FONT.mono, fontSize: 10, color: C.violet }}>
-                {inv.caller}
-              </span>
+            <div style={{ fontFamily: FONT.mono, fontSize: 12, color: item.color, letterSpacing: "0.1em" }}>
+              {item.label}
             </div>
             <div
               style={{
-                marginTop: 8,
+                marginTop: 26,
                 fontFamily: FONT.sans,
-                fontSize: 14,
-                color: C.text2,
-                whiteSpace: "nowrap",
-                overflow: "hidden",
-                textOverflow: "ellipsis",
+                fontSize: 36,
+                fontWeight: 700,
+                letterSpacing: "-0.04em",
+                color: C.text,
               }}
             >
-              {inv.output_summary}
+              {item.title}
+            </div>
+            <div
+              style={{
+                marginTop: 18,
+                maxWidth: 300,
+                fontFamily: FONT.sans,
+                fontSize: 20,
+                lineHeight: 1.5,
+                color: C.text2,
+              }}
+            >
+              {item.body}
             </div>
           </GlassCard>
         ))}
       </div>
 
       <SubtitleBar
-        en="Five specialized agents share one evidence graph. Each has a different responsibility."
-        zh="五个专业智能体共享一张证据图，各自承担不同职责。"
+        en="Five agents work behind the scenes, so every insight earns your trust."
         duration={270}
       />
     </AbsoluteFill>
@@ -474,7 +387,7 @@ export const RevisionScene: React.FC = () => {
               width: "100%",
               padding: "20px 18px",
               borderRadius: 16,
-              background: "rgba(20, 24, 38, 0.9)",
+              background: "rgba(255, 255, 255, 0.9)",
               border: `1px solid ${C.violet}66`,
               textAlign: "center",
               boxShadow: `0 0 36px ${C.violet}26`,
@@ -597,8 +510,7 @@ export const RevisionScene: React.FC = () => {
       </div>
 
       <SubtitleBar
-        en="If language goes beyond the evidence, the checker sends it back. One revision, then verification again."
-        zh="当表述超出证据，核查者会将其退回。一次修订，然后再次验证。"
+        en="One revision. Verification again."
         duration={270}
       />
     </AbsoluteFill>
@@ -823,8 +735,7 @@ export const EvidenceScene: React.FC = () => {
       </div>
 
       <SubtitleBar
-        en="Every number is checked against event-level proof. Models explain. The verifier decides."
-        zh="每个数字都经过事件级证据核验。模型负责解释，验证器负责裁决。"
+        en="Models explain. The verifier decides."
         duration={240}
       />
     </AbsoluteFill>
@@ -1097,8 +1008,7 @@ export const DirectorScene: React.FC = () => {
       </div>
 
       <SubtitleBar
-        en="The Director ranks, deduplicates and finds the right stoppage. A human keeps the final call."
-        zh="Director负责排序、去重并选择合适死球窗口，人类保留最终决策权。"
+        en="The Director schedules. A human decides."
         duration={240}
       />
     </AbsoluteFill>

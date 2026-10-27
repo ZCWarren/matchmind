@@ -52,7 +52,7 @@ export const StormScene: React.FC = () => {
       <AbsoluteFill
         style={{
           background:
-            "linear-gradient(90deg, rgba(5,6,10,0.88) 0%, rgba(5,6,10,0.45) 48%, rgba(5,6,10,0.18) 100%)",
+            "linear-gradient(90deg, rgba(244,247,241,0.88) 0%, rgba(244,247,241,0.45) 48%, rgba(244,247,241,0.18) 100%)",
           pointerEvents: "none",
         }}
       />
@@ -89,7 +89,7 @@ export const StormScene: React.FC = () => {
               lineHeight: 0.92,
               fontVariantNumeric: "tabular-nums",
               color: C.text,
-              textShadow: "0 20px 60px rgba(0,0,0,0.75)",
+              textShadow: "0 20px 60px rgba(33,72,45,0.18)",
             }}
           >
             {count.toLocaleString("en-US")}
@@ -148,7 +148,7 @@ export const StormScene: React.FC = () => {
                 gap: 8,
                 padding: "8px 14px",
                 borderRadius: 999,
-                background: "rgba(11, 13, 20, 0.78)",
+                background: "rgba(255, 255, 255, 0.82)",
                 border: `1px solid ${item.color}40`,
                 fontFamily: FONT.mono,
                 fontSize: 12,
@@ -253,8 +253,7 @@ export const StormScene: React.FC = () => {
       </GlassCard>
 
       <SubtitleBar
-        en="A football match produces 1,275 events. The score tells you almost none of them."
-        zh="一场足球比赛产生1275个事件，比分却只能讲述其中极少一部分。"
+        en="1,275 events. One scoreline. Almost no explanation."
         duration={240}
       />
     </AbsoluteFill>
@@ -315,12 +314,12 @@ export const RevealScene: React.FC = () => {
       <AbsoluteFill
         style={{
           background:
-            "linear-gradient(90deg, rgba(5,6,10,0.86) 0%, rgba(5,6,10,0.46) 44%, transparent 78%)",
+            "linear-gradient(90deg, rgba(244,247,241,0.86) 0%, rgba(244,247,241,0.46) 44%, transparent 78%)",
           pointerEvents: "none",
         }}
       />
 
-      <TopChrome code="02" chapter="Floodlight Engine" clock="72:12" />
+      <TopChrome code="02" chapter="Daylight Engine" clock="72:12" />
 
       {/* Editorial Hero Title */}
       <div
@@ -331,7 +330,7 @@ export const RevealScene: React.FC = () => {
           width: 820,
         }}
       >
-        <Eyebrow text="FLOODLIGHT · TACTICAL & BROADCAST AI" color={C.flood} delay={12} />
+        <Eyebrow text="DAYLIGHT · TACTICAL & BROADCAST AI" color={C.flood} delay={12} />
 
         <div
           style={{
@@ -342,7 +341,7 @@ export const RevealScene: React.FC = () => {
             letterSpacing: "-0.045em",
             lineHeight: 0.96,
             color: C.text,
-            textShadow: "0 18px 50px rgba(0,0,0,0.75)",
+            textShadow: "0 18px 50px rgba(33,72,45,0.18)",
           }}
         >
           <div
@@ -474,8 +473,7 @@ export const RevealScene: React.FC = () => {
       </div>
 
       <SubtitleBar
-        en="MatchMind reveals the pressure, movement and tactical structure beneath the score."
-        zh="MatchMind让比分背后的压力、跑动与战术结构清晰可见。"
+        en="See the pressure and structure beneath the score."
         duration={330}
       />
     </AbsoluteFill>
@@ -594,7 +592,7 @@ export const HeroPassScene: React.FC = () => {
               style={{
                 padding: "7px 13px",
                 borderRadius: 10,
-                background: "rgba(8, 10, 16, 0.86)",
+                background: "rgba(255, 255, 255, 0.88)",
                 border: `1px solid ${tag.color}88`,
                 boxShadow: `0 10px 28px rgba(0,0,0,0.65), 0 0 18px ${tag.color}33`,
                 backdropFilter: "blur(10px)",
@@ -656,7 +654,7 @@ export const HeroPassScene: React.FC = () => {
             letterSpacing: "-0.04em",
             lineHeight: 1.0,
             color: C.text,
-            textShadow: "0 14px 40px rgba(0,0,0,0.8)",
+            textShadow: "0 14px 40px rgba(33,72,45,0.18)",
             opacity: tween(frame, 10, 28),
             transform: `translateY(${tween(frame, 10, 28, 22, 0)}px)`,
           }}
@@ -712,12 +710,12 @@ export const HeroPassScene: React.FC = () => {
               color: C.text,
             }}
           >
-            {tween(frame, 72, 118, 0, FACTS.distance).toFixed(1)}
+            {tween(frame, 72, 118, 0, FACTS.distance ?? 0).toFixed(1)}
           </span>
           <span
             style={{
-              fontFamily: FONT.serif,
-              fontStyle: "italic",
+              fontFamily: FONT.sans,
+              fontStyle: "normal",
               fontSize: 54,
               color: C.ice,
             }}
@@ -758,8 +756,7 @@ export const HeroPassScene: React.FC = () => {
       </GlassCard>
 
       <SubtitleBar
-        en="At 72:12, NHR-08 threads 24.6 meters through 0.82 pressure."
-        zh="72分12秒，NHR-08在0.82压力下送出24.6米破线传球。"
+        en="24.6 metres through 0.82 pressure."
         duration={300}
       />
     </AbsoluteFill>
@@ -805,7 +802,7 @@ export const OutroScene: React.FC = () => {
       <AbsoluteFill
         style={{
           background:
-            "radial-gradient(circle at 50% 48%, rgba(5,6,10,0.58) 0%, rgba(5,6,10,0.88) 78%)",
+            "radial-gradient(circle at 50% 48%, rgba(244,247,241,0.58) 0%, rgba(244,247,241,0.88) 78%)",
           pointerEvents: "none",
         }}
       />
@@ -825,7 +822,7 @@ export const OutroScene: React.FC = () => {
           padding: "0 80px",
         }}
       >
-        <Eyebrow text="MATCHMIND · FLOODLIGHT RELEASE" color={C.flood} delay={6} />
+        <Eyebrow text="MATCHMIND · DAYLIGHT RELEASE" color={C.flood} delay={6} />
 
         <div
           style={{
@@ -836,7 +833,7 @@ export const OutroScene: React.FC = () => {
             letterSpacing: "-0.048em",
             lineHeight: 0.95,
             color: C.text,
-            textShadow: "0 24px 70px rgba(0,0,0,0.85)",
+            textShadow: "0 20px 48px rgba(33,72,45,0.16)",
             opacity: tween(frame, 12, 34),
             transform: `translateY(${tween(frame, 12, 34, 28, 0)}px)`,
           }}
@@ -858,9 +855,7 @@ export const OutroScene: React.FC = () => {
             transform: `translateY(${tween(frame, 30, 52, 18, 0)}px)`,
           }}
         >
-          Five specialized agents. Bounded revision. Deterministic verification.
-          <br />
-          Built for the live control room and every kind of fan.
+          Verified intelligence for live broadcast and every kind of fan.
         </div>
 
         {/* CTA URL Pill */}
@@ -872,9 +867,9 @@ export const OutroScene: React.FC = () => {
             gap: 18,
             padding: "16px 32px",
             borderRadius: 999,
-            background: "linear-gradient(135deg, rgba(255,77,46,0.22), rgba(20,24,38,0.92))",
-            border: `1px solid ${C.signal}88`,
-            boxShadow: `0 20px 60px rgba(0,0,0,0.7), 0 0 40px ${C.signal}33`,
+            background: "rgba(255,255,255,0.9)",
+            border: `1px solid ${C.flood}44`,
+            boxShadow: "0 20px 60px rgba(33,72,45,0.16)",
             opacity: tween(frame, 46, 68),
             transform: `translateY(${tween(frame, 46, 68, 18, 0)}px)`,
           }}
@@ -916,8 +911,7 @@ export const OutroScene: React.FC = () => {
       </div>
 
       <SubtitleBar
-        en="MatchMind. See the game beneath the game. Explore the moment now."
-        zh="MatchMind，看见比赛背后的比赛。现在，开始解剖关键时刻。"
+        en="MatchMind. See the game beneath the game."
         duration={240}
       />
     </AbsoluteFill>

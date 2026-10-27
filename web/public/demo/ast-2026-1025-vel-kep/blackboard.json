@@ -158,7 +158,9 @@
           ]
         }
       ],
-      "verified": true
+      "verified": true,
+      "source": "preset",
+      "notice": ""
     },
     {
       "id": "speed-verdict-check",
@@ -188,7 +190,9 @@
           ]
         }
       ],
-      "verified": true
+      "verified": true,
+      "source": "preset",
+      "notice": ""
     },
     {
       "id": "director-airtime-logic",
@@ -217,7 +221,9 @@
           ]
         }
       ],
-      "verified": true
+      "verified": true,
+      "source": "preset",
+      "notice": ""
     }
   ]
 }

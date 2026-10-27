@@ -1,30 +1,27 @@
-/**
- * "Floodlight" design tokens — shared with the web redesign.
- * Night stadium, light that reveals the hidden layer of the game.
- */
+/** Daylight tokens shared with the web product. */
 export const C = {
-  ink0: "#05060A",
-  ink1: "#0B0D14",
-  ink2: "#141826",
-  line: "rgba(255,255,255,0.08)",
-  text: "#F5F3EE",
-  text2: "#A3A8B8",
-  text3: "#646A7D",
-  signal: "#FF4D2E",
-  signal2: "#FF8A3D",
-  flood: "#FFE3B3",
-  ice: "#5CC8FF",
-  violet: "#8B7CFF",
-  verify: "#3DF5A6",
+  ink0: "#F4F7F1",
+  ink1: "#FFFFFF",
+  ink2: "#EAF0E6",
+  line: "rgba(24,62,39,0.12)",
+  text: "#14251B",
+  text2: "#53645A",
+  text3: "#78867C",
+  signal: "#CF6048",
+  signal2: "#DF8A65",
+  flood: "#2E6D46",
+  ice: "#167C9F",
+  violet: "#6C6392",
+  verify: "#187A50",
 } as const;
 
 export const GRAD = {
-  signal: `linear-gradient(120deg, ${C.signal} 0%, ${C.signal2} 40%, ${C.flood} 100%)`,
-  ai: `linear-gradient(120deg, ${C.violet} 0%, ${C.ice} 100%)`,
+  signal: `linear-gradient(120deg, #1E6742 0%, #58A56B 100%)`,
+  ai: `linear-gradient(120deg, #1E6742 0%, #4C9562 100%)`,
 };
 
 export const FONT = {
-  serif: '"Instrument Serif", "Noto Serif CJK SC", serif',
+  serif: '"Inter Tight", "Noto Sans CJK SC", system-ui, sans-serif',
   sans: '"Inter Tight", "Noto Sans CJK SC", system-ui, sans-serif',
   mono: '"JetBrains Mono", ui-monospace, monospace',
 };

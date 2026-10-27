@@ -1,39 +1,39 @@
 /* =====================================================================
-   MatchMind — "Floodlight" design system
+   MatchMind — "Daylight" design system
    Tokens, reset and base typography.
    ===================================================================== */
 
 :root {
   /* canvas */
-  --ink-0: #05060a;
-  --ink-1: #0b0d14;
-  --ink-2: #141826;
-  --ink-3: #1c2133;
-  --line: rgba(255, 255, 255, 0.08);
-  --line-2: rgba(255, 255, 255, 0.14);
-  --glass: rgba(20, 24, 38, 0.55);
-  --glass-strong: rgba(14, 17, 28, 0.78);
+  --ink-0: #f4f7f1;
+  --ink-1: #ffffff;
+  --ink-2: #eaf0e6;
+  --ink-3: #dce6d8;
+  --line: rgba(24, 62, 39, 0.1);
+  --line-2: rgba(24, 62, 39, 0.17);
+  --glass: rgba(255, 255, 255, 0.72);
+  --glass-strong: rgba(255, 255, 255, 0.9);
 
   /* text */
-  --text: #f5f3ee;
-  --text-2: #a3a8b8;
-  --text-3: #646a7d;
+  --text: #14251b;
+  --text-2: #53645a;
+  --text-3: #78867c;
 
   /* accents */
-  --signal: #ff4d2e;
-  --signal-2: #ff8a3d;
-  --flood: #ffe3b3;
-  --ice: #5cc8ff;
-  --violet: #8b7cff;
-  --verify: #3df5a6;
+  --signal: #cf6048;
+  --signal-2: #df8a65;
+  --flood: #2e6d46;
+  --ice: #167c9f;
+  --violet: #6c6392;
+  --verify: #187a50;
   --home: var(--ice);
   --away: var(--signal);
 
-  --grad-signal: linear-gradient(120deg, #ff4d2e 0%, #ff8a3d 40%, #ffe3b3 100%);
-  --grad-ai: linear-gradient(120deg, #8b7cff 0%, #5cc8ff 100%);
+  --grad-signal: linear-gradient(120deg, #1e6742 0%, #398353 100%);
+  --grad-ai: linear-gradient(120deg, #1e6742 0%, #4c9562 100%);
 
   /* type */
-  --font-display: "Instrument Serif", "Iowan Old Style", Georgia, serif;
+  --font-display: "Inter Tight Variable", "Inter Tight", "Inter", system-ui, -apple-system, "Segoe UI", sans-serif;
   --font-ui: "Inter Tight Variable", "Inter Tight", "Inter", system-ui, -apple-system, "Segoe UI", sans-serif;
   --font-mono: "JetBrains Mono Variable", "JetBrains Mono", ui-monospace, "SFMono-Regular", monospace;
 
@@ -45,14 +45,14 @@
   --r-xl: 34px;
   --ease: cubic-bezier(0.16, 1, 0.3, 1);
   --ease-in-out: cubic-bezier(0.65, 0, 0.35, 1);
-  --shadow-lg: 0 40px 120px -40px rgba(0, 0, 0, 0.8), 0 0 0 1px var(--line);
-  --blur: saturate(160%) blur(22px);
+  --shadow-lg: 0 32px 90px -42px rgba(33, 72, 45, 0.28), 0 0 0 1px var(--line);
+  --blur: saturate(125%) blur(22px);
 
   --nav-h: 64px;
   --gutter: clamp(20px, 4vw, 56px);
   --maxw: 1320px;
 
-  color-scheme: dark;
+  color-scheme: light;
 }
 
 *,
@@ -192,19 +192,8 @@ b.tone-verify, strong.tone-verify { color: var(--verify); }
 b.tone-flood, strong.tone-flood { color: var(--flood); }
 b.tone-violet, strong.tone-violet { color: var(--violet); }
 
-/* word mask reveal */
-.word-mask {
-  display: inline-block;
-  overflow: hidden;
-  vertical-align: top;
-  padding: 0.06em 0.04em 0.12em;
-  margin: -0.06em -0.04em -0.12em;
-}
-
 .word {
   display: inline-block;
-  transform-origin: 0 100%;
-  will-change: transform;
 }
 
 /* ---------------------------------------------------------------- layout */

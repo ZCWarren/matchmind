@@ -49,7 +49,6 @@ function posterSvg(opts: {
   end: { x: number; y: number };
 }): string {
   const { fixture, clock, headline, pressure, xt, start, end } = opts;
-  // Pitch box on the poster
   const px = 640;
   const py = 150;
   const pw = 500;
@@ -60,63 +59,51 @@ function posterSvg(opts: {
   const ey = py + (end.y / 100) * ph;
   const cx = (sx + ex) / 2;
   const cy = Math.min(sy, ey) - 60;
-  const lines = wrap(headline, 24, 4);
+  const lines = wrap(headline, 25, 4);
   const stripes = Array.from({ length: 10 }, (_, i) =>
-    i % 2 === 0 ? `<rect x="${px + (i * pw) / 10}" y="${py}" width="${pw / 10}" height="${ph}" fill="#ffffff" fill-opacity="0.018"/>` : "",
+    i % 2 === 0 ? `<rect x="${px + (i * pw) / 10}" y="${py}" width="${pw / 10}" height="${ph}" fill="#ffffff" fill-opacity="0.07"/>` : "",
   ).join("");
   return `<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="675" viewBox="0 0 1200 675">
   <defs>
-    <radialGradient id="glow" cx="0.78" cy="0.05" r="0.9">
-      <stop offset="0" stop-color="#FFE3B3" stop-opacity="0.32"/>
-      <stop offset="0.35" stop-color="#FF4D2E" stop-opacity="0.10"/>
-      <stop offset="1" stop-color="#05060A" stop-opacity="0"/>
-    </radialGradient>
-    <linearGradient id="sig" x1="0" y1="0" x2="1" y2="0">
-      <stop offset="0" stop-color="#FF4D2E"/><stop offset="0.4" stop-color="#FF8A3D"/><stop offset="1" stop-color="#FFE3B3"/>
+    <linearGradient id="pitch" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#8CB687"/><stop offset="1" stop-color="#729F71"/>
     </linearGradient>
-    <linearGradient id="lane" x1="0" y1="0" x2="1" y2="0">
-      <stop offset="0" stop-color="#5CC8FF" stop-opacity="0.2"/><stop offset="1" stop-color="#BFEAFF"/>
-    </linearGradient>
-    <filter id="blur"><feGaussianBlur stdDeviation="6"/></filter>
   </defs>
-  <rect width="1200" height="675" fill="#05060A"/>
-  <rect width="1200" height="675" fill="url(#glow)"/>
-  <text x="64" y="86" fill="#F5F3EE" font-family="Inter Tight, Inter, Helvetica, sans-serif" font-size="20" font-weight="600" letter-spacing="-0.2">MatchMind</text>
-  <text x="64" y="112" fill="#A3A8B8" font-family="Inter Tight, Inter, Helvetica, sans-serif" font-size="15">See the game beneath the game.</text>
-  <text x="64" y="186" fill="#A3A8B8" font-family="JetBrains Mono, monospace" font-size="16" letter-spacing="0.4">${esc(fixture)}</text>
-  <text x="64" y="228" fill="url(#sig)" font-family="JetBrains Mono, monospace" font-size="30" font-weight="600">${esc(clock)}</text>
+  <rect width="1200" height="675" fill="#F4F7F1"/>
+  <circle cx="1120" cy="40" r="300" fill="#E4EDDF"/>
+  <text x="64" y="86" fill="#14251B" font-family="Inter Tight, Inter, Helvetica, sans-serif" font-size="20" font-weight="650" letter-spacing="-0.4">MatchMind</text>
+  <text x="64" y="112" fill="#53645A" font-family="Inter Tight, Inter, Helvetica, sans-serif" font-size="15">See the game beneath the game.</text>
+  <text x="64" y="186" fill="#53645A" font-family="JetBrains Mono, monospace" font-size="16" letter-spacing="0.4">${esc(fixture)}</text>
+  <text x="64" y="228" fill="#2E6D46" font-family="JetBrains Mono, monospace" font-size="30" font-weight="600">${esc(clock)}</text>
   ${lines
     .map(
       (line, i) =>
-        `<text x="64" y="${300 + i * 56}" fill="#F5F3EE" font-family="Instrument Serif, Georgia, serif" font-size="54">${esc(line)}</text>`,
+        `<text x="64" y="${300 + i * 54}" fill="#14251B" font-family="Inter Tight, Inter, Helvetica, sans-serif" font-size="48" font-weight="650" letter-spacing="-1.8">${esc(line)}</text>`,
     )
     .join("")}
-  <rect x="${px}" y="${py}" width="${pw}" height="${ph}" rx="18" fill="#0A1114"/>
+  <rect x="${px}" y="${py}" width="${pw}" height="${ph}" rx="24" fill="url(#pitch)"/>
   ${stripes}
-  <g stroke="#ffffff" stroke-opacity="0.22" stroke-width="1.5" fill="none">
+  <g stroke="#ffffff" stroke-opacity="0.72" stroke-width="1.5" fill="none">
     <rect x="${px + 12}" y="${py + 12}" width="${pw - 24}" height="${ph - 24}" rx="4"/>
     <line x1="${px + pw / 2}" y1="${py + 12}" x2="${px + pw / 2}" y2="${py + ph - 12}"/>
     <circle cx="${px + pw / 2}" cy="${py + ph / 2}" r="42"/>
     <rect x="${px + 12}" y="${py + ph / 2 - 80}" width="70" height="160"/>
     <rect x="${px + pw - 82}" y="${py + ph / 2 - 80}" width="70" height="160"/>
   </g>
-  <circle cx="${sx}" cy="${sy}" r="46" fill="#FF4D2E" fill-opacity="0.18" filter="url(#blur)"/>
-  <circle cx="${sx}" cy="${sy}" r="34" fill="none" stroke="#FF4D2E" stroke-opacity="0.8" stroke-width="2.5"/>
-  <circle cx="${sx}" cy="${sy}" r="54" fill="none" stroke="#FF4D2E" stroke-opacity="0.35" stroke-width="1.5"/>
-  <path d="M ${sx} ${sy} Q ${cx} ${cy} ${ex} ${ey}" fill="none" stroke="#5CC8FF" stroke-opacity="0.35" stroke-width="14" filter="url(#blur)"/>
-  <path d="M ${sx} ${sy} Q ${cx} ${cy} ${ex} ${ey}" fill="none" stroke="url(#lane)" stroke-width="5" stroke-linecap="round"/>
-  <circle cx="${sx}" cy="${sy}" r="8" fill="#5CC8FF"/>
-  <circle cx="${ex}" cy="${ey}" r="10" fill="#FFF3DF"/>
-  <circle cx="${ex}" cy="${ey}" r="22" fill="#FFE3B3" fill-opacity="0.35" filter="url(#blur)"/>
+  <circle cx="${sx}" cy="${sy}" r="34" fill="none" stroke="#CF6048" stroke-opacity="0.85" stroke-width="2.5"/>
+  <circle cx="${sx}" cy="${sy}" r="54" fill="none" stroke="#CF6048" stroke-opacity="0.35" stroke-width="1.5"/>
+  <path d="M ${sx} ${sy} Q ${cx} ${cy} ${ex} ${ey}" fill="none" stroke="#FFFFFF" stroke-width="5" stroke-linecap="round"/>
+  <circle cx="${sx}" cy="${sy}" r="8" fill="#167C9F"/>
+  <circle cx="${ex}" cy="${ey}" r="10" fill="#FFFFFF"/>
   <g font-family="JetBrains Mono, monospace">
-    <text x="640" y="540" fill="#646A7D" font-size="13" letter-spacing="1">PRESSURE</text>
-    <text x="640" y="578" fill="#FF4D2E" font-size="32" font-weight="600">${esc(pressure)}</text>
-    <text x="810" y="540" fill="#646A7D" font-size="13" letter-spacing="1">THREAT ADDED</text>
-    <text x="810" y="578" fill="#5CC8FF" font-size="32" font-weight="600">+${xt.toFixed(3)}</text>
-    <text x="1000" y="540" fill="#646A7D" font-size="13" letter-spacing="1">VERIFIED</text>
-    <text x="1000" y="578" fill="#3DF5A6" font-size="32" font-weight="600">PASS</text>
+    <text x="640" y="540" fill="#78867C" font-size="13" letter-spacing="1">PRESSURE</text>
+    <text x="640" y="578" fill="#CF6048" font-size="32" font-weight="600">${esc(pressure)}</text>
+    <text x="810" y="540" fill="#78867C" font-size="13" letter-spacing="1">THREAT ADDED</text>
+    <text x="810" y="578" fill="#167C9F" font-size="32" font-weight="600">+${xt.toFixed(3)}</text>
+    <text x="1000" y="540" fill="#78867C" font-size="13" letter-spacing="1">VERIFIED</text>
+    <text x="1000" y="578" fill="#187A50" font-size="32" font-weight="600">PASS</text>
   </g>
-  <text x="64" y="612" fill="#646A7D" font-family="JetBrains Mono, monospace" font-size="14">ruziniuuuuu.github.io/matchmind</text>
+  <text x="64" y="612" fill="#78867C" font-family="JetBrains Mono, monospace" font-size="14">ruziniuuuuu.github.io/matchmind</text>
 </svg>`;
 }
 

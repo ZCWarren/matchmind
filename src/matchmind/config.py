@@ -49,6 +49,7 @@ class Settings(BaseSettings):
     # Safety / budget
     max_llm_calls_per_match: int = 60
     max_cost_usd_per_match: float = 2.0
+    live_rate_limit_per_minute: int = 10
     llm_timeout_seconds: int = 60
 
 

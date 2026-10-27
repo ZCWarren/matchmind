@@ -36,7 +36,7 @@ def test_blackboard_copilot_and_arc_endpoints() -> None:
 
     copilot_res = client.post(
         f"/api/matches/{HERO}/copilot",
-        json={"question": "Was this the fastest sprint of the match?"},
+        json={"question": board["copilot_presets"][1]["question"]},
     )
     assert copilot_res.status_code == 200
     answer = copilot_res.json()

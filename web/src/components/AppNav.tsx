@@ -58,10 +58,10 @@ export default function AppNav({ matchId }: { matchId?: string }) {
             <Sparkle size={14} weight="fill" /> 90s tour
           </button>
           <div className="nav-media">
-            <a href={`${base}promo.mp4`} target="_blank" rel="noreferrer" className="nav-film">
+            <a href={`${base}promo.mp4?v=english-v3`} target="_blank" rel="noreferrer" className="nav-film">
               <span className="nav-film-icon"><Play size={10} weight="fill" /></span> Film
             </a>
-            <a href={`${base}teaser.mp4`} target="_blank" rel="noreferrer" className="nav-teaser">15s</a>
+            <a href={`${base}teaser.mp4?v=english-v3`} target="_blank" rel="noreferrer" className="nav-teaser">15s</a>
           </div>
           <button
             type="button"
@@ -99,7 +99,7 @@ export default function AppNav({ matchId }: { matchId?: string }) {
               <button type="button" onClick={() => { setMenuOpen(false); setTourOpen(true); }}>
                 <Sparkle size={14} weight="fill" /> 90s tour
               </button>
-              <a href={`${base}promo.mp4`} target="_blank" rel="noreferrer"><Play size={12} weight="fill" /> Watch film</a>
+              <a href={`${base}promo.mp4?v=english-v3`} target="_blank" rel="noreferrer"><Play size={12} weight="fill" /> Watch film</a>
             </div>
           </motion.div>
         )}

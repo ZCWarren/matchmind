@@ -72,15 +72,15 @@ export const ProductScene: React.FC = () => {
           {[
             {
               tag: "01 · 3D TACTICAL STAGE",
-              title: "Interactive Floodlight Pitch & Replay",
+              title: "Interactive Daylight Pitch & Replay",
               sub: "Scrub pressure rings, pass corridors & event chains",
               color: C.ice,
               delay: 42,
             },
             {
               tag: "02 · BLACKBOARD & COPILOT",
-              title: "Live Agent Graph & Hallucination Lab",
-              sub: "Inspect every MCP tool call & bounded revision",
+              title: "Live Evidence & Hallucination Lab",
+              sub: "Inspect every tool call & bounded revision",
               color: C.violet,
               delay: 56,
             },
@@ -152,8 +152,7 @@ export const ProductScene: React.FC = () => {
       />
 
       <SubtitleBar
-        en="From live replay to broadcast approval, one workspace turns verified insight into airtime."
-        zh="从实时回放到播出审批，同一工作台将经过验证的洞察转化为播出内容。"
+        en="From verified insight to airtime."
         duration={300}
       />
     </AbsoluteFill>
@@ -168,7 +167,7 @@ export const AudiencesScene: React.FC = () => {
 
   const enAnalyst = fanCards.find((c) => c.profile === "analyst" && c.language === "en")!;
   const esCasual = fanCards.find((c) => c.profile === "casual" && c.language === "es")!;
-  const zhPlayer = fanCards.find((c) => c.profile === "player" && c.language === "zh")!;
+  const enPlayer = fanCards.find((c) => c.profile === "player" && c.language === "en")!;
 
   return (
     <AbsoluteFill style={{ background: C.ink0 }}>
@@ -214,13 +213,13 @@ export const AudiencesScene: React.FC = () => {
             opacity: tween(frame, 20, 40),
           }}
         >
-          {["ANALYST · EN", "CASUAL · ES", "PLAYER · 中文"].map((p, i) => (
+          {["ANALYST · EN", "CASUAL · ES", "PLAYER · ZH"].map((p, i) => (
             <span
               key={p}
               style={{
                 padding: "7px 14px",
                 borderRadius: 99,
-                background: "rgba(20, 24, 38, 0.85)",
+                background: "rgba(255, 255, 255, 0.85)",
                 border: `1px solid ${[C.ice, C.flood, C.violet][i]}66`,
                 fontFamily: FONT.mono,
                 fontSize: 12,
@@ -303,10 +302,10 @@ export const AudiencesScene: React.FC = () => {
             delay: 58,
           },
           {
-            badge: "PLAYER POV · 中文",
+            badge: "PLAYER POV · ENGLISH",
             color: C.violet,
-            headline: zhPlayer.headline,
-            body: zhPlayer.why_it_matters,
+            headline: enPlayer.headline,
+            body: enPlayer.why_it_matters,
             delay: 72,
           },
         ].map((card) => (
@@ -355,8 +354,7 @@ export const AudiencesScene: React.FC = () => {
       </div>
 
       <SubtitleBar
-        en="The same moment becomes a broadcast overlay and a personal story for every kind of fan."
-        zh="同一时刻既能成为转播画面，也能成为每种球迷都能理解的个性故事。"
+        en="One moment. Every audience."
         duration={270}
       />
     </AbsoluteFill>

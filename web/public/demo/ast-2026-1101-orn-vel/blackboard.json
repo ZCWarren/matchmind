@@ -141,7 +141,9 @@
         "e-000283"
       ],
       "metric_refs": [],
-      "verified": true
+      "verified": true,
+      "source": "preset",
+      "notice": ""
     },
     {
       "id": "speed-verdict-check",
@@ -154,7 +156,9 @@
         "e-000439"
       ],
       "metric_refs": [],
-      "verified": true
+      "verified": true,
+      "source": "preset",
+      "notice": ""
     },
     {
       "id": "director-airtime-logic",
@@ -166,7 +170,9 @@
         "e-000286"
       ],
       "metric_refs": [],
-      "verified": true
+      "verified": true,
+      "source": "preset",
+      "notice": ""
     }
   ]
 }

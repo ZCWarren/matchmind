@@ -64,7 +64,7 @@ function Hero({ exp, momentIndex }: { exp: Experience; momentIndex: number }) {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.9, ease: EASE, delay: 0.75 }}
         >
-          MatchMind reveals the pressure, passing lanes and structure hidden inside every match — then five AI agents turn it into broadcast graphics and fan stories, with every number checked before it airs.
+          See the pressure and passing lanes behind every moment, with every number checked before it airs.
         </motion.p>
         <motion.div
           className="hero-ctas"
@@ -109,16 +109,6 @@ function Hero({ exp, momentIndex }: { exp: Experience; momentIndex: number }) {
         </div>
       </motion.aside>
 
-      <motion.a
-        href="#problem"
-        className="hero-scroll"
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ delay: 1.6, duration: 1 }}
-      >
-        <span>Scroll</span>
-        <i aria-hidden="true" />
-      </motion.a>
     </section>
   );
 }
@@ -480,7 +470,7 @@ function Film() {
         </div>
         <Reveal className="film-frame">
           {playing ? (
-            <video src={`${base}promo.mp4`} controls autoPlay playsInline>
+            <video src={`${base}promo.mp4?v=english-v3`} controls autoPlay playsInline>
               <track kind="subtitles" src={`${base}promo.en.srt`} srcLang="en" label="English" />
             </video>
           ) : (
@@ -495,8 +485,8 @@ function Film() {
           )}
         </Reveal>
         <div className="film-links">
-          <a href={`${base}teaser.mp4`} target="_blank" rel="noreferrer" className="btn btn-glass btn-sm"><Play size={13} weight="fill" /> 15-second cut</a>
-          <a href={`${base}promo.mp4`} target="_blank" rel="noreferrer" className="btn btn-ghost btn-sm">Open full film <ArrowUpRight size={13} /></a>
+          <a href={`${base}teaser.mp4?v=english-v3`} target="_blank" rel="noreferrer" className="btn btn-glass btn-sm"><Play size={13} weight="fill" /> 15-second cut</a>
+          <a href={`${base}promo.mp4?v=english-v3`} target="_blank" rel="noreferrer" className="btn btn-ghost btn-sm">Open full film <ArrowUpRight size={13} /></a>
         </div>
       </div>
     </section>

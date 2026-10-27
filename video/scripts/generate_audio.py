@@ -1,4 +1,4 @@
-"""Generate scene narration, original music, effects, and bilingual subtitles."""
+"""Generate concise English narration, original music, effects, and subtitles."""
 
 from __future__ import annotations
 
@@ -15,70 +15,35 @@ WEB = ROOT / "web/public"
 RATE = 44100
 
 SCENES = [
-    (
-        "storm", 0, 8,
-        "A football match produces 1,275 events. The score tells you almost none of them.",
-        "一场足球比赛产生1275个事件，比分却只能讲述其中极少一部分。",
-    ),
-    (
-        "reveal", 8, 19,
-        "MatchMind reveals the pressure, movement and tactical structure beneath the score.",
-        "MatchMind让比分背后的压力、跑动与战术结构清晰可见。",
-    ),
-    (
-        "pass", 19, 29,
-        "At seventy two twelve, NHR-08 threads twenty four point six meters "
-        "through point eight two pressure.",
-        "72分12秒，NHR-08在0.82压力下送出24.6米破线传球。",
-    ),
-    (
-        "agents", 29, 38,
-        "Five specialized agents share one evidence graph. Each has a different responsibility.",
-        "五个专业智能体共享一张证据图，各自承担不同职责。",
-    ),
-    (
-        "revision", 38, 47,
-        "If language goes beyond the evidence, the checker sends it back. "
-        "One revision, then verification again.",
-        "当表述超出证据，核查者会将其退回。一次修订，然后再次验证。",
-    ),
-    (
-        "evidence", 47, 55,
-        "Every number is checked against event-level proof. Models explain. The verifier decides.",
-        "每个数字都经过事件级证据核验。模型负责解释，验证器负责裁决。",
-    ),
-    (
-        "director", 55, 63,
-        "The Director ranks, deduplicates and finds the right stoppage. "
-        "A human keeps the final call.",
-        "Director负责排序、去重并选择合适死球窗口，人类保留最终决策权。",
-    ),
-    (
-        "product", 63, 73,
-        "From live replay to broadcast approval, one workspace turns verified "
-        "insight into airtime.",
-        "从实时回放到播出审批，同一工作台将经过验证的洞察转化为播出内容。",
-    ),
-    (
-        "audiences", 73, 82,
-        "The same moment becomes a broadcast overlay and a personal story for every kind of fan.",
-        "同一时刻既能成为转播画面，也能成为每种球迷都能理解的个性故事。",
-    ),
-    (
-        "outro", 82, 90,
-        "MatchMind. See the game beneath the game. Explore the moment now.",
-        "MatchMind，看见比赛背后的比赛。现在，开始解剖关键时刻。",
-    ),
+    ("storm", 0, 8, "1,275 events. One scoreline. Almost no explanation."),
+    ("reveal", 8, 19, "See the pressure and structure beneath the score."),
+    ("pass", 19, 29, "Twenty four point six metres through point eight two pressure."),
+    ("agents", 29, 38, "Five agents work behind the scenes, so every insight earns your trust."),
+    ("revision", 38, 47, "One revision. Verification again."),
+    ("evidence", 47, 55, "Models explain. The verifier decides."),
+    ("director", 55, 63, "The Director schedules. A human decides."),
+    ("product", 63, 73, "From verified insight to airtime."),
+    ("audiences", 73, 82, "One moment. Every audience."),
+    ("outro", 82, 90, "MatchMind. See the game beneath the game."),
 ]
 
 
 async def narration() -> None:
     folder = AUDIO / "voice"
     folder.mkdir(parents=True, exist_ok=True)
-    for name, _, _, text, _ in SCENES:
+    for name, _, _, text in SCENES:
         target = folder / f"{name}.mp3"
-        communicate = edge_tts.Communicate(text, "en-GB-RyanNeural", rate="+12%", pitch="-2Hz")
-        await communicate.save(str(target))
+        for attempt in range(2):
+            try:
+                communicate = edge_tts.Communicate(
+                    text, "en-GB-RyanNeural", rate="+12%", pitch="-2Hz"
+                )
+                await asyncio.wait_for(communicate.save(str(target)), timeout=30)
+                break
+            except TimeoutError:
+                if attempt == 1:
+                    raise
+                print(f"retry voice: {name}", flush=True)
         print(f"voice: {name}", flush=True)
 
 
@@ -168,14 +133,12 @@ def timestamp(seconds: float) -> str:
 
 def subtitles() -> None:
     english = []
-    chinese = []
-    for index, (_, start, end, en, zh) in enumerate(SCENES, start=1):
+    for index, (_, start, end, en) in enumerate(SCENES, start=1):
         english.append(f"{index}\n{timestamp(start)} --> {timestamp(end - 0.08)}\n{en}\n")
-        chinese.append(f"{index}\n{timestamp(start)} --> {timestamp(end - 0.08)}\n{zh}\n")
     for folder in (OUT, WEB):
         folder.mkdir(parents=True, exist_ok=True)
         (folder / "promo.en.srt").write_text("\n".join(english), encoding="utf-8")
-        (folder / "promo.zh.srt").write_text("\n".join(chinese), encoding="utf-8")
+        (folder / "promo.zh.srt").unlink(missing_ok=True)
 
 
 if __name__ == "__main__":

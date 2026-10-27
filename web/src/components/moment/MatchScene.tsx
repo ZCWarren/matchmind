@@ -23,13 +23,13 @@ type MatchSceneProps = {
   anchor?: number;
 };
 
-const FALLBACK_HOME = { team_id: "home", name: "Home", short_name: "HOM", color: "#5CC8FF", venue: "" };
-const FALLBACK_AWAY = { team_id: "away", name: "Away", short_name: "AWY", color: "#FF4D2E", venue: "" };
+const FALLBACK_HOME = { team_id: "home", name: "Home", short_name: "HOM", color: "#167C9F", venue: "" };
+const FALLBACK_AWAY = { team_id: "away", name: "Away", short_name: "AWY", color: "#CF6048", venue: "" };
 
-const ICE = new THREE.Color("#5CC8FF");
-const SIGNAL = new THREE.Color("#FF4D2E");
-const FLOOD = new THREE.Color("#FFE3B3");
-const INK = new THREE.Color("#05060A");
+const ICE = new THREE.Color("#167C9F");
+const SIGNAL = new THREE.Color("#CF6048");
+const FLOOD = new THREE.Color("#2E6D46");
+const INK = new THREE.Color("#DFEADA");
 
 const SX = 0.18;
 const SZ = 0.11;
@@ -54,25 +54,25 @@ function pitchTexture(): THREE.CanvasTexture {
   const u = (x: number) => (x + 10) * PX;
   const v = (z: number) => (z + 6.5) * PX;
   // apron
-  ctx.fillStyle = "#0b1414";
+  ctx.fillStyle = "#638d60";
   ctx.fillRect(0, 0, W, H);
   // mowing stripes
   const stripes = 14;
   for (let i = 0; i < stripes; i += 1) {
-    ctx.fillStyle = i % 2 === 0 ? "#132423" : "#0f1d1c";
+    ctx.fillStyle = i % 2 === 0 ? "#7da976" : "#6d9b67";
     ctx.fillRect(u(-9 - 0.6) + (i * (19.2 * PX)) / stripes, v(-6.1), (19.2 * PX) / stripes + 1, 12.2 * PX);
   }
   // fine grain
   const grain = ctx.getImageData(0, 0, W, H);
   for (let i = 0; i < grain.data.length; i += 4) {
-    const n = (Math.random() - 0.5) * 7;
+    const n = (Math.random() - 0.5) * 5;
     grain.data[i] += n;
     grain.data[i + 1] += n;
     grain.data[i + 2] += n;
   }
   ctx.putImageData(grain, 0, 0);
   // markings
-  ctx.strokeStyle = "rgba(235,240,245,0.62)";
+  ctx.strokeStyle = "rgba(255,255,255,0.78)";
   ctx.lineWidth = 5;
   ctx.lineJoin = "round";
   const rect = (x0: number, z0: number, x1: number, z1: number) => ctx.strokeRect(u(x0), v(z0), u(x1) - u(x0), v(z1) - v(z0));
@@ -281,7 +281,7 @@ export default function MatchScene({
     renderer.setClearColor(INK, 1);
     renderer.outputColorSpace = THREE.SRGBColorSpace;
     renderer.toneMapping = THREE.ACESFilmicToneMapping;
-    renderer.toneMappingExposure = 1.05;
+    renderer.toneMappingExposure = 1.02;
     renderer.shadowMap.enabled = !mobile;
     renderer.shadowMap.type = THREE.PCFShadowMap;
     renderer.domElement.setAttribute("aria-hidden", "true");
@@ -295,12 +295,12 @@ export default function MatchScene({
 
     const scene = new THREE.Scene();
     scene.background = INK.clone();
-    scene.fog = new THREE.FogExp2(INK.getHex(), variant === "hero" ? 0.03 : 0.024);
+    scene.fog = new THREE.FogExp2(INK.getHex(), variant === "hero" ? 0.01 : 0.008);
     const camera = new THREE.PerspectiveCamera(variant === "hero" ? 36 : 38, 1, 0.1, 160);
 
     /* --- lights --- */
-    scene.add(new THREE.HemisphereLight(0x3a4a6a, 0x05060a, 0.55));
-    scene.add(new THREE.AmbientLight(0x1a2030, 0.4));
+    scene.add(new THREE.HemisphereLight(0xf4f7f1, 0x6f8f68, 0.95));
+    scene.add(new THREE.AmbientLight(0xffffff, 0.35));
     const towers: THREE.Vector3[] = [
       new THREE.Vector3(-13.5, 9.5, -10),
       new THREE.Vector3(13.5, 9.5, -10),
@@ -308,7 +308,7 @@ export default function MatchScene({
       new THREE.Vector3(13.5, 9.5, 10),
     ];
     towers.forEach((pos, index) => {
-      const spot = new THREE.SpotLight(0xffe7c4, 70, 0, 0.62, 0.75, 1.5);
+      const spot = new THREE.SpotLight(0xfffdf5, 32, 0, 0.68, 0.8, 1.5);
       spot.position.copy(pos);
       spot.target.position.set(pos.x * 0.18, 0, pos.z * 0.12);
       scene.add(spot, spot.target);
@@ -325,7 +325,7 @@ export default function MatchScene({
     /* --- ground, pitch --- */
     const ground = new THREE.Mesh(
       track(new THREE.PlaneGeometry(160, 160)),
-      track(new THREE.MeshStandardMaterial({ color: 0x07090e, roughness: 0.95, metalness: 0 })),
+      track(new THREE.MeshStandardMaterial({ color: 0xcbdcbf, roughness: 0.95, metalness: 0 })),
     );
     ground.rotation.x = -Math.PI / 2;
     ground.position.y = -0.03;
@@ -337,10 +337,10 @@ export default function MatchScene({
       track(new THREE.PlaneGeometry(20, 13)),
       track(new THREE.MeshPhysicalMaterial({
         map: pitchMap,
-        roughness: 0.48,
+        roughness: 0.82,
         metalness: 0.0,
-        clearcoat: 0.35,
-        clearcoatRoughness: 0.4,
+        clearcoat: 0.05,
+        clearcoatRoughness: 0.8,
       })),
     );
     pitch.rotation.x = -Math.PI / 2;
@@ -348,7 +348,7 @@ export default function MatchScene({
     scene.add(pitch);
 
     /* --- goals --- */
-    const goalMat = track(new THREE.MeshStandardMaterial({ color: 0xf2f4f8, emissive: 0x9aa4b8, emissiveIntensity: 0.35, roughness: 0.3 }));
+    const goalMat = track(new THREE.MeshStandardMaterial({ color: 0xffffff, roughness: 0.5 }));
     const postGeo = track(new THREE.CylinderGeometry(0.025, 0.025, 0.5, 10));
     const barGeo = track(new THREE.CylinderGeometry(0.025, 0.025, 1.2, 10));
     const netMat = track(new THREE.MeshBasicMaterial({ color: 0xcfd6e6, transparent: true, opacity: 0.07, side: THREE.DoubleSide, depthWrite: false }));
@@ -370,11 +370,11 @@ export default function MatchScene({
     }
 
     /* --- stands --- */
-    const standMat = track(new THREE.MeshStandardMaterial({ color: 0x0b0e16, roughness: 0.85, metalness: 0.1 }));
-    const rimMat = track(new THREE.MeshBasicMaterial({ color: FLOOD.clone().multiplyScalar(1.6), toneMapped: false }));
+    const standMat = track(new THREE.MeshStandardMaterial({ color: 0xd3dfcd, roughness: 0.9, metalness: 0 }));
+    const rimMat = track(new THREE.MeshBasicMaterial({ color: FLOOD }));
     const crowdPositions: number[] = [];
     const crowdColors: number[] = [];
-    const crowdPalette = [new THREE.Color(0xffe3b3), new THREE.Color(0xffffff), ICE, SIGNAL, new THREE.Color(0x8b7cff)];
+    const crowdPalette = [new THREE.Color(0x7d907d), new THREE.Color(0xf4f7f1), ICE, SIGNAL, new THREE.Color(0x6c6392)];
     const addStand = (cx: number, cz: number, length: number, rotY: number) => {
       const stand = new THREE.Group();
       for (let tier = 0; tier < 4; tier += 1) {
@@ -418,14 +418,14 @@ export default function MatchScene({
       geo.setAttribute("color", new THREE.Float32BufferAttribute(crowdColors, 3));
       const crowd = new THREE.Points(
         geo,
-        track(new THREE.PointsMaterial({ size: 0.07, vertexColors: true, transparent: true, opacity: 0.75, blending: THREE.AdditiveBlending, depthWrite: false })),
+        track(new THREE.PointsMaterial({ size: 0.07, vertexColors: true, transparent: true, opacity: 0.48, blending: THREE.NormalBlending, depthWrite: false })),
       );
       scene.add(crowd);
     }
 
-    /* --- floodlight towers + volumetric beams --- */
-    const pylonMat = track(new THREE.MeshStandardMaterial({ color: 0x151a26, roughness: 0.6, metalness: 0.6 }));
-    const lampMat = track(new THREE.MeshBasicMaterial({ color: FLOOD.clone().multiplyScalar(5), toneMapped: false }));
+    /* --- floodlight towers + subtle daylight beams --- */
+    const pylonMat = track(new THREE.MeshStandardMaterial({ color: 0x80927c, roughness: 0.75, metalness: 0.2 }));
+    const lampMat = track(new THREE.MeshBasicMaterial({ color: 0xfffdf5 }));
     const lampGeo = track(new THREE.BoxGeometry(0.32, 0.22, 0.06));
     const beamMaterials: THREE.ShaderMaterial[] = [];
     towers.forEach((pos) => {
@@ -448,12 +448,12 @@ export default function MatchScene({
       const dir = pos.clone().sub(target);
       const length = dir.length();
       const beamMat = track(new THREE.ShaderMaterial({
-        uniforms: { uColor: { value: FLOOD.clone() }, uOpacity: { value: 0.16 }, uTime: { value: 0 } },
+        uniforms: { uColor: { value: new THREE.Color(0xfffdf5) }, uOpacity: { value: 0.025 }, uTime: { value: 0 } },
         vertexShader: beamVertex,
         fragmentShader: beamFragment,
         transparent: true,
         depthWrite: false,
-        blending: THREE.AdditiveBlending,
+        blending: THREE.NormalBlending,
         side: THREE.DoubleSide,
       }));
       beamMaterials.push(beamMat);
@@ -463,10 +463,10 @@ export default function MatchScene({
       scene.add(beam);
     });
 
-    /* --- haze particles in the light --- */
+    /* --- sparse atmosphere --- */
     const glowMap = track(glowTexture());
     {
-      const count = mobile ? 260 : 620;
+      const count = mobile ? 80 : 160;
       const positions = new Float32Array(count * 3);
       for (let i = 0; i < count; i += 1) {
         positions[i * 3] = (Math.random() - 0.5) * 28;
@@ -477,7 +477,7 @@ export default function MatchScene({
       geo.setAttribute("position", new THREE.BufferAttribute(positions, 3));
       const dust = new THREE.Points(
         geo,
-        track(new THREE.PointsMaterial({ size: 0.09, map: glowMap, color: 0xffe9c8, transparent: true, opacity: 0.4, blending: THREE.AdditiveBlending, depthWrite: false })),
+        track(new THREE.PointsMaterial({ size: 0.06, map: glowMap, color: 0xffffff, transparent: true, opacity: 0.08, blending: THREE.NormalBlending, depthWrite: false })),
       );
       dust.name = "dust";
       scene.add(dust);
@@ -513,8 +513,8 @@ export default function MatchScene({
     const ringGeo = track(new THREE.RingGeometry(0.2, 0.245, 48));
     const glowGeo = track(new THREE.PlaneGeometry(1, 1));
     const bodyMats = {
-      home: track(new THREE.MeshPhysicalMaterial({ color: 0x1a2232, roughness: 0.32, metalness: 0.25, clearcoat: 0.8, emissive: ICE, emissiveIntensity: 0.06 })),
-      away: track(new THREE.MeshPhysicalMaterial({ color: 0x2a1a1c, roughness: 0.32, metalness: 0.25, clearcoat: 0.8, emissive: SIGNAL, emissiveIntensity: 0.06 })),
+      home: track(new THREE.MeshPhysicalMaterial({ color: ICE, roughness: 0.65, metalness: 0, clearcoat: 0.1 })),
+      away: track(new THREE.MeshPhysicalMaterial({ color: SIGNAL, roughness: 0.65, metalness: 0, clearcoat: 0.1 })),
     };
     const figures = new Map<string, Figure>();
     roster.forEach(([pid, stat]) => {
@@ -525,13 +525,13 @@ export default function MatchScene({
       const headMesh = new THREE.Mesh(headGeo, bodyMats[stat.team]);
       headMesh.position.y = 0.53;
       headMesh.castShadow = true;
-      const band = new THREE.Mesh(bandGeo, track(new THREE.MeshBasicMaterial({ color: color.clone().multiplyScalar(1.6), toneMapped: false })));
+      const band = new THREE.Mesh(bandGeo, track(new THREE.MeshBasicMaterial({ color: 0xffffff })));
       band.rotation.x = Math.PI / 2;
       band.position.y = 0.33;
-      const ring = new THREE.Mesh(ringGeo, track(new THREE.MeshBasicMaterial({ color: color.clone().multiplyScalar(2.2), toneMapped: false, transparent: true, opacity: 0.9, side: THREE.DoubleSide, depthWrite: false })));
+      const ring = new THREE.Mesh(ringGeo, track(new THREE.MeshBasicMaterial({ color, transparent: true, opacity: 0.8, side: THREE.DoubleSide, depthWrite: false })));
       ring.rotation.x = -Math.PI / 2;
       ring.position.y = 0.012;
-      const glow = new THREE.Mesh(glowGeo, track(new THREE.MeshBasicMaterial({ map: glowMap, color, transparent: true, opacity: 0.35, blending: THREE.AdditiveBlending, depthWrite: false })));
+      const glow = new THREE.Mesh(glowGeo, track(new THREE.MeshBasicMaterial({ map: glowMap, color, transparent: true, opacity: 0.16, blending: THREE.NormalBlending, depthWrite: false })));
       glow.rotation.x = -Math.PI / 2;
       glow.position.y = 0.01;
       glow.scale.setScalar(0.9);
@@ -546,16 +546,16 @@ export default function MatchScene({
     /* --- ball + trail --- */
     const ball = new THREE.Mesh(
       track(new THREE.SphereGeometry(0.07, 24, 18)),
-      track(new THREE.MeshBasicMaterial({ color: new THREE.Color(0xfff6e6).multiplyScalar(3), toneMapped: false })),
+      track(new THREE.MeshStandardMaterial({ color: 0xffffff, roughness: 0.5 })),
     );
     ball.castShadow = true;
     scene.add(ball);
-    const ballLight = new THREE.PointLight(0xffe3b3, 1.1, 2.2, 2);
+    const ballLight = new THREE.PointLight(0xffffff, 0.15, 1.4, 2);
     ball.add(ballLight);
     const TRAIL = 42;
     const trailMesh = new THREE.InstancedMesh(
       track(new THREE.SphereGeometry(0.05, 10, 8)),
-      track(new THREE.MeshBasicMaterial({ color: 0xffffff, transparent: true, blending: THREE.AdditiveBlending, depthWrite: false, toneMapped: false })),
+      track(new THREE.MeshBasicMaterial({ color: 0xffffff, transparent: true, blending: THREE.NormalBlending, depthWrite: false, toneMapped: false })),
       TRAIL,
     );
     trailMesh.instanceColor = new THREE.InstancedBufferAttribute(new Float32Array(TRAIL * 3), 3);
@@ -585,7 +585,7 @@ export default function MatchScene({
     };
     const heat = new THREE.Mesh(
       track(new THREE.PlaneGeometry(18, 11)),
-      track(new THREE.ShaderMaterial({ uniforms: heatUniforms, vertexShader: ribbonVertex, fragmentShader: heatFragment, transparent: true, depthWrite: false, blending: THREE.AdditiveBlending })),
+      track(new THREE.ShaderMaterial({ uniforms: heatUniforms, vertexShader: ribbonVertex, fragmentShader: heatFragment, transparent: true, depthWrite: false, blending: THREE.NormalBlending })),
     );
     heat.rotation.x = -Math.PI / 2;
     heat.position.y = 0.02;
@@ -594,7 +594,7 @@ export default function MatchScene({
     for (let i = 0; i < 3; i += 1) {
       const ring = new THREE.Mesh(
         track(new THREE.RingGeometry(0.92, 1, 64)),
-        track(new THREE.MeshBasicMaterial({ color: SIGNAL.clone().multiplyScalar(2), toneMapped: false, transparent: true, opacity: 0, side: THREE.DoubleSide, depthWrite: false, blending: THREE.AdditiveBlending })),
+        track(new THREE.MeshBasicMaterial({ color: SIGNAL.clone().multiplyScalar(2), toneMapped: false, transparent: true, opacity: 0, side: THREE.DoubleSide, depthWrite: false, blending: THREE.NormalBlending })),
       );
       ring.rotation.x = -Math.PI / 2;
       ring.position.y = 0.03;
@@ -608,25 +608,25 @@ export default function MatchScene({
       uProgress: { value: 1 },
       uOpacity: { value: 1 },
     };
-    const ribbonMat = track(new THREE.ShaderMaterial({ uniforms: ribbonUniforms, vertexShader: ribbonVertex, fragmentShader: ribbonFragment, transparent: true, depthWrite: false, blending: THREE.AdditiveBlending, side: THREE.DoubleSide }));
+    const ribbonMat = track(new THREE.ShaderMaterial({ uniforms: ribbonUniforms, vertexShader: ribbonVertex, fragmentShader: ribbonFragment, transparent: true, depthWrite: false, blending: THREE.NormalBlending, side: THREE.DoubleSide }));
     const floorUniforms = {
       uColor: { value: ICE.clone() },
       uTime: { value: 0 },
       uProgress: { value: 1 },
       uOpacity: { value: 0.5 },
     };
-    const floorMat = track(new THREE.ShaderMaterial({ uniforms: floorUniforms, vertexShader: ribbonVertex, fragmentShader: laneFloorFragment, transparent: true, depthWrite: false, blending: THREE.AdditiveBlending, side: THREE.DoubleSide }));
+    const floorMat = track(new THREE.ShaderMaterial({ uniforms: floorUniforms, vertexShader: ribbonVertex, fragmentShader: laneFloorFragment, transparent: true, depthWrite: false, blending: THREE.NormalBlending, side: THREE.DoubleSide }));
     const sweepUniforms = { uColor: { value: FLOOD.clone().multiplyScalar(1.5) }, uOpacity: { value: 0 }, uTime: { value: 0 } };
     const sweep = new THREE.Mesh(
       track(new THREE.PlaneGeometry(11.4, 1.6)),
-      track(new THREE.ShaderMaterial({ uniforms: sweepUniforms, vertexShader: ribbonVertex, fragmentShader: sweepFragment, transparent: true, depthWrite: false, blending: THREE.AdditiveBlending, side: THREE.DoubleSide })),
+      track(new THREE.ShaderMaterial({ uniforms: sweepUniforms, vertexShader: ribbonVertex, fragmentShader: sweepFragment, transparent: true, depthWrite: false, blending: THREE.NormalBlending, side: THREE.DoubleSide })),
     );
     sweep.rotation.y = Math.PI / 2;
     sweep.position.y = 0.8;
     breakLayer.add(sweep);
     const breakLine = new THREE.Mesh(
       track(new THREE.PlaneGeometry(0.05, 11)),
-      track(new THREE.MeshBasicMaterial({ color: FLOOD.clone().multiplyScalar(2), toneMapped: false, transparent: true, opacity: 0, depthWrite: false, blending: THREE.AdditiveBlending })),
+      track(new THREE.MeshBasicMaterial({ color: FLOOD.clone().multiplyScalar(2), toneMapped: false, transparent: true, opacity: 0, depthWrite: false, blending: THREE.NormalBlending })),
     );
     breakLine.rotation.x = -Math.PI / 2;
     breakLine.position.y = 0.025;
@@ -687,7 +687,7 @@ export default function MatchScene({
         const start = toWorld(ev.location.x, ev.location.y, 0.03);
         const dot = new THREE.Mesh(
           glowGeo,
-          dyn(new THREE.MeshBasicMaterial({ map: glowMap, color: color.clone().multiplyScalar(isCurrent ? 2 : 1.1), transparent: true, opacity: fade, blending: THREE.AdditiveBlending, depthWrite: false, toneMapped: false })),
+          dyn(new THREE.MeshBasicMaterial({ map: glowMap, color: color.clone().multiplyScalar(isCurrent ? 2 : 1.1), transparent: true, opacity: fade, blending: THREE.NormalBlending, depthWrite: false, toneMapped: false })),
         );
         dot.rotation.x = -Math.PI / 2;
         dot.position.copy(start);
@@ -698,7 +698,7 @@ export default function MatchScene({
           const curve = passCurve(start, end, Math.min(0.9, 0.15 + start.distanceTo(end) * 0.08));
           const tube = new THREE.Mesh(
             dyn(new THREE.TubeGeometry(curve, 40, 0.011, 6, false)),
-            dyn(new THREE.MeshBasicMaterial({ color: color.clone().multiplyScalar(1.4), transparent: true, opacity: fade * 0.55, blending: THREE.AdditiveBlending, depthWrite: false, toneMapped: false })),
+            dyn(new THREE.MeshBasicMaterial({ color: color.clone().multiplyScalar(1.4), transparent: true, opacity: fade * 0.55, blending: THREE.NormalBlending, depthWrite: false, toneMapped: false })),
           );
           eventsLayer.add(tube);
         }
@@ -756,7 +756,7 @@ export default function MatchScene({
     /* --- post-processing --- */
     const composer = new EffectComposer(renderer);
     composer.addPass(new RenderPass(scene, camera));
-    const bloom = new UnrealBloomPass(new THREE.Vector2(256, 256), 0.75, 0.5, 0.9);
+    const bloom = new UnrealBloomPass(new THREE.Vector2(256, 256), 0.12, 0.25, 1.1);
     composer.addPass(bloom);
     composer.addPass(new OutputPass());
 

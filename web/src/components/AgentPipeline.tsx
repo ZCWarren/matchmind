@@ -98,8 +98,8 @@ export default function AgentPipeline({
       <svg className="pipeline-svg" viewBox="0 0 1200 440" role="img" aria-label="Five-agent pipeline: analytics, analyst, fan-out to producer, audience editor and fact checker, deterministic verifier, director, then studio, overlay and fan.">
         <defs>
           <linearGradient id="pl-lit" x1="0" x2="1">
-            <stop offset="0" stopColor="#8B7CFF" />
-            <stop offset="1" stopColor="#5CC8FF" />
+            <stop offset="0" stopColor="#1E6742" />
+            <stop offset="1" stopColor="#58A56B" />
           </linearGradient>
           <filter id="pl-glow" x="-50%" y="-50%" width="200%" height="200%">
             <feGaussianBlur stdDeviation="4" result="b" />

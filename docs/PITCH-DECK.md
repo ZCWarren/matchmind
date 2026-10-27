@@ -9,7 +9,7 @@
 
 ### Slide 1 — Title & Vision
 - **Headline**: MatchMind — See the game beneath the game.
-- **Subheadline**: Real-time explainable match intelligence powered by a 5-agent Microsoft Agent Framework workflow and a deterministic release gate.
+- **Subheadline**: Real-time match intelligence for broadcast and fans, with every claim checked against event-level evidence.
 - **Visual**: Live 3D parabolic pass arc at 72:12 (`NHR-08` → `NHR-14` under `0.82` pressure, `+0.174 xT`).
 
 ### Slide 2 — The Broadcast & Fan Problem
@@ -23,7 +23,7 @@
   - **Deterministic Engine**: Computes xG (`xg-v1`), 12×8 Expected Threat (`xt-v1`), pressure index, pass difficulty, momentum change points, and sprint peaks.
   - **Probabilistic Agents**: Explain *why* the moment matters, write timed broadcast cues, personalize for 9 audience×language profiles, and plan the rundown — without ever inventing a number.
 
-### Slide 4 — The 5-Agent Typed Graph & MCP Tooling
+### Slide 4 — Behind the Scenes: Evidence Infrastructure
 ```mermaid
 flowchart LR
   M["MCP Analytics Server<br/>6 Deterministic Tools"] --> A["01 TacticalAnalyst"]
@@ -39,7 +39,7 @@ flowchart LR
   G -->|pass| D
   D --> O["Studio / OBS Overlay / Fan"]
 ```
-- **Why 5 Specialized Agents**: A writer cannot reliably audit itself; audience localization runs 9× in parallel; bounded revision (`max=1`) repairs cue errors without infinite loops; Director arbitrates airtime under deterministic constraints.
+- **Optional technical deep dive**: Five specialized agents remain infrastructure, not a concept viewers must learn. They separate analysis, writing, localization, checking and scheduling so unsupported claims stay off air.
 
 ### Slide 5 — The Hallucination Gate (33.4 vs 33.8 km/h)
 - **Scenario**: At 72:12, `NHR-14` sprints at `33.4 km/h` after a line-breaking pass. An agent claims *"fastest sprint of the match"*.
@@ -57,7 +57,7 @@ flowchart LR
 
 ### Slide 8 — Verification & Engineering Rigor
 - **5/5** synthetic matches (6,281 events, 30 ground-truth labels) verified.
-- **41** automated Python tests + Playwright desktop/mobile/reduced-motion browser smoke tests.
+- **49** automated Python tests + Playwright desktop/mobile/reduced-motion browser smoke tests.
 - **Zero-key static demo** live on GitHub Pages + full Docker / FastAPI / WebSocket / DeepSeek local closed loop.
 
 ---
@@ -68,8 +68,8 @@ flowchart LR
   *"Scores tell you what happened; MatchMind shows you why. On our Home screen, this 3D pitch isn't a video — it's driven by 1,275 synthetic events from Nova Harbor vs Orion North."*
 - **0:15–0:35 (Moment Focus & Blackboard Story Arc)**:
   *"Click **Explore the moment**. At 72:12, NHR-08 threads a 24.6-meter pass through 0.82 pressure, adding +0.174 Expected Threat. We can switch 3D cameras from TV Cam to Top-Down xT or Press POV, and step across the 3-act MatchBlackboard Story Arc."*
-- **0:35–0:55 (Agent Topology & Hallucination Gate Lab)**:
-  *"Scroll to our **Microsoft Agent Framework Graph** and click **Replay Graph**. TacticalAnalyst calls 4 MCP tools and fans out to StoryProducer, AudienceEditor, and FactChecker. In the **Hallucination Gate Lab**, watch what happens when a draft claims 33.4 km/h is the fastest sprint of the match — FactChecker cross-checks event e-000419 (33.8 km/h at 31') and blocks the false superlative before air."*
+- **0:35–0:55 (Evidence & Hallucination Gate Lab)**:
+  *"Behind the scenes, five agents verify every claim. In the **Hallucination Gate Lab**, a draft claims 33.4 km/h is the fastest sprint. The evidence shows 33.8 km/h earlier in the match, so the claim is blocked before air. Viewers get trusted insight without needing to understand the infrastructure."*
 - **0:55–1:15 (Studio Rundown, Human Override & OBS Overlay)**:
   *"In **Studio**, Director ranks moments, enforces a 60-second dedupe window, and schedules the cue for the next stoppage. On Vela vs Kepler, Director holds the cue — and as a human producer, I can click **Approve** to override and push it live to our 1920×1080 transparent OBS overlay."*
 - **1:15–1:30 (Fan Second Screen & Share Poster)**:

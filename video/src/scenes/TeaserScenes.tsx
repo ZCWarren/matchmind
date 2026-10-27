@@ -70,7 +70,7 @@ export const TeaserPassScene: React.FC = () => {
       <AbsoluteFill
         style={{
           background:
-            "linear-gradient(180deg, rgba(5,6,10,0.88) 0%, transparent 32%, transparent 62%, rgba(5,6,10,0.92) 100%)",
+            "linear-gradient(180deg, rgba(244,247,241,0.88) 0%, transparent 32%, transparent 62%, rgba(244,247,241,0.92) 100%)",
           pointerEvents: "none",
         }}
       />
@@ -92,7 +92,7 @@ export const TeaserPassScene: React.FC = () => {
               transform: "translate(-50%, -100%)",
               padding: "6px 12px",
               borderRadius: 8,
-              background: "rgba(8, 10, 16, 0.88)",
+              background: "rgba(255, 255, 255, 0.88)",
               border: `1px solid ${tag.color}88`,
               fontFamily: FONT.mono,
               fontSize: 13,
@@ -472,7 +472,7 @@ export const TeaserSurfacesScene: React.FC = () => {
       >
         <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
           <span style={{ fontFamily: FONT.mono, fontSize: 12, color: C.verify }}>
-            ● ON AIR · ANALYST / CASUAL / PLAYER · EN / ES / 中文
+            ● ON AIR · ANALYST / CASUAL / PLAYER · EN / ES / ZH
           </span>
           <span style={{ fontFamily: FONT.mono, fontSize: 12, color: C.flood }}>73:32</span>
         </div>
@@ -513,7 +513,7 @@ export const TeaserOutroScene: React.FC = () => {
 
       <AbsoluteFill
         style={{
-          background: "radial-gradient(circle at 50% 48%, rgba(5,6,10,0.55) 0%, rgba(5,6,10,0.92) 80%)",
+          background: "radial-gradient(circle at 50% 48%, rgba(244,247,241,0.55) 0%, rgba(244,247,241,0.92) 80%)",
           pointerEvents: "none",
         }}
       />
@@ -532,7 +532,7 @@ export const TeaserOutroScene: React.FC = () => {
           padding: "0 64px",
         }}
       >
-        <Eyebrow text="MATCHMIND · FLOODLIGHT" color={C.flood} delay={4} />
+        <Eyebrow text="MATCHMIND · DAYLIGHT" color={C.flood} delay={4} />
 
         <div
           style={{
@@ -559,9 +559,9 @@ export const TeaserOutroScene: React.FC = () => {
             marginTop: 44,
             padding: "18px 34px",
             borderRadius: 999,
-            background: "linear-gradient(135deg, rgba(255,77,46,0.24), rgba(20,24,38,0.94))",
-            border: `1px solid ${C.signal}88`,
-            boxShadow: `0 20px 60px rgba(0,0,0,0.75), 0 0 36px ${C.signal}33`,
+            background: "rgba(255,255,255,0.9)",
+            border: `1px solid ${C.flood}44`,
+            boxShadow: "0 20px 60px rgba(33,72,45,0.16)",
             fontFamily: FONT.mono,
             fontSize: 22,
             color: C.text,

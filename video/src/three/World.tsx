@@ -51,8 +51,8 @@ const Rig = ({ pose, exposure }: { pose: CamPose; exposure: number }) => {
   useLayoutEffect(() => {
     applyPose(camera as THREE.PerspectiveCamera, pose, size.width / size.height);
     gl.toneMappingExposure = exposure;
-    scene.fog = new THREE.FogExp2("#070912", 0.0042);
-    scene.background = new THREE.Color("#04050a");
+    scene.fog = new THREE.FogExp2("#DFEADA", 0.0022);
+    scene.background = new THREE.Color("#DFEADA");
   });
   return null;
 };
@@ -90,12 +90,12 @@ const PostFX = ({ frame, fx }: { frame: number; fx: WorldFx }) => {
     const dof = new DepthOfFieldEffect(camera, { worldFocusDistance: 40, worldFocusRange: 30, bokehScale: 3 });
     const dofPass = new EffectPass(camera, dof);
     composer.addPass(dofPass);
-    const bloom = new BloomEffect({ intensity: 1.15, luminanceThreshold: 0.72, luminanceSmoothing: 0.25, mipmapBlur: false, kernelSize: KernelSize.HUGE });
+    const bloom = new BloomEffect({ intensity: 0.12, luminanceThreshold: 1.1, luminanceSmoothing: 0.2, mipmapBlur: false, kernelSize: KernelSize.SMALL });
     composer.addPass(new EffectPass(camera, bloom));
-    const ca = new ChromaticAberrationEffect({ offset: new THREE.Vector2(0.0006, 0.0004), radialModulation: true, modulationOffset: 0.3 });
+    const ca = new ChromaticAberrationEffect({ offset: new THREE.Vector2(0, 0), radialModulation: true, modulationOffset: 0.3 });
     composer.addPass(new EffectPass(camera, ca));
     const tone = new ToneMappingEffect({ mode: ToneMappingMode.ACES_FILMIC });
-    const vignette = new VignetteEffect({ offset: 0.28, darkness: 0.72 });
+    const vignette = new VignetteEffect({ offset: 0.2, darkness: 0.08 });
     composer.addPass(new EffectPass(camera, tone, vignette));
     return { composer, dof, dofPass, bloom, ca };
   }, [gl, scene, camera]);
@@ -105,15 +105,14 @@ const PostFX = ({ frame, fx }: { frame: number; fx: WorldFx }) => {
     const { composer, dof, dofPass, bloom, ca } = chain;
     composer.setSize(size.width, size.height);
     gl.toneMapping = THREE.NoToneMapping;
-    bloom.intensity = 1.15 * (fx.bloom ?? 1);
+    bloom.intensity = 0.12 * (fx.bloom ?? 1);
     dofPass.enabled = !!fx.dof;
     if (fx.dof) {
       dof.cocMaterial.worldFocusDistance = fx.dof.focus;
       dof.cocMaterial.worldFocusRange = fx.dof.range ?? 30;
       dof.bokehScale = fx.dof.bokeh ?? 3;
     }
-    const k = fx.aberration ?? 1;
-    ca.offset.set(0.0006 * k, 0.0004 * k);
+    ca.offset.set(0, 0);
     if (fx.post === false) {
       gl.toneMapping = THREE.ACESFilmicToneMapping;
       advance(performance.now());

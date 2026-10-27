@@ -39,15 +39,15 @@ export function BroadcastCanvas({ children, className = "" }: { children: ReactN
 }
 
 const plateIn = {
-  initial: { opacity: 0, y: 24 },
+  initial: { opacity: 0, y: 10 },
   animate: { opacity: 1, y: 0 },
-  exit: { opacity: 0, y: 12 },
+  exit: { opacity: 0, y: 6 },
 };
 
 const rise = (delay: number) => ({
-  initial: { y: 26, opacity: 0 },
+  initial: { y: 8, opacity: 0 },
   animate: { y: 0, opacity: 1 },
-  transition: { duration: 0.7, ease: EASE, delay },
+  transition: { duration: 0.24, ease: EASE, delay: Math.min(delay, 0.12) },
 });
 
 function Tag({ children }: { children: ReactNode }) {
@@ -77,7 +77,7 @@ function LowerThird({ cue, moment }: { cue: OverlayCue; moment?: Moment | null }
       role="status"
       aria-live="polite"
       {...plateIn}
-      transition={{ duration: 0.85, ease: EASE }}
+      transition={{ duration: 0.28, ease: EASE }}
     >
       <div className="l3-top">
         <motion.span className="l3-eyebrow" {...rise(0.25)}>
@@ -120,7 +120,7 @@ function StatCard({ cue, features, moment }: { cue: OverlayCue; features?: Featu
     { label: "Expected threat", home: xtHome, away: xtAway, digits: 1 },
   ];
   return (
-    <motion.div className="overlay-variant stat-card ov-plate" role="status" aria-live="polite" {...plateIn} transition={{ duration: 0.85, ease: EASE }}>
+    <motion.div className="overlay-variant stat-card ov-plate" role="status" aria-live="polite" {...plateIn} transition={{ duration: 0.28, ease: EASE }}>
       <div className="sc-head">
         <motion.span className="l3-eyebrow" {...rise(0.2)}><i className="l3-live" /> {eyebrow ?? "Moment snapshot"}</motion.span>
         <motion.span className="sc-clock" {...rise(0.25)}>{moment ? formatClock(moment.clock) : "LIVE"}</motion.span>
@@ -168,7 +168,7 @@ function Momentum({ cue, features, moment }: { cue: OverlayCue; features?: Featu
   const momentumPct = clamp((momentum + 1) * 50, 0, 100);
   const [homeCode, awayCode] = (cue.payload.eyebrow ?? "HOME vs AWAY").split("·")[0].split(" vs ").map((part) => part.trim());
   return (
-    <motion.div className="overlay-variant momentum ov-plate" role="status" aria-live="polite" {...plateIn} transition={{ duration: 0.85, ease: EASE }}>
+    <motion.div className="overlay-variant momentum ov-plate" role="status" aria-live="polite" {...plateIn} transition={{ duration: 0.28, ease: EASE }}>
       <div className="sc-head">
         <motion.span className="l3-eyebrow" {...rise(0.2)}><i className="l3-live" /> Match momentum</motion.span>
         <motion.span className="sc-clock" {...rise(0.25)}>{moment ? formatClock(moment.clock) : "LIVE"}</motion.span>
@@ -205,7 +205,7 @@ function SpeedAlert({ features }: { features?: FeatureSnapshot | null }) {
   const pct = clamp(speed / 40, 0, 1);
   const arc = 2 * Math.PI * 120 * 0.75;
   return (
-    <motion.div className="overlay-variant speed-alert ov-plate" role="status" aria-live="polite" {...plateIn} transition={{ duration: 0.85, ease: EASE }}>
+    <motion.div className="overlay-variant speed-alert ov-plate" role="status" aria-live="polite" {...plateIn} transition={{ duration: 0.28, ease: EASE }}>
       <div className="sc-head">
         <motion.span className="l3-eyebrow" {...rise(0.2)}><i className="l3-live" /> Speed alert</motion.span>
         <motion.span {...rise(0.25)}><Tag>Verified peak</Tag></motion.span>
@@ -214,18 +214,17 @@ function SpeedAlert({ features }: { features?: FeatureSnapshot | null }) {
         <svg viewBox="0 0 300 300" aria-hidden="true">
           <defs>
             <linearGradient id="sp-grad" x1="0" x2="1">
-              <stop offset="0" stopColor="#FF4D2E" />
-              <stop offset="0.5" stopColor="#FF8A3D" />
-              <stop offset="1" stopColor="#FFE3B3" />
+              <stop offset="0" stopColor="#1E6742" />
+              <stop offset="1" stopColor="#58A56B" />
             </linearGradient>
           </defs>
-          <circle cx="150" cy="150" r="120" fill="none" stroke="rgba(255,255,255,0.08)" strokeWidth="14" strokeDasharray={`${arc} 999`} transform="rotate(135 150 150)" strokeLinecap="round" />
+          <circle cx="150" cy="150" r="120" fill="none" stroke="#DCE6D8" strokeWidth="14" strokeDasharray={`${arc} 999`} transform="rotate(135 150 150)" strokeLinecap="round" />
           <motion.circle
             cx="150" cy="150" r="120" fill="none" stroke="url(#sp-grad)" strokeWidth="14" strokeLinecap="round"
             transform="rotate(135 150 150)"
             initial={{ strokeDasharray: `0 999` }}
             animate={{ strokeDasharray: `${arc * pct} 999` }}
-            transition={{ duration: 1.4, ease: EASE, delay: 0.4 }}
+            transition={{ duration: 0.3, ease: EASE, delay: 0.1 }}
           />
         </svg>
         <motion.div className="sp-value" {...rise(0.45)}>
@@ -251,7 +250,7 @@ function PressureMap({ cue, features, moment, events }: { cue: OverlayCue; featu
   const current = index >= 0 ? events?.[index] : undefined;
   const eventPressure = moment?.metrics.event_pressure?.value ?? metric(features, "pressure") ?? 0;
   return (
-    <motion.div className="overlay-variant pressure-map ov-plate" role="status" aria-live="polite" {...plateIn} transition={{ duration: 0.85, ease: EASE }}>
+    <motion.div className="overlay-variant pressure-map ov-plate" role="status" aria-live="polite" {...plateIn} transition={{ duration: 0.28, ease: EASE }}>
       <div className="sc-head">
         <motion.span className="l3-eyebrow" {...rise(0.2)}><i className="l3-live" /> Pressure map</motion.span>
         <motion.span className="sc-clock" {...rise(0.25)}>{moment ? formatClock(moment.clock) : "LIVE"}</motion.span>
@@ -260,13 +259,13 @@ function PressureMap({ cue, features, moment, events }: { cue: OverlayCue; featu
       <motion.svg className="pressure-svg" viewBox="0 0 100 64" role="img" aria-label="Pressure map" {...rise(0.4)}>
         <defs>
           <radialGradient id="pm-heat">
-            <stop offset="0" stopColor="#FF4D2E" stopOpacity="0.7" />
-            <stop offset="1" stopColor="#FF4D2E" stopOpacity="0" />
+            <stop offset="0" stopColor="#CF6048" stopOpacity="0.6" />
+            <stop offset="1" stopColor="#CF6048" stopOpacity="0" />
           </radialGradient>
         </defs>
-        <rect x="0" y="0" width="100" height="64" rx="2" fill="#0b1316" />
-        {Array.from({ length: 10 }).map((_, i) => <rect key={i} x={i * 10} y="0" width="10" height="64" fill={i % 2 ? "transparent" : "rgba(255,255,255,0.02)"} />)}
-        <g stroke="rgba(235,240,245,0.28)" strokeWidth="0.25" fill="none">
+        <rect x="0" y="0" width="100" height="64" rx="2" fill="#7FAC7B" />
+        {Array.from({ length: 10 }).map((_, i) => <rect key={i} x={i * 10} y="0" width="10" height="64" fill={i % 2 ? "transparent" : "rgba(255,255,255,0.07)"} />)}
+        <g stroke="rgba(255,255,255,0.72)" strokeWidth="0.25" fill="none">
           <rect x="2" y="2" width="96" height="60" />
           <line x1="50" y1="2" x2="50" y2="62" />
           <circle cx="50" cy="32" r="8.2" />
@@ -277,16 +276,16 @@ function PressureMap({ cue, features, moment, events }: { cue: OverlayCue; featu
           <circle key={`p-${event.event_id}`} cx={event.location.x} cy={event.location.y * 0.64} r={3 + event.pressure * 5} fill="url(#pm-heat)" />
         ))}
         {passes.map((event) => (
-          <line key={`l-${event.event_id}`} x1={event.location.x} y1={event.location.y * 0.64} x2={event.end_location?.x} y2={(event.end_location?.y ?? 0) * 0.64} stroke="#5CC8FF" strokeWidth="0.35" opacity="0.5" strokeLinecap="round" />
+          <line key={`l-${event.event_id}`} x1={event.location.x} y1={event.location.y * 0.64} x2={event.end_location?.x} y2={(event.end_location?.y ?? 0) * 0.64} stroke="#167C9F" strokeWidth="0.35" opacity="0.65" strokeLinecap="round" />
         ))}
         {current?.end_location && (
           <motion.line
             x1={current.location.x} y1={current.location.y * 0.64} x2={current.end_location.x} y2={current.end_location.y * 0.64}
-            stroke="#BFEAFF" strokeWidth="0.9" strokeLinecap="round"
-            initial={{ pathLength: 0 }} animate={{ pathLength: 1 }} transition={{ duration: 1, ease: EASE, delay: 0.8 }}
+            stroke="#FFFFFF" strokeWidth="0.9" strokeLinecap="round"
+            initial={{ pathLength: 0 }} animate={{ pathLength: 1 }} transition={{ duration: 0.3, ease: EASE, delay: 0.12 }}
           />
         )}
-        {current && <circle cx={current.location.x} cy={current.location.y * 0.64} r="1.6" fill="#FFF3DF" />}
+        {current && <circle cx={current.location.x} cy={current.location.y * 0.64} r="1.6" fill="#FFFFFF" />}
       </motion.svg>
       <div className="pm-foot">
         <span><i className="dot sig" /> Pressure</span>

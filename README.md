@@ -4,18 +4,18 @@
 
 MatchMind reveals the pressure, movement and tactical structure underneath football. A deterministic analytics engine feeds a five-agent Microsoft Agent Framework workflow, then presents one verified moment as an interactive 3D story, a broadcast control room, a transparent overlay and a personalized fan experience.
 
-> Status: local closed loop live. Five synthetic matches, real `prompt-v3` agent caches, bounded revision, Director airtime planning, MatchBlackboard 3-act narrative arcs, Adversarial Hallucination Gate Lab, Grounded Tactical Copilot, WebSocket replay, and a Moment-centered 3D frontend at `http://localhost:8010`.
+> Status: local closed loop live. Five synthetic matches, real `prompt-v3` agent caches, bounded revision, Director airtime planning, MatchBlackboard 3-act narrative arcs, Adversarial Hallucination Gate Lab, MCP-backed live Tactical Copilot, WebSocket replay, and a Daylight Moment-centered 3D frontend at `http://localhost:8010`.
 > Public static demo: [ruziniuuuuu.github.io/matchmind](https://ruziniuuuuu.github.io/matchmind/) with Home, Moment Focus, Studio, Overlay and Fan.
-> Product and architecture: [PLAN.md](./PLAN.md). Completion checklist: [EXECUTION.md](./EXECUTION.md). Judge walkthrough: [docs/JUDGE-GUIDE.md](./docs/JUDGE-GUIDE.md). Pitch deck & script: [docs/PITCH-DECK.md](./docs/PITCH-DECK.md). Marketing launch kit: [docs/LAUNCH-KIT.md](./docs/LAUNCH-KIT.md). Evaluation: [docs/EVALUATION.md](./docs/EVALUATION.md). Submission checklist: [docs/SUBMISSION.md](./docs/SUBMISSION.md).
+> Product and architecture: [PLAN.md](./PLAN.md). Completion checklist: [EXECUTION.md](./EXECUTION.md). Judge walkthrough: [docs/JUDGE-GUIDE.md](./docs/JUDGE-GUIDE.md). Pitch deck & script: [docs/PITCH-DECK.md](./docs/PITCH-DECK.md). Marketing launch kit: [docs/LAUNCH-KIT.md](./docs/LAUNCH-KIT.md). Evaluation: [docs/EVALUATION.md](./docs/EVALUATION.md). Data quality: [docs/DATA-QUALITY.md](./docs/DATA-QUALITY.md). Submission checklist: [docs/SUBMISSION.md](./docs/SUBMISSION.md).
 
 ## Experience
 
 | Surface | Route | Purpose |
 |---|---|---|
-| **Home** | `/` | One-screen cinematic entry with a real data-driven 3D match scene. |
+| **Home** | `/` | One-screen daylight entry with a real data-driven 3D match scene. |
 | **Moment Focus** | `/moment` | Events, Structure, Evidence and Audiences layers, linked by one interactive timeline. |
 | **Studio** | `/studio` | Director rundown, program monitor, decision inspector, replay and human approval. |
-| **Overlay** | `/overlay` | Transparent 1920x1080 browser source for OBS/vMix. Use `/overlay?bg=1` for a dark preview. |
+| **Overlay** | `/overlay` | Transparent 1920x1080 browser source for OBS/vMix. Use `/overlay?bg=1` for a pitch preview. |
 | **Fan** | `/fan` | Analyst, casual and player readings in English, Spanish and Chinese, with player stats and recap. |
 | **About** | `/about` | System graph, verifier and technical evidence. |
 | **Guide** | `/guide` | Data, AI explanation and evidence, plus operating instructions. |
@@ -60,18 +60,21 @@ prepare -> analyst -> fan-out(producer, audience, checker)
 
 A `revise` verdict enters the bounded loop once. After recheck, warning-only advisory notes can remain visible, but unresolved errors cannot be approved. A deterministic rejection always wins.
 
+Custom Tactical Copilot questions make real model calls with MCP analytics. Event references, metric values and numbers in both languages are checked before release; failures return an explicit refusal. Static mode supports presets only and never relabels a preset as a live answer.
+
 ## Technology
 
 - **Vite + React + TypeScript** with route-level code splitting
-- **Motion** for interface choreography and reduced-motion behavior
+- **Motion** for restrained interface transitions and reduced-motion behavior
 - **Three.js** for lazy-loaded, data-driven 3D with SVG fallback
 - **Microsoft Agent Framework** for typed graph execution
-- **MCP** for analytics tools
+- **MCP** for analytics tools used by agents and live Copilot
 - **DeepSeek** through an OpenAI-compatible API; Microsoft Foundry adapter optional
 - **SQLite / JSONL** for audit and cached fixtures
-- **OpenTelemetry** for traces, latency and cost
-- **Remotion + Three Canvas** for the 1080p film and vertical teaser
+- **OpenTelemetry + optional Azure Monitor** for traces and operational logs
+- **Remotion + Three Canvas** for the Daylight 1080p film and vertical teaser
 - **Docker + Render / Fly.io / VPS**, with optional Azure Container Apps deployment
+- **Live endpoint rate limits + per-match model-call budgets** for public cost protection
 
 The public demo uses DeepSeek-generated caches. The repository does not claim Azure or Foundry usage unless actually deployed.
 
@@ -83,7 +86,7 @@ MatchForge generates five football-realistic matches with fictional clubs and pl
 
 - [90-second MatchMind film](https://ruziniuuuuu.github.io/matchmind/promo.mp4): English narration, original sound design and on-screen captions.
 - [15-second vertical teaser](https://ruziniuuuuu.github.io/matchmind/teaser.mp4): an independently composed 9:16 social cut.
-- Sidecar subtitles: `promo.en.srt` and `promo.zh.srt` in `web/public/`.
+- English sidecar subtitles: `promo.en.srt` in `web/public/`.
 
 ## Public demo
 

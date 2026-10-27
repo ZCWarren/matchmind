@@ -43,20 +43,24 @@ async function staticRequest<T>(path: string, init?: RequestInit): Promise<T> {
   if (resource === "copilot") {
     const board = await staticFile<MatchBlackboardState>(`${matchId}/blackboard.json`);
     const body = init?.body ? (JSON.parse(String(init.body)) as { question?: string }) : {};
-    const q = (body.question ?? "").toLowerCase();
-    const hit =
-      board.copilot_presets.find(
-        (item) =>
-          item.id === q ||
-          item.question.toLowerCase().includes(q) ||
-          item.question_zh.includes(body.question ?? ""),
-      ) ??
-      (q.includes("fast") || q.includes("speed") || q.includes("最快") || q.includes("速度")
-        ? board.copilot_presets[1]
-        : q.includes("director") || q.includes("airtime") || q.includes("导播")
-          ? board.copilot_presets[2]
-          : board.copilot_presets[0]);
-    return hit as unknown as T;
+    const question = body.question ?? "";
+    const q = question.trim().toLowerCase();
+    const hit = board.copilot_presets.find(
+      (item) => item.question.toLowerCase() === q || item.question_zh.toLowerCase() === q,
+    );
+    if (hit) return hit as unknown as T;
+    return {
+      id: "static-live-unavailable",
+      question,
+      question_zh: question,
+      answer: "Live free-form Q&A requires the dynamic service. Choose a preset question in this static demo.",
+      answer_zh: "自由提问需要动态服务。在静态演示中，请选择一个预设问题。",
+      event_ids: [],
+      metric_refs: [],
+      verified: false,
+      source: "preset",
+      notice: "Static demo · no model call was made",
+    } as T;
   }
   const file =
     resource === "events"

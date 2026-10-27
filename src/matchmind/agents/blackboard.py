@@ -82,6 +82,8 @@ class CopilotQA(BaseModel):
     event_ids: list[str]
     metric_refs: list[MetricRef] = Field(default_factory=list)
     verified: bool = True
+    source: Literal["preset", "live"] = "preset"
+    notice: str = ""
 
 
 class MatchBlackboardState(BaseModel):
@@ -489,36 +491,6 @@ def build_blackboard(match_id: str) -> MatchBlackboardState:
         mcp_invocations=mcp_invocations,
         hallucination_challenges=challenges,
         copilot_presets=copilot_presets,
-    )
-
-
-def answer_copilot_question(match_id: str, question: str) -> CopilotQA:
-    """Return a deterministic, evidence-backed answer to any user tactical question."""
-    board = build_blackboard(match_id)
-    q_lower = question.strip().lower()
-    for preset in board.copilot_presets:
-        if (
-            preset.id in q_lower
-            or preset.question.lower() in q_lower
-            or preset.question_zh in question
-        ):
-            return preset
-    speed_keywords = ("fast", "speed", "sprint", "最快", "速度", "冲刺", "幻觉", "33.")
-    if any(k in q_lower for k in speed_keywords):
-        return board.copilot_presets[1]
-    director_keywords = ("director", "airtime", "stoppage", "rundown", "导播", "排期", "上屏")
-    if any(k in q_lower for k in director_keywords):
-        return board.copilot_presets[2]
-    base = board.copilot_presets[0]
-    return CopilotQA(
-        id="custom-grounded-query",
-        question=question,
-        question_zh=question,
-        answer=f"[Grounded on {match_id} Blackboard] {base.answer}",
-        answer_zh=f"【基于 {match_id} 确定性证据链】{base.answer_zh}",
-        event_ids=base.event_ids,
-        metric_refs=base.metric_refs,
-        verified=True,
     )
 
 

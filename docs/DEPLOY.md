@@ -58,9 +58,32 @@ the cached-only demo.
 
 ## Option C: Azure Container Apps
 
-The same Docker image works on Azure Container Apps. Add the env vars above and
-point the ingress at port 8000. A Foundry adapter is available through
-`LLM_PROVIDER=foundry` and `FOUNDRY_PROJECT_ENDPOINT` for a production path.
+The same Docker image works on Azure Container Apps. Point ingress at port 8000
+and keep `/healthz` as the health check. For the live competition service, use:
+
+```env
+APP_ENV=prod
+DEMO_MODE=live
+ALLOW_LIVE_GENERATION=true
+LLM_PROVIDER=foundry
+FOUNDRY_PROJECT_ENDPOINT=https://your-foundry-service.services.ai.azure.com/api/projects/your-project
+FOUNDRY_MODEL=your-deployed-model
+APPLICATIONINSIGHTS_CONNECTION_STRING=your-connection-string
+LIVE_RATE_LIMIT_PER_MINUTE=10
+MAX_LLM_CALLS_PER_MATCH=60
+PUBLIC_BASE_URL=https://your-host.example
+```
+
+Azure Container Apps must have a managed identity permitted to call the Foundry
+project. Store provider settings and monitoring secrets in the platform secret
+store, never in the browser. Keep GitHub Pages as a cached fallback.
+
+The rate limiter and model-call budget are in-process safeguards for a single
+competition instance; use a shared gateway limit before scaling to multiple
+replicas. Azure Monitor export activates only when its connection string exists.
+
+**Verification status:** this repository contains the deployment path, but no
+Azure/Foundry deployment has been completed or claimed in this environment.
 
 ## GitHub Pages static demo
 
@@ -78,5 +101,6 @@ cd web && npm run build:static
 
 - `/studio` with the cached hero insight and evidence.
 - `/overlay?bg=1` for a preview; `/overlay` is the transparent OBS source.
+- Real OBS evidence: [approved cue](./obs-approved.mp4) and [Director Hold removal](./obs-held.mp4).
 - `/fan` for the analyst / casual / player profiles and three languages.
 - `/docs` for the API contract.

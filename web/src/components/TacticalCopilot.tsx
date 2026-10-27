@@ -29,6 +29,7 @@ export default function TacticalCopilot({
   const [customQuery, setCustomQuery] = useState("");
   const [lang, setLang] = useState<"en" | "zh">("en");
   const [asking, setAsking] = useState(false);
+  const [error, setError] = useState("");
 
   useEffect(() => {
     setActiveQA(blackboard?.copilot_presets?.[0] ?? null);
@@ -45,10 +46,17 @@ export default function TacticalCopilot({
     event.preventDefault();
     if (!customQuery.trim()) return;
     setAsking(true);
+    setError("");
     try {
       const res = await api.copilot(matchId, customQuery.trim());
       setActiveQA(res);
       if (res.event_ids[0]) onSeekEvent(res.event_ids[0]);
+    } catch {
+      setError(
+        lang === "zh"
+          ? "在线问答暂时不可用，请重试或选择一个预设问题。"
+          : "Live Q&A is unavailable. Try again or choose a preset question.",
+      );
     } finally {
       setAsking(false);
     }
@@ -135,17 +143,24 @@ export default function TacticalCopilot({
             <span>{asking ? "…" : lang === "zh" ? "提问" : "Ask"}</span>
           </button>
         </form>
+        {error && <p className="copilot-error" role="alert">{error}</p>}
 
         {activeQA && (
           <motion.div
             key={`${activeQA.id}-${lang}`}
-            className="copilot-answer-box"
-            initial={{ opacity: 0, y: 10 }}
+            className={`copilot-answer-box ${activeQA.verified ? "" : "withheld"}`}
+            initial={{ opacity: 0, y: 6 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.45, ease: EASE }}
+            transition={{ duration: 0.24, ease: EASE }}
           >
-            <span className="verified-stamp"><Check size={12} weight="bold" /> Verified against events</span>
+            <span className="verified-stamp">
+              {activeQA.verified && <Check size={12} weight="bold" />}
+              {activeQA.verified
+                ? `${activeQA.source === "live" ? "Live" : "Preset"} · evidence checked`
+                : "Not verified · answer withheld"}
+            </span>
             <p className="copilot-answer-text">{lang === "zh" ? activeQA.answer_zh : activeQA.answer}</p>
+            {activeQA.notice && <p className="copilot-notice">{activeQA.notice}</p>}
             <div className="copilot-evidence">
               {activeQA.event_ids.slice(0, 2).map((evId, idx) => (
                 <button key={evId} type="button" className="ev-chip" onClick={() => onSeekEvent(evId)}>

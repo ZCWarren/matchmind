@@ -43,7 +43,7 @@ export const makeBeamMaterial = (color: string) =>
     transparent: true,
     depthWrite: false,
     side: THREE.DoubleSide,
-    blending: THREE.AdditiveBlending,
+    blending: THREE.NormalBlending,
     fog: false,
   });
 
@@ -89,7 +89,7 @@ export const makeRibbonMaterial = (color: string, head = "#ffffff") =>
     `,
     transparent: true,
     depthWrite: false,
-    blending: THREE.AdditiveBlending,
+    blending: THREE.NormalBlending,
     side: THREE.DoubleSide,
   });
 
@@ -122,7 +122,7 @@ export const makeGlowMaterial = (color: string, opacity = 1, power = 2.2) =>
     `,
     transparent: true,
     depthWrite: false,
-    blending: THREE.AdditiveBlending,
+    blending: THREE.NormalBlending,
   });
 
 /** Ring band (for pressure pulses) on a plane: thin bright ring with soft falloff. */
@@ -156,7 +156,7 @@ export const makeRingMaterial = (color: string) =>
     `,
     transparent: true,
     depthWrite: false,
-    blending: THREE.AdditiveBlending,
+    blending: THREE.NormalBlending,
   });
 
 /** Vertical sweeping light plane for the line break. u across pitch, v up. */
@@ -199,7 +199,7 @@ export const makeCurtainMaterial = (color: string, edge: string) =>
     transparent: true,
     depthWrite: false,
     side: THREE.DoubleSide,
-    blending: THREE.AdditiveBlending,
+    blending: THREE.NormalBlending,
   });
 
 /** Round soft points with per-vertex colour and size. */
@@ -234,5 +234,5 @@ export const makePointsMaterial = () =>
     `,
     transparent: true,
     depthWrite: false,
-    blending: THREE.AdditiveBlending,
+    blending: THREE.NormalBlending,
   });

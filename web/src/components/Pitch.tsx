@@ -1,9 +1,9 @@
 import { useId, useMemo } from "react";
 import type { Event, Team } from "../types";
 
-const ICE = "#5CC8FF";
-const SIGNAL = "#FF4D2E";
-const FLOOD = "#FFE3B3";
+const ICE = "#167C9F";
+const SIGNAL = "#CF6048";
+const FLOOD = "#2E6D46";
 
 function colorFor(event: Event, home: Team, away: Team): string {
   if (event.team_id === home.team_id) return ICE;
@@ -11,7 +11,7 @@ function colorFor(event: Event, home: Team, away: Team): string {
   return FLOOD;
 }
 
-/** Static night-pitch rendering: the no-WebGL / reduced-motion fallback for the 3D scene. */
+/** Static daylight-pitch rendering for the no-WebGL / reduced-motion fallback. */
 export default function Pitch({
   events,
   cursor,
@@ -35,27 +35,22 @@ export default function Pitch({
   return (
     <svg className="pitch-svg" viewBox="0 0 100 64" role="img" aria-label="Match pitch" preserveAspectRatio="xMidYMid meet">
       <defs>
-        <radialGradient id={`flood-${uid}`} cx="0.5" cy="0.15" r="0.9">
-          <stop offset="0" stopColor="#1d2b2c" />
-          <stop offset="0.6" stopColor="#0d1718" />
-          <stop offset="1" stopColor="#070b0e" />
-        </radialGradient>
+        <linearGradient id={`flood-${uid}`} x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0" stopColor="#8DB889" />
+          <stop offset="1" stopColor="#729F71" />
+        </linearGradient>
         <radialGradient id={`heat-${uid}`}>
-          <stop offset="0" stopColor={SIGNAL} stopOpacity="0.55" />
+          <stop offset="0" stopColor={SIGNAL} stopOpacity="0.42" />
           <stop offset="1" stopColor={SIGNAL} stopOpacity="0" />
         </radialGradient>
-        <filter id={`glow-${uid}`} x="-50%" y="-50%" width="200%" height="200%">
-          <feGaussianBlur stdDeviation="0.8" result="b" />
-          <feMerge><feMergeNode in="b" /><feMergeNode in="SourceGraphic" /></feMerge>
-        </filter>
       </defs>
 
       <rect x="0" y="0" width="100" height="64" rx="1.5" fill={`url(#flood-${uid})`} />
       {Array.from({ length: 12 }).map((_, index) => (
-        <rect key={index} x={2 + index * 8} y="2" width="8" height="60" fill={index % 2 === 0 ? "rgba(255,255,255,0.022)" : "transparent"} />
+        <rect key={index} x={2 + index * 8} y="2" width="8" height="60" fill={index % 2 === 0 ? "rgba(255,255,255,0.07)" : "transparent"} />
       ))}
 
-      <g stroke="rgba(235,240,245,0.32)" strokeWidth="0.22" fill="none">
+      <g stroke="rgba(255,255,255,0.72)" strokeWidth="0.22" fill="none">
         <rect x="2" y="2" width="96" height="60" />
         <line x1="50" y1="2" x2="50" y2="62" />
         <circle cx="50" cy="32" r="8.2" />
@@ -64,7 +59,7 @@ export default function Pitch({
         <rect x="2" y="23" width="6" height="18" />
         <rect x="92" y="23" width="6" height="18" />
       </g>
-      <circle cx="50" cy="32" r="0.6" fill="rgba(235,240,245,0.5)" />
+      <circle cx="50" cy="32" r="0.6" fill="rgba(255,255,255,0.8)" />
 
       {pressure.map((event) => (
         <circle key={`h-${event.event_id}`} cx={event.location.x} cy={Y(event.location.y)} r={3 + event.pressure * 5} fill={`url(#heat-${uid})`} />
@@ -84,10 +79,10 @@ export default function Pitch({
         const mx = (x1 + x2) / 2;
         const my = Math.min(y1, y2) - Math.hypot(x2 - x1, y2 - y1) * 0.18;
         return (
-          <g key={event.event_id} opacity={opacity} filter={isCurrent ? `url(#glow-${uid})` : undefined}>
+          <g key={event.event_id} opacity={opacity}>
             <path d={`M ${x1} ${y1} Q ${mx} ${my} ${x2} ${y2}`} fill="none" stroke={color} strokeWidth={isCurrent ? 0.7 : 0.28} strokeLinecap="round" />
             <circle cx={x1} cy={y1} r={isCurrent ? 0.9 : 0.4} fill={color} />
-            {isCurrent && <circle cx={x2} cy={y2} r="1.4" fill="none" stroke={FLOOD} strokeWidth="0.3" />}
+            {isCurrent && <circle cx={x2} cy={y2} r="1.4" fill="none" stroke="#FFFFFF" strokeWidth="0.3" />}
           </g>
         );
       })}
@@ -95,17 +90,17 @@ export default function Pitch({
       {current && (
         <g>
           <circle cx={current.location.x} cy={Y(current.location.y)} r={4 + current.pressure * 7} fill="none" stroke={SIGNAL} strokeWidth="0.25" opacity={0.25 + current.pressure * 0.4} />
-          <circle cx={current.location.x} cy={Y(current.location.y)} r="1.3" fill="#FFF3DF" filter={`url(#glow-${uid})`} />
-          <text x={current.location.x + 2.4} y={Y(current.location.y) - 2} fill="#F5F3EE" fontSize="1.8" fontFamily="JetBrains Mono Variable, monospace" opacity="0.85">
+          <circle cx={current.location.x} cy={Y(current.location.y)} r="1.3" fill="#FFFFFF" />
+          <text x={current.location.x + 2.4} y={Y(current.location.y) - 2} fill="#14251B" fontSize="1.8" fontFamily="JetBrains Mono Variable, monospace" opacity="0.9">
             {current.player_id ?? current.type}
           </text>
         </g>
       )}
 
-      <text x="4" y="60.4" fill="#646A7D" fontSize="1.5" fontFamily="JetBrains Mono Variable, monospace">
+      <text x="4" y="60.4" fill="#244D32" fontSize="1.5" fontFamily="JetBrains Mono Variable, monospace">
         {home.short_name} →
       </text>
-      <text x="96" y="60.4" fill="#646A7D" fontSize="1.5" fontFamily="JetBrains Mono Variable, monospace" textAnchor="end">
+      <text x="96" y="60.4" fill="#244D32" fontSize="1.5" fontFamily="JetBrains Mono Variable, monospace" textAnchor="end">
         ← {away.short_name}
       </text>
     </svg>

@@ -32,8 +32,8 @@ try {
   assert.equal(await page.getByRole("link", { name: "Explore the moment" }).count(), 1);
   assert.equal(await page.getByRole("link", { name: "Enter Studio" }).count(), 1);
   assert.equal(await page.locator(".nav-media a").count(), 2);
-  assert.match(await page.locator(".nav-media a").first().getAttribute("href"), /promo\.mp4$/);
-  assert.match(await page.locator(".nav-media a").nth(1).getAttribute("href"), /teaser\.mp4$/);
+  assert.match(await page.locator(".nav-media a").first().getAttribute("href"), /promo\.mp4\?v=english-v3$/);
+  assert.match(await page.locator(".nav-media a").nth(1).getAttribute("href"), /teaser\.mp4\?v=english-v3$/);
   assert.ok(await page.locator(".match-scene canvas, .pitch-svg").first().isVisible());
 
   await page.getByRole("link", { name: "Explore the moment" }).click();
@@ -60,6 +60,10 @@ try {
   await page.locator(".story-arc-card").first().click();
   await page.waitForTimeout(350);
   assert.ok(await page.locator(".copilot-answer-box").isVisible());
+  await page.getByRole("textbox", { name: "Ask MatchMind tactical question" }).fill("An unscripted tactical question");
+  await page.locator(".copilot-form button[type=submit]").click();
+  await page.locator(".copilot-answer-box.withheld").waitFor({ state: "visible" });
+  assert.match(await page.locator(".copilot-notice").innerText(), /no model call was made/);
   await page.locator(".hallucination-lab .challenge-tabs button").nth(1).click();
   assert.match(await page.locator(".hallucination-lab .injected-quote").innerText(), /94\.6%/);
   await page.locator(".share-poster-btn").first().click();

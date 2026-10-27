@@ -9,14 +9,15 @@
 
 | Area | State |
 |---|---|
-| DeepSeek provider | Working: raw OpenAI-compatible API + Agent Framework `OpenAIChatClient(base_url=...)` |
-| Local API | Working on `:8010`; matches, events, features, moments, insights, recap, config and WebSocket replay |
-| MatchForge | Five narrative matches generated: 6,281 events, 30 labels, deterministic seeds; all five `prompt-v3` caches verified |
-| Tests | 41 passing; ruff clean; production/static frontend builds and desktop/mobile/reduced-motion Playwright smoke pass |
-| Analytics | Working: xG, xT, pressure, pass quality, control/chaos, momentum, rhythm, speed; 6 MCP tools (`get_event_window`, `get_tactical_chain`, `get_pressure_comparison`, `get_player_summary`, `get_snapshot`, `get_moments`) |
-| Agents / verifier | Real Agent Framework review, one-revision/recheck path, candidate + cue gate, Director ranking, MatchBlackboard 3-act narrative memory, Adversarial Hallucination Gate Lab, and Grounded Tactical Copilot |
-| UI | Cinematic Home, 3D Parabolic Pitch with TV/xT/Press cameras, Live Agent Topology Replay, Hallucination Lab, Studio, five Overlay templates, Fan, 90s Interactive Judge Tour, and 1-Click Vector Poster |
-| Media & GTM | 90-second 1080p film + 15-second vertical teaser, bilingual subtitles, [docs/LAUNCH-KIT.md](./docs/LAUNCH-KIT.md), and [docs/PITCH-DECK.md](./docs/PITCH-DECK.md) |
+| DeepSeek provider | Working: raw OpenAI-compatible API + Agent Framework `OpenAIChatClient(base_url=...)`; live Copilot verified with real MCP tool calls |
+| Local API | Working on `:8010`; matches, events, features, moments, insights, live Copilot, recap, config and WebSocket replay |
+| MatchForge | Five narrative matches generated: 6,281 events, 30 labels, deterministic seeds; all five `prompt-v3` caches verified; reproducible data-quality report |
+| Tests | 49 passing; ruff clean; production/static frontend builds and desktop/mobile/reduced-motion Playwright smoke pass |
+| Analytics | Working: xG, xT, pressure, pass quality, control/chaos, momentum, rhythm, speed; 7 MCP tools including match metadata |
+| Agents / verifier | Real Agent Framework review, one-revision/recheck path, candidate + cue gate, Director ranking, MatchBlackboard 3-act narrative memory, Adversarial Hallucination Gate Lab, and evidence-checked live Tactical Copilot |
+| UI | Daylight Home, 3D Parabolic Pitch with TV/xT/Press cameras, Live Agent Topology Replay, Hallucination Lab, Studio, five Overlay templates, Fan, 90s Interactive Judge Tour, and 1-Click Vector Poster |
+| Cloud hardening | Per-client live rate limits, per-match model-call budgets including repairs, standard logs, optional Azure Monitor export; Azure/Foundry deployment remains unverified |
+| Media & GTM | Daylight 90-second 1080p film + 15-second vertical teaser, concise English narration and subtitles, [docs/LAUNCH-KIT.md](./docs/LAUNCH-KIT.md), and [docs/PITCH-DECK.md](./docs/PITCH-DECK.md) |
 
 ---
 
@@ -95,7 +96,7 @@
 ## Gate 4 — Studio, Overlay, Fan
 
 - [x] Vite + React + TypeScript app with route-level code splitting.
-- [x] High-energy sports editorial design, dark base, lime accent, tabular numerals.
+- [x] Daylight editorial design, warm-white surfaces, pitch-green accent, sans-serif headings and tabular numerals.
 - [x] One-screen cinematic Home with real 3D match data and two product entrances.
 - [x] Moment Focus: Events / Structure / Evidence / Audiences, playback, scrubbing, claim-to-event linking.
 - [x] Lazy Three.js scene with SVG fallback, mobile complexity limits, reduced-motion behavior, and offscreen/hidden-tab rendering pause.
@@ -107,7 +108,7 @@
 - [x] Overlay:
   - [x] Transparent 1920x1080 route.
   - [x] Lower-third, stat-card, momentum-ribbon, speed-alert and pressure-map variants.
-  - [x] Deterministic queue/dedupe rules; physical OBS browser-source test remains unchecked.
+  - [x] Deterministic queue/dedupe rules; OBS 31 Browser Source recording verified for approved cues and Director Hold removal.
 - [x] Fan:
   - [x] Analyst / Casual / Player Focus profiles.
   - [x] English / Spanish / Chinese.
@@ -115,11 +116,11 @@
   - [x] Player selector, event log, passes, completion, shots and speed.
   - [ ] Favorite club selector and Arabic/Hindi remain future scope.
 - [x] Loading, empty and error states.
-- [ ] Reconnect, rate limiting and degraded-mode UI remain future hardening.
+- [x] Live endpoint rate limiting, per-match model-call budgets and explicit Copilot degraded/withheld states; reconnect UX remains future hardening.
 - [x] Cached-only public demo guard and all five `prompt-v3` fixtures precomputed.
 - [x] Browser smoke covers Home, Moment, five fixtures, approval, Overlay, Fan, mobile, reduced motion, invalid-link recovery, cross-match player validity and stale-request protection.
 
-**Done when:** the closed loop in PLAN.md §2 runs from a clean checkout. **Local and static Moment-centered closed loops are live; physical OBS testing remains.**
+**Done when:** the closed loop in PLAN.md §2 runs from a clean checkout. **Local/static loops and physical OBS Browser Source verification are complete.**
 
 ## Gate 5 — Hardening
 
@@ -141,7 +142,7 @@
 
 ## Gate 6 — Delivery packaging
 
-- [x] Static demo, submission checklist and bilingual sidecar subtitles.
+- [x] Static demo, submission checklist and English sidecar subtitles.
 - [x] 90-second 1080p film and independent 15-second vertical teaser rendered and inspected.
 - [x] Project description and testing instructions.
 - [x] No secrets; code/data licenses and data card included.

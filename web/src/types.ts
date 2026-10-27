@@ -294,6 +294,8 @@ export type CopilotQA = {
   event_ids: string[];
   metric_refs: MetricRef[];
   verified: boolean;
+  source: "preset" | "live";
+  notice: string;
 };
 
 export type MatchBlackboardState = {
