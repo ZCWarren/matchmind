@@ -34,11 +34,11 @@ const METRIC_LABEL: Record<string, string> = {
 };
 
 export default function MomentFocus() {
-  const experience = useMatchExperience();
+  const experience = useMatchExperience(1);
   const {
     matchId, matches, setMatchId, match, home, away, events, moments, selectedMoment,
     selectMoment, features, insight, blackboard, currentEvent, cursor, setCursor, playing, setPlaying,
-    seekEvent, error,
+    seekEvent, speed, setSpeed, error,
   } = experience;
   const [view, setView] = useState<ViewMode>("structure");
   const [profile, setProfile] = useState<Profile>("analyst");
@@ -101,8 +101,10 @@ export default function MomentFocus() {
             moments={moments}
             cursor={cursor}
             playing={playing}
+            speed={speed}
             selectedMomentId={selectedMoment?.moment_id}
             onPlay={() => setPlaying(!playing)}
+            onSpeed={setSpeed}
             onSeek={(index) => { setPlaying(false); setCursor(index); }}
             onMoment={selectMoment}
           />

@@ -9,7 +9,9 @@ export default function MomentTimeline({
   moments,
   cursor,
   playing,
+  speed,
   onPlay,
+  onSpeed,
   onSeek,
   onMoment,
   selectedMomentId,
@@ -18,7 +20,9 @@ export default function MomentTimeline({
   moments: Moment[];
   cursor: number;
   playing: boolean;
+  speed: number;
   onPlay: () => void;
+  onSpeed: (speed: number) => void;
   onSeek: (index: number) => void;
   onMoment: (moment: Moment) => void;
   selectedMomentId?: string;
@@ -29,9 +33,25 @@ export default function MomentTimeline({
   const fill = `${(cursor / max) * 100}%`;
   return (
     <div className="moment-timeline">
-      <button className="play-button" type="button" onClick={onPlay} aria-label={playing ? "Pause moment" : "Play moment"}>
-        {playing ? <Pause size={18} weight="fill" /> : <Play size={18} weight="fill" />}
-      </button>
+      <div className="moment-playback-controls">
+        <button className="play-button" type="button" onClick={onPlay} aria-label={playing ? "Pause moment" : "Play moment"}>
+          {playing ? <Pause size={18} weight="fill" /> : <Play size={18} weight="fill" />}
+        </button>
+        <div className="moment-speed" role="group" aria-label="Playback speed">
+          {[0.5, 1, 2].map((value) => (
+            <button
+              key={value}
+              type="button"
+              aria-label={`${value}x playback speed`}
+              aria-pressed={speed === value}
+              className={speed === value ? "active" : ""}
+              onClick={() => onSpeed(value)}
+            >
+              {value}×
+            </button>
+          ))}
+        </div>
+      </div>
       <div className="timeline-clock">
         <span className="mono">{current ? formatClock(current.clock) : "--'--"}</span>
         <small>{current?.type.replaceAll("_", " ") ?? "loading"}</small>
