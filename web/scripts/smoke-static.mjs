@@ -13,6 +13,19 @@ const candidates = [
 const executablePath = candidates.find((path) => fs.existsSync(path));
 if (!executablePath) throw new Error("No Chrome/Chromium binary found for the smoke test");
 
+/** Retry an assertion until the SPA settles; fixed sleeps are flaky on slow software-GL runners. */
+async function eventually(check, timeout = 10000) {
+  const deadline = Date.now() + timeout;
+  for (;;) {
+    try {
+      return await check();
+    } catch (error) {
+      if (Date.now() > deadline) throw error;
+      await new Promise((resolve) => setTimeout(resolve, 150));
+    }
+  }
+}
+
 const browser = await chromium.launch({
   executablePath,
   headless: true,
@@ -77,6 +90,7 @@ try {
   await page.waitForTimeout(800);
   assert.equal(await page.getByText("Static demo", { exact: true }).count(), 1);
   assert.equal(await page.locator(".generate-button").isDisabled(), true);
+  await page.locator(".decision-status.pass").waitFor({ state: "visible", timeout: 15000 });
   assert.ok((await page.locator(".insight-headline").textContent()).length > 20);
 
   const fixtures = [
@@ -129,20 +143,26 @@ try {
   await page.goto(`${base}#/fan?match=ast-2026-1025-vel-kep`, { waitUntil: "networkidle" });
   await page.waitForTimeout(600);
   await page.getByRole("button", { name: /Player Follow/ }).click();
-  assert.match(await page.locator(".fan-player-head select").inputValue(), /^VEL-/);
+  await eventually(async () =>
+    assert.match(await page.locator(".fan-player-head select").inputValue(), /^VEL-/),
+  );
   await page.getByRole("button", { name: "中文", exact: true }).click();
   assert.ok(await page.locator(".fan-card-headline").isVisible());
   await page.locator(".fan-recap summary").click();
   assert.ok(await page.locator(".fan-recap-row").count() > 0);
   await page.locator(".fan-match-header select").selectOption(fixtures[0]);
   await page.waitForTimeout(600);
-  assert.match(await page.locator(".fan-player-head select").inputValue(), /^(NHR|ORN)-/);
-  assert.notEqual(await page.locator(".fan-player-head strong").textContent(), "Select a player");
+  await eventually(async () => {
+    assert.match(await page.locator(".fan-player-head select").inputValue(), /^(NHR|ORN)-/);
+    assert.notEqual(await page.locator(".fan-player-head strong").textContent(), "Select a player");
+  });
 
   await page.goto(`${base}#/moment?match=not-a-match`, { waitUntil: "networkidle" });
   await page.waitForTimeout(500);
-  assert.equal(await page.locator(".fixture-select").inputValue(), fixtures[0]);
-  assert.ok(page.url().endsWith(`match=${fixtures[0]}`));
+  await eventually(async () => {
+    assert.equal(await page.locator(".fixture-select").inputValue(), fixtures[0]);
+    assert.ok(page.url().endsWith(`match=${fixtures[0]}`));
+  });
   consoleErrors.length = 0;
 
   await page.route("**/demo/*/insight.json", async (route) => {
@@ -156,7 +176,9 @@ try {
   await page.locator(".fixture-select").selectOption(fixtures[0]);
   await page.waitForTimeout(1100);
   assert.equal(await page.locator(".fixture-select").inputValue(), fixtures[0]);
-  assert.match(await page.locator(".insight-headline").textContent(), /NHR-/);
+  await eventually(async () =>
+    assert.match(await page.locator(".insight-headline").textContent(), /NHR-/),
+  );
   await page.unroute("**/demo/*/insight.json");
 
   const mobile = await browser.newPage({
