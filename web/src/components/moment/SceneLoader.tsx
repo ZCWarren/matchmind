@@ -12,6 +12,7 @@ export default function SceneLoader(props: {
   variant?: SceneVariant;
   stage?: number;
   anchor?: number;
+  playerLabels?: Record<string, string>;
 }) {
   return (
     <Suspense

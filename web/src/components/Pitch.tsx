@@ -17,11 +17,13 @@ export default function Pitch({
   cursor,
   home,
   away,
+  playerLabels,
 }: {
   events: Event[];
   cursor: number;
   home: Team;
   away: Team;
+  playerLabels?: Record<string, string>;
 }) {
   const uid = useId().replace(/:/g, "");
   const trail = useMemo(() => events.slice(Math.max(0, cursor - 9), cursor + 1), [events, cursor]);
@@ -92,7 +94,7 @@ export default function Pitch({
           <circle cx={current.location.x} cy={Y(current.location.y)} r={4 + current.pressure * 7} fill="none" stroke={SIGNAL} strokeWidth="0.25" opacity={0.25 + current.pressure * 0.4} />
           <circle cx={current.location.x} cy={Y(current.location.y)} r="1.3" fill="#FFFFFF" />
           <text x={current.location.x + 2.4} y={Y(current.location.y) - 2} fill="#14251B" fontSize="1.8" fontFamily="JetBrains Mono Variable, monospace" opacity="0.9">
-            {current.player_id ?? current.type}
+            {current.player_id ? playerLabels?.[current.player_id] ?? current.player_id : current.type}
           </text>
         </g>
       )}

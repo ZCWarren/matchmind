@@ -46,12 +46,44 @@
   position: absolute;
   left: 22px;
   top: 20px;
-  right: 200px;
+  right: 260px;
   z-index: 2;
   pointer-events: none;
   display: grid;
-  gap: 8px;
+  gap: 0;
 }
+
+.stage-context {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+  padding: 18px 24px;
+  border-top: 1px solid var(--line);
+  background: var(--ink-1);
+}
+
+.stage-context h1 {
+  max-width: 760px;
+  font-family: var(--font-display);
+  font-size: clamp(20px, 2vw, 28px);
+  font-weight: 600;
+  line-height: 1.18;
+  letter-spacing: -0.035em;
+  color: var(--text);
+}
+
+.stage-context-facts {
+  display: grid;
+  gap: 6px;
+  flex: 0 0 auto;
+  color: var(--text-2);
+  font-size: 12px;
+  text-align: right;
+  text-transform: capitalize;
+}
+
+.stage-context-facts strong { color: var(--flood); }
 
 .stage-kicker {
   display: inline-flex;
@@ -62,73 +94,6 @@
   font-size: 12px;
   color: var(--flood);
   text-transform: capitalize;
-}
-
-.stage-headline h1 {
-  font-family: var(--font-display);
-  font-weight: 400;
-  font-size: clamp(26px, 2.8vw, 40px);
-  line-height: 1.02;
-  letter-spacing: -0.015em;
-  color: var(--text);
-  text-shadow: 0 8px 28px rgba(0, 0, 0, 0.85);
-}
-
-.stage-readouts {
-  position: absolute;
-  left: 22px;
-  right: 22px;
-  bottom: 18px;
-  z-index: 2;
-  display: flex;
-  align-items: flex-end;
-  justify-content: space-between;
-  gap: 16px;
-  pointer-events: none;
-}
-
-.stage-readouts > div {
-  padding: 10px 14px;
-  border-radius: var(--r-md);
-  background: rgba(8, 10, 16, 0.75);
-  border: 1px solid var(--line);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
-  display: grid;
-  gap: 3px;
-  min-width: 140px;
-}
-
-.stage-readouts span {
-  font-size: 11px;
-  color: var(--text-3);
-}
-
-.stage-readouts b {
-  font-size: 20px;
-  font-weight: 620;
-  line-height: 1.1;
-}
-
-.stage-readouts small {
-  font-size: 11.5px;
-  color: var(--text-2);
-  text-transform: capitalize;
-}
-
-.meter {
-  display: block;
-  height: 3px;
-  border-radius: 3px;
-  background: rgba(255, 255, 255, 0.1);
-  overflow: hidden;
-  margin-top: 3px;
-}
-
-.meter b {
-  display: block;
-  height: 100%;
-  background: var(--grad-signal);
 }
 
 /* ---------------------------------------------------------------- MomentTimeline */
@@ -543,7 +508,17 @@
 @media (max-width: 720px) {
   .stage-headline {
     right: 22px;
-    top: 58px;
+    top: 62px;
+  }
+  .stage-context {
+    display: block;
+    padding: 16px;
+  }
+  .stage-context-facts {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 12px;
+    text-align: left;
   }
   .moment-timeline {
     grid-template-columns: auto 1fr;
