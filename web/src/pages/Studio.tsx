@@ -12,7 +12,7 @@ import {
   Stop,
   X,
 } from "@phosphor-icons/react";
-import { useCallback, useEffect, useRef, useState, type CSSProperties } from "react";
+import { useCallback, useEffect, useMemo, useRef, useState, type CSSProperties } from "react";
 import { Link } from "react-router-dom";
 import { api } from "../api";
 import AgentGraphVisualizer from "../components/AgentGraphVisualizer";
@@ -23,7 +23,8 @@ import OverlayCueView from "../components/OverlayCueView";
 import ShareCardModal from "../components/ShareCardModal";
 import { eventIndex, useMatchExperience } from "../hooks/useMatchExperience";
 import { formatClock } from "../lib";
-import type { InsightResult, OverlayVariant } from "../types";
+import { displayPlayerIds, momentPlayerLabels } from "../lib/playerDisplay";
+import type { InsightResult, OverlayVariant, Team } from "../types";
 
 const OVERLAYS: { id: OverlayVariant; label: string; name: string }[] = [
   { id: "lower_third", label: "L3", name: "Lower third" },
@@ -138,6 +139,11 @@ export default function Studio() {
   const momentById = new Map(moments.map((moment) => [moment.moment_id, moment]));
   const maxCursor = Math.max(1, events.length - 1);
   const fillPct = `${(cursor / maxCursor) * 100}%`;
+  const teams = [home, away].filter((team): team is Team => Boolean(team));
+  const narrative = `${insight?.insight?.headline ?? selectedMoment?.headline ?? ""} ${insight?.insight?.why_it_matters ?? ""}`;
+  const playerLabels = useMemo(() => momentPlayerLabels(events, selectedMoment, narrative), [events, selectedMoment, narrative]);
+  const rundownLabels = useMemo(() => new Map(moments.map((moment) => [moment.moment_id, momentPlayerLabels(events, moment, moment.headline)])), [events, moments]);
+  const readable = (text: string) => displayPlayerIds(text, playerLabels, teams);
 
   const scorebug = {
     home: home?.short_name ?? "NHR",
@@ -265,11 +271,11 @@ export default function Studio() {
                 >
                   <span className="rundown-rank mono">{String(entry.rank).padStart(2, "0")}</span>
                   <span className="rundown-copy">
-                    <strong>{moment.headline}</strong>
+                    <strong>{displayPlayerIds(moment.headline, rundownLabels.get(moment.moment_id) ?? playerLabels, teams)}</strong>
                     <small className="mono">
                       {formatClock(moment.clock)} · {moment.type.replaceAll("_", " ")}
                     </small>
-                    <em>{entry.reason}</em>
+                    <em>{displayPlayerIds(entry.reason, rundownLabels.get(moment.moment_id) ?? playerLabels, teams)}</em>
                   </span>
                   <span className={`rundown-state ${entry.action}`}>{entry.action}</span>
                 </button>
@@ -307,6 +313,8 @@ export default function Studio() {
               moment={selectedMoment}
               events={events}
               scorebug={scorebug}
+              homeTeam={home}
+              awayTeam={away}
               compact
             />
             {!cueVisible && (
@@ -384,9 +392,9 @@ export default function Studio() {
               {selectedMoment ? formatClock(selectedMoment.clock) : "--'--"} · selected moment
             </span>
             <h2 className="insight-headline display">
-              {insight?.insight?.headline ?? selectedMoment?.headline ?? "Select a moment"}
+              {readable(insight?.insight?.headline ?? selectedMoment?.headline ?? "Select a moment")}
             </h2>
-            <p>{insight?.decision.reason ?? "The Director will explain why this moment should air or wait."}</p>
+            <p>{readable(insight?.decision.reason ?? "The Director will explain why this moment should air or wait.")}</p>
             {insight?.decision.air_at && (
               <div className="air-slot">
                 <Broadcast size={15} weight="bold" />

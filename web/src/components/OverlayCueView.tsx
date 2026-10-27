@@ -1,8 +1,9 @@
 import { CheckCircle } from "@phosphor-icons/react";
 import { AnimatePresence, motion } from "motion/react";
-import { useLayoutEffect, useRef, useState, type ReactNode } from "react";
+import { useLayoutEffect, useMemo, useRef, useState, type ReactNode } from "react";
 import { clamp, formatClock } from "../lib";
-import type { Event, FeatureSnapshot, Moment, OverlayCue, OverlayVariant } from "../types";
+import { displayPlayer, displayPlayerIds, momentPlayerLabels } from "../lib/playerDisplay";
+import type { Event, FeatureSnapshot, Moment, OverlayCue, OverlayVariant, Team } from "../types";
 import { BrandMark } from "./Brand";
 
 const EASE = [0.16, 1, 0.3, 1] as const;
@@ -324,6 +325,8 @@ export default function OverlayCueView({
   moment = null,
   events = [],
   scorebug,
+  homeTeam,
+  awayTeam,
 }: {
   cue: OverlayCue | null;
   guides?: boolean;
@@ -333,7 +336,30 @@ export default function OverlayCueView({
   moment?: Moment | null;
   events?: Event[];
   scorebug?: ScorebugInfo | null;
+  homeTeam?: Team | null;
+  awayTeam?: Team | null;
 }) {
+  const publicCue = useMemo(() => {
+    if (!cue) return null;
+    const labels = momentPlayerLabels(events, moment, `${cue.payload.headline ?? ""} ${cue.payload.subline ?? ""}`);
+    const teams = [homeTeam, awayTeam].filter((team): team is Team => Boolean(team));
+    const readable = (text: string) => displayPlayerIds(text, labels, teams);
+    const anchor = events.find((event) => event.event_id === moment?.event_id);
+    const shortLineBreak = variant === "lower_third" && moment?.type === "line_break"
+      && /press/i.test(cue.payload.headline ?? "") && anchor?.player_id && anchor.recipient_id;
+    return {
+      ...cue,
+      payload: {
+        ...cue.payload,
+        eyebrow: readable(cue.payload.eyebrow ?? ""),
+        headline: shortLineBreak
+          ? `${displayPlayer(anchor.player_id, labels)} beats the press → ${displayPlayer(anchor.recipient_id, labels)}`
+          : readable(cue.payload.headline ?? ""),
+        subline: readable(cue.payload.subline ?? ""),
+      },
+    };
+  }, [cue, events, moment, variant, homeTeam, awayTeam]);
+
   return (
     <BroadcastCanvas className={compact ? "compact" : ""}>
       {guides && (
@@ -344,17 +370,17 @@ export default function OverlayCueView({
       )}
       {scorebug && <Scorebug info={scorebug} />}
       <AnimatePresence mode="wait">
-        {!cue ? (
+        {!publicCue ? (
           <motion.div key="waiting" className="overlay-waiting" initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0 }} transition={{ duration: 0.5, ease: EASE }}>
             <BrandMark size={24} /> <span>MatchMind</span> <i className="l3-live" /> Waiting for a verified insight
           </motion.div>
         ) : (
-          <div key={`${variant}-${cue.cue_id}`} className={`ov-slot slot-${variant}`}>
-            {variant === "stat_card" && <StatCard cue={cue} features={features} moment={moment} />}
-            {variant === "momentum" && <Momentum cue={cue} features={features} moment={moment} />}
+          <div key={`${variant}-${publicCue.cue_id}`} className={`ov-slot slot-${variant}`}>
+            {variant === "stat_card" && <StatCard cue={publicCue} features={features} moment={moment} />}
+            {variant === "momentum" && <Momentum cue={publicCue} features={features} moment={moment} />}
             {variant === "speed_alert" && <SpeedAlert features={features} />}
-            {variant === "pressure_map" && <PressureMap cue={cue} features={features} moment={moment} events={events} />}
-            {variant === "lower_third" && <LowerThird cue={cue} moment={moment} />}
+            {variant === "pressure_map" && <PressureMap cue={publicCue} features={features} moment={moment} events={events} />}
+            {variant === "lower_third" && <LowerThird cue={publicCue} moment={moment} />}
           </div>
         )}
       </AnimatePresence>

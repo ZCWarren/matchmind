@@ -173,6 +173,8 @@ export default function Overlay() {
           moment={moment}
           events={events}
           scorebug={preview ? scorebug : null}
+          homeTeam={home}
+          awayTeam={away}
         />
       </div>
     </div>
