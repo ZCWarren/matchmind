@@ -9,11 +9,12 @@ import { EASE } from "../components/fx";
 import HallucinationLab from "../components/HallucinationLab";
 import MomentTimeline from "../components/moment/MomentTimeline";
 import SceneLoader from "../components/moment/SceneLoader";
+import PlayerText from "../components/PlayerText";
 import ShareCardModal from "../components/ShareCardModal";
 import TacticalCopilot from "../components/TacticalCopilot";
 import { useMatchExperience } from "../hooks/useMatchExperience";
 import { formatClock, metricNumber } from "../lib";
-import { displayPlayer, displayPlayerIds, momentPlayerLabels } from "../lib/playerDisplay";
+import { displayPlayer, momentPlayerLabels } from "../lib/playerDisplay";
 import type { Language, Profile } from "../types";
 
 type ViewMode = "events" | "structure" | "evidence" | "audiences";
@@ -53,7 +54,6 @@ export default function MomentFocus() {
   const pressure = currentEvent?.pressure ?? 0;
   const narrative = `${insight?.insight?.headline ?? selectedMoment?.headline ?? ""} ${insight?.insight?.why_it_matters ?? ""}`;
   const playerLabels = useMemo(() => momentPlayerLabels(events, selectedMoment, narrative), [events, selectedMoment, narrative]);
-  const readable = (text: string) => displayPlayerIds(text, playerLabels, [home, away].filter((team): team is NonNullable<typeof team> => Boolean(team)));
 
   return (
     <main className="moment-page app-page">
@@ -90,9 +90,9 @@ export default function MomentFocus() {
             </div>
           </div>
           <div className="stage-context">
-            <h1>{readable(insight?.insight?.headline ?? selectedMoment?.headline ?? "Revealing the match")}</h1>
+            <h1><PlayerText text={insight?.insight?.headline ?? selectedMoment?.headline ?? "Revealing the match"} labels={playerLabels} home={home} away={away} /></h1>
             <div className="stage-context-facts">
-              <span>{displayPlayer(currentEvent?.player_id, playerLabels)} · {currentEvent?.type.replaceAll("_", " ") ?? "play"}</span>
+              <span><PlayerText text={displayPlayer(currentEvent?.player_id, playerLabels)} labels={playerLabels} home={home} away={away} /> · {currentEvent?.type.replaceAll("_", " ") ?? "play"}</span>
               <span>Pressure <strong className="mono">{currentEvent ? pressure.toFixed(2) : "--"}</strong></span>
             </div>
           </div>
@@ -148,7 +148,7 @@ export default function MomentFocus() {
                 {view === "structure" && (
                   <>
                     <h2 className="inspector-title">What the score can't show</h2>
-                    <p className="inspector-intro">{readable(insight?.insight?.why_it_matters ?? "Move through the event stream to reveal pressure, passing lanes and territorial threat.")}</p>
+                    <p className="inspector-intro"><PlayerText text={insight?.insight?.why_it_matters ?? "Move through the event stream to reveal pressure, passing lanes and territorial threat."} labels={playerLabels} home={home} away={away} /></p>
                     <div className="structure-metrics">
                       {["event_pressure", "xt_delta", "difficulty", "event_speed"].map((name) => {
                         const metric = metrics[name] ?? features?.metrics[name];
@@ -182,7 +182,7 @@ export default function MomentFocus() {
                       {insight?.insight?.claims.map((claim, index) => (
                         <button key={`${claim.text}-${index}`} type="button" className={selectedClaim === index ? "active" : ""} onClick={() => { setSelectedClaim(index); if (claim.event_ids[0]) seekEvent(claim.event_ids[0]); }}>
                           <span className="claim-n mono">Claim {index + 1} · {Math.round(claim.confidence * 100)}%</span>
-                          <strong>{readable(claim.text)}</strong>
+                          <strong><PlayerText text={claim.text} labels={playerLabels} home={home} away={away} /></strong>
                           <span className="claim-refs">
                             {claim.event_ids.slice(0, 3).map((id) => <code key={id}>{id}</code>)}
                             {claim.metric_refs.slice(0, 2).map((ref) => <code key={ref.name} className="metric">{ref.name} {ref.value}</code>)}

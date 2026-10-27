@@ -555,6 +555,40 @@ input[type="range"]::-moz-range-thumb {
   box-shadow: none;
 }
 
+.player-token {
+  font-weight: 700;
+  white-space: nowrap;
+}
+
+.player-token::before,
+.match-scene-focus .scene-tag::before {
+  content: "";
+  display: inline-block;
+  width: 0.2em;
+  height: 0.2em;
+  margin-right: 0.16em;
+  border-radius: 50%;
+  background: currentColor;
+  vertical-align: 0.16em;
+}
+
+.player-token.home { color: #126f95; }
+.player-token.away { color: #bb4d38; }
+.scoreline .team.home, .sb-team.home { color: #126f95; }
+.scoreline .team.away, .sb-team.away { color: #bb4d38; }
+
+.match-scene-focus .scene-tag[data-team="home"] {
+  color: #126f95;
+  background: #e7f5fa;
+  border-color: rgba(18, 111, 149, 0.42);
+}
+
+.match-scene-focus .scene-tag[data-team="away"] {
+  color: #bb4d38;
+  background: #fff0eb;
+  border-color: rgba(187, 77, 56, 0.42);
+}
+
 .program-bg {
   opacity: 0.9;
 }

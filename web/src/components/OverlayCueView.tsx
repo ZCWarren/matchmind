@@ -5,6 +5,7 @@ import { clamp, formatClock } from "../lib";
 import { displayPlayer, displayPlayerIds, momentPlayerLabels } from "../lib/playerDisplay";
 import type { Event, FeatureSnapshot, Moment, OverlayCue, OverlayVariant, Team } from "../types";
 import { BrandMark } from "./Brand";
+import PlayerText from "./PlayerText";
 
 const EASE = [0.16, 1, 0.3, 1] as const;
 
@@ -69,7 +70,9 @@ function Brandline() {
 
 /* ------------------------------------------------------------------ lower third */
 
-function LowerThird({ cue, moment }: { cue: OverlayCue; moment?: Moment | null }) {
+type PlayerColors = { labels: Record<string, string>; homeTeam?: Team | null; awayTeam?: Team | null };
+
+function LowerThird({ cue, moment, labels, homeTeam, awayTeam }: { cue: OverlayCue; moment?: Moment | null } & PlayerColors) {
   const { eyebrow, headline, stat, subline } = cue.payload;
   const [statMain, ...statRest] = stat.split("·");
   return (
@@ -82,15 +85,15 @@ function LowerThird({ cue, moment }: { cue: OverlayCue; moment?: Moment | null }
     >
       <div className="l3-top">
         <motion.span className="l3-eyebrow" {...rise(0.25)}>
-          <i className="l3-live" /> {eyebrow ?? (moment ? formatClock(moment.clock) : "Match intelligence")}
+          <i className="l3-live" /> <PlayerText text={eyebrow ?? (moment ? formatClock(moment.clock) : "Match intelligence")} labels={labels} home={homeTeam} away={awayTeam} />
         </motion.span>
         <motion.span {...rise(0.35)}><Tag>Evidence verified</Tag></motion.span>
       </div>
       <div className="l3-main">
         <motion.i className="l3-accent" initial={{ scaleY: 0 }} animate={{ scaleY: 1 }} transition={{ duration: 0.7, ease: EASE, delay: 0.3 }} />
         <div className="l3-body">
-          <motion.h2 className="cue-headline" {...rise(0.38)}>{headline}</motion.h2>
-          <motion.p className="cue-subline" {...rise(0.5)}>{subline}</motion.p>
+          <motion.h2 className="cue-headline" {...rise(0.38)}><PlayerText text={headline} labels={labels} home={homeTeam} away={awayTeam} /></motion.h2>
+          <motion.p className="cue-subline" {...rise(0.5)}><PlayerText text={subline} labels={labels} home={homeTeam} away={awayTeam} /></motion.p>
         </div>
         <motion.div className="l3-stat cue-stat" {...rise(0.6)}>
           <strong>{statMain?.trim() ?? stat}</strong>
@@ -108,7 +111,7 @@ function LowerThird({ cue, moment }: { cue: OverlayCue; moment?: Moment | null }
 
 /* ------------------------------------------------------------------ stat card */
 
-function StatCard({ cue, features, moment }: { cue: OverlayCue; features?: FeatureSnapshot | null; moment?: Moment | null }) {
+function StatCard({ cue, features, moment, labels, homeTeam, awayTeam }: { cue: OverlayCue; features?: FeatureSnapshot | null; moment?: Moment | null } & PlayerColors) {
   const { eyebrow, headline, subline } = cue.payload;
   const xgHome = metric(features, "xg_home");
   const xgAway = metric(features, "xg_away");
@@ -123,10 +126,10 @@ function StatCard({ cue, features, moment }: { cue: OverlayCue; features?: Featu
   return (
     <motion.div className="overlay-variant stat-card ov-plate" role="status" aria-live="polite" {...plateIn} transition={{ duration: 0.28, ease: EASE }}>
       <div className="sc-head">
-        <motion.span className="l3-eyebrow" {...rise(0.2)}><i className="l3-live" /> {eyebrow ?? "Moment snapshot"}</motion.span>
+        <motion.span className="l3-eyebrow" {...rise(0.2)}><i className="l3-live" /> <PlayerText text={eyebrow ?? "Moment snapshot"} labels={labels} home={homeTeam} away={awayTeam} /></motion.span>
         <motion.span className="sc-clock" {...rise(0.25)}>{moment ? formatClock(moment.clock) : "LIVE"}</motion.span>
       </div>
-      <motion.h2 {...rise(0.3)}>{headline}</motion.h2>
+      <motion.h2 {...rise(0.3)}><PlayerText text={headline} labels={labels} home={homeTeam} away={awayTeam} /></motion.h2>
       <div className="sc-hero">
         <motion.div {...rise(0.4)}>
           <span>Pressure beaten</span>
@@ -150,7 +153,7 @@ function StatCard({ cue, features, moment }: { cue: OverlayCue; features?: Featu
           </motion.div>
         );
       })}
-      <motion.p className="sc-sub" {...rise(0.75)}>{subline}</motion.p>
+      <motion.p className="sc-sub" {...rise(0.75)}><PlayerText text={subline} labels={labels} home={homeTeam} away={awayTeam} /></motion.p>
       <div className="l3-foot"><Brandline /><Tag>Verified</Tag></div>
       <span className="ov-shine" aria-hidden="true" />
     </motion.div>
@@ -159,7 +162,7 @@ function StatCard({ cue, features, moment }: { cue: OverlayCue; features?: Featu
 
 /* ------------------------------------------------------------------ momentum */
 
-function Momentum({ cue, features, moment }: { cue: OverlayCue; features?: FeatureSnapshot | null; moment?: Moment | null }) {
+function Momentum({ cue, features, moment, labels, homeTeam, awayTeam }: { cue: OverlayCue; features?: FeatureSnapshot | null; moment?: Moment | null } & PlayerColors) {
   const home = metric(features, "control_home") ?? 0.5;
   const away = metric(features, "control_away") ?? 0.5;
   const total = home + away || 1;
@@ -175,7 +178,7 @@ function Momentum({ cue, features, moment }: { cue: OverlayCue; features?: Featu
         <motion.span className="sc-clock" {...rise(0.25)}>{moment ? formatClock(moment.clock) : "LIVE"}</motion.span>
       </div>
       <div className="mo-title">
-        <motion.h2 {...rise(0.3)}>{cue.payload.headline}</motion.h2>
+        <motion.h2 {...rise(0.3)}><PlayerText text={cue.payload.headline} labels={labels} home={homeTeam} away={awayTeam} /></motion.h2>
         <motion.b className={momentum >= 0 ? "ice" : "sig"} {...rise(0.4)}>{momentum >= 0 ? homeCode : awayCode} {momentum >= 0 ? "+" : ""}{momentum.toFixed(2)}</motion.b>
       </div>
       <motion.div className="mo-bar" {...rise(0.45)}>
@@ -243,7 +246,7 @@ function SpeedAlert({ features }: { features?: FeatureSnapshot | null }) {
 
 /* ------------------------------------------------------------------ pressure map */
 
-function PressureMap({ cue, features, moment, events }: { cue: OverlayCue; features?: FeatureSnapshot | null; moment?: Moment | null; events?: Event[] }) {
+function PressureMap({ cue, features, moment, events, labels, homeTeam, awayTeam }: { cue: OverlayCue; features?: FeatureSnapshot | null; moment?: Moment | null; events?: Event[] } & PlayerColors) {
   const index = events?.findIndex((event) => event.event_id === moment?.event_id) ?? -1;
   const windowEvents = index >= 0 ? (events ?? []).slice(Math.max(0, index - 30), index + 1) : [];
   const passes = windowEvents.filter((event) => event.end_location).slice(-14);
@@ -256,7 +259,7 @@ function PressureMap({ cue, features, moment, events }: { cue: OverlayCue; featu
         <motion.span className="l3-eyebrow" {...rise(0.2)}><i className="l3-live" /> Pressure map</motion.span>
         <motion.span className="sc-clock" {...rise(0.25)}>{moment ? formatClock(moment.clock) : "LIVE"}</motion.span>
       </div>
-      <motion.h2 {...rise(0.3)}>{cue.payload.headline}</motion.h2>
+      <motion.h2 {...rise(0.3)}><PlayerText text={cue.payload.headline} labels={labels} home={homeTeam} away={awayTeam} /></motion.h2>
       <motion.svg className="pressure-svg" viewBox="0 0 100 64" role="img" aria-label="Pressure map" {...rise(0.4)}>
         <defs>
           <radialGradient id="pm-heat">
@@ -339,9 +342,9 @@ export default function OverlayCueView({
   homeTeam?: Team | null;
   awayTeam?: Team | null;
 }) {
+  const labels = useMemo(() => momentPlayerLabels(events, moment, `${cue?.payload.headline ?? ""} ${cue?.payload.subline ?? ""}`), [cue, events, moment]);
   const publicCue = useMemo(() => {
     if (!cue) return null;
-    const labels = momentPlayerLabels(events, moment, `${cue.payload.headline ?? ""} ${cue.payload.subline ?? ""}`);
     const teams = [homeTeam, awayTeam].filter((team): team is Team => Boolean(team));
     const readable = (text: string) => displayPlayerIds(text, labels, teams);
     const anchor = events.find((event) => event.event_id === moment?.event_id);
@@ -358,7 +361,9 @@ export default function OverlayCueView({
         subline: readable(cue.payload.subline ?? ""),
       },
     };
-  }, [cue, events, moment, variant, homeTeam, awayTeam]);
+  }, [cue, events, moment, variant, homeTeam, awayTeam, labels]);
+
+  const playerColors = { labels, homeTeam, awayTeam };
 
   return (
     <BroadcastCanvas className={compact ? "compact" : ""}>
@@ -376,11 +381,11 @@ export default function OverlayCueView({
           </motion.div>
         ) : (
           <div key={`${variant}-${publicCue.cue_id}`} className={`ov-slot slot-${variant}`}>
-            {variant === "stat_card" && <StatCard cue={publicCue} features={features} moment={moment} />}
-            {variant === "momentum" && <Momentum cue={publicCue} features={features} moment={moment} />}
+            {variant === "stat_card" && <StatCard cue={publicCue} features={features} moment={moment} {...playerColors} />}
+            {variant === "momentum" && <Momentum cue={publicCue} features={features} moment={moment} {...playerColors} />}
             {variant === "speed_alert" && <SpeedAlert features={features} />}
-            {variant === "pressure_map" && <PressureMap cue={publicCue} features={features} moment={moment} events={events} />}
-            {variant === "lower_third" && <LowerThird cue={publicCue} moment={moment} />}
+            {variant === "pressure_map" && <PressureMap cue={publicCue} features={features} moment={moment} events={events} {...playerColors} />}
+            {variant === "lower_third" && <LowerThird cue={publicCue} moment={moment} {...playerColors} />}
           </div>
         )}
       </AnimatePresence>
