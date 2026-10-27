@@ -29,7 +29,7 @@ export function eventIndex(events: Event[], eventId?: string): number {
   return index < 0 ? Math.max(0, events.length - 1) : index;
 }
 
-export function useMatchExperience() {
+export function useMatchExperience(initialSpeed = 10) {
   const [params, setParams] = useSearchParams();
   const [matchId, setMatchIdState] = useState(params.get("match") ?? HERO_MATCH);
   const [matches, setMatches] = useState<MatchSummary[]>([]);
@@ -42,7 +42,7 @@ export function useMatchExperience() {
   const [blackboard, setBlackboard] = useState<MatchBlackboardState | null>(null);
   const [cursor, setCursor] = useState(0);
   const [playing, setPlaying] = useState(false);
-  const [speed, setSpeed] = useState(10);
+  const [speed, setSpeed] = useState(initialSpeed);
   const [loading, setLoading] = useState(true);
   const [generating, setGenerating] = useState(false);
   const [allowLive, setAllowLive] = useState(false);
@@ -148,7 +148,7 @@ export function useMatchExperience() {
 
   useEffect(() => {
     if (!playing || events.length === 0) return;
-    const delay = speed === 1 ? 850 : speed === 10 ? 120 : 36;
+    const delay = speed === 0.5 ? 1700 : speed === 1 ? 850 : speed === 2 ? 425 : speed === 10 ? 120 : 36;
     const timer = window.setInterval(() => {
       setCursor((current) => Math.min(current + 1, events.length - 1));
     }, delay);

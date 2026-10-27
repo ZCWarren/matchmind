@@ -108,6 +108,39 @@
   background: rgba(10, 12, 20, 0.75);
 }
 
+.moment-playback-controls {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.moment-speed {
+  display: inline-flex;
+  align-items: center;
+  gap: 2px;
+  padding: 3px;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  background: var(--ink-1);
+}
+
+.moment-speed button {
+  min-width: 36px;
+  height: 30px;
+  padding: 0 5px;
+  border-radius: 999px;
+  color: var(--text-2);
+  font-family: var(--font-mono);
+  font-size: 11px;
+  font-weight: 650;
+}
+
+.moment-speed button:hover { color: var(--text); }
+.moment-speed button.active {
+  color: #fff;
+  background: var(--flood);
+}
+
 .play-button {
   display: grid;
   place-items: center;
