@@ -1,5 +1,6 @@
 import React from "react";
 import { AbsoluteFill, useCurrentFrame, useVideoConfig } from "remotion";
+import { ProductPreview } from "../components/ProductPreview";
 import {
   Eyebrow,
   FloodBackdrop,
@@ -9,7 +10,7 @@ import {
   TopChrome,
 } from "../components/ui";
 import { blendPose, orbit, project } from "../lib/camera";
-import { AGENTS, cue } from "../lib/data";
+import { AGENTS, displayPlayer, FACTS } from "../lib/data";
 import {
   LINE_CROSS,
   T_PASS,
@@ -79,8 +80,8 @@ export const TeaserPassScene: React.FC = () => {
 
       {/* 3D Pinned Player Pills */}
       {[
-        { id: "NHR-08", sub: "0.82 PRESS", color: C.ice, proj: proj08 },
-        { id: "NHR-14", sub: "33.4 km/h", color: C.flood, proj: proj14 },
+        { id: "NHR-08", color: C.ice, proj: proj08 },
+        { id: "NHR-14", color: C.ice, proj: proj14 },
       ].map((tag) =>
         tag.proj.visible ? (
           <div
@@ -100,7 +101,7 @@ export const TeaserPassScene: React.FC = () => {
               pointerEvents: "none",
             }}
           >
-            <span style={{ color: tag.color, fontWeight: 600 }}>{tag.id}</span> · {tag.sub}
+            <span style={{ color: C.text, fontWeight: 600 }}>{displayPlayer(tag.id)}</span>
           </div>
         ) : null,
       )}
@@ -156,10 +157,6 @@ export const TeaserPassScene: React.FC = () => {
               24.6 <span style={{ fontFamily: FONT.serif, fontStyle: "italic", fontSize: 58, color: C.ice }}>m</span>
             </div>
           </div>
-          <div style={{ textAlign: "right" }}>
-            <div style={{ fontFamily: FONT.mono, fontSize: 13, color: C.flood }}>DIFFICULTY</div>
-            <div style={{ fontFamily: FONT.mono, fontSize: 48, fontWeight: 700, color: C.flood }}>8.7</div>
-          </div>
         </div>
 
         <div
@@ -168,7 +165,7 @@ export const TeaserPassScene: React.FC = () => {
             paddingTop: 20,
             borderTop: `1px solid ${C.line}`,
             display: "grid",
-            gridTemplateColumns: "repeat(3, 1fr)",
+            gridTemplateColumns: "repeat(2, 1fr)",
             gap: 16,
           }}
         >
@@ -182,12 +179,6 @@ export const TeaserPassScene: React.FC = () => {
             <div style={{ fontFamily: FONT.mono, fontSize: 12, color: C.text3 }}>xT ADDED</div>
             <div style={{ fontFamily: FONT.mono, fontSize: 28, fontWeight: 700, color: C.ice, marginTop: 4 }}>
               +0.174
-            </div>
-          </div>
-          <div>
-            <div style={{ fontFamily: FONT.mono, fontSize: 12, color: C.text3 }}>SPRINT</div>
-            <div style={{ fontFamily: FONT.mono, fontSize: 28, fontWeight: 700, color: C.flood, marginTop: 4 }}>
-              33.4 <span style={{ fontSize: 14 }}>km/h</span>
             </div>
           </div>
         </div>
@@ -222,9 +213,9 @@ export const TeaserGateScene: React.FC = () => {
             color: C.text,
           }}
         >
-          Not just a claim.
+          Every claim.
           <br />
-          <SerifSpan gradient="flood">A verified call.</SerifSpan>
+          <SerifSpan gradient="flood">Verified.</SerifSpan>
         </div>
       </div>
 
@@ -318,10 +309,7 @@ export const TeaserGateScene: React.FC = () => {
             color: C.text,
           }}
         >
-          “NHR-08 escapes ORN&apos;s press trap at <span style={{ color: C.flood }}>72:12</span> — threading a{" "}
-          <span style={{ color: C.ice }}>24.6 m</span> pass under{" "}
-          <span style={{ color: C.signal }}>0.82 pressure</span> for{" "}
-          <span style={{ color: C.verify }}>+0.1736 xT</span>.”
+          “{displayPlayer(FACTS.passer)} releases {displayPlayer(FACTS.receiver)} beyond the press.”
         </div>
         <div style={{ display: "flex", flexWrap: "wrap", gap: 10, marginTop: 18 }}>
           {[
@@ -422,7 +410,6 @@ export const TeaserSurfacesScene: React.FC = () => {
       </div>
 
       <TiltScreen
-        src="screens/studio.png"
         label="MatchMind Studio · Control Room"
         url="matchmind/#/studio"
         accent={C.signal}
@@ -437,10 +424,11 @@ export const TeaserSurfacesScene: React.FC = () => {
           top: 410,
           zIndex: 10,
         }}
-      />
+      >
+        <ProductPreview variant="studio" />
+      </TiltScreen>
 
       <TiltScreen
-        src="screens/overlay.png"
         label="Broadcast Lower-Third Cue"
         url="matchmind/#/overlay"
         accent={C.flood}
@@ -455,7 +443,9 @@ export const TeaserSurfacesScene: React.FC = () => {
           bottom: 250,
           zIndex: 15,
         }}
-      />
+      >
+        <ProductPreview variant="overlay" />
+      </TiltScreen>
 
       {/* Bottom Live Cue Strip */}
       <GlassCard
@@ -477,7 +467,7 @@ export const TeaserSurfacesScene: React.FC = () => {
           <span style={{ fontFamily: FONT.mono, fontSize: 12, color: C.flood }}>73:32</span>
         </div>
         <div style={{ fontFamily: FONT.sans, fontSize: 24, fontWeight: 700, color: C.text, marginTop: 6 }}>
-          {cue.headline}
+          One verified moment, ready for air
         </div>
       </GlassCard>
     </AbsoluteFill>

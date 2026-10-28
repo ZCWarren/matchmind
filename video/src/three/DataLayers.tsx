@@ -54,7 +54,7 @@ export const Ball = ({ t, frame, opacity = 1 }: { t: number; frame: number; opac
   const trailGeo = useMemo(() => new THREE.TubeGeometry(PASS_CURVE, 120, 0.09, 8, false), []);
   const pos = ballAt(t);
   const p = passProgress(t);
-  glow.opacity = 0.2 * opacity;
+  glow.opacity = 0.08 * opacity;
   trail.uniforms.uProgress.value = p;
   trail.uniforms.uTail.value = 0.28;
   trail.uniforms.uDash.value = 0;
@@ -63,10 +63,10 @@ export const Ball = ({ t, frame, opacity = 1 }: { t: number; frame: number; opac
   return (
     <group>
       <mesh position={pos} castShadow>
-        <sphereGeometry args={[0.24, 32, 24]} />
-        <meshStandardMaterial color="#FFFFFF" roughness={0.5} />
+        <sphereGeometry args={[0.24, 24, 16]} />
+        <meshStandardMaterial color="#F8F8F2" roughness={0.64} />
       </mesh>
-      <sprite position={pos} scale={[2.6, 2.6, 2.6]} material={glow} />
+      <sprite position={pos} scale={[1.8, 1.8, 1.8]} material={glow} />
       <mesh geometry={trailGeo} material={trail} />
     </group>
   );

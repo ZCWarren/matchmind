@@ -26,16 +26,68 @@ OUT = ROOT / "video/out"
 WEB = ROOT / "web/public"
 
 SCENES = [
-    ("storm", 0, 8, "1,275 events. One scoreline. Almost no explanation."),
-    ("reveal", 8, 19, "See the pressure and structure beneath the score."),
-    ("pass", 19, 29, "Twenty four point six metres through point eight two pressure."),
-    ("agents", 29, 38, "Five agents work behind the scenes, so every insight earns your trust."),
-    ("revision", 38, 47, "One revision. Verification again."),
-    ("evidence", 47, 55, "Models explain. The verifier decides."),
-    ("director", 55, 63, "The Director schedules. A human decides."),
-    ("product", 63, 73, "From verified insight to airtime."),
-    ("audiences", 73, 82, "One moment. Every audience."),
-    ("outro", 82, 90, "MatchMind. See the game beneath the game."),
+    (
+        "storm",
+        0,
+        8,
+        "A scoreline records the result, but hides the pressure and decisions that produced it.",
+    ),
+    (
+        "reveal",
+        8,
+        19,
+        "MatchMind connects each event, revealing how pressure opens space for the next action.",
+    ),
+    (
+        "pass",
+        19,
+        29,
+        "Pressure closes around p eight. p twelve attacks the space behind it, "
+        "turning one pass into a line break.",
+    ),
+    (
+        "agents",
+        29,
+        38,
+        "Specialist agents share one evidence trail, separating pattern discovery "
+        "from the story each audience receives.",
+    ),
+    (
+        "revision",
+        38,
+        47,
+        "When a claim outruns the evidence, the checker rejects it "
+        "and allows one bounded correction.",
+    ),
+    (
+        "evidence",
+        47,
+        55,
+        "Only claims tied to source events and verified metrics "
+        "survive the deterministic release gate.",
+    ),
+    (
+        "director",
+        55,
+        63,
+        "The Director ranks verified moments for the next stoppage; "
+        "the producer retains the final call.",
+    ),
+    (
+        "product",
+        63,
+        73,
+        "That approval carries the same moment from tactical replay "
+        "into a ready-to-air broadcast cue.",
+    ),
+    (
+        "audiences",
+        73,
+        82,
+        "One verified evidence bundle adapts the conclusion for analysts, "
+        "supporters, and players without changing the facts.",
+    ),
+    ("outro", 82, 90, "MatchMind turns match data into explanations you can trust."),
 ]
 
 

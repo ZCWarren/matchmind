@@ -20,7 +20,7 @@ export default function PlayerText({
     id.startsWith(`${home?.team_id}-`) ? "home" : id.startsWith(`${away?.team_id}-`) ? "away" : "",
   ]));
 
-  return <>{readable.split(/(Player \d+)/g).map((part, index) => {
+  return <>{readable.split(/(\bp\d+\b)/g).map((part, index) => {
     const team = aliasTeams.get(part);
     return team ? <span className={`player-token ${team}`} key={index}>{part}</span> : part;
   })}</>;

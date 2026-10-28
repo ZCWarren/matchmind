@@ -47,7 +47,7 @@
 
 .about-metrics {
   display: grid;
-  grid-template-columns: repeat(6, 1fr);
+  grid-template-columns: repeat(3, 1fr);
   padding: 24px 12px;
 }
 
@@ -91,10 +91,14 @@
 
 @media (max-width: 540px) {
   .about-metrics {
-    grid-template-columns: repeat(2, 1fr);
+    gap: 0;
+    padding: 18px 4px;
   }
   .about-metric-cell {
-    border-right: 0;
+    padding: 6px 8px;
+  }
+  .about-metric-cell span {
+    font-size: 11.5px;
   }
 }
 
@@ -132,6 +136,7 @@
 
 .about-card {
   height: 100%;
+  min-width: 0;
   padding: 28px;
   display: grid;
   align-content: start;
@@ -214,6 +219,7 @@
 
 .guide-source {
   height: 100%;
+  min-width: 0;
   padding: 28px;
   display: grid;
   align-content: start;

@@ -19,7 +19,7 @@ import * as THREE from "three";
 import { applyPose, type CamPose } from "../lib/camera";
 import { Ball, EventStorm, LineBreakCurtain, PassRibbon, PressureField, SprintStreak } from "./DataLayers";
 import { Players, type PlayerLook } from "./Players";
-import { Boards, Bowl, CrowdFlashes, FloodEnvironment, FloodLighting, Floodlights, GroundMist, Haze, Pitch } from "./Stadium";
+import { Boards, Bowl, FloodEnvironment, FloodLighting, Floodlights, Goals, Pitch } from "./Stadium";
 
 export type WorldLayers = {
   /** floodlight power per tower 0..1 */
@@ -51,8 +51,8 @@ const Rig = ({ pose, exposure }: { pose: CamPose; exposure: number }) => {
   useLayoutEffect(() => {
     applyPose(camera as THREE.PerspectiveCamera, pose, size.width / size.height);
     gl.toneMappingExposure = exposure;
-    scene.fog = new THREE.FogExp2("#DFEADA", 0.0022);
-    scene.background = new THREE.Color("#DFEADA");
+    scene.fog = new THREE.FogExp2("#E7EEF0", 0.0016);
+    scene.background = new THREE.Color("#E7EEF0");
   });
   return null;
 };
@@ -90,12 +90,12 @@ const PostFX = ({ frame, fx }: { frame: number; fx: WorldFx }) => {
     const dof = new DepthOfFieldEffect(camera, { worldFocusDistance: 40, worldFocusRange: 30, bokehScale: 3 });
     const dofPass = new EffectPass(camera, dof);
     composer.addPass(dofPass);
-    const bloom = new BloomEffect({ intensity: 0.12, luminanceThreshold: 1.1, luminanceSmoothing: 0.2, mipmapBlur: false, kernelSize: KernelSize.SMALL });
+    const bloom = new BloomEffect({ intensity: 0.035, luminanceThreshold: 1.6, luminanceSmoothing: 0.16, mipmapBlur: false, kernelSize: KernelSize.SMALL });
     composer.addPass(new EffectPass(camera, bloom));
     const ca = new ChromaticAberrationEffect({ offset: new THREE.Vector2(0, 0), radialModulation: true, modulationOffset: 0.3 });
     composer.addPass(new EffectPass(camera, ca));
     const tone = new ToneMappingEffect({ mode: ToneMappingMode.ACES_FILMIC });
-    const vignette = new VignetteEffect({ offset: 0.2, darkness: 0.08 });
+    const vignette = new VignetteEffect({ offset: 0.25, darkness: 0.04 });
     composer.addPass(new EffectPass(camera, tone, vignette));
     return { composer, dof, dofPass, bloom, ca };
   }, [gl, scene, camera]);
@@ -105,7 +105,7 @@ const PostFX = ({ frame, fx }: { frame: number; fx: WorldFx }) => {
     const { composer, dof, dofPass, bloom, ca } = chain;
     composer.setSize(size.width, size.height);
     gl.toneMapping = THREE.NoToneMapping;
-    bloom.intensity = 0.12 * (fx.bloom ?? 1);
+    bloom.intensity = 0.035 * (fx.bloom ?? 1);
     dofPass.enabled = !!fx.dof;
     if (fx.dof) {
       dof.cocMaterial.worldFocusDistance = fx.dof.focus;
@@ -128,19 +128,20 @@ const PostFX = ({ frame, fx }: { frame: number; fx: WorldFx }) => {
 const Scene = ({ pose, t, frame, layers, fx }: { pose: CamPose; t: number; frame: number; layers: WorldLayers; fx: WorldFx }) => {
   const power = layers.power ?? [1, 1, 1, 1];
   const avg = power.reduce((a, b) => a + b, 0) / power.length;
-  const bloom = fx.bloom ?? 1;
   return (
     <>
       <Rig pose={pose} exposure={fx.exposure ?? 1} />
       <FloodEnvironment />
       <FloodLighting power={power} />
-      {!layers.hidePitch && <Pitch lineGlow={0.06 + 0.16 * avg} />}
+      {!layers.hidePitch && (
+        <>
+          <Pitch lineGlow={0.06 + 0.16 * avg} />
+          <Goals />
+        </>
+      )}
       <Boards intensity={avg} scroll={frame * 0.0015} />
       <Bowl glow={layers.stadium ?? avg} />
       <Floodlights power={power} frame={frame} beam={layers.beams ?? 1} />
-      <CrowdFlashes frame={frame} amount={layers.crowd ?? 0.8} />
-      <Haze frame={frame} amount={layers.haze ?? 0.8} />
-      <GroundMist amount={avg} />
       {layers.players && <Players t={t} look={layers.players} />}
       {(layers.ball ?? 0) > 0 && <Ball t={t} frame={frame} opacity={layers.ball} />}
       <PressureField t={t} frame={frame} amount={layers.pressure ?? 0} />
@@ -149,7 +150,6 @@ const Scene = ({ pose, t, frame, layers, fx }: { pose: CamPose; t: number; frame
       <SprintStreak t={t} frame={frame} opacity={layers.sprint ?? 0} />
       {layers.storm && <EventStorm frame={frame} {...layers.storm} />}
       <PostFX frame={frame} fx={fx} />
-      
     </>
   );
 };
@@ -177,7 +177,7 @@ export const World = ({
       style={{ position: "absolute", inset: 0, ...style }}
       gl={{ antialias: false, powerPreference: "high-performance", preserveDrawingBuffer: true }}
       shadows
-      dpr={1.5}
+      dpr={1.25}
     >
       <Scene pose={pose} t={t} frame={frame} layers={layers} fx={fx} />
     </ThreeCanvas>

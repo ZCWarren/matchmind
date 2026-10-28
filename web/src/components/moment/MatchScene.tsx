@@ -1,10 +1,6 @@
 import { useReducedMotion } from "motion/react";
 import { useEffect, useRef, useState } from "react";
 import * as THREE from "three";
-import { EffectComposer } from "three/examples/jsm/postprocessing/EffectComposer.js";
-import { OutputPass } from "three/examples/jsm/postprocessing/OutputPass.js";
-import { RenderPass } from "three/examples/jsm/postprocessing/RenderPass.js";
-import { UnrealBloomPass } from "three/examples/jsm/postprocessing/UnrealBloomPass.js";
 import type { Event, Team } from "../../types";
 import Pitch from "../Pitch";
 
@@ -134,26 +130,6 @@ function glowTexture(): THREE.CanvasTexture {
 
 /* ------------------------------------------------------------------ shaders */
 
-const beamVertex = /* glsl */ `
-  varying float vH; varying vec3 vN; varying vec3 vV;
-  void main() {
-    vH = uv.y;
-    vec4 mv = modelViewMatrix * vec4(position, 1.0);
-    vV = normalize(-mv.xyz);
-    vN = normalize(normalMatrix * normal);
-    gl_Position = projectionMatrix * mv;
-  }`;
-const beamFragment = /* glsl */ `
-  uniform vec3 uColor; uniform float uOpacity; uniform float uTime;
-  varying float vH; varying vec3 vN; varying vec3 vV;
-  void main() {
-    float facing = pow(abs(dot(normalize(vN), normalize(vV))), 2.2);
-    float along = pow(vH, 1.6);
-    float shimmer = 0.85 + 0.15 * sin(uTime * 0.7 + vH * 9.0);
-    float a = uOpacity * facing * (0.08 + 0.92 * along) * shimmer;
-    gl_FragColor = vec4(uColor * a, a);
-  }`;
-
 const ribbonVertex = /* glsl */ `
   varying vec2 vUv;
   void main() { vUv = uv; gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.0); }`;
@@ -229,12 +205,24 @@ type Figure = {
   team: "home" | "away";
 };
 
-function playerProfile(): THREE.Vector2[] {
-  const pts: [number, number][] = [
-    [0.0, 0.0], [0.15, 0.0], [0.165, 0.02], [0.155, 0.045], [0.1, 0.07], [0.085, 0.13],
-    [0.1, 0.27], [0.125, 0.36], [0.12, 0.41], [0.085, 0.445], [0.05, 0.46], [0.0, 0.46],
+function playerKitGeometry(): THREE.BufferGeometry {
+  const profile: [number, number][] = [
+    [0, 0.052], [0.132, 0.052], [0.127, 0.069], [0.114, 0.085],
+    [0.102, 0.112], [0.092, 0.15], [0.08, 0.205], [0.067, 0.275],
+    [0.063, 0.335], [0.068, 0.385], [0.079, 0.425], [0.083, 0.447],
+    [0.078, 0.468], [0.064, 0.488], [0.047, 0.508], [0.039, 0.532],
+    [0.041, 0.552], [0.052, 0.573], [0.06, 0.594], [0.06, 0.614],
+    [0.052, 0.635], [0.037, 0.653], [0.017, 0.666], [0, 0.672],
   ];
-  return pts.map(([r, y]) => new THREE.Vector2(r, y));
+  return new THREE.LatheGeometry(profile.map(([radius, y]) => new THREE.Vector2(radius, y)), 32);
+}
+
+function playerBaseGeometry(): THREE.BufferGeometry {
+  const profile: [number, number][] = [
+    [0, 0.012], [0.105, 0.012], [0.135, 0.016], [0.148, 0.027],
+    [0.15, 0.041], [0.146, 0.052], [0.132, 0.062], [0, 0.062],
+  ];
+  return new THREE.LatheGeometry(profile.map(([radius, y]) => new THREE.Vector2(radius, y)), 32);
 }
 
 /* ------------------------------------------------------------------ component */
@@ -275,7 +263,7 @@ export default function MatchScene({
 
     let renderer: THREE.WebGLRenderer;
     try {
-      renderer = new THREE.WebGLRenderer({ antialias: false, alpha: false, powerPreference: "high-performance" });
+      renderer = new THREE.WebGLRenderer({ antialias: !mobile, alpha: false, powerPreference: "high-performance" });
       if (!renderer.getContext()) throw new Error("no webgl");
     } catch {
       setFailed(true);
@@ -286,9 +274,9 @@ export default function MatchScene({
     renderer.setClearColor(INK, 1);
     renderer.outputColorSpace = THREE.SRGBColorSpace;
     renderer.toneMapping = THREE.ACESFilmicToneMapping;
-    renderer.toneMappingExposure = 1.02;
+    renderer.toneMappingExposure = 0.96;
     renderer.shadowMap.enabled = !mobile;
-    renderer.shadowMap.type = THREE.PCFShadowMap;
+    renderer.shadowMap.type = THREE.PCFSoftShadowMap;
     renderer.domElement.setAttribute("aria-hidden", "true");
     container.prepend(renderer.domElement);
 
@@ -303,29 +291,29 @@ export default function MatchScene({
     scene.fog = new THREE.FogExp2(INK.getHex(), variant === "hero" ? 0.01 : 0.008);
     const camera = new THREE.PerspectiveCamera(variant === "hero" ? 36 : 38, 1, 0.1, 160);
 
-    /* --- lights --- */
-    scene.add(new THREE.HemisphereLight(0xf4f7f1, 0x6f8f68, 0.95));
-    scene.add(new THREE.AmbientLight(0xffffff, 0.35));
+    /* --- daylight rig: one shadow-casting sun, soft sky fill --- */
+    scene.add(new THREE.HemisphereLight(0xf5f9ff, 0x637b59, 1.65));
+    const sun = new THREE.DirectionalLight(0xfff6e8, 3.1);
+    sun.position.set(-9, 17, 11);
+    sun.target.position.set(0, 0, 0);
+    sun.castShadow = renderer.shadowMap.enabled;
+    sun.shadow.mapSize.set(1024, 1024);
+    sun.shadow.camera.left = -16;
+    sun.shadow.camera.right = 16;
+    sun.shadow.camera.top = 14;
+    sun.shadow.camera.bottom = -14;
+    sun.shadow.camera.near = 2;
+    sun.shadow.camera.far = 45;
+    sun.shadow.bias = -0.00025;
+    sun.shadow.normalBias = 0.025;
+    sun.shadow.radius = 3;
+    scene.add(sun, sun.target);
     const towers: THREE.Vector3[] = [
       new THREE.Vector3(-13.5, 9.5, -10),
       new THREE.Vector3(13.5, 9.5, -10),
       new THREE.Vector3(-13.5, 9.5, 10),
       new THREE.Vector3(13.5, 9.5, 10),
     ];
-    towers.forEach((pos, index) => {
-      const spot = new THREE.SpotLight(0xfffdf5, 32, 0, 0.68, 0.8, 1.5);
-      spot.position.copy(pos);
-      spot.target.position.set(pos.x * 0.18, 0, pos.z * 0.12);
-      scene.add(spot, spot.target);
-      if (index < 2 && renderer.shadowMap.enabled) {
-        spot.castShadow = true;
-        spot.shadow.mapSize.set(1024, 1024);
-        spot.shadow.bias = -0.0004;
-        spot.shadow.radius = 4;
-        spot.shadow.camera.near = 4;
-        spot.shadow.camera.far = 40;
-      }
-    });
 
     /* --- ground, pitch --- */
     const ground = new THREE.Mesh(
@@ -338,68 +326,130 @@ export default function MatchScene({
     scene.add(ground);
 
     const pitchMap = track(pitchTexture());
+    pitchMap.anisotropy = Math.min(8, renderer.capabilities.getMaxAnisotropy());
     const pitch = new THREE.Mesh(
       track(new THREE.PlaneGeometry(20, 13)),
-      track(new THREE.MeshPhysicalMaterial({
+      track(new THREE.MeshStandardMaterial({
         map: pitchMap,
-        roughness: 0.82,
-        metalness: 0.0,
-        clearcoat: 0.05,
-        clearcoatRoughness: 0.8,
+        bumpMap: pitchMap,
+        bumpScale: 0.006,
+        roughness: 0.94,
+        metalness: 0,
       })),
     );
     pitch.rotation.x = -Math.PI / 2;
     pitch.receiveShadow = true;
     scene.add(pitch);
 
-    /* --- goals --- */
-    const goalMat = track(new THREE.MeshStandardMaterial({ color: 0xffffff, roughness: 0.5 }));
-    const postGeo = track(new THREE.CylinderGeometry(0.025, 0.025, 0.5, 10));
-    const barGeo = track(new THREE.CylinderGeometry(0.025, 0.025, 1.2, 10));
-    const netMat = track(new THREE.MeshBasicMaterial({ color: 0xcfd6e6, transparent: true, opacity: 0.07, side: THREE.DoubleSide, depthWrite: false }));
+    /* --- goals: tubular frames and a single line-segment net per goal --- */
+    const goalMat = track(new THREE.MeshStandardMaterial({ color: 0xf8faf7, roughness: 0.38, metalness: 0.05 }));
+    const postGeo = track(new THREE.CylinderGeometry(0.025, 0.025, 0.5, 12));
+    const barGeo = track(new THREE.CylinderGeometry(0.025, 0.025, 1.2, 12));
+    const netMat = track(new THREE.LineBasicMaterial({ color: 0xe5ece7, transparent: true, opacity: 0.52, depthWrite: false }));
     for (const side of [-1, 1]) {
       const gx = side * 9;
+      const backX = gx + side * 0.48;
       for (const z of [-0.6, 0.6]) {
         const post = new THREE.Mesh(postGeo, goalMat);
         post.position.set(gx, 0.25, z);
         post.castShadow = true;
         scene.add(post);
       }
-      const bar = new THREE.Mesh(barGeo, goalMat);
-      bar.rotation.x = Math.PI / 2;
-      bar.position.set(gx, 0.5, 0);
-      scene.add(bar);
-      const net = new THREE.Mesh(track(new THREE.BoxGeometry(0.45, 0.5, 1.2)), netMat);
-      net.position.set(gx + side * 0.23, 0.25, 0);
-      scene.add(net);
+      for (const [x, y] of [[gx, 0.5], [backX, 0.42], [backX, 0.025]]) {
+        const bar = new THREE.Mesh(barGeo, goalMat);
+        bar.rotation.x = Math.PI / 2;
+        bar.position.set(x, y, 0);
+        scene.add(bar);
+      }
+      for (const z of [-0.6, 0.6]) {
+        const start = new THREE.Vector3(gx, 0.5, z);
+        const end = new THREE.Vector3(backX, 0.42, z);
+        const rail = new THREE.Mesh(track(new THREE.CylinderGeometry(0.018, 0.018, start.distanceTo(end), 10)), goalMat);
+        rail.position.copy(start).lerp(end, 0.5);
+        rail.quaternion.setFromUnitVectors(new THREE.Vector3(0, 1, 0), end.sub(start).normalize());
+        scene.add(rail);
+      }
+
+      const netPoints: number[] = [];
+      const segment = (ax: number, ay: number, az: number, bx: number, by: number, bz: number) => {
+        netPoints.push(ax, ay, az, bx, by, bz);
+      };
+      for (let i = 0; i <= 12; i += 1) {
+        const z = -0.6 + i * 0.1;
+        segment(backX, 0.025, z, backX, 0.42, z);
+        segment(gx, 0.5, z, backX, 0.42, z);
+      }
+      for (let i = 0; i <= 6; i += 1) {
+        const t = i / 6;
+        const y = 0.025 + t * 0.395;
+        segment(backX, y, -0.6, backX, y, 0.6);
+        const roofY = THREE.MathUtils.lerp(0.5, 0.42, t);
+        segment(THREE.MathUtils.lerp(gx, backX, t), roofY, -0.6, THREE.MathUtils.lerp(gx, backX, t), roofY, 0.6);
+      }
+      for (const z of [-0.6, 0.6]) {
+        for (let i = 1; i < 6; i += 1) {
+          const t = i / 6;
+          const x = THREE.MathUtils.lerp(gx, backX, t);
+          segment(x, 0.025, z, x, THREE.MathUtils.lerp(0.5, 0.42, t), z);
+        }
+        for (let i = 1; i < 6; i += 1) {
+          const t = i / 6;
+          segment(gx, t * 0.5, z, backX, t * 0.42, z);
+        }
+      }
+      const netGeo = track(new THREE.BufferGeometry());
+      netGeo.setAttribute("position", new THREE.Float32BufferAttribute(netPoints, 3));
+      scene.add(new THREE.LineSegments(netGeo, netMat));
     }
 
-    /* --- stands --- */
-    const standMat = track(new THREE.MeshStandardMaterial({ color: 0xd3dfcd, roughness: 0.9, metalness: 0 }));
-    const rimMat = track(new THREE.MeshBasicMaterial({ color: FLOOD }));
+    /* --- low-poly grandstands: concrete terraces, dark seat rows, slim canopies --- */
+    const standMat = track(new THREE.MeshStandardMaterial({ color: 0xc8d1c5, roughness: 0.9, metalness: 0 }));
+    const seatMat = track(new THREE.MeshStandardMaterial({ color: 0x536c5b, roughness: 0.86, metalness: 0 }));
+    const roofMat = track(new THREE.MeshStandardMaterial({ color: 0xe8ede5, roughness: 0.58, metalness: 0.08 }));
+    const rimMat = track(new THREE.MeshStandardMaterial({ color: FLOOD, roughness: 0.72, metalness: 0 }));
+    const boxGeo = track(new THREE.BoxGeometry(1, 1, 1));
     const crowdPositions: number[] = [];
     const crowdColors: number[] = [];
-    const crowdPalette = [new THREE.Color(0x7d907d), new THREE.Color(0xf4f7f1), ICE, SIGNAL, new THREE.Color(0x6c6392)];
+    const crowdPalette = [new THREE.Color(0x6f8073), new THREE.Color(0xe9ede6), new THREE.Color(0x9aa89b), ICE, SIGNAL];
     const addStand = (cx: number, cz: number, length: number, rotY: number) => {
       const stand = new THREE.Group();
-      for (let tier = 0; tier < 4; tier += 1) {
-        const box = new THREE.Mesh(track(new THREE.BoxGeometry(length + tier * 1.4, 0.7 + tier * 0.9, 1.4)), standMat);
-        box.position.set(0, (0.7 + tier * 0.9) / 2, tier * 1.25);
-        box.receiveShadow = true;
-        stand.add(box);
-        // crowd lights on each step
-        const count = Math.round(length * 9);
+      for (let tier = 0; tier < 5; tier += 1) {
+        const height = 0.42 + tier * 0.55;
+        const width = length + tier * 0.8;
+        const terrace = new THREE.Mesh(boxGeo, standMat);
+        terrace.scale.set(width, height, 1.15);
+        terrace.position.set(0, height / 2, tier * 0.92);
+        terrace.receiveShadow = true;
+        stand.add(terrace);
+        const seats = new THREE.Mesh(boxGeo, seatMat);
+        seats.scale.set(width - 0.35, 0.065, 0.44);
+        seats.position.set(0, height + 0.035, tier * 0.92 - 0.15);
+        stand.add(seats);
+
+        const count = Math.round(length * 5);
         for (let i = 0; i < count; i += 1) {
-          const x = (Math.random() - 0.5) * (length + tier * 1.4 - 0.4);
-          const local = new THREE.Vector3(x, 0.72 + tier * 0.9 + Math.random() * 0.05, tier * 1.25 + (Math.random() - 0.5) * 1.1);
+          const x = (Math.random() - 0.5) * (width - 0.6);
+          const local = new THREE.Vector3(x, height + 0.13 + Math.random() * 0.04, tier * 0.92 - 0.15 + (Math.random() - 0.5) * 0.3);
           crowdPositions.push(local.x, local.y, local.z, cx, cz, rotY);
-          const color = Math.random() < 0.82 ? crowdPalette[Math.random() < 0.6 ? 0 : 1] : crowdPalette[2 + Math.floor(Math.random() * 3)];
+          const color = Math.random() < 0.9 ? crowdPalette[Math.floor(Math.random() * 3)] : crowdPalette[3 + Math.floor(Math.random() * 2)];
           crowdColors.push(color.r, color.g, color.b);
         }
       }
-      const rim = new THREE.Mesh(track(new THREE.BoxGeometry(length + 4.2, 0.06, 0.06)), rimMat);
-      rim.position.set(0, 3.6, 4.4);
-      stand.add(rim);
+      const roof = new THREE.Mesh(boxGeo, roofMat);
+      roof.scale.set(length + 4.2, 0.12, 3.6);
+      roof.position.set(0, 4.05, 3.15);
+      roof.rotation.x = -0.07;
+      stand.add(roof);
+      const fascia = new THREE.Mesh(boxGeo, rimMat);
+      fascia.scale.set(length + 4.2, 0.16, 0.08);
+      fascia.position.set(0, 3.98, 1.37);
+      stand.add(fascia);
+      for (const x of [-length * 0.42, length * 0.42]) {
+        const support = new THREE.Mesh(boxGeo, roofMat);
+        support.scale.set(0.09, 3.9, 0.09);
+        support.position.set(x, 1.95, 4.35);
+        stand.add(support);
+      }
       stand.position.set(cx, 0, cz);
       stand.rotation.y = rotY;
       scene.add(stand);
@@ -411,9 +461,10 @@ export default function MatchScene({
     {
       const positions = new Float32Array((crowdPositions.length / 6) * 3);
       const tmp = new THREE.Vector3();
+      const up = new THREE.Vector3(0, 1, 0);
       for (let i = 0, j = 0; i < crowdPositions.length; i += 6, j += 3) {
         tmp.set(crowdPositions[i], crowdPositions[i + 1], crowdPositions[i + 2]);
-        tmp.applyAxisAngle(new THREE.Vector3(0, 1, 0), crowdPositions[i + 5]);
+        tmp.applyAxisAngle(up, crowdPositions[i + 5]);
         positions[j] = tmp.x + crowdPositions[i + 3];
         positions[j + 1] = tmp.y;
         positions[j + 2] = tmp.z + crowdPositions[i + 4];
@@ -423,70 +474,41 @@ export default function MatchScene({
       geo.setAttribute("color", new THREE.Float32BufferAttribute(crowdColors, 3));
       const crowd = new THREE.Points(
         geo,
-        track(new THREE.PointsMaterial({ size: 0.07, vertexColors: true, transparent: true, opacity: 0.48, blending: THREE.NormalBlending, depthWrite: false })),
+        track(new THREE.PointsMaterial({ size: 0.075, vertexColors: true, transparent: true, opacity: 0.62, blending: THREE.NormalBlending, depthWrite: false })),
       );
       scene.add(crowd);
     }
 
-    /* --- floodlight towers + subtle daylight beams --- */
-    const pylonMat = track(new THREE.MeshStandardMaterial({ color: 0x80927c, roughness: 0.75, metalness: 0.2 }));
-    const lampMat = track(new THREE.MeshBasicMaterial({ color: 0xfffdf5 }));
+    /* --- unlit floodlight hardware, instanced to keep the daylight scene cheap --- */
+    const pylonMat = track(new THREE.MeshStandardMaterial({ color: 0x78877d, roughness: 0.68, metalness: 0.24 }));
+    const lampMat = track(new THREE.MeshStandardMaterial({ color: 0xdde4df, roughness: 0.42, metalness: 0.18 }));
     const lampGeo = track(new THREE.BoxGeometry(0.32, 0.22, 0.06));
-    const beamMaterials: THREE.ShaderMaterial[] = [];
+    const lampMatrix = new THREE.Matrix4();
     towers.forEach((pos) => {
       const pylon = new THREE.Mesh(track(new THREE.CylinderGeometry(0.08, 0.14, pos.y, 8)), pylonMat);
       pylon.position.set(pos.x * 1.04, pos.y / 2, pos.z * 1.04);
       scene.add(pylon);
       const head = new THREE.Group();
+      const frame = new THREE.Mesh(boxGeo, pylonMat);
+      frame.scale.set(1.95, 0.86, 0.09);
+      frame.position.z = 0.05;
+      head.add(frame);
+      const lamps = new THREE.InstancedMesh(lampGeo, lampMat, 15);
+      let lampIndex = 0;
       for (let r = 0; r < 3; r += 1) {
         for (let c = 0; c < 5; c += 1) {
-          const lamp = new THREE.Mesh(lampGeo, lampMat);
-          lamp.position.set((c - 2) * 0.38, (r - 1) * 0.28, 0);
-          head.add(lamp);
+          lampMatrix.makeTranslation((c - 2) * 0.38, (r - 1) * 0.28, -0.01);
+          lamps.setMatrixAt(lampIndex, lampMatrix);
+          lampIndex += 1;
         }
       }
+      head.add(lamps);
       head.position.copy(pos);
       head.lookAt(0, 0, 0);
       scene.add(head);
-      // beam cone from the head down to the pitch
-      const target = new THREE.Vector3(pos.x * 0.2, 0, pos.z * 0.15);
-      const dir = pos.clone().sub(target);
-      const length = dir.length();
-      const beamMat = track(new THREE.ShaderMaterial({
-        uniforms: { uColor: { value: new THREE.Color(0xfffdf5) }, uOpacity: { value: 0.025 }, uTime: { value: 0 } },
-        vertexShader: beamVertex,
-        fragmentShader: beamFragment,
-        transparent: true,
-        depthWrite: false,
-        blending: THREE.NormalBlending,
-        side: THREE.DoubleSide,
-      }));
-      beamMaterials.push(beamMat);
-      const beam = new THREE.Mesh(track(new THREE.ConeGeometry(5.2, length, 48, 1, true)), beamMat);
-      beam.position.copy(target.clone().add(pos).multiplyScalar(0.5));
-      beam.quaternion.setFromUnitVectors(new THREE.Vector3(0, 1, 0), dir.normalize());
-      scene.add(beam);
     });
 
-    /* --- sparse atmosphere --- */
     const glowMap = track(glowTexture());
-    {
-      const count = mobile ? 80 : 160;
-      const positions = new Float32Array(count * 3);
-      for (let i = 0; i < count; i += 1) {
-        positions[i * 3] = (Math.random() - 0.5) * 28;
-        positions[i * 3 + 1] = Math.random() * 8;
-        positions[i * 3 + 2] = (Math.random() - 0.5) * 20;
-      }
-      const geo = track(new THREE.BufferGeometry());
-      geo.setAttribute("position", new THREE.BufferAttribute(positions, 3));
-      const dust = new THREE.Points(
-        geo,
-        track(new THREE.PointsMaterial({ size: 0.06, map: glowMap, color: 0xffffff, transparent: true, opacity: 0.08, blending: THREE.NormalBlending, depthWrite: false })),
-      );
-      dust.name = "dust";
-      scene.add(dust);
-    }
 
     /* --- players --- */
     const teamOf = (teamId: string | null): "home" | "away" | null =>
@@ -512,14 +534,22 @@ export default function MatchScene({
         return true;
       });
 
-    const bodyGeo = track(new THREE.LatheGeometry(playerProfile(), 28));
-    const headGeo = track(new THREE.SphereGeometry(0.068, 20, 16));
-    const bandGeo = track(new THREE.TorusGeometry(0.112, 0.014, 8, 32));
-    const ringGeo = track(new THREE.RingGeometry(0.2, 0.245, 48));
+    const bodyGeo = track(playerKitGeometry());
+    const baseGeo = track(playerBaseGeometry());
+    const bandGeo = track(new THREE.TorusGeometry(0.129, 0.004, 6, 32));
+    const ringGeo = track(new THREE.RingGeometry(0.2, 0.245, 40));
     const glowGeo = track(new THREE.PlaneGeometry(1, 1));
     const bodyMats = {
-      home: track(new THREE.MeshPhysicalMaterial({ color: ICE, roughness: 0.65, metalness: 0, clearcoat: 0.1 })),
-      away: track(new THREE.MeshPhysicalMaterial({ color: SIGNAL, roughness: 0.65, metalness: 0, clearcoat: 0.1 })),
+      home: track(new THREE.MeshStandardMaterial({ color: ICE, roughness: 0.46, metalness: 0.06 })),
+      away: track(new THREE.MeshStandardMaterial({ color: SIGNAL, roughness: 0.46, metalness: 0.06 })),
+    };
+    const baseMats = {
+      home: track(new THREE.MeshStandardMaterial({ color: ICE.clone().multiplyScalar(0.72), roughness: 0.58, metalness: 0.04 })),
+      away: track(new THREE.MeshStandardMaterial({ color: SIGNAL.clone().multiplyScalar(0.72), roughness: 0.58, metalness: 0.04 })),
+    };
+    const bandMats = {
+      home: track(new THREE.MeshStandardMaterial({ color: ICE.clone().multiplyScalar(0.9), roughness: 0.5, metalness: 0.05 })),
+      away: track(new THREE.MeshStandardMaterial({ color: SIGNAL.clone().multiplyScalar(0.9), roughness: 0.5, metalness: 0.05 })),
     };
     const figures = new Map<string, Figure>();
     roster.forEach(([pid, stat]) => {
@@ -527,20 +557,18 @@ export default function MatchScene({
       const group = new THREE.Group();
       const body = new THREE.Mesh(bodyGeo, bodyMats[stat.team]);
       body.castShadow = true;
-      const headMesh = new THREE.Mesh(headGeo, bodyMats[stat.team]);
-      headMesh.position.y = 0.53;
-      headMesh.castShadow = true;
-      const band = new THREE.Mesh(bandGeo, track(new THREE.MeshBasicMaterial({ color: 0xffffff })));
+      const base = new THREE.Mesh(baseGeo, baseMats[stat.team]);
+      const band = new THREE.Mesh(bandGeo, bandMats[stat.team]);
       band.rotation.x = Math.PI / 2;
-      band.position.y = 0.33;
-      const ring = new THREE.Mesh(ringGeo, track(new THREE.MeshBasicMaterial({ color, transparent: true, opacity: 0.8, side: THREE.DoubleSide, depthWrite: false })));
+      band.position.y = 0.063;
+      const ring = new THREE.Mesh(ringGeo, track(new THREE.MeshBasicMaterial({ color, transparent: true, opacity: 0.62, side: THREE.DoubleSide, depthWrite: false })));
       ring.rotation.x = -Math.PI / 2;
       ring.position.y = 0.012;
-      const glow = new THREE.Mesh(glowGeo, track(new THREE.MeshBasicMaterial({ map: glowMap, color, transparent: true, opacity: 0.16, blending: THREE.NormalBlending, depthWrite: false })));
+      const glow = new THREE.Mesh(glowGeo, track(new THREE.MeshBasicMaterial({ map: glowMap, color, transparent: true, opacity: 0.12, blending: THREE.NormalBlending, depthWrite: false })));
       glow.rotation.x = -Math.PI / 2;
       glow.position.y = 0.01;
       glow.scale.setScalar(0.9);
-      group.add(body, headMesh, band, ring, glow);
+      group.add(base, body, band, ring, glow);
       const avg = toWorld(stat.sx / stat.count, stat.sy / stat.count);
       group.position.copy(avg);
       scene.add(group);
@@ -555,8 +583,6 @@ export default function MatchScene({
     );
     ball.castShadow = true;
     scene.add(ball);
-    const ballLight = new THREE.PointLight(0xffffff, 0.15, 1.4, 2);
-    ball.add(ballLight);
     const TRAIL = 42;
     const trailMesh = new THREE.InstancedMesh(
       track(new THREE.SphereGeometry(0.05, 10, 8)),
@@ -758,20 +784,11 @@ export default function MatchScene({
       pulseRings.forEach((ring) => ring.position.set(pressureOrigin.x, 0.03, pressureOrigin.z));
     };
 
-    /* --- post-processing --- */
-    const composer = new EffectComposer(renderer);
-    composer.addPass(new RenderPass(scene, camera));
-    const bloom = new UnrealBloomPass(new THREE.Vector2(256, 256), 0.12, 0.25, 1.1);
-    composer.addPass(bloom);
-    composer.addPass(new OutputPass());
-
     const resize = () => {
       const width = container.clientWidth;
       const height = container.clientHeight;
       if (!width || !height) return;
       renderer.setSize(width, height, false);
-      composer.setSize(width, height);
-      bloom.resolution.set(width / 2, height / 2);
       camera.aspect = width / height;
       camera.fov = (variant === "hero" ? 36 : 38) * (camera.aspect < 1 ? 1.45 : 1);
       camera.updateProjectionMatrix();
@@ -969,16 +986,9 @@ export default function MatchScene({
         const active = pid === activePlayer;
         const pulse = active ? 1.25 + Math.sin(elapsed * 5) * 0.12 : 1;
         figure.ring.scale.setScalar(pulse);
-        (figure.glow.material as THREE.MeshBasicMaterial).opacity = active ? 0.85 : 0.3;
-        figure.glow.scale.setScalar(active ? 1.5 : 0.9);
+        (figure.glow.material as THREE.MeshBasicMaterial).opacity = active ? 0.38 : 0.1;
+        figure.glow.scale.setScalar(active ? 1.35 : 0.9);
       });
-
-      /* atmosphere */
-      beamMaterials.forEach((mat, i) => {
-        mat.uniforms.uTime.value = elapsed + i * 1.7;
-      });
-      const dust = scene.getObjectByName("dust");
-      if (dust) dust.rotation.y = elapsed * 0.01;
 
       /* camera */
       rig(elapsed, ball.position);
@@ -999,20 +1009,26 @@ export default function MatchScene({
           const y = (-tmpVec.y * 0.5 + 0.5) * container.clientHeight;
           tag.style.transform = `translate3d(${x.toFixed(1)}px, ${y.toFixed(1)}px, 0) translate(-50%, -100%)`;
           tag.style.opacity = visible ? "1" : "0";
-          const label = variant === "focus" && playerLabelsRef.current
-            ? playerLabelsRef.current[current.player_id ?? ""] ?? current.player_id ?? ""
-            : `${current.player_id ?? ""} · ${current.type.replaceAll("_", " ")}`;
+          const playerId = current.player_id ?? "";
+          const publicLabel = playerLabelsRef.current?.[playerId] ?? playerId;
+          const action = current.type.replaceAll("_", " ");
+          const label = variant === "focus" ? publicLabel : [publicLabel, action].filter(Boolean).join(" · ");
           if (tag.dataset.label !== label) {
+            const team = teamOf(current.team_id);
+            const teamColor = team === "home" ? "#167C9F" : team === "away" ? "#CF6048" : null;
             tag.dataset.label = label;
             tag.textContent = label;
-            tag.dataset.team = teamOf(current.team_id) ?? "neutral";
+            tag.dataset.team = team ?? "neutral";
+            tag.style.color = "var(--text)";
+            tag.style.borderColor = teamColor ?? "";
+            tag.style.boxShadow = teamColor ? `inset 2px 0 0 ${teamColor}` : "none";
           }
         } else {
           tag.style.opacity = "0";
         }
       }
 
-      composer.render(dt);
+      renderer.render(scene, camera);
       firstFrame = false;
       animation = requestAnimationFrame(animate);
     };
@@ -1053,8 +1069,6 @@ export default function MatchScene({
       resizeObserver.disconnect();
       clearDynamic();
       disposables.forEach((item) => item.dispose());
-      composer.dispose();
-      bloom.dispose();
       renderer.dispose();
       renderer.forceContextLoss();
       renderer.domElement.remove();

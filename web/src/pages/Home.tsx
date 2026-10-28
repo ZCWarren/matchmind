@@ -13,8 +13,10 @@ import AppNav from "../components/AppNav";
 import Brand from "../components/Brand";
 import { CountUp, CursorGlow, EASE, Eyebrow, Magnetic, Reveal, SplitWords, TiltCard, words } from "../components/fx";
 import SceneLoader from "../components/moment/SceneLoader";
+import PlayerText from "../components/PlayerText";
 import { eventIndex, useMatchExperience } from "../hooks/useMatchExperience";
 import { formatClock } from "../lib";
+import { momentPlayerLabels } from "../lib/playerDisplay";
 import type { Event, InsightResult, Moment, Team } from "../types";
 
 type Experience = ReturnType<typeof useMatchExperience>;
@@ -45,6 +47,11 @@ function Hero({ exp, momentIndex }: { exp: Experience; momentIndex: number }) {
 
   const moment = selectedMoment;
   const score = events[momentIndex]?.score;
+  const headline = insight?.cue?.payload.headline ?? moment?.headline ?? "Line break under pressure";
+  const playerLabels = useMemo(
+    () => momentPlayerLabels(events, selectedMoment, headline),
+    [events, selectedMoment, headline],
+  );
   return (
     <section className="hero" ref={ref}>
       <motion.div className="hero-stage" style={{ scale: stageScale }}>
@@ -64,7 +71,7 @@ function Hero({ exp, momentIndex }: { exp: Experience; momentIndex: number }) {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.9, ease: EASE, delay: 0.75 }}
         >
-          See the pressure and passing lanes behind every moment, with every number checked before it airs.
+          Pressure, passing lanes and verified context for every moment.
         </motion.p>
         <motion.div
           className="hero-ctas"
@@ -101,7 +108,7 @@ function Hero({ exp, momentIndex }: { exp: Experience; momentIndex: number }) {
           <b className="mono">{score ? `${score.home}–${score.away}` : "1–1"}</b>
           <span>{away?.name ?? "Orion North"}</span>
         </div>
-        <p>{insight?.cue?.payload.headline ?? moment?.headline ?? "Line break under pressure"}</p>
+        <p><PlayerText text={headline} labels={playerLabels} home={home} away={away} /></p>
         <div className="hero-live-metrics">
           <div><span>Pressure</span><b className="mono tone-signal">{moment?.metrics.event_pressure?.value.toFixed(2) ?? "0.82"}</b></div>
           <div><span>Threat added</span><b className="mono tone-ice">+{moment?.metrics.xt_delta?.value.toFixed(3) ?? "0.174"}</b></div>
@@ -152,10 +159,10 @@ function EventField({ events, momentIndex }: { events: Event[]; momentIndex: num
       </svg>
       {moment && (
         <div
-          className="ef-label"
+          className={`ef-label ${moment.location.x > 72 ? "align-end" : ""}`}
           style={{ left: `${moment.location.x}%`, top: `${moment.location.y}%` }}
         >
-          <span className="mono">{formatClock(moment.clock)}</span> the moment that decided it
+          <span className="mono">{formatClock(moment.clock)}</span> the decisive moment
         </div>
       )}
     </div>
@@ -171,26 +178,26 @@ function Problem({ exp, momentIndex }: { exp: Experience; momentIndex: number })
         <div className="problem-head">
           <Reveal><Eyebrow>The problem</Eyebrow></Reveal>
           <h2 className="display section-title">
-            <SplitWords inView words={words("A match is a thousand *decisions.*")} />
+            <SplitWords inView words={words("A thousand *decisions.*")} />
             <br />
-            <SplitWords inView delay={0.25} className="dim" words={words("Broadcast shows you one number.")} />
+            <SplitWords inView delay={0.25} className="dim" words={words("One score hides the rest.")} />
           </h2>
         </div>
         <div className="problem-grid">
           <Reveal className="problem-stat">
             <CountUp className="stat-num mono" to={events.length || 1275} duration={2.2} />
-            <span>events logged in ninety minutes — every pass, press, carry and sprint, with a position and a pressure value.</span>
+            <span>events logged — every pass, press and carry, positioned and measured.</span>
           </Reveal>
           <Reveal className="problem-vs" delay={0.1}><span>vs</span></Reveal>
           <Reveal className="problem-stat score" delay={0.2}>
             <span className="stat-num mono">{final.home}<i>–</i>{final.away}</span>
-            <span>what the scoreboard tells you. Who won — never why.</span>
+            <span>the final score. Who won, not why.</span>
           </Reveal>
         </div>
         <EventField events={events} momentIndex={momentIndex} />
         <Reveal className="problem-kicker">
           <p className="display">
-            Somewhere in those dots is the pass that changed the match. <em>MatchMind finds it, proves it, and shows it.</em>
+            One pass changes everything. <em>MatchMind finds it and proves it.</em>
           </p>
         </Reveal>
       </div>
@@ -216,7 +223,7 @@ function buildSteps(events: Event[], momentIndex: number, moment: Moment | null,
       n: "01",
       label: "Events",
       title: "Every touch, logged.",
-      body: `${windowEvents.length} events in ${seconds} seconds of build-up. Each one carries a position, a player and a pressure value — the raw material.`,
+      body: `${windowEvents.length} events in ${seconds} seconds. Position, player and pressure are attached to each.`,
       metric: `${windowEvents.length}`,
       metricLabel: `events · ${seconds}s`,
       tone: "flood",
@@ -225,7 +232,7 @@ function buildSteps(events: Event[], momentIndex: number, moment: Moment | null,
       n: "02",
       label: "Pressure",
       title: "The trap is set.",
-      body: `${presser?.player_id ?? "ORN-06"} closes in. ${awayName}'s press is built to win the ball right here — the heat shows where.`,
+      body: `${awayName} closes the passing lanes. Pressure shows where the trap will spring.`,
       metric: (presser?.pressure ?? 0.9).toFixed(2),
       metricLabel: "pressure on the ball",
       tone: "signal",
@@ -234,7 +241,7 @@ function buildSteps(events: Event[], momentIndex: number, moment: Moment | null,
       n: "03",
       label: "Passing lane",
       title: "One lane stays open.",
-      body: `${ev?.player_id ?? "NHR-08"} finds the only gap — a ${ev?.distance_m?.toFixed(1) ?? "24.6"} m pass at difficulty ${ev?.difficulty?.toFixed(1) ?? "8.7"}, played under ${ev?.pressure.toFixed(2) ?? "0.82"} pressure.`,
+      body: `${ev?.player_id ?? "p1"} finds a ${ev?.distance_m?.toFixed(1) ?? "24.6"} m gap at difficulty ${ev?.difficulty?.toFixed(1) ?? "8.7"}, under ${ev?.pressure.toFixed(2) ?? "0.82"} pressure.`,
       metric: `${ev?.distance_m?.toFixed(1) ?? "24.6"}m`,
       metricLabel: "through the press",
       tone: "ice",
@@ -243,7 +250,7 @@ function buildSteps(events: Event[], momentIndex: number, moment: Moment | null,
       n: "04",
       label: "Line break",
       title: "The line breaks.",
-      body: `${home?.short_name ?? "Nova"} are through. +${xt.toFixed(3)} expected threat in a single action — a saved big chance seconds later. The score never showed it.`,
+      body: `${home?.short_name ?? "Nova"} break through. One action adds +${xt.toFixed(3)} expected threat; the scoreboard misses it.`,
       metric: `+${xt.toFixed(3)}`,
       metricLabel: "expected threat added",
       tone: "verify",
@@ -260,6 +267,10 @@ function MomentStory({ exp, momentIndex }: { exp: Experience; momentIndex: numbe
     setStage(Math.max(0, Math.min(4, (value - 0.04) / 0.84 * 4)));
   });
   const steps = useMemo(() => buildSteps(events, momentIndex, selectedMoment, home, away), [events, momentIndex, selectedMoment, home, away]);
+  const playerLabels = useMemo(
+    () => momentPlayerLabels(events, selectedMoment, steps.map((item) => item.body).join(" ")),
+    [events, selectedMoment, steps],
+  );
   const active = Math.min(3, Math.floor(stage));
   const presserIndex = useMemo(() => {
     for (let i = momentIndex; i >= Math.max(0, momentIndex - 6); i -= 1) if (events[i]?.type === "pressure") return i;
@@ -296,7 +307,7 @@ function MomentStory({ exp, momentIndex }: { exp: Experience; momentIndex: numbe
             >
               <span className="story-n mono">{step.n} — {step.label}</span>
               <h3 className="display">{step.title}</h3>
-              <p>{step.body}</p>
+              <p><PlayerText text={step.body} labels={playerLabels} home={home} away={away} /></p>
             </motion.div>
           </AnimatePresence>
         </div>
@@ -346,7 +357,7 @@ function Pipeline({ insight, eventsCount }: { insight: InsightResult | null; eve
           </h2>
           <Reveal delay={0.2}>
             <p className="section-lede">
-              A deterministic engine computes every number. Agents only explain it. The FactChecker can send a cue back for one bounded revision — and a deterministic verifier is the gate nothing unproven gets past.
+              Deterministic metrics ground every claim. Agents explain the play; the verifier clears it for air.
             </p>
           </Reveal>
         </div>
@@ -361,10 +372,14 @@ function Pipeline({ insight, eventsCount }: { insight: InsightResult | null; eve
 /* ============================================================ surfaces */
 
 function Surfaces({ exp }: { exp: Experience }) {
-  const { insight, matchId, home, away, selectedMoment, moments } = exp;
+  const { insight, matchId, home, away, events, selectedMoment, moments } = exp;
   const cue = insight?.cue?.payload;
   const fan = insight?.fan_cards.find((card) => card.profile === "casual" && card.language === "en") ?? insight?.fan_cards[0];
   const clock = selectedMoment ? formatClock(selectedMoment.clock) : "72'12";
+  const playerLabels = useMemo(
+    () => momentPlayerLabels(events, selectedMoment, [cue?.headline, fan?.headline, fan?.why_it_matters].filter(Boolean).join(" ")),
+    [events, selectedMoment, cue?.headline, fan?.headline, fan?.why_it_matters],
+  );
   return (
     <section className="section surfaces" id="surfaces">
       <div className="container">
@@ -384,7 +399,7 @@ function Surfaces({ exp }: { exp: Experience }) {
                   <div className="mini-feed" />
                   <div className="mini-l3">
                     <span className="mono">{clock}</span>
-                    <b>{cue?.headline ?? "NHR-08 escapes the press trap"}</b>
+                    <b><PlayerText text={cue?.headline ?? "p1 escapes the press trap"} labels={playerLabels} home={home} away={away} /></b>
                   </div>
                   <span className="mini-onair">On air</span>
                 </div>
@@ -392,7 +407,7 @@ function Surfaces({ exp }: { exp: Experience }) {
                   {moments.slice(0, 3).map((moment, index) => (
                     <li key={moment.moment_id}>
                       <span className="mono">{String(index + 1).padStart(2, "0")}</span>
-                      <span>{moment.headline}</span>
+                      <span><PlayerText text={moment.headline} labels={playerLabels} home={home} away={away} /></span>
                       <em className={index === 0 ? "ok" : ""}>{index === 0 ? "approve" : "hold"}</em>
                     </li>
                   ))}
@@ -401,7 +416,7 @@ function Surfaces({ exp }: { exp: Experience }) {
               <div className="surface-copy">
                 <span className="surface-kicker"><Broadcast size={15} weight="bold" /> Studio</span>
                 <h3>The control room</h3>
-                <p>The Director agent ranks moments and schedules airtime. A human approves or holds — nothing airs unverified.</p>
+                <p>Rank the rundown, review the evidence and approve each cue before it airs.</p>
                 <Link to={`/studio?match=${matchId}`} className="surface-link">Open Studio <ArrowUpRight size={14} weight="bold" /></Link>
               </div>
             </TiltCard>
@@ -417,7 +432,7 @@ function Surfaces({ exp }: { exp: Experience }) {
                     <i />
                     <div>
                       <span>{cue?.eyebrow ?? "NHR vs ORN · 72:12"}</span>
-                      <b>{cue?.headline ?? "Line break under pressure"}</b>
+                      <b><PlayerText text={cue?.headline ?? "Line break under pressure"} labels={playerLabels} home={home} away={away} /></b>
                       <em className="mono">{cue?.stat ?? "+0.1736 xT · 24.6 m pass under 0.82 pressure"}</em>
                     </div>
                   </div>
@@ -426,7 +441,7 @@ function Surfaces({ exp }: { exp: Experience }) {
               <div className="surface-copy">
                 <span className="surface-kicker"><Play size={15} weight="fill" /> Overlay</span>
                 <h3>The broadcast graphic</h3>
-                <p>Five templates — lower third, stat card, momentum, speed alert, pressure map — as a transparent 1080p source for OBS or vMix.</p>
+                <p>Five verified templates, ready as a transparent 1080p source for OBS or vMix.</p>
                 <Link to={`/overlay?bg=1&match=${matchId}`} className="surface-link">Preview overlay <ArrowUpRight size={14} weight="bold" /></Link>
               </div>
             </TiltCard>
@@ -437,15 +452,15 @@ function Surfaces({ exp }: { exp: Experience }) {
                 <div className="mini-phone">
                   <div className="mini-phone-notch" />
                   <span className="mini-chip">Casual · English</span>
-                  <b className="display">{fan?.headline ?? "NHR-08 slips out of the trap"}</b>
-                  <p>{fan?.why_it_matters ?? "Breaking that trap flipped defence into attack in seconds."}</p>
+                  <b className="display"><PlayerText text={fan?.headline ?? "p1 slips out of the trap"} labels={playerLabels} home={home} away={away} /></b>
+                  <p><PlayerText text={fan?.why_it_matters ?? "Breaking that trap flipped defence into attack in seconds."} labels={playerLabels} home={home} away={away} /></p>
                   <div className="mini-langs"><span className="on">EN</span><span>ES</span><span>中文</span></div>
                 </div>
               </div>
               <div className="surface-copy">
                 <span className="surface-kicker"><DeviceMobile size={15} weight="bold" /> Fan</span>
                 <h3>The second screen</h3>
-                <p>Analyst, casual or player-focused — in English, Spanish and Chinese. Same evidence underneath every version.</p>
+                <p>Three reading levels and three languages, grounded in the same evidence.</p>
                 <Link to={`/fan?match=${matchId}`} className="surface-link">Open the fan app <ArrowUpRight size={14} weight="bold" /></Link>
               </div>
             </TiltCard>
@@ -479,7 +494,7 @@ function Film() {
               <span className="film-play"><Play size={28} weight="fill" /></span>
               <span className="film-caption">
                 <b className="display">MatchMind — <em>the film</em></b>
-                <span>Product story · 2 minutes</span>
+                <span>Product story · 90 seconds</span>
               </span>
             </button>
           )}
@@ -506,7 +521,7 @@ function FinalCta({ matchId }: { matchId: string }) {
           <SplitWords inView delay={0.15} words={words("*the lights.*")} />
         </h2>
         <Reveal delay={0.25}>
-          <p className="section-lede">Five synthetic fixtures, real cached agent runs, zero setup. Everything you just saw is live in your browser.</p>
+          <p className="section-lede">Five fixtures and cached agent runs. No setup; everything runs in your browser.</p>
         </Reveal>
         <Reveal delay={0.35} className="final-actions">
           <Magnetic>
@@ -539,7 +554,7 @@ export function SiteFooter() {
           <a href="https://github.com/ruziniuuuuu/matchmind" target="_blank" rel="noreferrer"><GithubLogo size={15} /> GitHub</a>
         </nav>
         <p className="footer-note">
-          <ShieldCheck size={14} /> Synthetic match data · DeepSeek agent outputs cached for the public demo · deterministic verifier as the release gate.
+          <ShieldCheck size={14} /> Synthetic data · cached agent runs · deterministic release gate.
         </p>
       </div>
     </footer>

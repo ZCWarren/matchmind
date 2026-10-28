@@ -75,6 +75,7 @@ export default function Studio() {
   const [live, setLive] = useState(false);
   const [liveError, setLiveError] = useState<string | null>(null);
   const [shareOpen, setShareOpen] = useState(false);
+  const [mobilePanel, setMobilePanel] = useState<"rundown" | "decision">("rundown");
   const socketRef = useRef<WebSocket | null>(null);
 
   useEffect(() => {
@@ -249,48 +250,14 @@ export default function Studio() {
       {(error || liveError) && <div className="error-banner">{error ?? liveError}</div>}
 
       <div className="studio-workspace">
-        <section className="rundown-panel panel">
+        <section className="program-panel panel" aria-labelledby="studio-program-title">
           <header className="panel-head">
             <div>
-              <span className="section-label">Director's rundown</span>
-              <h1>What deserves airtime?</h1>
-            </div>
-            <span className="chip mono">{rundown.length} moments</span>
-          </header>
-          <div className="rundown-list">
-            {rundown.map((entry) => {
-              const moment = momentById.get(entry.moment_id);
-              if (!moment) return null;
-              return (
-                <button
-                  key={entry.moment_id}
-                  type="button"
-                  className={`rundown-item ${selectedMoment?.moment_id === entry.moment_id ? "active" : ""}`}
-                  onClick={() => selectMoment(moment)}
-                >
-                  <span className="rundown-rank mono">{String(entry.rank).padStart(2, "0")}</span>
-                  <span className="rundown-copy">
-                    <strong><PlayerText text={moment.headline} labels={rundownLabels.get(moment.moment_id) ?? playerLabels} home={home} away={away} /></strong>
-                    <small className="mono">
-                      {formatClock(moment.clock)} · {moment.type.replaceAll("_", " ")}
-                    </small>
-                    <em><PlayerText text={entry.reason} labels={rundownLabels.get(moment.moment_id) ?? playerLabels} home={home} away={away} /></em>
-                  </span>
-                  <span className={`rundown-state ${entry.action}`}>{entry.action}</span>
-                </button>
-              );
-            })}
-          </div>
-          <div className="rundown-rule">
-            <ShieldCheck size={15} weight="bold" /> 60s dedupe · 15s airtime gap · stoppage preferred
-          </div>
-        </section>
-
-        <section className="program-panel panel">
-          <header className="panel-head">
-            <div className="program-head-title">
-              <span className={`program-lamp ${cueVisible ? "onair" : ""}`} />
-              <span className="section-label">{cueVisible ? "Program · On air" : "Program monitor"}</span>
+              <div className="program-head-title">
+                <span className={`program-lamp ${cueVisible ? "onair" : ""}`} />
+                <span className="section-label">02 · Watch{cueVisible ? " · On air" : ""}</span>
+              </div>
+              <h1 id="studio-program-title">Watch the scene</h1>
             </div>
             <Link
               className="text-link"
@@ -321,18 +288,18 @@ export default function Studio() {
                 <span className="hold-badge">
                   <Monitor size={18} weight="bold" />
                   {approval === "held"
-                    ? "Cue held off air"
+                    ? "Cue held"
                     : approval === "killed"
-                      ? "Cue killed by operator"
-                      : "Waiting for verified cue"}
+                      ? "Cue killed"
+                      : "Awaiting verified cue"}
                 </span>
-                <p>The program output changes only after human or Director approval.</p>
+                <p>Approval is required before air.</p>
               </div>
             )}
           </div>
 
           <div className="program-controls">
-            <div className="overlay-switch">
+            <div className="overlay-switch" role="group" aria-label="Overlay template">
               {OVERLAYS.map((item) => (
                 <button
                   type="button"
@@ -340,6 +307,7 @@ export default function Studio() {
                   className={variant === item.id ? "active" : ""}
                   onClick={() => setVariant(item.id)}
                   title={item.name}
+                  aria-pressed={variant === item.id}
                 >
                   <b className="mono">{item.label}</b>
                   <span>{item.name}</span>
@@ -350,6 +318,7 @@ export default function Studio() {
                 className={safe ? "active safe" : "safe"}
                 onClick={() => setSafe(!safe)}
                 title="Toggle broadcast safe area guides"
+                aria-pressed={safe}
               >
                 <ShieldCheck size={14} weight="bold" />
                 <b className="mono">SAFE</b>
@@ -378,9 +347,103 @@ export default function Studio() {
           </div>
         </section>
 
-        <aside className="decision-panel panel">
+        <div
+          className="studio-mobile-tabs"
+          role="tablist"
+          aria-label="Studio panels"
+          onKeyDown={(event) => {
+            if (!["ArrowLeft", "ArrowRight", "Home", "End"].includes(event.key)) return;
+            event.preventDefault();
+            const nextPanel = event.key === "Home"
+              ? "rundown"
+              : event.key === "End"
+                ? "decision"
+                : mobilePanel === "rundown" ? "decision" : "rundown";
+            setMobilePanel(nextPanel);
+            document.getElementById(`studio-${nextPanel}-tab`)?.focus();
+          }}
+        >
+          <button
+            id="studio-rundown-tab"
+            type="button"
+            role="tab"
+            aria-selected={mobilePanel === "rundown"}
+            aria-controls="studio-rundown-panel"
+            tabIndex={mobilePanel === "rundown" ? 0 : -1}
+            onClick={() => setMobilePanel("rundown")}
+          >
+            Rundown
+          </button>
+          <button
+            id="studio-decision-tab"
+            type="button"
+            role="tab"
+            aria-selected={mobilePanel === "decision"}
+            aria-controls="studio-decision-panel"
+            tabIndex={mobilePanel === "decision" ? 0 : -1}
+            onClick={() => setMobilePanel("decision")}
+          >
+            Decision
+          </button>
+        </div>
+
+        <section
+          className="rundown-panel panel"
+          id="studio-rundown-panel"
+          role="tabpanel"
+          aria-labelledby="studio-rundown-tab studio-rundown-title"
+          data-active={mobilePanel === "rundown"}
+        >
           <header className="panel-head">
-            <span className="section-label">Decision inspector</span>
+            <div>
+              <span className="section-label">01 · Select</span>
+              <h2 id="studio-rundown-title">Select a moment</h2>
+            </div>
+            <span className="chip mono">{rundown.length}</span>
+          </header>
+          <div className="rundown-list">
+            {rundown.map((entry) => {
+              const moment = momentById.get(entry.moment_id);
+              if (!moment) return null;
+              return (
+                <button
+                  key={entry.moment_id}
+                  type="button"
+                  className={`rundown-item ${selectedMoment?.moment_id === entry.moment_id ? "active" : ""}`}
+                  onClick={() => selectMoment(moment)}
+                  aria-pressed={selectedMoment?.moment_id === entry.moment_id}
+                >
+                  <span className="rundown-rank mono">{String(entry.rank).padStart(2, "0")}</span>
+                  <span className="rundown-copy">
+                    <strong><PlayerText text={moment.headline} labels={rundownLabels.get(moment.moment_id) ?? playerLabels} home={home} away={away} /></strong>
+                    <small className="mono">
+                      {formatClock(moment.clock)} · {moment.type.replaceAll("_", " ")}
+                    </small>
+                    <em><PlayerText text={entry.reason} labels={rundownLabels.get(moment.moment_id) ?? playerLabels} home={home} away={away} /></em>
+                  </span>
+                  <span className={`rundown-state ${entry.action}`}>{entry.action}</span>
+                </button>
+              );
+            })}
+          </div>
+          <details className="rundown-rule">
+            <summary><ShieldCheck size={15} weight="bold" /> Scheduling rules</summary>
+            <p>60s dedupe · 15s gap · stoppage preferred</p>
+          </details>
+        </section>
+
+        <aside
+          className="decision-panel panel"
+          id="studio-decision-panel"
+          role="tabpanel"
+          aria-labelledby="studio-decision-tab studio-decision-title"
+          data-active={mobilePanel === "decision"}
+        >
+          <header className="panel-head">
+            <div>
+              <span className="section-label">03 · Understand</span>
+              <h2 id="studio-decision-title">Decision</h2>
+            </div>
             <span className={`decision-status ${insight?.verification.status ?? "loading"}`}>
               <Check size={12} weight="bold" /> {insight?.verification.status ?? "loading"}
             </span>
@@ -388,49 +451,64 @@ export default function Studio() {
 
           <div className="decision-story">
             <span className="decision-kicker mono">
-              {selectedMoment ? formatClock(selectedMoment.clock) : "--'--"} · selected moment
+              {selectedMoment ? formatClock(selectedMoment.clock) : "--'--"} · selected
             </span>
-            <h2 className="insight-headline display">
-              <PlayerText text={insight?.insight?.headline ?? selectedMoment?.headline ?? "Select a moment"} labels={playerLabels} home={home} away={away} />
-            </h2>
-            <p><PlayerText text={insight?.decision.reason ?? "The Director will explain why this moment should air or wait."} labels={playerLabels} home={home} away={away} /></p>
+            <h3 className="insight-headline display">
+              <PlayerText text={selectedMoment?.headline ?? insight?.cue?.payload.headline ?? "Select a moment"} labels={playerLabels} home={home} away={away} />
+            </h3>
+            <p><PlayerText text={insight?.decision.reason ?? "Director review pending."} labels={playerLabels} home={home} away={away} /></p>
             {insight?.decision.air_at && (
               <div className="air-slot">
                 <Broadcast size={15} weight="bold" />
-                <span>Suggested airtime</span>
+                <span>Air at</span>
                 <strong className="mono">{formatClock(insight.decision.air_at)}</strong>
               </div>
             )}
           </div>
 
-          <div className="approval-controls">
-            <button
-              type="button"
-              className={`approve-btn ${approval === "approved" ? "active" : ""}`}
-              disabled={!insight?.cue || insight.verification.status !== "pass"}
-              onClick={() => setApproval("approved")}
-            >
-              <Check size={15} weight="bold" /> Approve
-            </button>
-            <button
-              type="button"
-              className={`hold-btn ${approval === "held" ? "active" : ""}`}
-              onClick={() => setApproval("held")}
-            >
-              <Pause size={15} weight="fill" /> Hold
-            </button>
-            <button
-              type="button"
-              className={`kill-btn ${approval === "killed" ? "active" : ""}`}
-              onClick={() => setApproval("killed")}
-              aria-label="Kill cue"
-            >
-              <X size={15} weight="bold" />
-            </button>
+          <div className="verification-evidence">
+            <span className="section-label">Release gate</span>
+            <strong>{insight?.verification.checked_claims ?? 0} claims checked</strong>
+            <p>{insight?.verification.notes ?? "Verification required before air."}</p>
+            <Link className="text-link" to={`/moment?match=${matchId}`}>
+              Event evidence <ArrowUpRight size={13} weight="bold" />
+            </Link>
           </div>
 
-          <div className="agent-trace">
-            <span className="section-label">Agent trace</span>
+          <div className="approval-block">
+            <span className="section-label">04 · Release</span>
+            <div className="approval-controls">
+              <button
+                type="button"
+                className={`approve-btn ${approval === "approved" ? "active" : ""}`}
+                disabled={!insight?.cue || insight.verification.status !== "pass"}
+                onClick={() => setApproval("approved")}
+              >
+                <Check size={15} weight="bold" /> Approve
+              </button>
+              <button
+                type="button"
+                className={`hold-btn ${approval === "held" ? "active" : ""}`}
+                onClick={() => setApproval("held")}
+              >
+                <Pause size={15} weight="fill" /> Hold
+              </button>
+              <button
+                type="button"
+                className={`kill-btn ${approval === "killed" ? "active" : ""}`}
+                onClick={() => setApproval("killed")}
+                aria-label="Kill cue"
+              >
+                <X size={15} weight="bold" />
+              </button>
+            </div>
+          </div>
+
+          <details className="agent-trace">
+            <summary>
+              <span className="section-label">Agent trace</span>
+              <span className="mono">{insight?.trace.length ?? 0} steps</span>
+            </summary>
             <div className="agent-trace-list">
               {insight?.trace.map((step, index) => (
                 <div key={`${step.agent}-${index}`} className="agent-trace-row">
@@ -440,31 +518,33 @@ export default function Studio() {
                 </div>
               ))}
             </div>
-          </div>
-
-          <div className="verification-evidence">
-            <span className="section-label">Release gate</span>
-            <strong>{insight?.verification.checked_claims ?? 0} claims checked</strong>
-            <p>{insight?.verification.notes ?? "No unsupported claim reaches the program monitor."}</p>
-            <Link className="text-link" to={`/moment?match=${matchId}`}>
-              Inspect event evidence <ArrowUpRight size={13} weight="bold" />
-            </Link>
-          </div>
+          </details>
         </aside>
       </div>
 
-      <div className="deep-deck container-wide" id="hallucination-lab">
-        {insight && (
-          <AgentGraphVisualizer
-            trace={insight.trace}
-            verification={insight.verification}
-            mcpInvocations={blackboard?.mcp_invocations}
-          />
-        )}
-        {blackboard && (
-          <HallucinationLab challenges={blackboard.hallucination_challenges} onSeekEvent={seekEvent} />
-        )}
-      </div>
+      {(insight || blackboard) && (
+        <details className="studio-technical container-wide" id="hallucination-lab">
+          <summary>
+            <span>
+              <span className="section-label">Technical details</span>
+              <strong>Agent graph and challenge lab</strong>
+            </span>
+            <span className="text-link">Inspect</span>
+          </summary>
+          <div className="deep-deck studio-technical-content">
+            {insight && (
+              <AgentGraphVisualizer
+                trace={insight.trace}
+                verification={insight.verification}
+                mcpInvocations={blackboard?.mcp_invocations}
+              />
+            )}
+            {blackboard && (
+              <HallucinationLab challenges={blackboard.hallucination_challenges} onSeekEvent={seekEvent} />
+            )}
+          </div>
+        </details>
+      )}
 
       <ShareCardModal
         open={shareOpen}

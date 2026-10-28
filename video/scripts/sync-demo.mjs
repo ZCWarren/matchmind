@@ -8,9 +8,16 @@ const insight = JSON.parse(fs.readFileSync(path.join(root, `web/public/demo/${ma
 const blackboard = JSON.parse(fs.readFileSync(path.join(root, `web/public/demo/${matchId}/blackboard.json`), "utf8"));
 const heroIndex = eventPage.events.findIndex((event) => event.event_id === "e-000974");
 if (heroIndex < 0) throw new Error("Hero event e-000974 is missing");
+const playerIds = [...new Set(eventPage.events.flatMap((event) => [
+  event.player_id,
+  event.recipient_id,
+  event.assist_id,
+]).filter(Boolean))].sort();
+const playerLabels = Object.fromEntries(playerIds.map((id, index) => [id, `p${index + 1}`]));
 const payload = {
   matchId,
   eventCount: eventPage.total,
+  playerLabels,
   heroIndex,
   events: eventPage.events.slice(Math.max(0, heroIndex - 10), heroIndex + 2),
   insight,
