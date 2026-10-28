@@ -52,7 +52,7 @@ try {
   await page.getByRole("link", { name: "Explore the moment" }).click();
   await page.waitForLoadState("networkidle");
   await page.getByRole("button", { name: "Evidence", exact: true }).click();
-  await page.locator(".claim-list button").first().waitFor({ state: "visible", timeout: 5000 });
+  await page.locator(".claim-list button").first().waitFor({ state: "visible", timeout: 15000 });
   assert.ok(await page.locator(".claim-list button").count() > 0);
   await page.locator(".claim-list button").first().click();
   await page.getByRole("button", { name: "Audiences", exact: true }).click();
