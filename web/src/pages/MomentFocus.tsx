@@ -52,7 +52,11 @@ export default function MomentFocus() {
   const metrics = selectedMoment?.metrics ?? {};
   const nearbyEvents = events.slice(Math.max(0, cursor - 4), cursor + 4);
   const pressure = currentEvent?.pressure ?? 0;
-  const narrative = `${insight?.insight?.headline ?? selectedMoment?.headline ?? ""} ${insight?.insight?.why_it_matters ?? ""}`;
+  const narrative = [
+    insight?.insight?.headline ?? selectedMoment?.headline ?? "",
+    insight?.insight?.why_it_matters ?? "",
+    ...(insight?.insight?.claims.map((claim) => claim.text) ?? []),
+  ].join(" ");
   const playerLabels = useMemo(() => momentPlayerLabels(events, selectedMoment, narrative), [events, selectedMoment, narrative]);
 
   return (
@@ -111,7 +115,7 @@ export default function MomentFocus() {
         <aside className="moment-inspector panel">
           <nav className="layer-tabs" aria-label="Moment layers">
             {VIEWS.map(({ id, label, icon: Icon }) => (
-              <button key={id} type="button" className={view === id ? "active" : ""} onClick={() => setView(id)}>
+              <button key={id} type="button" className={view === id ? "active" : ""} aria-pressed={view === id} onClick={() => setView(id)}>
                 {view === id && <motion.span className="layer-tab-pill" layoutId="layer-tab-pill" transition={{ type: "spring", stiffness: 400, damping: 34 }} />}
                 <Icon size={16} weight="bold" aria-hidden="true" />
                 <span>{label}</span>
@@ -131,13 +135,15 @@ export default function MomentFocus() {
                 {view === "events" && (
                   <>
                     <h2 className="inspector-title">Event anatomy</h2>
-                    <p className="inspector-intro">Every line on the pitch begins with a logged event. Select one to move the scene.</p>
+                    <p className="inspector-intro">Select an event to move the scene.</p>
                     <div className="event-anatomy-list">
                       {nearbyEvents.map((event) => (
                         <button key={event.event_id} type="button" className={event.event_id === currentEvent?.event_id ? "active" : ""} onClick={() => seekEvent(event.event_id)}>
                           <span className="mono">{formatClock(event.clock)}</span>
                           <strong>{event.type.replaceAll("_", " ")}</strong>
-                          <small className={event.team_id === home?.team_id ? "home" : "away"}>{event.player_id ? displayPlayer(event.player_id, playerLabels) : event.team_id ?? "Match"}</small>
+                          <small className={event.team_id === home?.team_id ? "home" : "away"}>
+                            <PlayerText text={event.player_id ? displayPlayer(event.player_id, playerLabels) : event.team_id ?? "Match"} labels={playerLabels} home={home} away={away} />
+                          </small>
                           <i className="mini-meter"><b style={{ width: `${event.pressure * 100}%` }} /></i>
                         </button>
                       ))}
@@ -147,10 +153,9 @@ export default function MomentFocus() {
 
                 {view === "structure" && (
                   <>
-                    <h2 className="inspector-title">What the score can't show</h2>
-                    <p className="inspector-intro"><PlayerText text={insight?.insight?.why_it_matters ?? "Move through the event stream to reveal pressure, passing lanes and territorial threat."} labels={playerLabels} home={home} away={away} /></p>
+                    <h2 className="inspector-title">Moment structure</h2>
                     <div className="structure-metrics">
-                      {["event_pressure", "xt_delta", "difficulty", "event_speed"].map((name) => {
+                      {["event_pressure", "xt_delta", "difficulty"].map((name) => {
                         const metric = metrics[name] ?? features?.metrics[name];
                         return metric ? (
                           <div key={name}>
@@ -161,42 +166,50 @@ export default function MomentFocus() {
                         ) : null;
                       })}
                     </div>
-                    <div className="agent-sequence">
-                      <span className="section-label">Five-agent run</span>
-                      {insight?.trace.map((step, index) => (
-                        <div key={`${step.agent}-${index}`} className={step.status !== "ok" ? "degraded" : ""}>
-                          <span className="mono">{String(index + 1).padStart(2, "0")}</span>
-                          <strong>{step.agent}</strong>
-                          <small className="mono">{step.latency_ms ? `${(step.latency_ms / 1000).toFixed(1)}s` : step.status}</small>
-                        </div>
-                      )) ?? <p className="empty-note">The agent trace appears with the cached or live insight.</p>}
-                    </div>
+                    <details className="moment-details">
+                      <summary>Read analysis</summary>
+                      <p><PlayerText text={insight?.insight?.why_it_matters ?? "Move through the event stream to reveal pressure, passing lanes and territorial threat."} labels={playerLabels} home={home} away={away} /></p>
+                    </details>
+                    <details className="moment-details">
+                      <summary>Inspect agent run</summary>
+                      <div className="agent-sequence">
+                        {insight?.trace.map((step, index) => (
+                          <div key={`${step.agent}-${index}`} className={step.status !== "ok" ? "degraded" : ""}>
+                            <span className="mono">{String(index + 1).padStart(2, "0")}</span>
+                            <strong>{step.agent}</strong>
+                            <small className="mono">{step.latency_ms ? `${(step.latency_ms / 1000).toFixed(1)}s` : step.status}</small>
+                          </div>
+                        )) ?? <p className="empty-note">The agent trace appears with the cached or live insight.</p>}
+                      </div>
+                    </details>
                   </>
                 )}
 
                 {view === "evidence" && (
                   <>
-                    <h2 className="inspector-title">Claims meet evidence</h2>
-                    <p className="inspector-intro">Select a claim — the scene jumps to the exact event behind it.</p>
+                    <h2 className="inspector-title">Evidence</h2>
+                    <p className="inspector-intro">Select a claim to locate its event.</p>
                     <div className="claim-list">
                       {insight?.insight?.claims.map((claim, index) => (
-                        <button key={`${claim.text}-${index}`} type="button" className={selectedClaim === index ? "active" : ""} onClick={() => { setSelectedClaim(index); if (claim.event_ids[0]) seekEvent(claim.event_ids[0]); }}>
+                        <button key={`${claim.text}-${index}`} type="button" className={selectedClaim === index ? "active" : ""} aria-pressed={selectedClaim === index} onClick={() => { setSelectedClaim(index); if (claim.event_ids[0]) seekEvent(claim.event_ids[0]); }}>
                           <span className="claim-n mono">Claim {index + 1} · {Math.round(claim.confidence * 100)}%</span>
                           <strong><PlayerText text={claim.text} labels={playerLabels} home={home} away={away} /></strong>
-                          <span className="claim-refs">
-                            {claim.event_ids.slice(0, 3).map((id) => <code key={id}>{id}</code>)}
-                            {claim.metric_refs.slice(0, 2).map((ref) => <code key={ref.name} className="metric">{ref.name} {ref.value}</code>)}
-                          </span>
+                          {selectedClaim === index && (
+                            <span className="claim-refs">
+                              {claim.event_ids.slice(0, 3).map((id) => <code key={id}>{id}</code>)}
+                              {claim.metric_refs.slice(0, 2).map((ref) => <code key={ref.name} className="metric">{ref.name} {ref.value}</code>)}
+                            </span>
+                          )}
                         </button>
                       )) ?? <p className="empty-note">No generated claims for this moment. Raw events remain available.</p>}
                     </div>
-                    {insight && <div className="verification-note"><Check size={15} weight="bold" /> {insight.verification.checked_claims} claims checked · {insight.verification.notes}</div>}
+                    {insight && <div className="verification-note"><Check size={15} weight="bold" /> <span>{insight.verification.checked_claims} claims checked · {insight.verification.notes}</span></div>}
                   </>
                 )}
 
                 {view === "audiences" && (
                   <>
-                    <h2 className="inspector-title">Same truth, different depth</h2>
+                    <h2 className="inspector-title">Audience views</h2>
                     <div className="audience-controls">
                       <div className="segmented segmented-control">
                         {(["analyst", "casual", "player"] as Profile[]).map((item) => <button key={item} className={profile === item ? "active" : ""} onClick={() => setProfile(item)} type="button">{item}</button>)}
@@ -230,7 +243,7 @@ export default function MomentFocus() {
         {blackboard && <HallucinationLab challenges={blackboard.hallucination_challenges} onSeekEvent={seekEvent} />}
       </div>
 
-      <p className="page-note"><Eye size={14} /> Data creates the structure. Agents explain it. Evidence decides what goes on air.</p>
+      <p className="page-note"><Eye size={14} /> Data in view. Evidence on demand.</p>
       <ShareCardModal
         open={shareOpen}
         onClose={() => setShareOpen(false)}

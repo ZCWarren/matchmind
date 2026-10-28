@@ -1,39 +1,39 @@
 1
 00:00:00,000 --> 00:00:07,920
-1,275 events. One scoreline. Almost no explanation.
+A scoreline records the result, but hides the pressure and decisions that produced it.
 
 2
 00:00:08,000 --> 00:00:18,920
-See the pressure and structure beneath the score.
+MatchMind connects each event, revealing how pressure opens space for the next action.
 
 3
 00:00:19,000 --> 00:00:28,920
-Twenty four point six metres through point eight two pressure.
+Pressure closes around p eight. p twelve attacks the space behind it, turning one pass into a line break.
 
 4
 00:00:29,000 --> 00:00:37,920
-Five agents work behind the scenes, so every insight earns your trust.
+Specialist agents share one evidence trail, separating pattern discovery from the story each audience receives.
 
 5
 00:00:38,000 --> 00:00:46,920
-One revision. Verification again.
+When a claim outruns the evidence, the checker rejects it and allows one bounded correction.
 
 6
 00:00:47,000 --> 00:00:54,920
-Models explain. The verifier decides.
+Only claims tied to source events and verified metrics survive the deterministic release gate.
 
 7
 00:00:55,000 --> 00:01:02,920
-The Director schedules. A human decides.
+The Director ranks verified moments for the next stoppage; the producer retains the final call.
 
 8
 00:01:03,000 --> 00:01:12,920
-From verified insight to airtime.
+That approval carries the same moment from tactical replay into a ready-to-air broadcast cue.
 
 9
 00:01:13,000 --> 00:01:21,920
-One moment. Every audience.
+One verified evidence bundle adapts the conclusion for analysts, supporters, and players without changing the facts.
 
 10
 00:01:22,000 --> 00:01:29,920
-MatchMind. See the game beneath the game.
+MatchMind turns match data into explanations you can trust.

@@ -7,6 +7,7 @@ import FanCardView from "../components/FanCardView";
 import ShareCardModal from "../components/ShareCardModal";
 import { useMatchExperience } from "../hooks/useMatchExperience";
 import { formatClock, metricNumber } from "../lib";
+import { displayPlayer, displayPlayerIds, momentPlayerLabels } from "../lib/playerDisplay";
 import type { Language, MatchRecap, Profile } from "../types";
 
 const PROFILES: { id: Profile; label: string; note: string }[] = [
@@ -70,11 +71,28 @@ export default function Fan() {
   );
   const passes = playerEvents.filter((event) => event.type === "pass");
   const completed = passes.filter((event) => event.outcome === "complete").length;
-  const shots = playerEvents.filter((event) => event.type === "shot").length;
   const topSpeed = Math.max(0, ...playerEvents.map((event) => event.speed_kmh ?? 0));
   const card =
     insight?.fan_cards.find((item) => item.profile === profile && item.language === language) ??
     insight?.fan_cards.find((item) => item.profile === profile);
+  const playerLabels = useMemo(
+    () => momentPlayerLabels(events, selectedMoment, card?.headline),
+    [events, selectedMoment, card?.headline],
+  );
+  const displayCard = useMemo(() => {
+    if (!card) return null;
+    const teams = home && away ? [home, away] : [];
+    return {
+      ...card,
+      headline: displayPlayerIds(card.headline, playerLabels, teams),
+      what_happened: displayPlayerIds(card.what_happened, playerLabels, teams),
+      why_it_matters: displayPlayerIds(card.why_it_matters, playerLabels, teams),
+      watch_next: displayPlayerIds(card.watch_next, playerLabels, teams),
+      how_we_know: displayPlayerIds(card.how_we_know, playerLabels, teams),
+    };
+  }, [card, home, away, playerLabels]);
+  const selectedPlayerAlias = displayPlayer(selectedPlayerId, playerLabels);
+  const selectedPlayerTeam = selectedPlayer?.team_id === home?.team_id ? home?.short_name : away?.short_name;
   const score = features?.score ?? match?.final_score ?? { home: 0, away: 0 };
   const momentMetric = (name: string, digits = 2) => {
     const value = selectedMoment?.metrics[name]?.value;
@@ -102,7 +120,7 @@ export default function Fan() {
         <div className="scoreline fan-teams">
           <span className="team home">
             <i />
-            {match?.home.name ?? "Nova Harbor"}
+            {match?.home.short_name ?? "Nova"}
           </span>
           <strong className="mono">
             {score.home}
@@ -110,7 +128,7 @@ export default function Fan() {
             {score.away}
           </strong>
           <span className="team away">
-            {match?.away.name ?? "Orion North"}
+            {match?.away.short_name ?? "Orion"}
             <i />
           </span>
         </div>
@@ -143,7 +161,7 @@ export default function Fan() {
             How do you want to <em>read it?</em>
           </h2>
           <p className="fan-rail-sub">
-            Switch lens and language at any time. Every reading is generated from the same verified match events.
+            Choose a lens and language. Every view shares the same verified events.
           </p>
 
           <div className="fan-profile-options">
@@ -181,7 +199,7 @@ export default function Fan() {
 
           <div className="fan-trust">
             <ShieldCheck size={18} weight="bold" />
-            <span>Same evidence underneath every language and every point of view.</span>
+            <span>One evidence base for every language and lens.</span>
           </div>
         </aside>
 
@@ -204,8 +222,8 @@ export default function Fan() {
             </div>
           </div>
 
-          {card ? (
-            <FanCardView card={card} match={match} />
+          {displayCard ? (
+            <FanCardView card={displayCard} match={match} />
           ) : (
             <div className="fan-card panel">
               <div className="skeleton" style={{ height: 24, width: "70%" }} />
@@ -214,7 +232,7 @@ export default function Fan() {
           )}
 
           <div className="fan-evidence-note">
-            <ShieldCheck size={15} weight="bold" /> Every number is checked against event-level evidence before it appears.
+            <ShieldCheck size={15} weight="bold" /> Every number is checked against event-level evidence.
           </div>
         </section>
 
@@ -226,9 +244,9 @@ export default function Fan() {
                 <div className="player-identity">
                   <span className="player-num mono">#{selectedPlayer?.number ?? "—"}</span>
                   <div>
-                    <strong>{selectedPlayer?.name ?? "Select a player"}</strong>
+                    <strong>{selectedPlayer ? selectedPlayerAlias : "Select a player"}</strong>
                     <small className="mono">
-                      {selectedPlayer?.team_id} · {selectedPlayer?.position}
+                      {selectedPlayerTeam} · {selectedPlayer?.position}
                     </small>
                   </div>
                 </div>
@@ -240,7 +258,7 @@ export default function Fan() {
                 >
                   {lineups.map((player) => (
                     <option key={player.player_id} value={player.player_id}>
-                      #{player.number} {player.name} ({player.team_id})
+                      #{player.number} {displayPlayer(player.player_id, playerLabels)} ({player.team_id === home?.team_id ? home?.short_name : away?.short_name})
                     </option>
                   ))}
                 </select>
@@ -256,10 +274,6 @@ export default function Fan() {
                     {passes.length ? Math.round((completed / passes.length) * 100) : 0}%
                   </strong>
                   <span>Complete</span>
-                </div>
-                <div>
-                  <strong className="mono tone-signal">{shots}</strong>
-                  <span>Shots</span>
                 </div>
                 <div>
                   <strong className="mono tone-flood">{topSpeed ? topSpeed.toFixed(1) : "--"}</strong>
@@ -299,8 +313,8 @@ export default function Fan() {
               </h2>
               <p>
                 {profile === "analyst"
-                  ? "Follow the pressure, territory and tactical consequences behind the headline — with exact event IDs attached."
-                  : "Understand why one pass matters in seconds, without needing a coaching manual."}
+                  ? "Trace pressure, territory and tactical consequences to exact event IDs."
+                  : "See why one pass matters, without the coaching jargon."}
               </p>
               <button
                 type="button"

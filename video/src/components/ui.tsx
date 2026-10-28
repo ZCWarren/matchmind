@@ -312,7 +312,7 @@ export const GlassCard: React.FC<{
 };
 
 export const TiltScreen: React.FC<{
-  src: string;
+  src?: string;
   label: string;
   url?: string;
   accent?: string;
@@ -422,15 +422,17 @@ export const TiltScreen: React.FC<{
 
         {/* Screen Image + Optional Overlay */}
         <div style={{ position: "relative", flex: 1, overflow: "hidden", background: C.ink0 }}>
-          <Img
-            src={staticFile(src)}
-            style={{
-              width: "100%",
-              height: "100%",
-              objectFit: "cover",
-              objectPosition: "top center",
-            }}
-          />
+          {src && (
+            <Img
+              src={staticFile(src)}
+              style={{
+                width: "100%",
+                height: "100%",
+                objectFit: "cover",
+                objectPosition: "top center",
+              }}
+            />
+          )}
           {/* Subtle glass reflection sheen */}
           <div
             style={{

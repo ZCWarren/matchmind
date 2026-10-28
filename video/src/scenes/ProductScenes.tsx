@@ -1,5 +1,6 @@
 import React from "react";
 import { AbsoluteFill, useCurrentFrame } from "remotion";
+import { ProductPreview } from "../components/ProductPreview";
 import {
   Eyebrow,
   FloodBackdrop,
@@ -9,7 +10,6 @@ import {
   TiltScreen,
   TopChrome,
 } from "../components/ui";
-import { cue, fanCards } from "../lib/data";
 import { tween } from "../lib/motion";
 import { C, FONT } from "../theme";
 
@@ -54,18 +54,6 @@ export const ProductScene: React.FC = () => {
           insight to <SerifSpan gradient="signal">on air.</SerifSpan>
         </div>
 
-        <div
-          style={{
-            marginTop: 22,
-            fontFamily: FONT.sans,
-            fontSize: 21,
-            lineHeight: 1.45,
-            color: C.text2,
-            opacity: tween(frame, 24, 44),
-          }}
-        >
-          One continuous workspace connects 3D tactical replay, the 5-agent trace, adversarial fact-checking, and live broadcast approval.
-        </div>
 
         {/* Feature Callout Stack */}
         <div style={{ marginTop: 30, display: "flex", flexDirection: "column", gap: 12 }}>
@@ -114,7 +102,6 @@ export const ProductScene: React.FC = () => {
 
       {/* Right 3D-Tilted Glass Screens */}
       <TiltScreen
-        src="screens/studio.png"
         label="MatchMind Studio · Director Control"
         url="ruziniuuuuu.github.io/matchmind/#/studio"
         accent={C.signal}
@@ -130,10 +117,11 @@ export const ProductScene: React.FC = () => {
           top: 128,
           zIndex: 10,
         }}
-      />
+      >
+        <ProductPreview variant="studio" />
+      </TiltScreen>
 
       <TiltScreen
-        src="screens/moment.png"
         label="Moment Focus · 72:12 Deep Dive"
         url="ruziniuuuuu.github.io/matchmind/#/moment"
         accent={C.ice}
@@ -149,10 +137,12 @@ export const ProductScene: React.FC = () => {
           bottom: 102,
           zIndex: 15,
         }}
-      />
+      >
+        <ProductPreview variant="moment" />
+      </TiltScreen>
 
       <SubtitleBar
-        en="From verified insight to airtime."
+        en="That approval carries the same moment from tactical replay into a ready-to-air broadcast cue."
         duration={300}
       />
     </AbsoluteFill>
@@ -164,10 +154,6 @@ export const ProductScene: React.FC = () => {
    ========================================================================== */
 export const AudiencesScene: React.FC = () => {
   const frame = useCurrentFrame();
-
-  const enAnalyst = fanCards.find((c) => c.profile === "analyst" && c.language === "en")!;
-  const esCasual = fanCards.find((c) => c.profile === "casual" && c.language === "es")!;
-  const enPlayer = fanCards.find((c) => c.profile === "player" && c.language === "en")!;
 
   return (
     <AbsoluteFill style={{ background: C.ink0 }}>
@@ -202,7 +188,7 @@ export const AudiencesScene: React.FC = () => {
               transform: `translateY(${tween(frame, 8, 26, 22, 0)}px)`,
             }}
           >
-            Built for the broadcast. <SerifSpan gradient="flood">Understood by every fan.</SerifSpan>
+            One moment. <SerifSpan gradient="flood">Every audience.</SerifSpan>
           </div>
         </div>
 
@@ -213,7 +199,7 @@ export const AudiencesScene: React.FC = () => {
             opacity: tween(frame, 20, 40),
           }}
         >
-          {["ANALYST · EN", "CASUAL · ES", "PLAYER · ZH"].map((p, i) => (
+          {["ANALYST · EN", "CASUAL · ES", "PLAYER · EN"].map((p, i) => (
             <span
               key={p}
               style={{
@@ -234,7 +220,6 @@ export const AudiencesScene: React.FC = () => {
 
       {/* Left: Broadcast Overlay Screen */}
       <TiltScreen
-        src="screens/overlay.png"
         label="Clean Feed Broadcast Overlay · 1080p60"
         url="ruziniuuuuu.github.io/matchmind/#/overlay"
         accent={C.flood}
@@ -250,11 +235,12 @@ export const AudiencesScene: React.FC = () => {
           top: 280,
           zIndex: 10,
         }}
-      />
+      >
+        <ProductPreview variant="overlay" />
+      </TiltScreen>
 
       {/* Right: Fan Companion Screen + 3 Persona Trilingual Cards */}
       <TiltScreen
-        src="screens/fan.png"
         label="Fan Companion"
         url="matchmind/#/fan"
         accent={C.violet}
@@ -270,7 +256,9 @@ export const AudiencesScene: React.FC = () => {
           top: 280,
           zIndex: 12,
         }}
-      />
+      >
+        <ProductPreview variant="fan" />
+      </TiltScreen>
 
       {/* Far Right Stack: 3 Personas × 3 Languages Live Cards */}
       <div
@@ -290,22 +278,22 @@ export const AudiencesScene: React.FC = () => {
           {
             badge: "ANALYST · ENGLISH",
             color: C.ice,
-            headline: enAnalyst.headline,
-            body: enAnalyst.why_it_matters,
+            headline: "Pressure creates the opening",
+            metric: "0.82 pressure",
             delay: 44,
           },
           {
             badge: "CASUAL FAN · ESPAÑOL",
             color: C.flood,
-            headline: esCasual.headline,
-            body: esCasual.why_it_matters,
+            headline: "Defensa convertida en ataque",
+            metric: "+0.174 xT",
             delay: 58,
           },
           {
             badge: "PLAYER POV · ENGLISH",
             color: C.violet,
-            headline: enPlayer.headline,
-            body: enPlayer.why_it_matters,
+            headline: "Attack the space behind",
+            metric: "33.4 km/h",
             delay: 72,
           },
         ].map((card) => (
@@ -336,25 +324,21 @@ export const AudiencesScene: React.FC = () => {
             </div>
             <div
               style={{
-                marginTop: 6,
-                fontFamily: FONT.sans,
-                fontSize: 13,
-                lineHeight: 1.38,
-                color: C.text2,
-                display: "-webkit-box",
-                WebkitLineClamp: 3,
-                WebkitBoxOrient: "vertical",
-                overflow: "hidden",
+                marginTop: 12,
+                fontFamily: FONT.mono,
+                fontSize: 18,
+                fontWeight: 600,
+                color: card.color,
               }}
             >
-              {card.body}
+              {card.metric}
             </div>
           </GlassCard>
         ))}
       </div>
 
       <SubtitleBar
-        en="One moment. Every audience."
+        en="One verified evidence bundle adapts the conclusion for analysts, supporters, and players without changing the facts."
         duration={270}
       />
     </AbsoluteFill>

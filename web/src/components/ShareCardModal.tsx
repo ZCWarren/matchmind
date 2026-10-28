@@ -118,7 +118,7 @@ export default function ShareCardModal({
 }: ShareCardModalProps) {
   const [copied, setCopied] = useState(false);
 
-  const headline = insight?.insight?.headline ?? moment?.headline ?? "NHR-08 escapes ORN's press trap at 72:12";
+  const headline = insight?.insight?.headline ?? moment?.headline ?? "Line break under pressure";
   const clockStr = moment ? formatClock(moment.clock) : "72'12";
   const fixtureStr = `${home?.name ?? "Nova Harbor"} vs ${away?.name ?? "Orion North"}`;
   const pressureStr = (currentEvent?.pressure ?? 0.82).toFixed(2);

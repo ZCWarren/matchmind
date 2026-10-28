@@ -16,22 +16,22 @@ const STEPS = [
   {
     n: "01",
     title: "Pick a moment",
-    body: "Start with the featured moment or select any ranked play in the Director's rundown. The 3D stadium and timeline follow your cursor.",
+    body: "Choose the featured play or any ranked moment. The stadium and timeline follow your selection.",
   },
   {
     n: "02",
     title: "Inspect the evidence",
-    body: "Open the Evidence tab or the Agent Graph to see exact event IDs, MCP tool calls and metric formulas behind every claim.",
+    body: "Open Evidence or Agent Graph to inspect event IDs, tool calls and metric formulas.",
   },
   {
     n: "03",
     title: "Decide on air",
-    body: "Hold keeps the cue in standby. Approve sends it live to the 16:9 program monitor. Nothing unverified can be approved.",
+    body: "Hold keeps a cue in standby. Approve sends verified cues to the program monitor.",
   },
   {
     n: "04",
     title: "Switch the surface",
-    body: "Toggle L3 / STAT / MOM / SPD / MAP in Studio, open the 1080p Overlay source, or read the same play in the Fan app.",
+    body: "Try five Studio templates, open the 1080p Overlay, or read the same play in Fan.",
   },
 ];
 
@@ -43,7 +43,7 @@ export default function Guide() {
       <main className="editorial-main container">
         <section className="about-hero editorial-hero">
           <Reveal>
-            <Eyebrow tone="flood">Operating guide · Read once, then drive the room</Eyebrow>
+            <Eyebrow tone="flood">Operating guide · Studio in four steps</Eyebrow>
           </Reveal>
           <h1 className="display editorial-title">
             <SplitWords words={words("Data in.")} />
@@ -52,7 +52,7 @@ export default function Guide() {
           </h1>
           <Reveal delay={0.3}>
             <p className="editorial-lede">
-              MatchMind separates three layers by design: raw match events, deterministic football metrics, and AI language. The verifier sits between the explanation and the broadcast.
+              Raw events, deterministic metrics and AI language stay separate. The verifier clears every explanation for broadcast.
             </p>
           </Reveal>
           <Reveal delay={0.4} className="editorial-actions">
@@ -81,7 +81,7 @@ export default function Guide() {
                 What happened, and what the code <em>measured.</em>
               </h2>
               <p>
-                The event feed, score, clock, coordinates, xG, xT, pressure, control, chaos, momentum and speed. These are deterministic calculations over the synthetic event stream.
+                Score, clock, coordinates and football metrics are calculated from the synthetic event stream.
               </p>
               <ul>
                 <li>1,275 logged events in the hero match</li>
@@ -102,7 +102,7 @@ export default function Guide() {
                 Why it mattered, written for a <em>human.</em>
               </h2>
               <p>
-                The headline, the tactical argument, the watch-next note and the fan cards. Five agents turn evidence into language; they never calculate the football numbers themselves.
+                Agents turn evidence into headlines, tactical context and fan cards. They never calculate the metrics.
               </p>
               <ul>
                 <li>TacticalAnalyst grounds claims via MCP tools</li>
@@ -123,7 +123,7 @@ export default function Guide() {
                 Why you can trust it enough to <em>air.</em>
               </h2>
               <p>
-                Every claim carries event IDs and metric references. The deterministic verifier is the release gate; the LLM FactChecker is advisory. If the gate rejects, the cue is withheld.
+                Claims carry event IDs and metric references. If deterministic verification fails, the cue stays off air.
               </p>
               <ul>
                 <li>Claim-level event &amp; metric verification</li>
@@ -158,7 +158,7 @@ export default function Guide() {
               <Lightning size={15} weight="fill" /> Cached demo vs live backend
             </div>
             <p>
-              The public demo runs as a zero-setup snapshot with cached DeepSeek agent runs across all five fixtures. Running the local FastAPI backend unlocks live model generation, MCP tool execution and WebSocket match replay.
+              The public demo uses cached runs across five fixtures. The local backend enables live generation, MCP tools and replay.
             </p>
           </Reveal>
           <Reveal delay={0.1} className="guide-note-card panel">
@@ -166,7 +166,7 @@ export default function Guide() {
               <CheckCircle size={15} weight="fill" /> What to look for
             </div>
             <p>
-              A verified run shows a specific headline, a number tied to an event ID, a green verifier stamp, and a broadcast cue that adapts across all five templates. A held cue is not an error — it is the release gate doing its job.
+              Look for a grounded headline, event-linked metrics and a green verifier stamp. A held cue means the release gate is working.
             </p>
           </Reveal>
         </section>

@@ -176,12 +176,16 @@ try {
   await page.locator(".fixture-select").selectOption(fixtures[0]);
   await page.waitForTimeout(1100);
   assert.equal(await page.locator(".fixture-select").inputValue(), fixtures[0]);
-  // Headlines render team names, not raw ids: fixture 0 is Nova Harbor vs Orion North.
+  // Concise headlines can match across fixtures; the scoreline identifies the winning request.
   await eventually(async () => {
-    const headline = await page.locator(".insight-headline").textContent();
-    assert.match(headline, /Orion North/);
-    assert.doesNotMatch(headline, /Kepler|Vela/);
+    const scoreline = await page.locator(".studio-commandbar .scoreline").innerText();
+    assert.match(scoreline, /Nova/);
+    assert.match(scoreline, /Orion/);
+    assert.doesNotMatch(scoreline, /Kepler|Vela/);
+    assert.equal(await page.locator(".insight-headline").innerText(), "Line break under pressure");
   });
+  await page.locator(".program-screen .overlay-cue").waitFor({ state: "visible", timeout: 5000 });
+  assert.match(await page.locator(".program-screen .overlay-cue").innerText(), /\bp\d+\b/);
   await page.unroute("**/demo/*/insight.json");
 
   const mobile = await browser.newPage({

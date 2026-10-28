@@ -17,37 +17,34 @@ const AGENTS = [
   {
     name: "TacticalAnalyst",
     tone: "violet",
-    role: "Calls MCP data tools, finds the tactical pattern and writes evidence-backed claims.",
+    role: "Finds tactical patterns and grounds claims in MCP data.",
   },
   {
     name: "StoryProducer",
     tone: "violet",
-    role: "Distils verified claims into a timed broadcast lower-third and stat cue.",
+    role: "Turns verified claims into timed broadcast cues.",
   },
   {
     name: "AudienceEditor",
     tone: "ice",
-    role: "Rewrites the same grounded fact for analyst, casual and player audiences across 3 languages.",
+    role: "Adapts one fact for three audiences and languages.",
   },
   {
     name: "FactChecker",
     tone: "signal",
-    role: "Audits superlatives and numbers as an advisory second opinion before the deterministic gate.",
+    role: "Advises on unsupported numbers and superlatives.",
   },
   {
     name: "Director",
     tone: "flood",
-    role: "Ranks moments, enforces 60s dedupe and 15s airtime gaps, and approves or holds for air.",
+    role: "Ranks moments, spaces airtime and recommends approve or hold.",
   },
 ];
 
 const METRICS = [
   { value: "5", label: "Synthetic fixtures" },
   { value: "6,281", label: "Logged match events" },
-  { value: "30", label: "Evaluation labels" },
-  { value: "45", label: "Cached fan cards" },
   { value: "5/5", label: "Deterministic pass rate" },
-  { value: "13", label: "Model calls per insight" },
 ];
 
 export default function About() {
@@ -67,7 +64,7 @@ export default function About() {
           </h1>
           <Reveal delay={0.3}>
             <p className="editorial-lede">
-              MatchMind turns raw football events into broadcast-ready match intelligence. Language models explain the play; a deterministic engine computes every number; and a deterministic verifier decides what is allowed on air.
+              Raw events become broadcast intelligence. Models explain the play; deterministic code computes and verifies every number.
             </p>
           </Reveal>
           <Reveal delay={0.4} className="editorial-actions">
@@ -115,7 +112,7 @@ export default function About() {
                 The release gate is <em>deterministic.</em>
               </h2>
               <p>
-                Every number comes from the event stream. The LLM FactChecker is advisory; a deterministic verifier checks every event ID and metric reference, rejecting unsupported claims before they reach air.
+                Every metric comes from the event stream. The deterministic verifier rejects unsupported claims before air.
               </p>
             </TiltCard>
           </Reveal>
@@ -129,7 +126,7 @@ export default function About() {
                 Same facts. <em>Different depth.</em>
               </h2>
               <p>
-                Analyst, casual and player views are generated in parallel across English, Spanish and Chinese — with event-level evidence attached to every card.
+                Three audiences and three languages share the same event-level evidence.
               </p>
             </TiltCard>
           </Reveal>
@@ -143,7 +140,7 @@ export default function About() {
                 Five overlay <em>templates.</em>
               </h2>
               <p>
-                Lower-third, stat card, momentum, speed alert and pressure map share one verified cue payload and render as a transparent 1920×1080 source for OBS or vMix.
+                Five templates share one verified cue and render as a transparent 1080p source.
               </p>
             </TiltCard>
           </Reveal>

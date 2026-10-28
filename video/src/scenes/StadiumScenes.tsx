@@ -2,7 +2,7 @@ import React from "react";
 import { AbsoluteFill, useCurrentFrame, useVideoConfig } from "remotion";
 import { Eyebrow, FloodBackdrop, GlassCard, SerifSpan, SubtitleBar, TopChrome } from "../components/ui";
 import { blendPose, orbit, project } from "../lib/camera";
-import { FACTS } from "../lib/data";
+import { displayPlayer, FACTS } from "../lib/data";
 import {
   LINE_CROSS,
   T_PASS,
@@ -121,8 +121,7 @@ export const StormScene: React.FC = () => {
             transform: `translateY(${tween(frame, 28, 48, 20, 0)}px)`,
           }}
         >
-          Passes, press traps, carries, sprints —<br />
-          <span style={{ color: C.text }}>all collapsed into a single scoreline.</span>
+          <span style={{ color: C.text }}>The score hides the turning point.</span>
         </div>
 
         {/* Event type breakdown pills */}
@@ -253,7 +252,7 @@ export const StormScene: React.FC = () => {
       </GlassCard>
 
       <SubtitleBar
-        en="1,275 events. One scoreline. Almost no explanation."
+        en="A scoreline records the result, but hides the pressure and decisions that produced it."
         duration={240}
       />
     </AbsoluteFill>
@@ -362,21 +361,6 @@ export const RevealScene: React.FC = () => {
           </div>
         </div>
 
-        <div
-          style={{
-            marginTop: 26,
-            maxWidth: 620,
-            fontFamily: FONT.sans,
-            fontSize: 25,
-            fontWeight: 450,
-            lineHeight: 1.42,
-            color: C.text2,
-            opacity: tween(frame, 48, 70),
-            transform: `translateY(${tween(frame, 48, 70, 18, 0)}px)`,
-          }}
-        >
-          Light up the hidden layer of every match — pressure fields, passing corridors, and verified broadcast storytelling in real time.
-        </div>
       </div>
 
       {/* Bottom-Right Floating Layer Readouts */}
@@ -473,7 +457,7 @@ export const RevealScene: React.FC = () => {
       </div>
 
       <SubtitleBar
-        en="See the pressure and structure beneath the score."
+        en="MatchMind connects each event, revealing how pressure opens space for the next action."
         duration={330}
       />
     </AbsoluteFill>
@@ -550,7 +534,6 @@ export const HeroPassScene: React.FC = () => {
         {
           id: "NHR-08",
           role: "LINE-BREAK PASSER",
-          stat: "24.6 m · diff 8.7",
           color: C.ice,
           proj: proj08,
           offset: "translate(-92%, -135%)",
@@ -559,7 +542,6 @@ export const HeroPassScene: React.FC = () => {
         {
           id: "ORN-06",
           role: "PRESS TRAP",
-          stat: "0.90 → 0.82 press",
           color: C.signal,
           proj: proj06,
           offset: "translate(8%, -85%)",
@@ -568,8 +550,7 @@ export const HeroPassScene: React.FC = () => {
         {
           id: "NHR-14",
           role: "SPACE RECEIVER",
-          stat: "33.4 km/h sprint",
-          color: C.flood,
+          color: C.ice,
           proj: proj14,
           offset: "translate(-50%, -105%)",
           vis: life(frame, 105, 290, 14, 14),
@@ -610,14 +591,11 @@ export const HeroPassScene: React.FC = () => {
                   }}
                 />
                 <span style={{ fontFamily: FONT.mono, fontSize: 13, fontWeight: 600, color: C.text }}>
-                  {tag.id}
+                  {displayPlayer(tag.id)}
                 </span>
                 <span style={{ fontFamily: FONT.mono, fontSize: 10, color: tag.color }}>
                   {tag.role}
                 </span>
-              </div>
-              <div style={{ fontFamily: FONT.mono, fontSize: 11, color: C.text2, marginTop: 2 }}>
-                {tag.stat}
               </div>
             </div>
             <div
@@ -687,8 +665,7 @@ export const HeroPassScene: React.FC = () => {
             color: C.ice,
           }}
         >
-          <span>NHR-08 → NHR-14 · LINE BREAK</span>
-          <span style={{ color: C.flood }}>DIFFICULTY 8.7</span>
+          <span>{displayPlayer(FACTS.passer)} → {displayPlayer(FACTS.receiver)} · LINE BREAK</span>
         </div>
 
         <div
@@ -730,7 +707,7 @@ export const HeroPassScene: React.FC = () => {
             paddingTop: 18,
             borderTop: `1px solid ${C.line}`,
             display: "grid",
-            gridTemplateColumns: "repeat(3, 1fr)",
+            gridTemplateColumns: "repeat(2, 1fr)",
             gap: 12,
           }}
         >
@@ -746,17 +723,11 @@ export const HeroPassScene: React.FC = () => {
               +0.174
             </div>
           </div>
-          <div>
-            <div style={{ fontFamily: FONT.mono, fontSize: 11, color: C.text3 }}>SPRINT PEAK</div>
-            <div style={{ fontFamily: FONT.mono, fontSize: 24, fontWeight: 600, color: C.flood, marginTop: 4 }}>
-              33.4 <span style={{ fontSize: 13 }}>km/h</span>
-            </div>
-          </div>
         </div>
       </GlassCard>
 
       <SubtitleBar
-        en="24.6 metres through 0.82 pressure."
+        en="Pressure closes around p8. p12 attacks the space behind it, turning one pass into a line break."
         duration={300}
       />
     </AbsoluteFill>
@@ -911,7 +882,7 @@ export const OutroScene: React.FC = () => {
       </div>
 
       <SubtitleBar
-        en="MatchMind. See the game beneath the game."
+        en="MatchMind turns match data into explanations you can trust."
         duration={240}
       />
     </AbsoluteFill>

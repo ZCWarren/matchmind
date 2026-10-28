@@ -1,31 +1,20 @@
 import type { Event, Moment, Team } from "../types";
 
-/** Stable, moment-local display names. Raw IDs stay in the event/evidence data. */
-export function momentPlayerLabels(events: Event[], moment: Moment | null, narrative = ""): Record<string, string> {
-  const labels: Record<string, string> = {};
-  const add = (id: string | null | undefined) => {
-    if (id && !labels[id]) labels[id] = `Player ${Object.keys(labels).length + 1}`;
-  };
-
-  const anchor = events.find((event) => event.event_id === moment?.event_id);
-  add(anchor?.player_id);
-  add(anchor?.recipient_id);
-
-  for (const id of narrative.match(/\b[A-Z]{2,5}-\d{2}\b/g) ?? []) add(id);
-
-  const momentEvents = new Set(moment?.event_ids ?? []);
+/** Stable, match-wide display aliases. Raw IDs stay in the event/evidence data. */
+export function momentPlayerLabels(events: Event[], _moment: Moment | null, narrative = ""): Record<string, string> {
+  const eventIds = new Set<string>();
   for (const event of events) {
-    if (!momentEvents.has(event.event_id)) continue;
-    add(event.player_id);
-    add(event.recipient_id);
-    add(event.assist_id);
+    for (const id of [event.player_id, event.recipient_id, event.assist_id]) {
+      if (id) eventIds.add(id);
+    }
   }
-  for (const event of events) {
-    add(event.player_id);
-    add(event.recipient_id);
-    add(event.assist_id);
-  }
-  return labels;
+
+  const narrativeIds = new Set(narrative.match(/\b[A-Z]{2,5}-\d{2}\b/g) ?? []);
+  const ids = [
+    ...[...eventIds].sort(),
+    ...[...narrativeIds].filter((id) => !eventIds.has(id)).sort(),
+  ];
+  return Object.fromEntries(ids.map((id, index) => [id, `p${index + 1}`]));
 }
 
 export function displayPlayer(id: string | null | undefined, labels: Record<string, string>): string {

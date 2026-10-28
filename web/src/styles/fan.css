@@ -14,12 +14,18 @@
 
 .fan-experience {
   display: grid;
-  grid-template-columns: 340px 1fr 360px;
+  grid-template-columns: 340px minmax(0, 1fr) 360px;
   gap: 20px;
   max-width: 1520px;
   margin: 0 auto;
   padding: 0 var(--gutter);
   align-items: start;
+}
+
+.fan-profile-rail,
+.fan-story,
+.fan-context-rail {
+  min-width: 0;
 }
 
 /* ---------------------------------------------------------------- left rail */
@@ -203,10 +209,20 @@
   gap: 12px;
 }
 
+.fan-player-head .field-select {
+  width: 100%;
+  min-width: 0;
+}
+
 .player-identity {
   display: flex;
   align-items: center;
   gap: 12px;
+  min-width: 0;
+}
+
+.player-identity > div {
+  min-width: 0;
 }
 
 .player-num {
@@ -235,7 +251,7 @@
 
 .player-numbers {
   display: grid;
-  grid-template-columns: repeat(2, 1fr);
+  grid-template-columns: repeat(3, minmax(0, 1fr));
   gap: 10px;
 }
 
@@ -266,13 +282,19 @@
 
 .player-event-row {
   display: grid;
-  grid-template-columns: 52px 1fr auto;
+  grid-template-columns: 52px minmax(0, 1fr) minmax(0, auto);
   align-items: center;
   gap: 8px;
   padding: 8px 11px;
   border-radius: var(--r-xs);
   background: rgba(255, 255, 255, 0.025);
   font-size: 12.5px;
+}
+
+.player-event-row small {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 
 .player-event-row span {
@@ -364,7 +386,7 @@
 
 @media (max-width: 1220px) {
   .fan-experience {
-    grid-template-columns: 300px 1fr;
+    grid-template-columns: 300px minmax(0, 1fr);
   }
   .fan-context-rail {
     grid-column: 1 / -1;
@@ -373,13 +395,31 @@
 }
 
 @media (max-width: 820px) {
-  .fan-experience {
-    grid-template-columns: 1fr;
-  }
+  .fan-experience,
   .fan-context-rail {
-    grid-template-columns: 1fr;
+    grid-template-columns: minmax(0, 1fr);
+  }
+  .fan-match-header .commandbar-actions {
+    width: 100%;
+    justify-content: flex-end;
+  }
+}
+
+@media (max-width: 520px) {
+  .fan-match-header .commandbar-actions {
+    justify-content: space-between;
   }
   .fan-story-metrics {
-    grid-template-columns: 1fr;
+    gap: 8px;
+  }
+  .metric-tile {
+    padding: 12px 10px;
+  }
+  .metric-tile strong {
+    font-size: 22px;
+  }
+  .metric-tile strong small {
+    display: block;
+    margin: 4px 0 0;
   }
 }

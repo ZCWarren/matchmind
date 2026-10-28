@@ -12,6 +12,7 @@ body.overlay-body {
   inset: 0;
   width: 100vw;
   height: 100vh;
+  height: 100dvh;
   overflow: hidden;
   background: transparent;
 }
@@ -128,7 +129,33 @@ body.overlay-body {
     display: none;
   }
   .dock-templates {
+    min-width: 0;
     overflow-x: auto;
+  }
+}
+
+@media (max-width: 600px) {
+  .overlay-dock {
+    top: 12px;
+    left: 12px;
+    right: 12px;
+    transform: none;
+    display: grid;
+    grid-template-columns: 1fr auto;
+    max-width: none;
+    border-radius: 20px;
+  }
+  .dock-templates {
+    grid-column: 1 / -1;
+    grid-row: 2;
+    width: 100%;
+  }
+  .dock-templates button {
+    flex: 1 0 auto;
+  }
+  .overlay-page .overlay-error {
+    top: 124px;
+    border-radius: var(--r-sm);
   }
 }
 
@@ -138,6 +165,7 @@ body.overlay-body {
   left: 50%;
   transform: translateX(-50%);
   z-index: 45;
+  max-width: calc(100vw - 24px);
   padding: 10px 18px;
   border-radius: 999px;
   background: rgba(255, 77, 46, 0.18);
@@ -145,6 +173,7 @@ body.overlay-body {
   color: #ffd0c6;
   font-family: var(--font-mono);
   font-size: 13px;
+  text-align: center;
 }
 
 .cue-stage {

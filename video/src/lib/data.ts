@@ -2,6 +2,12 @@ import hero from "../generated/hero.json";
 
 export { hero };
 
+export const playerLabels = hero.playerLabels as Record<string, string>;
+export const displayPlayer = (id: string | null | undefined): string =>
+  id ? playerLabels[id] ?? id : "—";
+export const displayPlayerIds = (text: string): string =>
+  text.replace(/\b[A-Z]{2,5}-\d{2}\b/g, (id) => displayPlayer(id));
+
 export const PITCH = { length: 105, width: 68 };
 
 /** Provider coordinates (0–100 × 0–100) → world metres. X along the length, Z across. */

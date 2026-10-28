@@ -1,7 +1,7 @@
 import React from "react";
 import { AbsoluteFill, useCurrentFrame } from "remotion";
 import { Eyebrow, FloodBackdrop, GlassCard, SerifSpan, SubtitleBar, TopChrome } from "../components/ui";
-import { AGENTS, FACTS, hero } from "../lib/data";
+import { AGENTS, displayPlayer, FACTS, hero } from "../lib/data";
 import { easeOut, pop, tween } from "../lib/motion";
 import { C, FONT, GRAD } from "../theme";
 
@@ -184,7 +184,7 @@ export const AgentsScene: React.FC = () => {
       </div>
 
       <SubtitleBar
-        en="Five agents work behind the scenes, so every insight earns your trust."
+        en="Specialist agents share one evidence trail, separating pattern discovery from the story each audience receives."
         duration={270}
       />
     </AbsoluteFill>
@@ -297,7 +297,7 @@ export const RevisionScene: React.FC = () => {
                   color: C.text,
                 }}
               >
-                “At 72&apos;, NHR-14 hits 33.4 km/h —{" "}
+                “At 72&apos;, {displayPlayer(FACTS.receiver)} hits 33.4 km/h —{" "}
                 <span style={{ position: "relative", color: C.signal, display: "inline-block" }}>
                   the fastest sprint all night.
                   <span
@@ -343,7 +343,7 @@ export const RevisionScene: React.FC = () => {
                   color: C.text,
                 }}
               >
-                “NHR-08 posts a{" "}
+                “{displayPlayer(FACTS.passer)} posts a{" "}
                 <span style={{ position: "relative", color: C.signal, display: "inline-block" }}>
                   94.6% pass threat index
                   <span
@@ -465,11 +465,7 @@ export const RevisionScene: React.FC = () => {
                 color: C.text,
               }}
             >
-              “NHR-08 escapes ORN&apos;s press trap at{" "}
-              <span style={{ color: C.flood }}>72:12</span> — threading a{" "}
-              <span style={{ color: C.ice }}>24.6 m</span> pass under{" "}
-              <span style={{ color: C.signal }}>0.82 pressure</span> for{" "}
-              <span style={{ color: C.verify }}>+0.1736 xT</span>.”
+              “{displayPlayer(FACTS.passer)} releases {displayPlayer(FACTS.receiver)} beyond the press.”
             </div>
 
             <div
@@ -485,10 +481,10 @@ export const RevisionScene: React.FC = () => {
                 GROUNDED CUE PAYLOAD · cue-mo-e-000974
               </div>
               <div style={{ marginTop: 8, fontFamily: FONT.mono, fontSize: 15, color: C.text }}>
-                {hero.insight.cue.payload.stat}
+                24.6 m · 0.82 pressure · +0.174 xT
               </div>
               <div style={{ marginTop: 6, fontFamily: FONT.sans, fontSize: 15, color: C.text2 }}>
-                {hero.insight.cue.payload.subline}
+                Chance created. Shot saved.
               </div>
             </div>
           </div>
@@ -510,7 +506,7 @@ export const RevisionScene: React.FC = () => {
       </div>
 
       <SubtitleBar
-        en="One revision. Verification again."
+        en="When a claim outruns the evidence, the checker rejects it and allows one bounded correction."
         duration={270}
       />
     </AbsoluteFill>
@@ -523,6 +519,13 @@ export const RevisionScene: React.FC = () => {
 export const EvidenceScene: React.FC = () => {
   const frame = useCurrentFrame();
   const claims = hero.insight.insight.claims;
+  const claimSummaries = [
+    `${displayPlayer(FACTS.passer)} completes the line-breaking pass.`,
+    "The pass adds +0.174 xT.",
+    `${displayPlayer(FACTS.receiver)} turns the escape into a shot.`,
+    "Difficulty exceeds the window profile.",
+    "Both teams threaten at 1–1.",
+  ];
   const stamp = pop(frame, 95, 30, 14, 0.75, 150);
 
   return (
@@ -607,7 +610,7 @@ export const EvidenceScene: React.FC = () => {
                     color: C.text,
                   }}
                 >
-                  {claim.text}
+                  {claimSummaries[idx]}
                 </div>
                 <div style={{ display: "flex", flexWrap: "wrap", gap: 8, marginTop: 8 }}>
                   {claim.event_ids.map((eid) => (
@@ -647,9 +650,6 @@ export const EvidenceScene: React.FC = () => {
 
               <div style={{ textAlign: "right", fontFamily: FONT.mono }}>
                 <div style={{ fontSize: 11, color: C.verify }}>VERIFIED</div>
-                <div style={{ fontSize: 15, fontWeight: 600, color: C.text2, marginTop: 2 }}>
-                  {(claim.confidence * 100).toFixed(0)}% conf
-                </div>
               </div>
             </GlassCard>
           ))}
@@ -705,10 +705,9 @@ export const EvidenceScene: React.FC = () => {
 
             <div style={{ marginTop: 26, display: "flex", flexDirection: "column", gap: 12 }}>
               {[
-                ["Event ID existence", "7/7 grounded in match log"],
-                ["Numeric token parity", "100% matched to metric_refs"],
-                ["Superlative guard", "Checked against 1,275 events"],
-                ["Fallback required", "false (primary trace clean)"],
+                ["Event ID existence", "7/7 grounded"],
+                ["Numeric token parity", "100% matched"],
+                ["Superlative guard", "Checked"],
               ].map(([k, v]) => (
                 <div
                   key={k}
@@ -735,7 +734,7 @@ export const EvidenceScene: React.FC = () => {
       </div>
 
       <SubtitleBar
-        en="Models explain. The verifier decides."
+        en="Only claims tied to source events and verified metrics survive the deterministic release gate."
         duration={240}
       />
     </AbsoluteFill>
@@ -859,8 +858,8 @@ export const DirectorScene: React.FC = () => {
                     }}
                   >
                     {isHero
-                      ? "72:12 · NHR-08 24.6m line break under 0.82 press (+0.174 xT)"
-                      : "Deferred by 60s dedupe / lower priority threshold"}
+                      ? `72:12 · ${displayPlayer(FACTS.passer)} breaks the press`
+                      : "Lower priority"}
                   </span>
                   <span
                     style={{
@@ -920,8 +919,6 @@ export const DirectorScene: React.FC = () => {
                 color: C.text,
               }}
             >
-              AI prepares the cue.
-              <br />
               <SerifSpan gradient="flood">A human calls air.</SerifSpan>
             </div>
 
@@ -929,7 +926,6 @@ export const DirectorScene: React.FC = () => {
             <div style={{ marginTop: 24, display: "grid", gridTemplateColumns: "1fr 1fr", gap: 12 }}>
               {[
                 ["DEDUPE WINDOW", "60 sec", C.ice],
-                ["MIN CUE GAP", "15 sec", C.flood],
                 ["AIR DURATION", "8.0 sec", C.verify],
                 ["PRIORITY SCORE", "0.80 (#1)", C.signal],
               ].map(([k, v, col]) => (
@@ -1008,7 +1004,7 @@ export const DirectorScene: React.FC = () => {
       </div>
 
       <SubtitleBar
-        en="The Director schedules. A human decides."
+        en="The Director ranks verified moments for the next stoppage; the producer retains the final call."
         duration={240}
       />
     </AbsoluteFill>
